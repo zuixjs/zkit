@@ -1,0 +1,101 @@
+. {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-align: stretch;
+    -ms-flex-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    justify-content: center;
+    background: black;
+}
+
+.nav-prev {
+    position: absolute;
+    right: 88px;
+    bottom: 24px;
+    z-index: 10;
+}
+.nav-next {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    z-index: 10;
+}
+.nav-close {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    z-index: 10;
+}
+.progress-container {
+    position: absolute;
+    top: 32px;
+    z-index: 10;
+    width: 128px;
+    color: white;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+    text-shadow:
+        -2px -2px 0 darkblue,
+        2px -2px 0 darkblue,
+        -2px 2px 0 darkblue,
+        2px 2px 0 darkblue;
+}
+
+i {
+    cursor: pointer;
+}
+
+
+.media-list {
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 100;
+    /*background-color: rgba(0,0,0,0.5);*/
+}
+
+.button {
+    border: solid 2px darkblue;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 4px;
+    background: rgba(255,255,255,0.75);
+    color: darkblue;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.32), 0 1px 2px rgba(0,0,0,0.74);
+    vertical-align: middle;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Helvetica, sans-serif;
+    display: table-cell;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}

@@ -1,0 +1,106 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-size: 18px;
+    font-family: Helvetica, sans-serif;
+    background: #E8F5E9;
+}
+a {
+    text-decoration: none;
+}
+p {
+    line-height: 150%;
+    font-family: serif;
+    font-size: 130%;
+}
+li {
+    line-height: 200%;
+    margin-bottom: 8px;
+}
+h1 {
+    font-size:240%;
+}
+header h1 {
+    margin: 0;
+}
+header .material-icons {
+    font-size: 300%;
+    opacity: 0.5;
+}
+footer a {
+    color: white;
+    font-size:110%;
+}
+
+.header-cover {
+    z-index: 1;
+    padding: 8px;
+    background: #2E7D32;
+    box-shadow: 0 4px 8px 0 rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+}
+.main-content {
+    padding: 16px 8px 48px 8px;
+    color:  black;
+}
+.footer-block {
+    position: relative;
+    z-index: 1;
+    padding: 16px;
+    height: 64px;
+    background: #2E7D32;
+    box-shadow: 4px 0 8px 4px rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+}
+
+li small {
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+code {
+    margin-left: 4px;
+    margin-right: 4px;
+    color: darkgreen;
+}
+code.option {
+    padding: 4px;
+    border-radius: 6px;
+    border: solid 1px darkgreen;
+    background: rgba(255,255,255,0.5);
+}
+
+ul.list {
+    margin-top: 0;
+}
+ul.list li {
+    padding: 0;
+    margin: 0;
+}
+
+/* overlay menu styles */
+
+[data-ui-field="items"] {
+    display: none;
+}
+.mo-item a span {
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 12px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 100%;
+    font-weight: 500;
+}
+.mo-item a i.material-icons {
+    background: transparent;
+    color: darkgreen;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 230%;
+    vertical-align: middle;
+}
+.mo-item a:hover {
+    text-shadow: 1px 1px 1px rgba(10,10,10,0.5), 0 0 12px rgba(255,255,0,0.75), 0 0 24px rgba(255,255,0,0.75);
+}

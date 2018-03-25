@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>zKit</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <meta name="description" content="zKit, a collection of framework-agnostic web components made with zUIx." />
+    <meta name="keywords" lang="en-us" content="web components,web app,pwa,progressive,web application,framework,javascript,library,content manager,component manager,web app,content authoring,web master,static site,spa,single page application,content loader,content include,material,material design lite,mdl" />
+    <meta name="author" content="G-Labs" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!-- ZUIX library  -->
+    <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/docs.css">
+
+</head>
+<body layout="column top-center">
+
+
+<header layout="columns center-center" class="header-cover">
+
+    <div self="size-large" layout="rows center-left">
+        <div><h1 class="animated fadeInLeft">Menu Overlay</h1></div>
+        <div self="center-right"><i class="material-icons animated fadeInRight">extension</i></div>
+    </div>
+
+</header>
+
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="../../lib/components/menu_overlay" -data-ui-scroller="" data-ui-context="menu-docs">
+    <!--
+    <span data-ui-field="button_color" class="hidden">red</span>
+    <span data-ui-field="icon_color" class="hidden">white</span>
+    -->
+    <div data-ui-field="items" class="hidden">
+        <div class="mo-item"><a href="//github.com/genielabs/zkit/issues/"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
+        <div class="mo-item"><a href="//github.com/genielabs/zkit"><span>Source code</span> <i class="material-icons">code</i></a></div>
+        <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
+    </div>
+</div>
+<script>
+    zuix.field('items').find('a').on('click', function () {
+        alert('"'+this.html()+'" clicked.');
+    });
+</script>
+<!-- End zUIx Kit Component code -->
+
+
+<main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
+
+    <div self="size-large center">
+        <p>
+            This is a menu overlay activated by a floating action button. The pink button
+            here, in the lower right corner, is an sample usage.
+        </p>
+        <p>
+            It's a framework-agnostic component so it can be used with any UI framework or
+            even with just standard <code>html</code> like the example in this page.
+        </p>
+    </div>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        <h2>Basic usage</h2>
+
+        <h3>1. Include zUIx library</h3>
+        <p>This is the library that does all the magic:</p>
+<pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <h3>2. Add the menu markup</h3>
+<pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/components/menu_overlay">
+  <div data-ui-field="items">
+    <a href="#link_1">Menu Item 1</a>
+    <a href="#link_2">Menu Item 2</a>
+    <a href="#link_3">Menu Item 3</a>
+  </div>
+</div></code></pre>
+        <p>... and you are ready to go <strong>: )</strong></p>
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-o-scroller</code>
+                <small>optional</small><br>
+                if the scrolling container it is not the main document, use this parameter to specify the value of <code>data-ui-field</code> attribute assigned to the container with the scroll.
+            </li>
+            <li>
+                <code class="option">data-o-button-color</code>
+                <small>optional</small><br>
+                color of the menu button. The defaul value is <code>deeppink</code>.
+            </li>
+            <li>
+                <code class="option">data-o-icon-color</code>
+                <small>optional</small><br>
+                color of the menu button icon. The defaul value is <code>white</code>.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+        </ul>
+
+        <h2>Scripting</h2>
+
+        <h3>Programmatically show/hide</h3>
+<pre><code class="js">// show the menu button
+zuix.context('my-menu').show();
+// hide the menu button
+zuix.context('my-menu').hide();</code></pre>
+
+        <h3>Event listeners</h3>
+<pre><code class="js">zuix.context('my-menu', function () {
+    // add event listeners
+    this.on('open', function() { /* ... */})
+        .on('close', function() { /* ... */});
+});</code></pre>
+
+
+        <h2>Example</h2>
+
+        <p>This is the code used for the sample menu in this page.</p>
+        <strong>HTML</strong>
+<pre><code class="html"><div data-ui-load="../../lib/components/menu_overlay">
+  <div data-ui-field="items" class="hidden">
+    <div class="mo-item"><a href="#link_1"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
+    <div class="mo-item"><a href="#link_2"><span>Source code</span> <i class="material-icons">code</i></a></div>
+    <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
+  </div>
+</div>
+<script>
+zuix.field('items').find('a').on('click', function () {
+    alert('"'+this.html()+'" clicked.');
+});
+</script></code></pre>
+
+        <strong>CSS</strong>
+<pre><code class="css">[data-ui-field="items"] {
+    display: none;
+}
+.mo-item a span {
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 12px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 100%;
+    font-weight: 500;
+}
+.mo-item a i.material-icons {
+    background: transparent;
+    color: darkgreen;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 230%;
+    vertical-align: middle;
+}
+.mo-item a:hover {
+    text-shadow: 1px 1px 1px rgba(10,10,10,0.5), 0 0 12px rgba(255,255,0,0.75), 0 0 24px rgba(255,255,0,0.75);
+}</code></pre>
+
+
+        <h2>Source code</h2>
+
+        <p>
+            This component is based on <a href="//genielabs.github.io/zuix">zUIx</a>, a library to create component-based websites and web apps.
+            Source code available on <a href="//github.com/genielabs/zkit">GitHub</a>.
+        </p>
+        <div self="size-large">
+
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/lib/components/menu_overlay.js">menu_overlay.js</li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/lib/components/menu_overlay.html">menu_overlay.html</li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/lib/components/menu_overlay.css">menu_overlay.css</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</main>
+
+<footer layout="rows center-justify" class="footer-block">
+
+    <div self="size-x1 center-right"><strong>zKit</strong> <small>components for the Web</small></div>
+    <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+
+</footer>
+
+
+<!-- code syntax highlighting -->
+<link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/dracula.min.css">
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js"></script>
+<script>
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    hljs.initHighlightingOnLoad();
+</script>
+
+</body>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-92520304-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</html>

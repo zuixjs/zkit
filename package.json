@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
+    "start": "http-server --cors ./"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  }
+}
