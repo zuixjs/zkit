@@ -20,6 +20,16 @@ li {
 h1 {
     font-size:240%;
 }
+header {
+    width: 100%;
+    color: #FFF59D;
+    text-shadow:
+            3px 3px 0 rgba(0,0,0,0.5),
+            -1px -1px 0 rgba(0,0,0,0.5),
+            1px -1px 0 rgba(0,0,0,0.5),
+            -1px 1px 0 rgba(0,0,0,0.5),
+            1px 1px 0 rgba(0,0,0,0.5);
+}
 header h1 {
     margin: 0;
 }
@@ -27,17 +37,22 @@ header .material-icons {
     font-size: 300%;
     opacity: 0.5;
 }
+footer {
+    width: 100%;
+    color: #FFF59D;
+}
 footer a {
     color: white;
     font-size:110%;
 }
-
+.loading {
+    display: none;
+}
 .header-cover {
     z-index: 1;
     padding: 8px;
     background: #2E7D32;
     box-shadow: 0 4px 8px 0 rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
-    color: white;
 }
 .main-content {
     padding: 16px 8px 48px 8px;
@@ -50,7 +65,6 @@ footer a {
     height: 64px;
     background: #2E7D32;
     box-shadow: 4px 0 8px 4px rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
-    color: white;
 }
 
 li small {
@@ -82,10 +96,20 @@ ul.list li {
     margin: 0;
 }
 
+@media only screen and (max-width: 640px) {
+    body {
+        font-size: 80%;
+    }
+}
+
 /* overlay menu styles */
 
-[data-ui-field="items"] {
-    display: none;
+.mo-title {
+    color:darkgreen;
+    font-size: 80%;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px;
 }
 .mo-item a span {
     padding: 6px 12px;

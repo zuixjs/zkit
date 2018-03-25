@@ -1,0 +1,29 @@
+<div layout="rows center-justify" class="footer-block">
+    <div self="size-x1 center-right"><strong>zKit</strong> <small>components for the Web</small></div>
+    <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+</div>
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/dracula.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+            setTimeout(function () {
+                zuix.$(document.body).removeClass('loading');
+            }, 1000);
+        });
+    });
+    // Google Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-92520304-1', 'auto');
+    ga('send', 'pageview');
+</script>

@@ -9,7 +9,7 @@ You can include them in your ZUIX app.
 Example:
 
 ```html
-<div data-ui-include="https://genielabs.github.io/zuix/kit/templates/spinkit/rects"
+<div data-ui-include="//genielabs.github.io/zkit/lib/templates/spinkit/rects"
      data-ui-lazy-load="false" data-ui-priority="-1"></div>
 ````
 
