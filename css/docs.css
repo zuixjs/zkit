@@ -7,10 +7,9 @@ body {
     overflow-x: hidden;
 }
 a {
-    color: deeppink;
     text-decoration: none;
 }
-a:visited {
+a,a:visited {
     color: deeppink;
 }
 p {
@@ -75,7 +74,7 @@ footer a {
     box-shadow: 0 4px 8px 0 rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
 }
 .main-content {
-    padding: 16px 8px 48px 8px;
+    padding: 40px 8px 48px;
     color:  black;
 }
 .footer-block {
@@ -85,6 +84,9 @@ footer a {
     height: 64px;
     background: #2E7D32;
     box-shadow: 4px 0 8px 4px rgba(0, 100, 0, 0.2), 0 8px 24px 0 rgba(0, 0, 0, 0.19);
+}
+.footer-block a,.footer-block a:visited {
+    color: white;
 }
 
 li small {
