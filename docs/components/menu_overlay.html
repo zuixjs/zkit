@@ -52,7 +52,7 @@
     </script>
 
 </head>
-<body layout="column top-center" -class="loading">
+<body layout="column top-center" class="loading">
 
 <header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
     <div data-ui-field="page_title">Menu Overlay</div>
@@ -73,12 +73,13 @@
 
     <div self="size-large center">
         <p>
-            Menu overlay activated by a floating action button. The pink button
-            here, in the lower right corner, is an sample usage.
+            A menu overlay activated by a floating action button. The pink button
+            in the lower right corner of this page is a sample usage.
+            No JavaScript coding is required for basic application of this component.
         </p>
         <p>
-            This is a framework-agnostic component so it can be used with any UI framework or
-            even with just standard <code>html</code> like the example in this page.
+            This component is framework-agnostic, so it can be used with any UI framework or
+            even with just standard <code>HTML</code>.
         </p>
     </div>
 
@@ -91,6 +92,7 @@
 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
 
         <h3>2. Add the menu markup</h3>
+        <p>Put inside the field <code>items</code> the code for your menu items.</p>
 
 <pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/components/menu_overlay">
   <div data-ui-field="items">
@@ -127,26 +129,35 @@
         </ul>
 
         <h2>Scripting</h2>
-        <h3>Programmatically show/hide</h3>
-
-<pre><code class="js">// show the menu button
-zuix.context('my-menu').show();
-// hide the menu button
-zuix.context('my-menu').hide();</code></pre>
-
         <h3>Event listeners</h3>
-<pre><code class="js">zuix.context('my-menu', function () {
+
+<pre><code class="js">
+var menuOverlay;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('my-menu-id', function () {
     // add event listeners
     this.on('open', function() { /* ... */})
         .on('close', function() { /* ... */});
+    // store a global reference of the
+    // component for eventual later use
+    menuOverlay = this;
 });</code></pre>
 
-        <h2>Example</h2>
+        <h3>Programmatically show/hide</h3>
+
+        <pre><code class="js">// show the menu button
+menuOverlay.show();
+// hide the menu button
+menuOverlay.hide();</code></pre>
+
+
+        <h2 id="example_1">Example</h2>
         <p>This is the code used for the sample menu in this page.</p>
 
         <h5>HTML</h5>
 <pre><code class="html"><div data-ui-load="../../lib/components/menu_overlay">
-  <div data-ui-field="items" class="hidden">
+  <div data-ui-field="items">
     <div class="mo-title">Example Menu</div>
     <div class="mo-item"><a href="#link_1"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
     <div class="mo-item"><a href="#link_2"><span>Source code</span> <i class="material-icons">code</i></a></div>

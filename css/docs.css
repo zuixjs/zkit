@@ -7,10 +7,16 @@ body {
     overflow-x: hidden;
 }
 a {
+    color: deeppink;
     text-decoration: none;
 }
+a:visited {
+    color: deeppink;
+}
 p {
-    line-height: 150%;
+    margin-top: 8;
+    margin-bottom: 16px;
+    line-height: 140%;
     font-family: serif;
     font-size: 130%;
 }
@@ -18,11 +24,17 @@ li {
     line-height: 200%;
     margin-bottom: 8px;
 }
+h1,h2 {
+    margin-top: 48px;
+    margin-bottom: 8px;
+}
 h1 {
     font-size:240%;
 }
 h3 {
     color:#585;
+    margin-top: 16px;
+    margin-bottom: 0;
 }
 h5 {
     margin: 0;
@@ -82,6 +94,8 @@ li small {
     opacity: 0.5;
 }
 pre {
+    margin-top: 8px;
+    margin-bottom: 8px;
     max-width: 100%;
 }
 code {
