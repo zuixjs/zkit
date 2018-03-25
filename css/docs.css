@@ -4,6 +4,7 @@ body {
     font-size: 18px;
     font-family: Helvetica, sans-serif;
     background: #E8F5E9;
+    overflow-x: hidden;
 }
 a {
     text-decoration: none;
@@ -24,7 +25,7 @@ h3 {
     color:#585;
 }
 h5 {
-    margin: 0px;
+    margin: 0;
     color:gray;
 }
 header {
