@@ -59,6 +59,9 @@ li small {
     text-transform: uppercase;
     opacity: 0.5;
 }
+pre {
+    max-width: 100%;
+}
 code {
     margin-left: 4px;
     margin-right: 4px;
