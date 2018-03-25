@@ -52,11 +52,22 @@
     </script>
 
 </head>
-<body layout="column top-center" class="loading">
+<body layout="column top-center" -class="loading">
 
 <header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
     <div data-ui-field="page_title">Menu Overlay</div>
 </header>
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="../../lib/components/menu_overlay">
+    <div data-ui-field="items">
+        <div class="mo-title">Example Menu</div>
+        <div class="mo-item"><a href="//github.com/genielabs/zkit/issues/"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
+        <div class="mo-item"><a href="//github.com/genielabs/zkit"><span>Source code</span> <i class="material-icons">code</i></a></div>
+        <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
+    </div>
+</div>
+<!-- End zUIx Kit Component code -->
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
@@ -141,12 +152,7 @@ zuix.context('my-menu').hide();</code></pre>
     <div class="mo-item"><a href="#link_2"><span>Source code</span> <i class="material-icons">code</i></a></div>
     <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
   </div>
-</div>
-<script>
-zuix.field('items').find('a').on('click', function () {
-    alert('"'+this.html()+'" clicked.');
-});
-</script></code></pre>
+</div></code></pre>
 
         <h5>CSS</h5>
 <pre><code class="css">
@@ -198,22 +204,6 @@ zuix.field('items').find('a').on('click', function () {
 </main>
 
 <footer data-ui-include="../../docs/common_footer" data-ui-options="options.no_css"></footer>
-
-<!-- Begin zUIx Kit Component code -->
-<div data-ui-load="../../lib/components/menu_overlay">
-    <div data-ui-field="items" class="hidden">
-        <div class="mo-title">Example Menu</div>
-        <div class="mo-item"><a href="//github.com/genielabs/zkit/issues/"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
-        <div class="mo-item"><a href="//github.com/genielabs/zkit"><span>Source code</span> <i class="material-icons">code</i></a></div>
-        <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
-    </div>
-</div>
-<script>
-    zuix.field('items').find('a').on('click', function () {
-        alert('"'+this.html()+'" clicked.');
-    });
-</script>
-<!-- End zUIx Kit Component code -->
 
 </body>
 </html>
