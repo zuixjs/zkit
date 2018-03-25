@@ -21,6 +21,7 @@ div[data-ui-field="menu_overlay"] {
 }
 div[data-ui-field="items_wrapper"] {
     text-align: right;
+    margin-top: auto;
 }
 
 .menu-item {
