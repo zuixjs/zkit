@@ -20,6 +20,13 @@ li {
 h1 {
     font-size:240%;
 }
+h3 {
+    color:#585;
+}
+h5 {
+    margin: 0px;
+    color:gray;
+}
 header {
     width: 100%;
     color: #FFF59D;
@@ -96,12 +103,6 @@ ul.list li {
     margin: 0;
 }
 
-@media only screen and (max-width: 640px) {
-    body {
-        font-size: 80%;
-    }
-}
-
 /* overlay menu styles */
 
 .mo-title {
@@ -123,11 +124,23 @@ ul.list li {
 .mo-item a i.material-icons {
     background: transparent;
     color: darkgreen;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
     font-size: 230%;
     vertical-align: middle;
 }
 .mo-item a:hover {
     text-shadow: 1px 1px 1px rgba(10,10,10,0.5), 0 0 12px rgba(255,255,0,0.75), 0 0 24px rgba(255,255,0,0.75);
+}
+
+/* responsive */
+
+@media only screen and (max-width: 640px) {
+    body {
+        font-size: 80%;
+    }
+    .mo-item a i.material-icons {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }
