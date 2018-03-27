@@ -35,7 +35,6 @@ div[data-ui-field="items_wrapper"] {
     width: 56px;
     height: 56px;
     margin: 4px;
-    padding-top: 6px;
     background: deeppink;
     fill: white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.5);

@@ -13,30 +13,40 @@ a,a:visited {
     color: deeppink;
 }
 p {
-    margin-top: 8;
-    margin-bottom: 16px;
+    font-size: 140%;
     line-height: 140%;
     font-family: serif;
-    font-size: 130%;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 li {
-    line-height: 200%;
+    font-family: serif;
+    font-size: 180%;
+    line-height: 160%;
     margin-bottom: 8px;
 }
 h1,h2 {
-    margin-top: 48px;
-    margin-bottom: 8px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 h1 {
     font-size:240%;
+    font-weight: 700;
+}
+h2 {
+    font-size:160%;
+    font-weight: 700;
 }
 h3 {
+    font-size:120%;
+    font-weight: 700;
     color:#585;
-    margin-top: 16px;
-    margin-bottom: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 h5 {
-    margin: 0;
+    margin-top: 16px;
+    margin-bottom: 8px;
     color:gray;
 }
 header {
@@ -90,6 +100,8 @@ footer a {
 }
 
 li small {
+    font-family: Helvetica, sans-serif;
+    font-size: 60%;
     font-weight: 600;
     margin-left: 6px;
     text-transform: uppercase;
@@ -101,6 +113,7 @@ pre {
     max-width: 100%;
 }
 code {
+    font-size: 80%;
     margin-left: 4px;
     margin-right: 4px;
     color: darkgreen;
@@ -110,6 +123,10 @@ code.option {
     border-radius: 6px;
     border: solid 1px darkgreen;
     background: rgba(255,255,255,0.5);
+}
+pre code {
+    font-size: 100%;
+    line-height: 140%;
 }
 
 ul.list {
@@ -148,6 +165,29 @@ ul.list li {
 }
 .mo-item a:hover {
     text-shadow: 1px 1px 1px rgba(10,10,10,0.5), 0 0 12px rgba(255,255,0,0.75), 0 0 24px rgba(255,255,0,0.75);
+}
+.mo-title-mdl {
+    font-size: 80%;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px;
+    margin-right: 8px;
+}
+.mo-item-mdl span:first-child {
+    padding: 8px 8px;
+    margin-right: 4px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    font-size: 80%;
+    font-weight: 600;
+    color: white;
+}
+.mo-item-mdl span {
+    margin-right: 8px;
+}
+
+.no-bullet {
+    list-style: none;
 }
 
 /* responsive */

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>zKit</title>
+    <title>zKit: Menu Overlay (lib/components)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us" />
@@ -43,11 +43,20 @@
     <!-- ZUIX library  -->
     <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
 
-    <link rel="stylesheet" href="../../css/docs.css">
     <script>
         var options = {
             no_css: {
                 css: false
+            },
+            htmlMenu: {
+                ready: function () {
+                    //this.hide();
+                }
+            },
+            mdlMenu: {
+                ready: function () {
+
+                }
             }
         };
     </script>
@@ -60,12 +69,47 @@
 </header>
 
 <!-- Begin zUIx Kit Component code -->
-<div data-ui-load="../../lib/components/menu_overlay">
+<div data-ui-load="../../lib/components/menu_overlay"
+     data-ui-options="options.htmlMenu">
     <div data-ui-field="items">
         <div class="mo-title">Example Menu</div>
         <div class="mo-item"><a href="//github.com/genielabs/zkit/issues/"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
         <div class="mo-item"><a href="//github.com/genielabs/zkit"><span>Source code</span> <i class="material-icons">code</i></a></div>
-        <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
+        <div class="mo-item"><a href="http://glabs.it"><span>G-Labs</span> <i class="material-icons">link</i></a></div>
+    </div>
+</div>
+<div data-ui-load="../../lib/components/menu_overlay"
+     data-ui-options="options.mdlMenu">
+    <div data-ui-field="items">
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+    </div>
+    <div data-ui-field="menu_button">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">message</i>
+        </a>
+    </div>
+    <div data-ui-field="menu_button_close">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">close</i>
+        </a>
     </div>
 </div>
 <!-- End zUIx Kit Component code -->
@@ -88,15 +132,18 @@
 
         <h2>Basic usage</h2>
         <h3>1. Include zUIx library</h3>
-        <p>This is the library that does all the magic:</p>
+        <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
 
 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>this is the library that does all the magic : )</p>
 
         <h3>2. Add the menu markup</h3>
         <p>Put inside the field <code>items</code> the code for your menu items.</p>
 
 <pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/components/menu_overlay">
   <div data-ui-field="items">
+    <!-- menu items list -->
     <a href="#link_1">Menu Item 1</a>
     <a href="#link_2">Menu Item 2</a>
     <a href="#link_3">Menu Item 3</a>
@@ -129,11 +176,99 @@
             </li>
         </ul>
 
+
+        <h2>Theming</h2>
+        <p>You can customize the appearance of the menu button by overriding the template fields:
+        </p>
+        <ul>
+            <li class="no-bullet">
+                <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--green-300 mdl-color-text--white">
+                    <i class="material-icons">add</i>
+                </span>
+                <code>menu_button</code> for the normal state button
+            </li>
+            <li class="no-bullet">
+                <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--green-300 mdl-color-text--white">
+                    <i class="material-icons">close</i>
+                </span>
+                <code>menu_button_close</code> for the open state button
+            </li>
+        </ul>
+
+        <p>For example the example menu shown in this page is using a
+            <a href="https://getmdl.io/components/index.html" target="_blank" rel="noopener">Material Design Lite</a> theme.
+        </p>
+
+<h5>HTML</h5>
+<pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/components/menu_overlay">
+  <div data-ui-field="items">
+        <!-- menu items list -->
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+  </div>
+  <!-- open/close menu button -->
+  <div data-ui-field="menu_button">
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <i class="material-icons">message</i>
+    </a>
+  </div>
+  <div data-ui-field="menu_button_close">
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+</div></code></pre>
+
+        <h5>CSS</h5>
+<pre><code class="css"><style>
+.mo-title-mdl {
+    font-size: 80%;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px;
+    margin-right: 8px;
+}
+.mo-item-mdl span:first-child {
+    padding: 8px 8px;
+    margin-right: 4px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    font-size: 80%;
+    font-weight: 600;
+    color: white;
+}
+.mo-item-mdl span {
+    margin-right: 8px;
+}
+</style></code></pre>
+
+        <p>
+            You can read further about <code>zUIx</code> templates and other features in
+            the library <a href="http://genielabs.github.io/zuix/#/docs">documentation</a> site.
+        </p>
+
+
         <h2>Scripting</h2>
         <h3>Event listeners</h3>
 
-<pre><code class="js">
-var menuOverlay;
+<pre><code class="js">var menuOverlay;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
 zuix.context('my-menu-id', function () {
@@ -147,60 +282,25 @@ zuix.context('my-menu-id', function () {
 
         <h3>Programmatically show/hide</h3>
 
-        <pre><code class="js">// show the menu button
-menuOverlay.show();
+        <pre><code class="js">// show the menu (enable)
+menuOverlay.hide();
+// hide the menu (disable)
+menuOverlay.hide();
+// show the menu button
+menuOverlay.showButton();
 // hide the menu button
-menuOverlay.hide();</code></pre>
+menuOverlay.hideButton();</code></pre>
 
-
-        <h2 id="example_1">Example</h2>
-        <p>This is the code used for the sample menu in this page.</p>
-
-        <h5>HTML</h5>
-<pre><code class="html"><div data-ui-load="../../lib/components/menu_overlay">
-  <div data-ui-field="items">
-    <div class="mo-title">Example Menu</div>
-    <div class="mo-item"><a href="#link_1"><span>Report an issue</span> <i class="material-icons">bug_report</i></a></div>
-    <div class="mo-item"><a href="#link_2"><span>Source code</span> <i class="material-icons">code</i></a></div>
-    <div class="mo-item"><a href="#link_3"><span>Menu Item 3</span> <i class="material-icons">link</i></a></div>
-  </div>
-</div></code></pre>
-
-        <h5>CSS</h5>
-<pre><code class="css">
-.mo-title {
-    color:darkgreen;
-    font-size: 80%;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 4px;
-}
-.mo-item a span {
-    padding: 6px 12px;
-    background: rgba(0,0,0,0.5);
-    border-radius: 12px;
-    color: white;
-    text-transform: uppercase;
-    font-size: 100%;
-    font-weight: 500;
-}
-.mo-item a i.material-icons {
-    background: transparent;
-    color: darkgreen;
-    padding-left: 6px;
-    padding-right: 6px;
-    font-size: 230%;
-    vertical-align: middle;
-}
-.mo-item a:hover {
-    text-shadow: 1px 1px 1px rgba(10,10,10,0.5), 0 0 12px rgba(255,255,0,0.75), 0 0 24px rgba(255,255,0,0.75);
-}</code></pre>
+        <p>
+            Also consider taking advantage of all other classes and utility methods included
+            with <code>zUIx</code> library <a href="http://genielabs.github.io/zuix/#/api">API</a>
+            which includes a DOM manipulation facility as well (<code>zuix.$</code> - ZxQuery class).
+        </p>
 
 
         <h2>Source code</h2>
         <p>
-            This component is based on <a href="//genielabs.github.io/zuix">zUIx</a>, a library to create component-based websites and web apps.
-            Source code available on <a href="//github.com/genielabs/zkit">GitHub</a>.
+            Source code is available in the <code>lib/components</code> folder of <a href="//github.com/genielabs/zkit">GitHub repository</a>.
         </p>
         <div self="size-large">
 
@@ -226,6 +326,12 @@ menuOverlay.hide();</code></pre>
     gtag('js', new Date());
     gtag('config', 'UA-116384214-1');
 </script>
+
+<!-- MDL -->
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<link rel="stylesheet" href="../../css/docs.css">
 
 </body>
 </html>
