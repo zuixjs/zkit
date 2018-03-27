@@ -21,7 +21,7 @@ p {
 }
 li {
     font-family: serif;
-    font-size: 180%;
+    font-size: 170%;
     line-height: 160%;
     margin-bottom: 8px;
 }
@@ -167,7 +167,10 @@ ul.list li {
 
 @media only screen and (max-width: 640px) {
     body {
-        font-size: 100%;
+        font-size: 105%;
+    }
+    li {
+        font-size: 140%;
     }
     .mo-item a i.material-icons {
         padding-left: 12px;
