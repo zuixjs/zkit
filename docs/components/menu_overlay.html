@@ -47,16 +47,6 @@
         var options = {
             no_css: {
                 css: false
-            },
-            htmlMenu: {
-                ready: function () {
-                    //this.hide();
-                }
-            },
-            mdlMenu: {
-                ready: function () {
-
-                }
             }
         };
     </script>
@@ -69,8 +59,7 @@
 </header>
 
 <!-- Begin zUIx Kit Component code -->
-<div data-ui-load="../../lib/components/menu_overlay"
-     data-ui-options="options.mdlMenu">
+<div data-ui-load="../../lib/components/menu_overlay">
     <div data-ui-field="items">
         <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
         <a class="mo-item-mdl" href="#noop" title="Settings">

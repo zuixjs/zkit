@@ -48,16 +48,65 @@
         var options = {
             no_css: {
                 css: false
+            },
+            mediaBrowser: {
+                ready: function () {
+                    mediaBrowser = this;
+                }
+            },
+            carousel: {
+                on: {
+                    'gesture:tap': function () {
+                        mediaBrowser.open();
+                    }
+                }
             }
         };
     </script>
 
 </head>
-<body layout="column top-center" class="loading">
+<body layout="column top-center" -class="loading">
 
 <header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
     <div data-ui-field="page_title">Media Browser</div>
 </header>
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="../../lib/components/media_browser"
+     data-ui-options="options.mediaBrowser"
+     class="topmost"
+     layout="row center-left">
+
+    <div data-ui-field="media">
+        <!-- list of thumbnail images with full size urls -->
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=10"
+                 src="https://picsum.photos/1600/1200/?image=10">
+        </div>
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=20"
+                 src="https://picsum.photos/1600/1200/?image=20">
+        </div>
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=30"
+                 src="https://picsum.photos/1600/1200/?image=30">
+        </div>
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=40"
+                 src="https://picsum.photos/1600/1200/?image=40">
+        </div>
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=50"
+                 src="https://picsum.photos/1600/1200/?image=50">
+        </div>
+        <div class="fit-center">
+            <img -src="https://picsum.photos/400/300/?image=60"
+                 src="https://picsum.photos/1600/1200/?image=60">
+        </div>
+    </div>
+
+</div>
+<!-- End zUIx Kit Component code -->
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
@@ -65,7 +114,9 @@
 
     <!-- Begin zUIx Kit Component code -->
     <div data-ui-load="../../lib/controllers/view_pager"
-         layout="row center-left">
+         data-ui-options="options.carousel"
+         layout="row center-left"
+         style="height: 320px">
 
         <!-- list of thumbnail images with full size urls -->
         <img src="https://picsum.photos/400/300/?image=10"
@@ -86,28 +137,6 @@
 
     <code>// TODO: .... </code>
 
-    <!-- Begin zUIx Kit Component code -->
-    <div data-ui-load="../../lib/components/media_browser"
-         layout="row center-left">
-
-        <div data-ui-field="media">
-            <!-- list of thumbnail images with full size urls -->
-            <img src="https://picsum.photos/400/300/?image=10"
-                 data-src-full="https://picsum.photos/1600/1200/?image=10">
-            <img src="https://picsum.photos/400/300/?image=20"
-                 data-src-full="https://picsum.photos/1600/1200/?image=20">
-            <img src="https://picsum.photos/400/300/?image=30"
-                 data-src-full="https://picsum.photos/1600/1200/?image=30">
-            <img src="https://picsum.photos/400/300/?image=40"
-                 data-src-full="https://picsum.photos/1600/1200/?image=40">
-            <img src="https://picsum.photos/400/300/?image=50"
-                 data-src-full="https://picsum.photos/1600/1200/?image=50">
-            <img src="https://picsum.photos/400/300/?image=60"
-                 data-src-full="https://picsum.photos/1600/1200/?image=60">
-        </div>
-
-    </div>
-    <!-- End zUIx Kit Component code -->
 
 
 </main>
