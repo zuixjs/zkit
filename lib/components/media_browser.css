@@ -31,13 +31,13 @@
 .nav-prev {
     position: absolute;
     right: 88px;
-    bottom: 24px;
+    bottom: 18px;
     z-index: 10;
 }
 .nav-next {
     position: absolute;
     right: 24px;
-    bottom: 24px;
+    bottom: 18px;
     z-index: 10;
 }
 .nav-close {
@@ -77,7 +77,7 @@ i {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 80px;
+    height: 180px;
     z-index: 100;
     /*background-color: rgba(0,0,0,0.5);*/
 }
@@ -101,6 +101,8 @@ i {
 }
 
 .fit-center {
+    right:0;
+    bottom:0;
 }
 .fit-center img {
     position: absolute;
@@ -109,4 +111,25 @@ i {
     left: 0; right: 0;
     max-width: 100%;
     max-height: 100%;
+}
+.above-controls {
+    margin-bottom: 80px;
+}
+
+.rounded-border {
+    border-radius: 5px;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.page-active {
+    border: solid 3px red;
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    transform: scale(1.0);
 }

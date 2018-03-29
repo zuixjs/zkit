@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>zKit: Image Browser (lib/components)</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <meta name="description" content="zKit, a collection of framework-agnostic web components made with zUIx." />
+    <meta name="keywords" lang="en-us" content="web components,web app,pwa,progressive,web application,framework,javascript,library,content manager,component manager,web app,content authoring,web master,static site,spa,single page application,content loader,content include,material,material design lite,mdl" />
+    <meta name="author" content="G-Labs" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4" />
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!-- ZUIX library  -->
+    <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
+
+    <script>
+        var options = {
+            no_css: {
+                css: false
+            },
+            viewPager: {
+                autoSlide: false,
+                enablePaging: true,
+                //verticalLayout: true,
+                on: {
+                    'gesture:tap': function () {
+                        //mediaBrowser.open();
+                    }
+                }
+            }
+        };
+    </script>
+
+</head>
+<body layout="column top-stretch">
+
+
+    <!-- Begin zUIx Kit Component code -->
+    <main self="size-x1 stretch" class="mdl-color-text--white"
+        data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+        data-ui-options="options.viewPager">
+
+        <!-- Page 1 -->
+        <div class="full-view padding-48-16 mdl-color--brown-300" layout="column center-stretch">
+
+            <div>
+                <h1>View Pager <small><code>controller</code></small></h1>
+            </div>
+            <div>
+                <p class="font-p-big">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Page 2 -->
+        <div class="full-view padding-48-16 mdl-color--orange-300" layout="column center-stretch">
+
+            <div>
+                <h1>Usage</h1>
+            </div>
+            <div>
+                <p class="font-p-big">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Page 3 -->
+        <div class="full-view padding-48-16 mdl-color--green-300" layout="column center-stretch">
+
+            <div>
+                <h1>Options</h1>
+            </div>
+            <div>
+                <p class="font-p-big">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Page 4 -->
+        <div class="full-view padding-48-16 mdl-color--blue-300" layout="column center-stretch">
+
+            <div>
+                <h1>Example <small><code>image ticker</code></small></h1>
+            </div>
+            <div>
+                <p class="font-p-big">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Page 5 -->
+        <div class="full-view padding-48-16 mdl-color--pink-300" layout="column center-stretch">
+
+            <div>
+                <h1>Scripting</h1>
+            </div>
+            <div>
+                <p class="font-p-big">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+    <!-- End zUIx Kit Component code -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
+<script>
+    // Google Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-116384214-1');
+</script>
+
+<!-- MDL -->
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<link rel="stylesheet" href="../../css/docs-fs.css">
+
+</body>
+</html>

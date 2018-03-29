@@ -69,6 +69,7 @@ header .material-icons {
 footer {
     width: 100%;
     color: #FFF59D;
+    z-index: 1;
 }
 footer a {
     color: white;
@@ -175,6 +176,9 @@ ul.list li {
     }
     li {
         font-size: 140%;
+    }
+    .padding-48-8 {
+        padding: 8px;
     }
     .mo-item a i.material-icons {
         padding-left: 12px;

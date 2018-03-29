@@ -4,17 +4,52 @@
 
     <div data-ui-field="controls" class="controls">
 
-        <div data-ui-field="nav-prev" class="nav-prev no-gesture">
-            <div class="button">&lt;</div>
-        </div>
-        <div data-ui-field="nav-next" class="nav-next no-gesture">
-            <div class="button">&gt;</div>
-        </div>
-        <div data-ui-field="nav-close" class="nav-close no-gesture">
+        <div data-ui-field="nav-close" class="nav-close">
             <div class="button">x</div>
         </div>
+        <div data-ui-field="nav-prev" class="nav-prev">
+            <svg fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+        </div>
+        <div data-ui-field="nav-next" class="nav-next">
+            <svg fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+        </div>
+
+
+        <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+             data-ui-field="carousel"
+             -data-ui-options="options.carousel"
+             layout="row center-left"
+             style="height: 100%">
+
+            <!-- list of thumbnail images with full size urls -->
+            <div class="rounded-border" style="width:auto;height:auto">
+                <img src="https://picsum.photos/400/300/?image=10"
+                     data-src-full="https://picsum.photos/1600/1200/?image=10">
+            </div>
+            <div class="rounded-border" style="width:auto;height:auto">
+                <img src="https://picsum.photos/400/300/?image=20"
+                     data-src-full="https://picsum.photos/1600/1200/?image=20">
+            </div>
+            <img class="rounded-border" src="https://picsum.photos/500/300/?image=30"
+                 data-src-full="https://picsum.photos/1600/1200/?image=30">
+            <img class="rounded-border" src="https://picsum.photos/200/300/?image=40"
+                 data-src-full="https://picsum.photos/1600/1200/?image=40">
+            <img class="rounded-border" src="https://picsum.photos/400/300/?image=50"
+                 data-src-full="https://picsum.photos/1600/1200/?image=50">
+            <img class="rounded-border" src="https://picsum.photos/400/300/?image=60"
+                 data-src-full="https://picsum.photos/1600/1200/?image=60">
+
+        </div>
+
 
     </div>
+
 
     <div data-ui-field="progress-container" class="progress-container">
         <div data-ui-field="load-progress"></div>
