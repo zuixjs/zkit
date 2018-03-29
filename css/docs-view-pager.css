@@ -1,0 +1,95 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-size: 18px;
+    font-family: Helvetica, sans-serif;
+    overflow: hidden;
+    background: black;
+    color: white;
+}
+a {
+    text-decoration: none;
+}
+h1 {
+    font-size: 300%;
+}
+p {
+    font-size: 140%;
+    line-height: 140%;
+    font-family: serif;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+p code {
+    color: navajowhite;
+    font-size: 80%;
+}
+.padding-48-16 {
+    padding: 48px 48px 64px;
+}
+.font-p-big {
+    font-size: 200%;
+    line-height: 150%;
+}
+.button-flat-48 {
+    height: 48px;
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 130%;
+    line-height: 100%;
+    text-transform: uppercase;
+}
+.button-flat-48 i {
+    font-size: 200%;
+}
+.full-view {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* pager */
+
+div[data-ui-field="pager"] {
+    position: fixed;
+    width: 100%;
+    bottom: 16px;
+    margin: auto;
+    color: white;
+    text-align: center;
+    z-index: 100;
+}
+[data-ui-field="pager"] a {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px;
+    margin: 12px;
+    margin-top:24px;
+    border: solid 4px white;
+    border-radius: 24px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: center;
+}
+[data-ui-field="pager"] a.current-page {
+    background-color: white;
+    color: black;
+}
+
+/* responsive */
+
+@media only screen and (max-width: 640px) {
+    body {
+        font-size: 90%;
+    }
+    h1 {
+        font-size: 250%;
+        margin: 0;
+    }
+    li {
+        font-size: 140%;
+    }
+    .padding-48-16 {
+        padding: 16px 16px 64px;
+    }
+}

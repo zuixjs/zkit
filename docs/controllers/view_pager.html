@@ -49,16 +49,26 @@
                 css: false
             },
             viewPager: {
+                contextId: 'view-pager',
                 autoSlide: false,
                 enablePaging: true,
                 //verticalLayout: true,
                 on: {
                     'gesture:tap': function () {
                         //mediaBrowser.open();
+                    },
+                    'page:change': function (e, page) {
+                        zuix.field('pager').find('a')
+                            .removeClass('current-page')
+                            .eq(page.in)
+                            .addClass('current-page');
                     }
                 }
             }
         };
+        function setPage(n) {
+            zuix.context('view-pager').page(n);
+        }
     </script>
 
 </head>
@@ -76,10 +86,17 @@
             <div>
                 <h1>View Pager <small><code>controller</code></small></h1>
             </div>
-            <div>
+            <div self="size-x1" layout="column center-stretch" class="animated fadeIn">
                 <p class="font-p-big">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    Flexible view pager controller that can be also used as a scroll-view.
+                    Featuring swipe gestures, horizontal and vertical layout,
+                    automatic slide.
                 </p>
+            </div>
+            <div self="bottom-right">
+                <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect no-gesture" href="#" onclick="zuix.context('view-pager').next()" layout="row center-right">
+                    <span class="mdl-color-text--white">Usage</span> <i class="material-icons mdl-color-text--yellow-800">chevron_right</i>
+                </a>
             </div>
 
         </div>
@@ -90,12 +107,21 @@
             <div>
                 <h1>Usage</h1>
             </div>
-            <div>
+            <div self="size-x1" layout="column center-stretch">
+<pre><code class="html no-gesture"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  <div class="size-full">Page 1</div>
+  <div class="size-full">Page 2</div>
+  <div class="size-full">Page 3</div>
+</div>
+<style>
+  .size-full {
+    width: 100vw; height: 100vh;
+  }
+</style></code></pre>
                 <p class="font-p-big">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    After the view-pager is loaded, all direct children will be positioned in <code>absolute</code> mode
+                    and stacked horizontally or vertically, accordingly to the layout mode.
+                    Element size must be explicitly provided.
                 </p>
             </div>
 
@@ -146,7 +172,15 @@
     </main>
     <!-- End zUIx Kit Component code -->
 
+    <div data-ui-field="pager">
 
+        <a onclick="setPage(0)"></a>
+        <a onclick="setPage(1)"></a>
+        <a onclick="setPage(2)"></a>
+        <a onclick="setPage(3)"></a>
+        <a onclick="setPage(4)"></a>
+
+    </div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
@@ -158,11 +192,25 @@
     gtag('config', 'UA-116384214-1');
 </script>
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/dracula.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
 <!-- MDL -->
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-<link rel="stylesheet" href="../../css/docs-fs.css">
+<link rel="stylesheet" href="../../css/docs-view-pager.css">
 
 </body>
 </html>
