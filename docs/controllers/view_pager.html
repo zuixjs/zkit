@@ -50,9 +50,7 @@
             },
             viewPager: {
                 contextId: 'view-pager',
-                autoSlide: false,
                 enablePaging: true,
-                //verticalLayout: true,
                 on: {
                     'gesture:tap': function () {
                         //mediaBrowser.open();
@@ -63,8 +61,11 @@
                             .eq(page.in)
                             .addClass('current-page');
                     }
+                },
+                vertical: {
+                    verticalLayout: true
                 }
-            }
+            },
         };
         function setPage(n) {
             zuix.context('view-pager').page(n);
@@ -77,7 +78,7 @@
 
     <!-- Begin zUIx Kit Component code -->
     <main self="size-x1 stretch" class="mdl-color-text--white"
-        data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+        data-ui-load="/lib/controllers/view_pager"
         data-ui-options="options.viewPager">
 
         <!-- Page 1 -->
@@ -102,27 +103,50 @@
         </div>
 
         <!-- Page 2 -->
-        <div class="full-view padding-48-16 mdl-color--orange-300" layout="column center-stretch">
+        <div class="full-view vertical-scroll padding-48-16 mdl-color--orange-300" layout="column top-stretch">
 
-            <div>
-                <h1>Usage</h1>
-            </div>
-            <div self="size-x1" layout="column center-stretch">
-<pre><code class="html no-gesture"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+            <div class="vertical-page padding-48-16">
+                <div>
+                    <h1>Usage</h1>
+                </div>
+                <div self="size-x1" layout="column center-stretch">
+                    <h3>1. Include zUIx library</h3>
+                    <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
+
+                    <pre><code class="html no-gesture">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <p>this is the library that does all the magic : )</p>
+                    <p class="font-p-big">
+                        .
+                    </p>
+                    <pre><code class="html no-gesture"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
   <div class="size-full">Page 1</div>
   <div class="size-full">Page 2</div>
   <div class="size-full">Page 3</div>
 </div>
 <style>
   .size-full {
-    width: 100vw; height: 100vh;
+      width: 100vw; height: 100vh;
   }
 </style></code></pre>
-                <p class="font-p-big">
-                    After the view-pager is loaded, all direct children will be positioned in <code>absolute</code> mode
-                    and stacked horizontally or vertically, accordingly to the layout mode.
-                    Element size must be explicitly provided.
-                </p>
+                    <p class="font-p-big">
+                        After the view-pager is loaded, all direct children will be positioned in <code>absolute</code> mode
+                        and stacked horizontally or vertically, accordingly to the layout mode.
+                        Element size must be explicitly provided.
+                    </p>
+                </div>
+            </div>
+
+            <div class="vertical-page padding-48-16">
+                <div>
+                    <h1>Options</h1>
+                </div>
+                <div>
+                    <p class="font-p-big">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    </p>
+                </div>
+
             </div>
 
         </div>

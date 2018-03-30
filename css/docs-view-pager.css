@@ -32,6 +32,7 @@ p code {
     line-height: 150%;
 }
 .button-flat-48 {
+    padding-left: 24px;
     height: 48px;
     vertical-align: middle;
     display: table-cell;
@@ -43,8 +44,18 @@ p code {
     font-size: 200%;
 }
 .full-view {
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 64px;
+}
+.vertical-page {
+    display: inline-block;
+}
+.vertical-scroll {
+    overflow-y: scroll;
 }
 
 /* pager */
@@ -52,7 +63,7 @@ p code {
 div[data-ui-field="pager"] {
     position: fixed;
     width: 100%;
-    bottom: 16px;
+    bottom: 8px;
     margin: auto;
     color: white;
     text-align: center;
@@ -62,9 +73,8 @@ div[data-ui-field="pager"] {
     display: inline-block;
     cursor: pointer;
     padding: 4px;
-    margin: 12px;
-    margin-top:24px;
-    border: solid 4px white;
+    margin: 24px 12px 12px;
+    border: solid 2px white;
     border-radius: 24px;
     width: 24px;
     height: 24px;
@@ -72,7 +82,7 @@ div[data-ui-field="pager"] {
     text-align: center;
 }
 [data-ui-field="pager"] a.current-page {
-    background-color: white;
+    background-color: rgba(255,255,255,0.5);
     color: black;
 }
 
