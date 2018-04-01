@@ -131,6 +131,14 @@ div[data-ui-field="pager"] {
     color: black;
 }
 
+.theme-inverse {
+    font-size: 97%;
+    color: black;
+}
+.theme-inverse a {
+    color: deeppink !important;
+}
+
 /* responsive */
 
 @media only screen and (max-width: 720px), only screen and (max-height: 420px){

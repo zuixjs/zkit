@@ -420,34 +420,37 @@ vp_options = {
 
 
         <!-- Page 6 -->
-        <article class="full-view vertical-scroll padding-48-16 mdl-color--blue-grey-700" layout="column top-stretch">
+        <article class="full-view theme-inverse vertical-scroll padding-48-16 mdl-color--lime-A400" layout="column center-stretch">
 
             <header>
                 <h2>About</h2>
             </header>
 
-            <main self="size-x1">
+            <main self="size-x1 center" layout="column center-stretch">
 
-                <p>
-                    Source code for this component is available in the <code>lib/controllers</code> folder of
-                    <a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit GitHub repository</a>.
-                </p>
-                <div self="size-large">
-                    <ul class="list">
-                        <li><a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
-                    </ul>
+                <div self="size-medium center">
+                    <p>
+                        This component is based on <a class="no-gesture mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
+                        brought to you by <a class="no-gesture mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
+                        Source code is available in the <code>lib/controllers</code> folder of
+                        <a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit</a> repository.
+                    </p>
+                    <div self="size-large">
+                        <ul class="list">
+                            <li><a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
+                        </ul>
+                    </div>
+                    <p>
+                        If you liked this, you may also like the <a href="../components/menu_overlay.html">Menu Overlay</a> component.
+                    </p>
                 </div>
-                <p>
-                    This component is based on <a class="no-gesture mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
-                    brought to you by <a class="no-gesture mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
-                </p>
 
             </main>
 
             <footer self="bottom-right">
                 <a class="no-gesture button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
                     <i class="material-icons mdl-color-text--red-300">chevron_left</i>
-                    <span data-ui-field="title" class="mdl-color-text--white">Rewind</span>
+                    <span data-ui-field="title" class="mdl-color-text--red-700">Rewind</span>
                 </a>
             </footer>
 
