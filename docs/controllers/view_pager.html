@@ -130,6 +130,11 @@
                     They can have different sizes, in which case the view-pager controller
                     will focus the active element to the center of the view.
                 </p>
+                <p>
+                    If a page contains link elements, add to them the class <code>no-gesture</code>
+                    in order to actually make them clickable.
+                </p>
+
             </main>
 
             <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
@@ -405,8 +410,37 @@ vp_options = {
 }
 </script></code></pre>
 
-                <h4>Further reading</h4>
-                <p>...</p>
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">About</div>
+            </footer>
+
+        </article>
+
+
+        <!-- Page 6 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--blue-grey-700" layout="column top-stretch">
+
+            <header>
+                <h2>About</h2>
+            </header>
+
+            <main self="size-x1">
+
+                <p>
+                    Source code for this component is available in the <code>lib/controllers</code> folder of
+                    <a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit GitHub repository</a>.
+                </p>
+                <div self="size-large">
+                    <ul class="list">
+                        <li><a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
+                    </ul>
+                </div>
+                <p>
+                    This component is based on <a class="no-gesture mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
+                    brought to you by <a class="no-gesture mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
+                </p>
 
             </main>
 
@@ -430,6 +464,7 @@ vp_options = {
         <a onclick="setPage(2)"></a>
         <a onclick="setPage(3)"></a>
         <a onclick="setPage(4)"></a>
+        <a onclick="setPage(5)"></a>
 
     </div>
 
