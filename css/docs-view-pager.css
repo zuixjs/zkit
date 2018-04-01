@@ -3,26 +3,32 @@ body {
     margin: 0;
     font-size: 18px;
     font-family: Helvetica, sans-serif;
-    overflow: hidden;
     background: black;
     color: white;
 }
 footer {
-    padding: 24px;
+    padding: 24px 24px 64px;
 }
 a {
     text-decoration: none;
 }
-h4 {
-    font-weight: 700;
-    opacity: 0.9;
+ul {
+    padding-left: 24px;
+    padding-right: 24px;
+    list-style: circle;
+}
+li {
+    font-family: serif;
+    font-size: 180%;
+    line-height: 150%;
+    margin-bottom: 8px;
 }
 p {
-    font-size: 140%;
-    line-height: 140%;
+    font-size: 150%;
+    line-height: 160%;
     font-family: serif;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 code {
     border: solid 1px rgba(255,255,255,0.2);
@@ -33,11 +39,22 @@ code {
     margin-left: 4px;
     margin-right: 4px;
 }
+code.option {
+    padding: 4px;
+    border-radius: 6px;
+    border: solid 1px rgba(0,0,0,0.25);
+    background: rgba(255,255,255,0.25);
+}
+h4 {
+    font-weight: 700;
+    opacity: 0.9;
+}
+
 .padding-48-16 {
-    padding: 48px 48px;
+    padding: 24px 48px;
 }
 .font-p-big {
-    font-size: 200%;
+    font-size: 180%;
     line-height: 150%;
 }
 .button-flat-48 {
@@ -59,13 +76,8 @@ code {
             1px 1px 0 rgba(0,0,0,0.5);
 }
 .full-view {
-    position: fixed;
-    top:0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin-bottom: 64px;
-    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 .topmost {
     z-index: 100;
@@ -80,6 +92,11 @@ code {
     max-height: 100%;
     max-width: 100%;
 }
+.size-300-300 {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
 .hidden {
     display: none;
 }
@@ -88,8 +105,10 @@ code {
 
 div[data-ui-field="pager"] {
     position: fixed;
+    background-color: black;
     width: 100%;
-    bottom: 8px;
+    height: 56px;
+    bottom: 0;
     margin: auto;
     color: white;
     text-align: center;
@@ -98,8 +117,8 @@ div[data-ui-field="pager"] {
 [data-ui-field="pager"] a {
     display: inline-block;
     cursor: pointer;
-    padding: 4px;
-    margin: 24px 12px 12px;
+    padding: 6px;
+    margin: 16px 12px;
     border: solid 2px white;
     border-radius: 24px;
     width: 24px;
@@ -114,15 +133,22 @@ div[data-ui-field="pager"] {
 
 /* responsive */
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 720px), only screen and (max-height: 420px){
     body {
         font-size: 90%;
     }
-    h1 {
+    h1,h2 {
         margin: 0;
+    }
+    h4 {
+        margin-top: 8px;
     }
     li {
         font-size: 140%;
+    }
+    footer {
+        padding-left: 8px;
+        padding-right: 8px;
     }
     .padding-48-16 {
         padding: 16px 16px;

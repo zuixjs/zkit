@@ -44,7 +44,7 @@
     <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
 
     <script>
-        var options = {
+        options = {
             no_css: {
                 css: false
             },
@@ -52,9 +52,6 @@
                 contextId: 'view-pager',
                 enablePaging: true,
                 on: {
-                    'gesture:tap': function () {
-                        //mediaBrowser.open();
-                    },
                     'page:change': function (e, page) {
                         zuix.field('pager').find('a')
                             .removeClass('current-page')
@@ -76,58 +73,54 @@
 <body layout="column top-stretch" class="animated fadeIn">
 
 
-    <!-- Begin zUIx Kit Component code -->
-    <main self="size-x1 stretch" class="mdl-color-text--white"
-        data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
-        data-ui-options="options.viewPager">
+    <!-- load the view-pager controller on the main div -->
+    <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+         data-ui-options="options.viewPager"
+         self="size-x1 stretch" class="mdl-color-text--white">
 
         <!-- Page 1 -->
-        <div class="full-view topmost padding-48-16 mdl-color--cyan-A700" layout="column center-stretch">
+        <article class="full-view topmost padding-48-16 mdl-color--cyan-700" layout="column top-stretch">
 
             <header>
                 <h2>View-Pager <small><code>controller</code></small></h2>
             </header>
-            <main self="size-x1" layout="column center-stretch" class="animated fadeIn">
-                <p class="font-p-big">
+
+            <main self="size-x1" layout="column center-center" class="animated fadeIn">
+                <p class="font-p-big" self="size-medium">
                     A versatile `view-pager` controller,
                     featuring both horizontal and vertical
                     layout, gestures and automatic sliding.
                 </p>
             </main>
-            <footer self="bottom-right" data-ui-include="next-page-button">
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
                 <div data-ui-field="title">Usage</div>
             </footer>
 
-        </div>
+        </article>
+
 
         <!-- Page 2 -->
-        <div class="full-view vertical-scroll padding-48-16 mdl-color--green-A700" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--light-green-800" layout="column top-stretch">
 
             <header>
                 <h2>Usage</h2>
             </header>
+
             <main>
                 <h4>1. Include zUIx library</h4>
                 <p>Add the following line, preferably inside the <code>head</code> section of the HTML document</p>
 
                 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
 
-                <h4>2. Load the view-pager on a <code>div</code> container</h4>
+                <h4>2. Load the view-pager</h4>
+                <p>Add the <code>data-ui-load</code> attribute to the <code>div</code> container</p>
 <pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
   <!-- elements of the view-pager -->
-  <div class="size-full">Page 1</div>
-  <div class="size-full">Page 2</div>
-  <div class="size-full">Page 3</div>
+  <div>Page 1</div>
+  <div>Page 2</div>
+  <div>Page 3</div>
 </div></code></pre>
-                <p>
-                    Provide the desired size for each element
-                </p>
-<pre><code class="html"><style>
-.size-full {
-  width: 100vw;
-  height: 100vh;
-}
-</style></code></pre>
                 <p>
                     The view-pager will re-arrange all elements stacked horizontally
                     or vertically accordingly to the chosen layout mode.
@@ -135,38 +128,84 @@
                 <p>
                     Elements do not necessarily require to be sized full screen.
                     They can have different sizes, in which case the view-pager controller
-                    will focus the selected element to the center of the view.
+                    will focus the active element to the center of the view.
                 </p>
             </main>
-            <footer self="bottom-right" data-ui-include="next-page-button">
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
                 <div data-ui-field="title">Examples</div>
             </footer>
 
-        </div>
+        </article>
+
 
         <!-- Page 3 -->
-        <div class="full-view vertical-scroll padding-48-16 mdl-color--amber-800" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--orange-900" layout="column top-stretch">
 
             <header>
                 <h2>Examples</h2>
             </header>
+
             <main self="size-x1">
                 <p>
-                    Here some examples (this site layout is also entirely based on the view-pager control).
+                    Here some examples
                 </p>
-
                 <div layout="rows top-spread">
+
+                    <div>
+                        <h4 align="center">horizontal</h4>
+
+                        <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+                             data-o-paging="true"
+                             data-o-slide="true"
+                             class="mdl-shadow--8dp"
+                             style="width:300px; height: 300px;">
+
+                            <!-- view-pager items list -->
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=510">
+                            <div class="mdl-color--green-500 size-300-300" layout="row center-center">
+                                <h4>Hello World!</h4>
+                            </div>
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=520">
+                            <div class="mdl-color--pink-500 size-300-300 padding-48-16" layout="row center-center">
+                                <h5 align="center">
+                                    Versatile, gestures enabled
+                                    <code>view-pager</code> controller
+                                    made with <strong>zUIx</strong>.
+                                </h5>
+                            </div>
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=630">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=740">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=650">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=460">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=310">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=320">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=330">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=340">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=350">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=360">
+
+                        </div>
+
+                        <h5>attributes of <code>div</code> container</h5>
+<pre><code class="html">data-o-slide="true"
+data-o-paging="true"
+
+</code></pre>
+                    </div>
 
                     <div style="width:300px">
                         <h4 align="center">vertical</h4>
+
                         <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
                              data-o-slide="true"
                              data-o-paging="true"
+                             data-o-hold="false"
                              data-o-layout="vertical"
-                             data-o-hold="true"
+                             class="mdl-shadow--8dp"
                              style="max-width:300px;height:300px;">
 
-                            <!-- list of thumbnail images with full size urls -->
+                            <!-- view-pager items list -->
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=10">
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=20">
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=30">
@@ -182,91 +221,208 @@
 
                         </div>
 
-                        <h5>container <code>div</code> attributes</h5>
-<pre><code class="html">data-o-layout="vertical"
+                        <h5>attributes of <code>div</code> container</h5>
+                        <pre><code class="html">data-o-layout="vertical"
 data-o-slide="true"
 data-o-paging="true"
-data-o-hold="true"
-</code></pre>
-
-                    </div>
-
-                    <div>
-                        <h4 align="center">horizontal</h4>
-                        <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
-                             data-o-paging="true"
-                             data-o-slide="true"
-                             data-o-hold="true"
-                             style="width:300px; height: 300px;">
-
-                            <!-- list of thumbnail images with full size urls -->
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=510">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=520">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=630">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=740">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=650">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=460">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=310">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=320">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=330">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=340">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=350">
-                            <img class="vp-image" src="https://picsum.photos/300/300/?image=360">
-
-                        </div>
-
-                        <h5>container <code>div</code> attributes</h5>
-<pre><code class="html">data-o-slide="true"
-data-o-paging="true"
-data-o-hold="true"
-
 </code></pre>
                     </div>
 
                 </div>
-
+                <p>
+                    The layout of this site itself is also entirely based on the view-pager control.
+                </p>
             </main>
-            <footer self="bottom-right" data-ui-include="next-page-button">
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
                 <div data-ui-field="title">Options</div>
             </footer>
 
-        </div>
+        </article>
+
 
         <!-- Page 4 -->
-        <div class="full-view padding-48-16 mdl-color--blue-300" layout="column center-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--brown-400" layout="column top-stretch">
 
-            <div>
-                <h1>Options</small></h1>
-                <div layout="row top-spread">
+            <header>
+                <h2>Option attributes</h2>
+            </header>
 
-                </div>
+            <main self="size-x1">
 
-            </div>
-            <div>
-                <p class="font-p-big">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                </p>
-            </div>
+                <ul>
+                    <li>
+                        <code class="option">data-o-layout</code>
+                        <small>optional</small><br>
+                        layout of elements can be <code>horizontal</code> or <code>vertical</code>. The default value is <code>horizontal</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-paging</code>
+                        <small>optional</small><br>
+                        after scrolling, automatically select and focus the closest element to the middle of the view. The default value is <code>false</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-slide</code>
+                        <small>optional</small><br>
+                        slide-show mode (cycle elements). The default value is <code>false</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-slide-interval</code>
+                        <small>optional</small><br>
+                        interval between each slide (milliseconds). The default value is <code>750</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-hold</code>
+                        <small>optional</small><br>
+                        prevent touch events from being propagated to other elements off the view. The default value is <code>false</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-ui-context</code>
+                        <small>optional</small><br>
+                        identifier name to be used to reference this component from JavaScript.
+                    </li>
+                    <li>
+                        <code class="option">data-ui-options</code>
+                        <small>optional</small><br>
+                        name of a global variable defining a JSON object holding options to use
+                        for this component (see next page for details).
+                    </li>
+                </ul>
 
-        </div>
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">Scripting</div>
+            </footer>
+
+        </article>
+
 
         <!-- Page 5 -->
-        <div class="full-view padding-48-16 mdl-color--pink-300" layout="column center-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--blue-grey-700" layout="column top-stretch">
 
-            <div>
-                <h1>Scripting</h1>
-            </div>
-            <div>
-                <p class="font-p-big">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+            <header>
+                <h2>Scripting</h2>
+            </header>
+
+            <main self="size-x1">
+
+                <h4>View-Pager instance object</h4>
+                <p>
+                    A reference to a <code>view_pager</code> object can be obtained trough its context identifier
+                    which can be assigned by adding the <code>data-ui-context</code> attribute to the view-pager
+                    element and finally by using the <code>zuix.context(...)</code> method.
                 </p>
-            </div>
+                <p>
+                    Since components are loaded asynchronously the <code>zuix.context</code> method may
+                    return <code>null</code> if called before the component is ready.
+                    So, when not sure if the component is ready, it is more safe to use the <code>callback</code>
+                    argument of the <code>zuix.context</code> method.
+                </p>
 
-        </div>
+<pre self="center"><code class="html">&lt;div data-ui-context="my-view-pager"
+  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  <!-- ... -->
+&lt;/div&gt;
+<script>
+viewPager = null;
+zuix.context('my-view-pager', function(){
+  viewPager = this;
+});
+</script></code></pre>
 
-    </main>
-    <!-- End zUIx Kit Component code -->
+                <p>
+                    Another way getting a safe reference to a component is by using the
+                    <code>data-ui-options</code> attribute.
+                </p>
 
+<pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
+  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  <!-- ... -->
+&lt;/div&gt;
+<script>
+viewPager = null;
+vp_options = {
+  ready: function(ctx) {
+    viewPager = this;
+  }
+}
+</script></code></pre>
+
+
+                <h4>Methods</h4>
+
+<pre self="center"><code class="js">// select page
+viewPager.page(2);
+// get element of a page (returns ZxQuery-wrapped element)
+pageFour = viewPager.get(3);
+pageFour.find('a').attr('rel', 'no-opener');
+// select next page
+viewPager.next();
+// select previous page
+viewPager.prev();
+// get auto-slide mode (true/false)
+slideMode = viewPager.slide();
+// enable or pause auto-slide mode
+viewPager.slide(true);
+// get current layout mode ('horizontal' or 'vertical')
+layoutMode = viewPager.layout();
+// change current layout mode
+viewPager.layout('vertical');</code></pre>
+
+                <h4>Events</h4>
+
+<pre self="center"><code class="js">// page change event
+viewPager.on('page:change', function(e, pageInfo) {
+  // new page number
+  console.log(pageInfo.in);
+  // old page number
+  console.log(pageInfo.out);
+  // ...
+}).on('page:tap', function(e, pageNumber) {
+  console.log(pageNumber);
+  // ...
+});</code></pre>
+
+                <p>
+                    To bind events we can also use the <code>data-ui-options</code> attribute.
+                </p>
+
+<pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
+  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+    <!-- ... -->
+&lt;/div&gt;
+<script>
+vp_options = {
+  on: {
+    'page:change': function (e, pageInfo) {
+      // ...
+    },
+    'page:tap': function (e, pageNumber) {
+        // ...
+    }
+  }
+}
+</script></code></pre>
+
+                <h4>Further reading</h4>
+                <p>...</p>
+
+            </main>
+
+            <footer self="bottom-right">
+                <a class="no-gesture button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
+                    <i class="material-icons mdl-color-text--red-300">chevron_left</i>
+                    <span data-ui-field="title" class="mdl-color-text--white">Rewind</span>
+                </a>
+            </footer>
+
+        </article>
+
+    </div>
+
+
+    <!-- view-pager page select buttons -->
     <div data-ui-field="pager">
 
         <a onclick="setPage(0)"></a>
@@ -278,20 +434,19 @@ data-o-hold="true"
     </div>
 
 
-
     <!-- Inline templates -->
     <div class="hidden">
 
-        <!-- Button Next -->
-        <a data-ui-view="next-page-button" class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
-            <span data-ui-field="title" class="mdl-color-text--white">Button title</span> <i class="material-icons mdl-color-text--red-300">chevron_right</i>
+        <!-- MDL Button Next -->
+        <a data-ui-view="next-page-button" class="no-gesture button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
+            <span data-ui-field="title" class="mdl-color-text--white">Button title</span>
+            <i class="material-icons mdl-color-text--red-300">chevron_right</i>
         </a>
 
     </div>
 
 
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
 <script>
     // Google Analytics
@@ -301,11 +456,17 @@ data-o-hold="true"
     gtag('config', 'UA-116384214-1');
 </script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/monokai-sublime.min.css">
+<!-- Code highlighting -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/dracula.min.css">
 <script>
     // Escape HTML in 'code' blocks
     document.querySelectorAll("code").forEach(function(element) {
-        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        element.innerHTML = element.innerHTML
+            /*.replace(/&/g, "&amp;")*/
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     });
     // Code highlighting
     zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
@@ -315,10 +476,11 @@ data-o-hold="true"
     });
 </script>
 
-<!-- MDL -->
+<!-- Material Design Lite -->
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+<!-- Main CSS -->
 <link rel="stylesheet" href="../../css/docs-view-pager.css">
 
 </body>

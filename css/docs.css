@@ -75,9 +75,6 @@ footer a {
     color: white;
     font-size:110%;
 }
-.loading {
-    display: none;
-}
 .header-cover {
     z-index: 1;
     padding: 8px;

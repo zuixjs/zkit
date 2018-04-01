@@ -44,7 +44,7 @@
     <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
 
     <script>
-        var options = {
+        options = {
             no_css: {
                 css: false
             }
@@ -52,47 +52,11 @@
     </script>
 
 </head>
-<body layout="column top-center" class="loading">
+<body layout="column top-center">
 
 <header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
     <div data-ui-field="page_title">Menu Overlay</div>
 </header>
-
-<!-- Begin zUIx Kit Component code -->
-<div data-ui-load="../../lib/components/menu_overlay">
-    <div data-ui-field="items">
-        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
-        <a class="mo-item-mdl" href="#noop" title="Settings">
-            <span>Settings</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">settings</i>
-            </span>
-        </a>
-        <a class="mo-item-mdl" href="#noop" title="Share">
-            <span>Share</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">share</i>
-            </span>
-        </a>
-        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
-            <span>Add to favorite</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">favorite</i>
-            </span>
-        </a>
-    </div>
-    <div data-ui-field="menu_button">
-        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">message</i>
-        </a>
-    </div>
-    <div data-ui-field="menu_button_close">
-        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">close</i>
-        </a>
-    </div>
-</div>
-<!-- End zUIx Kit Component code -->
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
@@ -296,6 +260,44 @@ menuOverlay.hideButton();</code></pre>
 </main>
 
 <footer data-ui-include="../../docs/common_footer" data-ui-options="options.no_css"></footer>
+
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="../../lib/components/menu_overlay">
+    <div data-ui-field="items">
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+    </div>
+    <div data-ui-field="menu_button">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">message</i>
+        </a>
+    </div>
+    <div data-ui-field="menu_button_close">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+</div>
+<!-- End zUIx Kit Component code -->
+
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
