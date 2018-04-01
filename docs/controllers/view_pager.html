@@ -40,8 +40,8 @@
     <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
-    <!-- ZUIX library  -->
-    <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
+    <!-- zUIx library  -->
+    <script src="//genielabs.github.io/zuix/js/zuix.min.js"></script>
 
     <script>
         options = {
@@ -73,7 +73,7 @@
 <body layout="column top-stretch" class="animated fadeIn">
 
 
-    <!-- load the view-pager controller on the main div -->
+    <!-- load the view_pager controller on the main div -->
     <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
          data-ui-options="options.viewPager"
          self="size-x1 stretch" class="mdl-color-text--white">
@@ -82,12 +82,12 @@
         <article class="full-view topmost padding-48-16 mdl-color--cyan-700" layout="column top-stretch">
 
             <header>
-                <h2>View-Pager <small><code>controller</code></small></h2>
+                <h2>ViewPager <small><code>controller</code></small></h2>
             </header>
 
             <main self="size-x1" layout="column center-center" class="animated fadeIn">
                 <p class="font-p-big" self="size-medium">
-                    A versatile `view-pager` controller,
+                    A versatile ViewPager controller,
                     featuring both horizontal and vertical
                     layout, gestures and automatic sliding.
                 </p>
@@ -113,26 +113,22 @@
 
                 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
 
-                <h4>2. Load the view-pager</h4>
+                <h4>2. Load the ViewPager</h4>
                 <p>Add the <code>data-ui-load</code> attribute to the <code>div</code> container</p>
 <pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
-  <!-- elements of the view-pager -->
+  <!-- elements of the ViewPager -->
   <div>Page 1</div>
   <div>Page 2</div>
   <div>Page 3</div>
 </div></code></pre>
                 <p>
-                    The view-pager will re-arrange all elements stacked horizontally
+                    The ViewPager will re-arrange all elements stacked horizontally
                     or vertically accordingly to the chosen layout mode.
                 </p>
                 <p>
                     Elements do not necessarily require to be sized full screen.
-                    They can have different sizes, in which case the view-pager controller
+                    They can have different sizes, in which case the ViewPager
                     will focus the active element to the center of the view.
-                </p>
-                <p>
-                    If a page contains link elements, add to them the class <code>no-gesture</code>
-                    in order to actually make them clickable.
                 </p>
 
             </main>
@@ -163,7 +159,7 @@
                              class="mdl-shadow--8dp"
                              style="width:300px; height: 300px;">
 
-                            <!-- view-pager items list -->
+                            <!-- ViewPager items list -->
                             <img class="vp-image" src="https://picsum.photos/300/300/?image=510">
                             <div class="mdl-color--green-500 size-300-300" layout="row center-center">
                                 <h4>Hello World!</h4>
@@ -172,7 +168,7 @@
                             <div class="mdl-color--pink-500 size-300-300 padding-48-16" layout="row center-center">
                                 <h5 align="center">
                                     Versatile, gestures enabled
-                                    <code>view-pager</code> controller
+                                    <code>ViewPager</code> controller
                                     made with <strong>zUIx</strong>.
                                 </h5>
                             </div>
@@ -207,7 +203,6 @@ data-o-paging="true"
                              class="mdl-shadow--8dp"
                              style="max-width:300px;height:300px;">
 
-                            <!-- view-pager items list -->
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=10">
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=20">
                             <img class="vp-image" src="https://picsum.photos/300/200/?image=30">
@@ -232,7 +227,7 @@ data-o-paging="true"
 
                 </div>
                 <p>
-                    The layout of this site itself is also entirely based on the view-pager control.
+                    The layout of this site itself is also entirely based on the ViewPager.
                 </p>
             </main>
 
@@ -261,7 +256,7 @@ data-o-paging="true"
                     <li>
                         <code class="option">data-o-paging</code>
                         <small>optional</small><br>
-                        after scrolling, automatically select and focus the closest element to the middle of the view. The default value is <code>false</code>.
+                        after scrolling, automatically select and focus the closest element centering it in the view. The default value is <code>false</code>.
                     </li>
                     <li>
                         <code class="option">data-o-slide</code>
@@ -286,8 +281,8 @@ data-o-paging="true"
                     <li>
                         <code class="option">data-ui-options</code>
                         <small>optional</small><br>
-                        name of a global variable defining a JSON object holding options to use
-                        for this component (see next page for details).
+                        name of a global variable defining options to use
+                        for this component. See next page for details.
                     </li>
                 </ul>
 
@@ -309,10 +304,10 @@ data-o-paging="true"
 
             <main self="size-x1">
 
-                <h4>View-Pager instance object</h4>
+                <h4>ViewPager instance object</h4>
                 <p>
                     A reference to a <code>view_pager</code> object can be obtained trough its context identifier
-                    which can be assigned by adding the <code>data-ui-context</code> attribute to the view-pager
+                    which can be assigned by adding the <code>data-ui-context</code> attribute to the ViewPager
                     element and finally by using the <code>zuix.context(...)</code> method.
                 </p>
                 <p>
@@ -348,6 +343,17 @@ vp_options = {
   ready: function(ctx) {
     viewPager = this;
   }
+}
+</script></code></pre>
+
+                Other option fields that can be used are
+
+<pre self="center"><code class="html"><script>
+vp_options = {
+  autoSlide: true,     // default `false`
+  enablePaging: true,  // default `false`
+  slideInterval: 500,  // default `750`
+  verticalLayout: true // default `false`
 }
 </script></code></pre>
 
@@ -427,25 +433,25 @@ vp_options = {
 
                 <div self="size-medium center">
                     <p>
-                        This component is based on <a class="no-gesture mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
-                        brought to you by <a class="no-gesture mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
+                        This component is based on <a class="mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
+                        brought to you by <a class="mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
                         Source code is available in the <code>lib/controllers</code> folder of
-                        <a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit</a> repository.
+                        <a class="mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit</a> repository.
                     </p>
                     <div self="size-large">
                         <ul class="list">
-                            <li><a class="no-gesture mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
+                            <li><a class="mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
                         </ul>
                     </div>
                     <p>
-                        If you liked this, you may also like the <a class="no-gesture" href="../components/menu_overlay.html">Menu Overlay</a> component.
+                        If you liked this, you may also like the <a href="../components/menu_overlay.html">Menu Overlay</a> component.
                     </p>
                 </div>
 
             </main>
 
             <footer self="bottom-right">
-                <a class="no-gesture button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
+                <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
                     <i class="material-icons mdl-color-text--red-300">chevron_left</i>
                     <span data-ui-field="title" class="mdl-color-text--red-700">Rewind</span>
                 </a>
@@ -456,7 +462,7 @@ vp_options = {
     </div>
 
 
-    <!-- view-pager page select buttons -->
+    <!-- ViewPager - page select buttons -->
     <div data-ui-field="pager">
 
         <a onclick="setPage(0)"></a>
@@ -473,7 +479,7 @@ vp_options = {
     <div class="hidden">
 
         <!-- MDL Button Next -->
-        <a data-ui-view="next-page-button" class="no-gesture button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
+        <a data-ui-view="next-page-button" class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
             <span data-ui-field="title" class="mdl-color-text--white">Button title</span>
             <i class="material-icons mdl-color-text--red-300">chevron_right</i>
         </a>

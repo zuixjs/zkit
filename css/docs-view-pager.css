@@ -23,6 +23,10 @@ li {
     line-height: 150%;
     margin-bottom: 8px;
 }
+li small {
+    font-family: Helvetica, sans-serif;
+    opacity: 0.5;
+}
 p {
     font-size: 150%;
     line-height: 160%;
