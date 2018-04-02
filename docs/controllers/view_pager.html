@@ -322,7 +322,7 @@ data-o-paging="true"
   <!-- ... -->
 &lt;/div&gt;
 <script>
-viewPager = null;
+var viewPager;
 zuix.context('my-view-pager', function(){
   viewPager = this;
 });
@@ -338,7 +338,7 @@ zuix.context('my-view-pager', function(){
   <!-- ... -->
 &lt;/div&gt;
 <script>
-viewPager = null;
+var viewPager;
 vp_options = {
   ready: function(ctx) {
     viewPager = this;
@@ -349,7 +349,7 @@ vp_options = {
                 Other option fields that can be used are
 
 <pre self="center"><code class="html"><script>
-vp_options = {
+var vp_options = {
   autoSlide: true,     // default `false`
   enablePaging: true,  // default `false`
   slideInterval: 500,  // default `750`
@@ -401,7 +401,7 @@ viewPager.on('page:change', function(e, pageInfo) {
     <!-- ... -->
 &lt;/div&gt;
 <script>
-vp_options = {
+var vp_options = {
   on: {
     'page:change': function (e, pageInfo) {
       // ...
