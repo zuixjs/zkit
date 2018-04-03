@@ -28,22 +28,44 @@
     background: black;
 }
 
-.nav-prev {
-    position: absolute;
-    right: 88px;
-    bottom: 18px;
-    z-index: 10;
+[data-ui-field="controls"] {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    z-index: 100;
+    /*background-color: rgba(0,0,0,0.5);*/
 }
-.nav-next {
+
+svg {
+    vertical-align: middle;
+}
+
+[data-ui-field="nav-prev"] {
+    border: solid 2px white;
+    border-radius: 48px;
+    margin: 6px;
+    position: absolute;
+    left: 24px;
+    bottom: 28px;
+    z-index: 10;
+    background-color: rgba(1,1,1,0.5);
+}
+[data-ui-field="nav-next"] {
+    border: solid 2px white;
+    border-radius: 48px;
+    margin: 6px;
     position: absolute;
     right: 24px;
-    bottom: 18px;
+    bottom: 28px;
     z-index: 10;
+    background-color: rgba(1,1,1,0.5);
 }
 .nav-close {
     position: absolute;
-    left: 24px;
-    bottom: 24px;
+    right: 24px;
+    top: 24px;
     z-index: 10;
 }
 .progress-container {
@@ -70,16 +92,6 @@ i {
 .media-list {
     width: 100%;
     height: 100%;
-}
-
-.controls {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 180px;
-    z-index: 100;
-    /*background-color: rgba(0,0,0,0.5);*/
 }
 
 .button {
@@ -126,10 +138,30 @@ i {
 }
 
 .page-active {
-    border: solid 3px red;
+    border: solid 5px rgba(255,255,255, 0.8);
     -webkit-transform: scale(1.0);
     -moz-transform: scale(1.0);
     -ms-transform: scale(1.0);
     -o-transform: scale(1.0);
     transform: scale(1.0);
+}
+
+.hidden {
+    display: none;
+}
+
+[data-ui-field="carousel"] {
+}
+
+[data-ui-field="preview"] {
+    padding: 6px;
+    max-width: 100%;
+    max-height: 100%;
+}
+[data-ui-field="preview"] img {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100px;
+    box-shadow: 2px -2px 6px rgba(0,0,0,0.5);
+    border-radius: 8px;
 }
