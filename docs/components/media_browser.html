@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>zKit: Image Browser (lib/components)</title>
+    <title>zKit: Media Browser (lib/components)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us" />
@@ -67,7 +67,7 @@
     </script>
 
 </head>
-<body layout="column top-center" -class="loading">
+<body layout="column top-center">
 
 <header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
     <div data-ui-field="page_title">Media Browser</div>
@@ -81,117 +81,93 @@
 
     <div data-ui-field="media">
         <!-- list of thumbnail images with full size urls -->
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=201">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=201">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=201">
+            <div data-ui-field="title">Hello World!</div>
+            <div data-ui-field="description">The quick brown fox jumped over the lazy dog.</div>
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=102">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=102">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=102">
+            <div data-ui-field="title">Raspberries</div>
+            <div data-ui-field="description">Yummy yummy!</div>
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=103">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=103">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=103">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=104">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=104">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=104">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=112">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=112">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=112">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=106">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=106">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=106">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=116">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=116">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=116">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=122">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=122">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=122">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=123">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=123">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=123">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=133">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=133">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=133">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=154">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=154">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=154">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=159">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=159">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=159">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=162">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=162">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=162">
         </div>
-        <div class="fit-center">
+        <div data-type="image">
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=186">
             </div>
-            <div data-ui-field="full" class="hidden">
-                <img src="https://picsum.photos/1600/1200/?image=186">
-            </div>
+            <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=186">
         </div>
     </div>
 
@@ -200,36 +176,15 @@
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
-    <code>// TODO: .... </code>
+    <h1>Example</h1>
 
-    <!-- Begin zUIx Kit Component code -->
-    <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
-         data-ui-options="options.carousel"
-         layout="row center-left"
-         style="height: 320px">
+    <p>
+        <code>// TODO: .... </code>
+    </p>
 
-        <!-- list of thumbnail images with full size urls -->
-        <img src="https://picsum.photos/200/300/?image=10"
-             data-src-full="https://picsum.photos/1600/1200/?image=10">
-        <img src="https://picsum.photos/400/300/?image=20"
-             data-src-full="https://picsum.photos/1600/1200/?image=20">
-        <img src="https://picsum.photos/300/300/?image=30"
-             data-src-full="https://picsum.photos/1600/1200/?image=30">
-        <img src="https://picsum.photos/600/300/?image=40"
-             data-src-full="https://picsum.photos/1600/1200/?image=40">
-        <img src="https://picsum.photos/400/300/?image=50"
-             data-src-full="https://picsum.photos/1600/1200/?image=50">
-        <img src="https://picsum.photos/400/300/?image=60"
-             data-src-full="https://picsum.photos/1600/1200/?image=60">
-
+    <div align="center">
+        <a href="#" onclick="mediaBrowser.open()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Open Media Browser</a>
     </div>
-    <!-- End zUIx Kit Component code -->
-
-    <code>// TODO: .... </code>
-
-
-    <a href="#" onclick="mediaBrowser.open()" class="mdl-button -mdl-js-button mdl-js-ripple-effect mdl-button-primary">Open Media Browser</a>
-
 
 </main>
 
@@ -244,6 +199,10 @@
     gtag('js', new Date());
     gtag('config', 'UA-116384214-1');
 </script>
+
+<!-- MDL -->
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 </body>
 </html>
