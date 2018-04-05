@@ -95,6 +95,10 @@ i {
     cursor: pointer;
 }
 
+.hidden {
+    display: none;
+}
+
 .media-list {
     width: 100%;
     height: 100%;
