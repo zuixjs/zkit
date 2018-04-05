@@ -32,6 +32,12 @@ svg {
     vertical-align: middle;
 }
 
+[data-ui-field="media"] article {
+    visibility: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
 [data-ui-field="controls"] {
     position: fixed;
     bottom: 0;
