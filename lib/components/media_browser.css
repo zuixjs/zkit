@@ -38,6 +38,10 @@ svg {
     height: 100vh;
 }
 
+[data-ui-field="media"] article:not([data-ui-loaded]) > * {
+    display: none;
+}
+
 [data-ui-field="controls"] {
     position: fixed;
     bottom: 0;
