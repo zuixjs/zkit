@@ -363,18 +363,18 @@ var vp_options = {
 <pre self="center"><code class="js">// select page
 viewPager.page(2);
 // get element of a page (returns ZxQuery-wrapped element)
-pageFour = viewPager.get(3);
+const pageFour = viewPager.get(3);
 pageFour.find('a').attr('rel', 'no-opener');
 // select next page
 viewPager.next();
 // select previous page
 viewPager.prev();
 // get auto-slide mode (true/false)
-slideMode = viewPager.slide();
+const slideMode = viewPager.slide();
 // enable or pause auto-slide mode
 viewPager.slide(true);
 // get current layout mode ('horizontal' or 'vertical')
-layoutMode = viewPager.layout();
+const layoutMode = viewPager.layout();
 // change current layout mode
 viewPager.layout('vertical');</code></pre>
 
@@ -438,8 +438,7 @@ var vp_options = {
 
                 <div self="size-medium center">
                     <p>
-                        This component is based on <a class="mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library,
-                        brought to you by <a class="mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>.
+                        This component is based on <a class="mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library.
                         Source code is available in the <code>lib/controllers</code> folder of
                         <a class="mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit</a> repository.
                     </p>
@@ -450,6 +449,8 @@ var vp_options = {
                     </div>
                     <p>
                         If you liked this, you may also like the <a href="../components/menu_overlay.html">Menu Overlay</a> component.
+                        Don't miss all other products from <a class="mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>,
+                        <em>the open source factory</em>.
                     </p>
                 </div>
 

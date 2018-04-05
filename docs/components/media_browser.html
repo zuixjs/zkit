@@ -53,15 +53,6 @@
                 ready: function () {
                     mediaBrowser = this;
                 }
-            },
-            carousel: {
-                autoSlide: false,
-                enablePaging: true,
-                on: {
-                    'gesture:tap': function () {
-                        //mediaBrowser.open();
-                    }
-                }
             }
         };
     </script>
@@ -103,6 +94,12 @@
             </div>
             <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=103">
         </div>
+        <div data-type="video">
+            <div data-ui-field="preview">
+                <img src="https://img.youtube.com/vi/-rey3m8SWQI/2.jpg">
+            </div>
+            <div data-ui-field="embed">-rey3m8SWQI</div>
+        </div>
         <div>
             <div data-ui-field="preview">
                 <img src="https://picsum.photos/400/300/?image=104">
@@ -114,6 +111,12 @@
                 <img src="https://picsum.photos/400/300/?image=112">
             </div>
             <img data-ui-field="full" src="https://picsum.photos/1600/1200/?image=112">
+        </div>
+        <div data-type="video">
+            <div data-ui-field="preview">
+                <img src="https://img.youtube.com/vi/tHtnxluMXMw/2.jpg">
+            </div>
+            <div data-ui-field="embed">tHtnxluMXMw</div>
         </div>
         <div>
             <div data-ui-field="preview">
@@ -176,7 +179,9 @@
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
-    <h1>Example</h1>
+    <p>
+        ...
+    </p>
 
     <p>
         <code>// TODO: .... </code>

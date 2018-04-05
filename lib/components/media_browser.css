@@ -128,7 +128,28 @@ i {
 [data-ui-field="preview"] img {
     overflow: hidden;
     max-width: 100%;
-    max-height: 100px;
+    height: 104px;
+    max-height: 104px;
     box-shadow: 2px -2px 6px rgba(0,0,0,0.5);
     border-radius: 8px;
+}
+
+
+@media only screen and (max-width: 820px) {
+    [data-ui-field="controls"] {
+        height: 80px;
+    }
+    [data-ui-field="preview"] img {
+        max-height: 68px;
+    }
+    [data-ui-field="nav-prev"] {
+        bottom: 8px;
+    }
+    [data-ui-field="nav-next"] {
+        bottom: 8px;
+    }
+    [data-ui-field="nav-close"] {
+        right: 12px;
+        top: 12px;
+    }
 }
