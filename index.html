@@ -42,29 +42,179 @@
     <!-- zUIx library  -->
     <script src="//genielabs.github.io/zuix/js/zuix.min.js"></script>
 
+    <link rel="stylesheet" href="css/index.css">
+
+    <script>
+        "use strict";
+        var viewPager;
+        zuix.using('component', 'lib/extensions/animate_css');
+        function init() {
+            // load the view-pager controller on this document layout
+            zuix.load('lib/controllers/view_pager', {
+                view: zuix.$.find('main'),
+                enablePaging: true,
+                verticalLayout: true,
+                ready: function() {
+                    viewPager = this;
+                    viewPager.on('page:change', pageChangeListener);
+                }
+            });
+            // use 'go()' method to route anchors with 'exit-link' class
+            zuix.$.find('a.exit-link').each(function () {
+               let link = this.attr('href');
+               this.attr('href', null);
+               this.on('click', function () { go(link); })
+            });
+            // hide top/bottom navigation borders
+            //zuix.$.find('.border-bottom,.border-top').hide();
+        }
+        function go(url) {
+            // animate and open link
+            zuix.$(document.body).animateCss('fadeOut', { duration: '0.3s' }, function () {
+                this.hide();
+                document.location.href = url;
+            });
+        }
+        function pageChangeListener(e, page) {
+            //zuix.$.find('.border-bottom').show();
+            //zuix.$.find('.border-top').show();
+            zuix.$.find('article').removeClass('page-active');
+            const pin = viewPager.get(page.in);
+            //pin.find('.border-bottom,.border-top').hide();
+            pin.addClass('page-active');
+        }
+    </script>
+
+    <!-- MDL -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116384214-1');
+    </script>
+
+
 </head>
-<body>
+<body class="mdl-color--black animated fadeIn" onload="init()">
+
+    <main>
+
+        <article layout="column spread-center" class="page-active first mdl-color--green-900 mdl-color-text--white">
+
+            <div self="size-x1" layout="column center-center" class="box-active animated fadeIn">
+                <h1>zKit</h1>
+                <h2>components for modern web</h2>
+                <p align="center">
+                    made with <a href="//genielabs.github.io/zuix">zUIx</a>
+                </p>
+            </div>
+
+            <footer self="bottom" layout="row center-center">
+                <div class="box-active animated fadeInUp"></div>
+                <div class="box-hidden animated fadeInDown" layout="row center-center">
+                    <i class="material-icons">arrow_upward</i>
+                    <h2 self="size-x1" align="center">zKit</h2>
+                    <i class="material-icons">arrow_upward</i>
+                </div>
+            </footer>
+
+        </article>
+
+        <article data-ui-include="templates/article" class="mdl-color--blue-400 mdl-color-text--white">
+            <h1 data-ui-field="title">ViewPager</h1>
+            <div data-ui-field="main">
+
+                <h1>ViewPager</h1>
+                <a href="/docs/controllers/view_pager.html" class="exit-link">
+                    <i class="material-icons">view_array</i>
+                </a>
+
+            </div>
+        </article>
+
+        <article data-ui-include="templates/article" class="mdl-color--red-300 mdl-color-text--white">
+            <h1 data-ui-field="title">Menu Overlay</h1>
+            <div data-ui-field="main">
+
+                <h1>Menu Overlay</h1>
+                <a href="/docs/components/menu_overlay.html" class="exit-link">
+                    <i class="material-icons">menu</i>
+                </a>
+
+            </div>
+        </article>
+
+        <article data-ui-include="templates/article" class="mdl-color--grey-700 mdl-color-text--white">
+            <h1 data-ui-field="title">Media Browser</h1>
+            <div data-ui-field="main">
+
+                <h1>Media Browser</h1>
+                <a href="/docs/components/media_browser.html" class="exit-link">
+                    <i class="material-icons">video_library</i>
+                </a>
+
+            </div>
+        </article>
+
+        <article layout="column center-center" class="last mdl-color--yellow-400 mdl-color-text--black">
+
+            <header self="top" layout="row center-center">
+                <div class="box-active animated fadeInDown"></div>
+                <div class="box-hidden animated fadeInUp">About</div>
+            </header>
+
+            <div self="center" layout="column center-center" class="box-active animated fadeIn">
+
+                <h1><a href="http://genielabs.github.io/zuix" class="exit-link">zUIx</a></h1>
+
+            </div>
+
+            <footer self="bottom" layout="row center-center">
+                <div class="box-active animated fadeInDown"></div>
+                <div class="box-hidden animated fadeInUp">About</div>
+            </footer>
+
+        </article>
+
+    </main>
 
 
-<!--
+    <!-- inline templates -->
+    <div class="hidden">
 
-// TODO: reminder !!!!  =)
+        <div data-ui-view="templates/article" layout="column spread-center">
 
-new XMLSerializer().serializeToString(document.doctype)+'\n'+document.documentElement.outerHTML;
+            <header self="top" layout="row center-center">
+                <div class="box-active animated fadeInDown"></div>
+                <div class="box-hidden animated fadeInUp" layout="row center-center">
+                    <i class="material-icons">arrow_downward</i>
+                    <h2 data-ui-field="title" self="size-x1" align="center">ViewPager</h2>
+                    <i class="material-icons">arrow_downward</i>
+                </div>
+            </header>
 
+            <div data-ui-field="main" self="center" layout="column center-center" class="box-active animated fadeInUp"></div>
 
--->
+            <footer self="bottom" layout="row center-center">
+                <div class="box-active animated fadeInUp"></div>
+                <div class="box-hidden animated fadeInDown" layout="row center-center">
+                    <i class="material-icons">arrow_upward</i>
+                    <h2 data-ui-field="title" self="size-x1" align="center">ViewPager</h2>
+                    <i class="material-icons">arrow_upward</i>
+                </div>
+            </footer>
 
+        </div>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    </div>
 
-    gtag('config', 'UA-116384214-1');
-</script>
 
 </body>
+
 </html>

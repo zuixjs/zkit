@@ -1,0 +1,72 @@
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 24px;
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
+}
+
+header,footer {
+    width: 100%;
+    height:15vh;
+    font-size: 200%;
+}
+header i, footer i {
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+a,a:visited,a:hover {
+    text-decoration: none;
+    color: yellow;
+    font-weight: 700;
+}
+
+article.first,article.last {
+    width: 100%;
+    min-height:85vh;
+}
+article,[data-ui-view="templates/article"] {
+    width: 100%;
+    min-height:75vh;
+}
+
+article h1, article h2 {
+    font-family: monospace;
+    margin:0
+}
+
+article h1 {
+    font-size: 250%;
+}
+
+article h2 {
+    font-size: 150%;
+}
+
+a.exit-link i {
+    cursor: pointer;
+    color:yellow;
+    padding: 16px;
+    font-size: 400%;
+}
+
+.hidden {
+    display: none;
+}
+
+.box-active {
+    display: none;
+}
+.box-hidden {
+    display: inherit;
+}
+
+.page-active .box-active{
+    display: inherit;
+}
+.page-active .box-hidden {
+    display: none;
+}
