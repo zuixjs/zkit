@@ -42,43 +42,9 @@
     <!-- zUIx library  -->
     <script src="//genielabs.github.io/zuix/js/zuix.min.js"></script>
 
-    <link rel="stylesheet" href="css/index.css">
-
-    <script>
-        "use strict";
-        var viewPager;
-        zuix.using('component', '//genielabs.github.io/zkit/lib/extensions/animate_css');
-        function init() {
-            // load the view-pager controller on this document layout
-            zuix.load('//genielabs.github.io/zkit/lib/controllers/view_pager', {
-                view: zuix.$.find('main'),
-                enablePaging: true,
-                verticalLayout: true,
-                ready: function() {
-                    viewPager = this;
-                    viewPager.on('page:change', pageChangeListener);
-                }
-            });
-            // use 'go()' method to route anchors with 'exit-link' class
-            zuix.$.find('a.exit-link').each(function () {
-               let link = this.attr('href');
-               this.attr('href', null);
-               this.on('click', function () { go(link); })
-            });
-        }
-        function go(url) {
-            // animate and open link
-            zuix.$(document.body).animateCss('fadeOut', { duration: '0.3s' }, function () {
-                this.hide();
-                document.location.href = url;
-            });
-        }
-        function pageChangeListener(e, page) {
-            zuix.$.find('article').removeClass('page-active');
-            const pin = viewPager.get(page.in);
-            pin.addClass('page-active');
-        }
-    </script>
+    <!-- page style and script -->
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
 
     <!-- MDL -->
     <link rel="stylesheet" href="//code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -100,7 +66,7 @@
 
     <main>
 
-        <article layout="column center-center" class="page-active first mdl-color--green-900 mdl-color-text--white">
+        <article layout="column center-center" class="page-active first mdl-color--purple-600 mdl-color-text--white">
 
             <div self="size-x1" layout="column center-center" class="box-active">
                 <h1 class="animated fadeInDown">zKit</h1>
@@ -110,7 +76,7 @@
                 </p>
             </div>
 
-            <footer self="bottom" layout="row center-center">
+            <footer self="bottom" layout="row bottom-center">
                 <div class="box-active animated fadeInUp"></div>
                 <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
                     <i class="material-icons animated rotateIn">arrow_upward</i>
@@ -119,7 +85,8 @@
 
         </article>
 
-        <article data-ui-include="templates/article" class="mdl-color--blue-400 mdl-color-text--white">
+        <article data-ui-include="templates/article" data-ui-options="options_no_css"
+                 class="mdl-color--blue-600 mdl-color-text--white">
             <h1 data-ui-field="title">ViewPager</h1>
             <div data-ui-field="main">
 
@@ -131,7 +98,8 @@
             </div>
         </article>
 
-        <article data-ui-include="templates/article" class="mdl-color--red-300 mdl-color-text--white">
+        <article data-ui-include="templates/article" data-ui-options="options_no_css"
+                 class="mdl-color--red-600 mdl-color-text--white">
             <h1 data-ui-field="title">Menu Overlay</h1>
             <div data-ui-field="main">
 
@@ -143,7 +111,8 @@
             </div>
         </article>
 
-        <article data-ui-include="templates/article" class="mdl-color--grey-700 mdl-color-text--white">
+        <article data-ui-include="templates/article" data-ui-options="options_no_css"
+                 class="mdl-color--green-600 mdl-color-text--white">
             <h1 data-ui-field="title">Media Browser</h1>
             <div data-ui-field="main">
 
@@ -155,9 +124,9 @@
             </div>
         </article>
 
-        <article layout="column center-center" class="last mdl-color--yellow-400 mdl-color-text--black">
+        <article layout="column center-center" class="last mdl-color--purple-600 mdl-color-text--white">
 
-            <header self="top" layout="row center-center">
+            <header self="top" layout="row top-center">
                 <div class="box-active animated fadeInDown"></div>
                 <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
                     <i class="material-icons">arrow_downward</i>
@@ -166,7 +135,7 @@
 
             <div self="size-x1 center" layout="column center-center" class="box-active">
 
-                <h1><a href="http://genielabs.github.io/zuix" class="exit-link animated fadeInUp">zUIx</a></h1>
+                <h1><a href="//genielabs.github.io/zuix" class="exit-link animated fadeInUp">zUIx</a></h1>
 
             </div>
 
@@ -180,7 +149,7 @@
 
         <div data-ui-view="templates/article" layout="column spread-center">
 
-            <header self="top" layout="row center-center">
+            <header self="top" layout="row top-center">
                 <div class="box-active animated fadeInDown"></div>
                 <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
                     <i class="material-icons animated rotateIn">arrow_downward</i>
@@ -189,7 +158,7 @@
 
             <div data-ui-field="main" self="center" layout="column center-center" class="box-active animated fadeInUp"></div>
 
-            <footer self="bottom" layout="row center-center">
+            <footer self="bottom" layout="row bottom-center">
                 <div class="box-active animated fadeInUp"></div>
                 <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
                     <i class="material-icons animated rotateIn">arrow_upward</i>

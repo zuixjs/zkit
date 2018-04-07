@@ -9,9 +9,13 @@ main {
 }
 
 header,footer {
+    cursor: pointer;
     width: 100%;
     height:15vh;
     font-size: 200%;
+}
+.page-active header,.page-active footer {
+    cursor: default;
 }
 header i, footer i {
     margin-left: 24px;
@@ -46,10 +50,12 @@ article h2 {
     font-size: 150%;
 }
 
-a.exit-link i {
+a.exit-link {
     cursor: pointer;
     color:yellow;
     padding: 16px;
+}
+a.exit-link i {
     font-size: 400%;
 }
 
