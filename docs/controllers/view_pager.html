@@ -82,7 +82,7 @@
         <article class="full-view topmost padding-48-16 mdl-color--cyan-700" layout="column top-stretch">
 
             <header>
-                <h2>ViewPager <small><code>controller</code></small></h2>
+                <h2>ViewPager</h2>
             </header>
 
             <main self="size-x1" layout="column center-center" class="animated fadeIn">
@@ -101,7 +101,7 @@
 
 
         <!-- Page 2 -->
-        <article class="full-view vertical-scroll padding-48-16 mdl-color--light-green-800" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
 
             <header>
                 <h2>Usage</h2>
@@ -141,7 +141,7 @@
 
 
         <!-- Page 3 -->
-        <article class="full-view vertical-scroll padding-48-16 mdl-color--orange-900" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
 
             <header>
                 <h2>Examples</h2>
@@ -151,7 +151,7 @@
                 <div layout="rows top-spread">
 
                     <div>
-                        <h4 align="center">horizontal layout</h4>
+                        <h4>Horizontal layout</h4>
 
                         <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
                              data-o-paging="true"
@@ -193,7 +193,7 @@ data-o-paging="true"
                     </div>
 
                     <div style="width:300px">
-                        <h4 align="center">vertical layout</h4>
+                        <h4>Vertical layout</h4>
 
                         <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
                              data-o-slide="true"
@@ -239,10 +239,10 @@ data-o-paging="true"
 
 
         <!-- Page 4 -->
-        <article class="full-view vertical-scroll padding-48-16 mdl-color--brown-400" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
 
             <header>
-                <h2>Option attributes</h2>
+                <h2>Options</h2>
             </header>
 
             <main self="size-x1">
@@ -296,7 +296,7 @@ data-o-paging="true"
 
 
         <!-- Page 5 -->
-        <article class="full-view vertical-scroll padding-48-16 mdl-color--blue-grey-700" layout="column top-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
 
             <header>
                 <h2>Scripting</h2>
@@ -304,10 +304,10 @@ data-o-paging="true"
 
             <main self="size-x1">
 
-                <h4>ViewPager instance object</h4>
+                <h4>ViewPager object</h4>
                 <p>
                     A reference to a <code>view_pager</code> object can be obtained trough its context identifier
-                    which can be assigned by adding the <code>data-ui-context</code> attribute to the ViewPager
+                    which is assigned by adding the <code>data-ui-context</code> attribute to the ViewPager
                     element and finally by using the <code>zuix.context(...)</code> method.
                 </p>
                 <p>
@@ -346,7 +346,9 @@ vp_options = {
 }
 </script></code></pre>
 
-                Other option fields that can be used are
+                <p>
+                    Other option fields
+                </p>
 
 <pre self="center"><code class="html"><script>
 var vp_options = {
@@ -428,29 +430,27 @@ var vp_options = {
 
 
         <!-- Page 6 -->
-        <article class="full-view theme-inverse vertical-scroll padding-48-16 mdl-color--lime-A400" layout="column center-stretch">
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--cyan-700" layout="column center-stretch">
 
             <header>
-                <h2>About</h2>
+                <h2>Source</h2>
             </header>
 
             <main self="size-x1 center" layout="column center-stretch">
 
                 <div self="size-medium center">
                     <p>
-                        This component is based on <a class="mdl-color-text--pink-100" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library.
                         Source code is available in the <code>lib/controllers</code> folder of
-                        <a class="mdl-color-text--pink-100" href="//github.com/genielabs/zkit">zKit</a> repository.
+                        <a class="mdl-color-text--lime-A200" href="//github.com/genielabs/zkit">zKit</a> repository.
                     </p>
                     <div self="size-large">
                         <ul class="list">
-                            <li><a class="mdl-color-text--pink-100" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
+                            <li><a class="mdl-color-text--lime-A200" href="//github.com/genielabs/zkit/blob/master/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
                         </ul>
                     </div>
                     <p>
-                        If you liked this, you may also like the <a href="../components/menu_overlay.html">Menu Overlay</a> component.
-                        Don't miss all other products from <a class="mdl-color-text--pink-100" href="http://glabs.it" target="_blank">G-Labs</a>,
-                        <em>the open source factory</em>.
+                        This component is based on <a class="mdl-color-text--lime-A200" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library.
+                        Visit <a class="mdl-color-text--lime-A200" href="//genielabs.github.io/zkit">zKit</a> home for more components.
                     </p>
                 </div>
 
@@ -459,7 +459,7 @@ var vp_options = {
             <footer self="bottom-right">
                 <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
                     <i class="material-icons mdl-color-text--red-300">chevron_left</i>
-                    <span data-ui-field="title" class="mdl-color-text--red-700">Rewind</span>
+                    <span class="mdl-color-text--white">Rewind</span>
                 </a>
             </footer>
 

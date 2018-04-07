@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
     margin: 0;
-    font-size: 18px;
+    font-size: 14px;
     font-family: Helvetica, sans-serif;
     background: black;
     color: white;
@@ -19,9 +19,10 @@ ul {
 }
 li {
     font-family: serif;
-    font-size: 180%;
+    font-size: 160%;
     line-height: 150%;
-    margin-bottom: 8px;
+    margin-top: 18px;
+    margin-bottom: 18px;
 }
 li small {
     font-family: Helvetica, sans-serif;
@@ -31,8 +32,8 @@ p {
     font-size: 150%;
     line-height: 160%;
     font-family: serif;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 18px;
+    margin-bottom: 18px;
 }
 code {
     border: solid 1px rgba(255,255,255,0.2);
@@ -47,11 +48,13 @@ code.option {
     padding: 4px;
     border-radius: 6px;
     border: solid 1px rgba(0,0,0,0.25);
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.15);
 }
-h4 {
-    font-weight: 700;
-    opacity: 0.9;
+h1,h2,h3,h4,h5,h6 {
+    color: #FFECB3;
+}
+h4,h5 {
+    opacity: 0.75;
 }
 
 .padding-48-16 {
@@ -135,25 +138,11 @@ div[data-ui-field="pager"] {
     color: black;
 }
 
-.theme-inverse {
-    font-size: 97%;
-    color: black;
-}
-.theme-inverse a {
-    color: deeppink !important;
-}
-
 /* responsive */
 
 @media only screen and (max-width: 720px), only screen and (max-height: 420px){
     body {
         font-size: 90%;
-    }
-    h1,h2 {
-        margin: 0;
-    }
-    h4 {
-        margin-top: 8px;
     }
     li {
         font-size: 140%;
