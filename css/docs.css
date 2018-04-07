@@ -59,6 +59,9 @@ header {
             -1px 1px 0 rgba(0,0,0,0.5),
             1px 1px 0 rgba(0,0,0,0.5);
 }
+header a,header a:visited {
+    color: #FFF59D;
+}
 header h1 {
     margin: 0;
 }

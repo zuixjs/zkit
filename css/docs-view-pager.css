@@ -9,6 +9,13 @@ body {
 footer {
     padding: 24px 24px 64px;
 }
+header a,header a:visited {
+    color: #FFF59D;
+}
+header .material-icons {
+    font-size: 300%;
+    opacity: 0.5;
+}
 a {
     text-decoration: none;
 }
