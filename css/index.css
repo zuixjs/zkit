@@ -70,3 +70,7 @@ a.exit-link i {
 .page-active .box-hidden {
     display: none;
 }
+
+.border-tab i {
+    font-size: 200%;
+}
