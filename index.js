@@ -24,6 +24,23 @@ function init() {
         this.attr('href', null);
         this.on('click', function () { go(link); })
     });
+    // keyboard navigation
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+            case 37: // left
+                viewPager.prev();
+                break;
+            case 38: // up
+                viewPager.prev();
+                break;
+            case 39: // right
+                viewPager.next();
+                break;
+            case 40: // down
+                viewPager.next();
+                break;
+        }
+    };
 }
 function go(url) {
     // animate and open link
