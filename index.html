@@ -47,10 +47,10 @@
     <script>
         "use strict";
         var viewPager;
-        zuix.using('component', 'lib/extensions/animate_css');
+        zuix.using('component', '//genielabs.github.io/zkit/lib/extensions/animate_css');
         function init() {
             // load the view-pager controller on this document layout
-            zuix.load('lib/controllers/view_pager', {
+            zuix.load('//genielabs.github.io/zkit/lib/controllers/view_pager', {
                 view: zuix.$.find('main'),
                 enablePaging: true,
                 verticalLayout: true,
@@ -65,8 +65,6 @@
                this.attr('href', null);
                this.on('click', function () { go(link); })
             });
-            // hide top/bottom navigation borders
-            //zuix.$.find('.border-bottom,.border-top').hide();
         }
         function go(url) {
             // animate and open link
@@ -76,11 +74,8 @@
             });
         }
         function pageChangeListener(e, page) {
-            //zuix.$.find('.border-bottom').show();
-            //zuix.$.find('.border-top').show();
             zuix.$.find('article').removeClass('page-active');
             const pin = viewPager.get(page.in);
-            //pin.find('.border-bottom,.border-top').hide();
             pin.addClass('page-active');
         }
     </script>
