@@ -131,6 +131,7 @@ i {
 }
 
 [data-ui-field="carousel"] {
+    overflow: initial;
     height: 100%;
 }
 
