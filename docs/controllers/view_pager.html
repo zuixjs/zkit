@@ -74,7 +74,7 @@
 
 
     <!-- load the view_pager controller on the main div -->
-    <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+    <div data-ui-load="@lib/controllers/view_pager"
          data-ui-options="options.viewPager"
          self="size-x1 stretch" class="mdl-color-text--white">
 
@@ -118,7 +118,7 @@
 
                 <h4>2. Load the ViewPager</h4>
                 <p>Add the <code>data-ui-load</code> attribute to the <code>div</code> container</p>
-<pre><code class="html"><div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+<pre><code class="html"><div data-ui-load="@lib/controllers/view_pager">
   <!-- elements of the ViewPager -->
   <div>Page 1</div>
   <div>Page 2</div>
@@ -156,7 +156,7 @@
                     <div>
                         <h4>Horizontal layout</h4>
 
-                        <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+                        <div data-ui-load="@lib/controllers/view_pager"
                              data-o-paging="true"
                              data-o-slide="true"
                              class="mdl-shadow--8dp"
@@ -198,7 +198,7 @@ data-o-paging="true"
                     <div style="width:300px">
                         <h4>Vertical layout</h4>
 
-                        <div data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager"
+                        <div data-ui-load="@lib/controllers/view_pager"
                              data-o-slide="true"
                              data-o-paging="true"
                              data-o-hold="false"
@@ -321,7 +321,7 @@ data-o-paging="true"
                 </p>
 
 <pre self="center"><code class="html">&lt;div data-ui-context="my-view-pager"
-  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  data-ui-load="@lib/controllers/view_pager">
   <!-- ... -->
 &lt;/div&gt;
 <script>
@@ -337,7 +337,7 @@ zuix.context('my-view-pager', function(){
                 </p>
 
 <pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
-  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  data-ui-load="@lib/controllers/view_pager">
   <!-- ... -->
 &lt;/div&gt;
 <script>
@@ -402,7 +402,7 @@ viewPager.on('page:change', function(e, pageInfo) {
                 </p>
 
 <pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
-  data-ui-load="//genielabs.github.io/zkit/lib/controllers/view_pager">
+  data-ui-load="@lib/controllers/view_pager">
     <!-- ... -->
 &lt;/div&gt;
 <script>

@@ -32,6 +32,7 @@ a,a:visited,a:hover {
 }
 a:hover {
     background: rgba(255,255,200,0.25);
+    transition: 0.3s ease-in;
 }
 
 article.first,article.last {
@@ -62,7 +63,7 @@ a.exit-link {
     padding: 16px;
 }
 a.exit-link i {
-    margin: 8px;
+    margin: 16px;
     font-size: 400%;
 }
 

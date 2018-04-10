@@ -61,7 +61,7 @@ https://github.com/g-labs-sw/zuix-hackernews
 To include this control in your page use:
 
 ```html
-<div data-ui-load="//genielabs.github.io/zkit/lib/controllers/list_view"
+<div data-ui-load="@lib/controllers/list_view"
      data-ui-options="my_lv_options"></div>
 ```
 

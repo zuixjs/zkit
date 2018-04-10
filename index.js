@@ -1,6 +1,6 @@
 'use strict';
 
-zuix.using('component', '//genielabs.github.io/zkit/lib/extensions/animate_css');
+zuix.using('component', '@lib/extensions/animate_css');
 
 var options_no_css = {
     css: false
@@ -9,7 +9,7 @@ var options_no_css = {
 let viewPager;
 function init() {
     // load the view-pager controller on this document layout
-    zuix.load('//genielabs.github.io/zkit/lib/controllers/view_pager', {
+    zuix.load('@lib/controllers/view_pager', {
         view: zuix.$.find('main'),
         enablePaging: true,
         verticalLayout: true,
