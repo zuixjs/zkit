@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 zuix.using('component', '//genielabs.github.io/zkit/lib/extensions/animate_css');
 
@@ -15,12 +15,21 @@ function init() {
         verticalLayout: true,
         ready: function() {
             viewPager = this;
-            viewPager.on('page:change', pageChangeListener);
+            viewPager
+                .on('page:change', pageChangeListener)
+                .on('gesture:tap', function(e, tp) {
+                    tp.cancel();
+                });
             // use 'go()' method to route anchors with 'exit-link' class
-            zuix.$.find('a.exit-link').each(function () {
+            zuix.$.find('a.exit-link').each(function() {
                 let link = this.attr('href');
-                this.attr('href', null);
-                this.on('click', function () { go(link); })
+                const t = this;
+                t.attr('href', null);
+                t.on('click', function() {
+                    if (t.display() !== 'none') {
+                        go(link);
+                    }
+                });
             });
         }
     });
@@ -44,10 +53,12 @@ function init() {
 }
 function go(url) {
     // animate and open link
-    zuix.$(document.body).animateCss('fadeOut', { duration: '0.3s' }, function () {
+    zuix.$(document.body).animateCss('fadeOut', {duration: '0.3s'}, function() {
         document.location.href = url;
         const t = this.hide();
-        setTimeout(function () { t.show(); },1000);
+        setTimeout(function() {
+            t.show();
+        }, 1000);
     });
 }
 function pageChangeListener(e, page) {
