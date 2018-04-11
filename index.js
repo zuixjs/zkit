@@ -2,11 +2,43 @@
 
 zuix.using('component', '@lib/extensions/animate_css');
 
-var options_no_css = {
-    css: false
+let viewPager;
+let viewPager1;
+
+// use 'var' or 'window.' for options (global object)
+var options = {
+    no_css: {
+        css: false
+    },
+    no_css_lazy_container: {
+        css: false,
+        ready: function() {
+            // This is the actual way of nesting components:
+            // wait for the main component to become ready,
+            // while child components are set to lazyLoad, and then,
+            // when it become ready call zuix.componentize()
+            zuix.$(this.view()).find('[data-ui-lazyload="true"]').each(function(i, el) {
+                this.attr('data-ui-lazyload', false);
+            });
+            zuix.componentize(this.view());
+        }
+    },
+    view_pager_1: {
+        enablePaging: true,
+        autoSlide: true,
+        ready: function() {
+            viewPager1 = this;
+            const indicator = zuix.$.find('.pager-indicator');
+            this.on('page:change', function(e, page) {
+                indicator.find('a').eq(parseInt(page.in))
+                    .addClass('page-active');
+                indicator.find('a').eq(parseInt(page.out))
+                    .removeClass('page-active');
+            });
+        }
+    }
 };
 
-let viewPager;
 function init() {
     // load the view-pager controller on this document layout
     zuix.load('@lib/controllers/view_pager', {
@@ -15,18 +47,14 @@ function init() {
         verticalLayout: true,
         ready: function() {
             viewPager = this;
-            viewPager
-                .on('page:change', pageChangeListener)
-                .on('gesture:tap', function(e, tp) {
-                    tp.cancel();
-                });
+            viewPager.on('page:change', pageChangeListener);
             // use 'go()' method to route anchors with 'exit-link' class
             zuix.$.find('a.exit-link').each(function() {
                 let link = this.attr('href');
                 const t = this;
                 t.attr('href', null);
-                t.on('click', function() {
-                    if (t.display() !== 'none') {
+                t.on('click', function(e) {
+                    if (link != null && t.display() !== 'none') {
                         go(link);
                     }
                 });
@@ -37,12 +65,18 @@ function init() {
     document.onkeydown = function(e) {
         switch (e.keyCode) {
             case 37: // left
+                if (viewPager.page() === 1 && viewPager1.prev()) {
+                    break;
+                }
                 viewPager.prev();
                 break;
             case 38: // up
                 viewPager.prev();
                 break;
             case 39: // right
+                if (viewPager.page() === 1 && viewPager1.next()) {
+                    break;
+                }
                 viewPager.next();
                 break;
             case 40: // down

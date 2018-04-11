@@ -44,14 +44,15 @@ img {
             1px -1px 0 rgba(0,0,0,0.5),
             -1px 1px 0 rgba(0,0,0,0.5),
             1px 1px 0 rgba(0,0,0,0.5);
-    font-size:56px;
+    font-size:48px;
     margin: 0;
     padding: 0;
 }
 [data-ui-field="description"] {
     color: darkslategray;
     font-weight: 700;
-    font-size:36px;
+    font-size:28px;
+    line-height: 180%;
     margin: 0;
     padding: 0;
 }
@@ -62,10 +63,10 @@ img {
         margin-right:72px;
     }
     [data-ui-field="title"] {
-        font-size: 28px;
+        font-size: 20px;
     }
     [data-ui-field="description"] {
-        font-size: 20px;
+        font-size: 14px;
     }
 }
 
