@@ -50,11 +50,21 @@ article h1, article h2 {
 }
 
 article h1 {
-    font-size: 200%;
+    font-size: 225%;
+}
+article h1 i.material-icons {
+    font-size: 110%;
+    vertical-align: text-top;
+    margin-right: 6px;
 }
 
 article h2 {
     font-size: 120%;
+}
+
+article p {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 a.exit-link {
@@ -66,6 +76,17 @@ a.exit-link {
 a.exit-link i {
     margin: 16px;
     font-size: 400%;
+}
+
+.logo {
+    -webkit-text-stroke: 1px rgba(0,255,0,0.5);
+    color: white;
+    text-shadow:
+            2px 2px 0 rgba(0,0,0,0.5),
+            -1px -1px 0 rgba(0,0,0,0.5),
+            1px -1px 0 rgba(0,0,0,0.5),
+            -1px 1px 0 rgba(0,0,0,0.5),
+            1px 1px 0 rgba(0,0,0,0.5);
 }
 
 .hidden {
