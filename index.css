@@ -50,17 +50,18 @@ article h1, article h2 {
 }
 
 article h1 {
-    font-size: 250%;
+    font-size: 200%;
 }
 
 article h2 {
-    font-size: 150%;
+    font-size: 120%;
 }
 
 a.exit-link {
     cursor: pointer;
     color:yellow;
-    padding: 16px;
+    padding: 8px;
+    margin: 24px;
 }
 a.exit-link i {
     margin: 16px;
