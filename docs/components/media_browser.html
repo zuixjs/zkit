@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="../../css/docs.css">
     <script>
         let mediaBrowser;
+        // use 'var' or 'window.' for options (global object)
         var options = {
             no_css: {
                 css: false
@@ -59,9 +60,9 @@
     </script>
 
 </head>
-<body layout="column top-center" class="animated fadeIn">
+<body layout="column top-center">
 
-<header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
+<header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover animated fadeIn">
     <div data-ui-field="page_title">Media Browser</div>
 </header>
 

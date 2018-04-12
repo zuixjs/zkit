@@ -44,7 +44,8 @@
     <script src="//genielabs.github.io/zuix/js/zuix.min.js"></script>
 
     <script>
-        options = {
+        // use 'var' or 'window.' for options (global object)
+        var options = {
             no_css: {
                 css: false
             },
@@ -70,13 +71,13 @@
     </script>
 
 </head>
-<body layout="column top-stretch" class="animated fadeIn">
+<body layout="column top-stretch">
 
 
     <!-- load the view_pager controller on the main div -->
     <div data-ui-load="@lib/controllers/view_pager"
          data-ui-options="options.viewPager"
-         self="size-x1 stretch" class="mdl-color-text--white">
+         self="size-x1 stretch" class="mdl-color-text--white animated fadeIn">
 
         <!-- Page 1 -->
         <article class="full-view topmost padding-48-16 mdl-color--cyan-700" layout="column top-stretch">

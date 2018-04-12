@@ -44,7 +44,8 @@
     <script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script>
 
     <script>
-        options = {
+        // use 'var' or 'window.' for options (global object)
+        var options = {
             no_css: {
                 css: false
             }
@@ -52,9 +53,9 @@
     </script>
 
 </head>
-<body layout="column top-center" class="animated fadeIn">
+<body layout="column top-center">
 
-<header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover">
+<header data-ui-include="../../docs/common_header" data-ui-options="options.no_css" class="header-cover animated fadeIn">
     <div data-ui-field="page_title">Menu Overlay</div>
 </header>
 
