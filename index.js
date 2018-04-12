@@ -100,4 +100,9 @@ function pageChangeListener(e, page) {
     viewPager
         .get(page.in)
         .addClass('page-active');
+    if (page.in === 1 && page.out === 0) {
+        viewPager1.first();
+    } else if (page.in === 1) {
+        viewPager1.last();
+    }
 }
