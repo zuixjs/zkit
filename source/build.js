@@ -1,7 +1,7 @@
 var staticSite = require('static-site')
 
 staticSite({
-    build: '../build',
+    build: '../docs',
     source: './',
     files: ['html', 'css', 'js', 'md', 'svg'],
     ignore: ['inc','build.js']

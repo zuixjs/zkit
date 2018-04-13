@@ -19,6 +19,8 @@ To build the website
 
 `npm run build`
 
+this will generate website static files to the `docs` folder.
+
 
 ###### Resources
 
