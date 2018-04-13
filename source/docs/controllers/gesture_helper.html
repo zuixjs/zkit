@@ -15,18 +15,101 @@ head:
 {% block content_main %}
 
 <div self="size-large center">
+
     <p>
         Detect tap and swipe gestures over elements.
     </p>
+
+    <div data-ui-load="@lib/controllers/gesture_helper"
+         data-ui-options="gesture_opts"
+         layout="column center-center"
+         class="noselect gesture-box">
+        <!-- gesture detection area -->
+        Try me!
+    </div>
+    <script>
+        var gesture_opts = {
+            ready: function() {
+                let gh = this;
+                let view = zuix.$(gh.view());
+                view.css('opacity', 0.5);
+                // register event callbacks
+                gh.on('gesture:touch', function(e, tp) {
+                    view.css('opacity', 1.0);
+                }).on('gesture:pan', function(e, tp) {
+                    view.html('pan <small>{ x: '+tp.shiftX+', y: '+tp.shiftY+' } { x: '+tp.x+', y: '+tp.y+' }</small>');
+                }).on('gesture:release', function(e, tp) {
+                    view.css('opacity', 0.5);
+                }).on('gesture:tap', function(e, tp) {
+                    view.html('tap');
+                }).on('gesture:swipe', function(e, tp) {
+                    view.html('swipe '+tp.direction);
+                });
+            }
+        };
+    </script>
+
 </div>
 
 <div self="size-large center" layout="columns top-stretch">
 
     {% include '../_inc/zkit_basic_usage.html' %}
 
-    <h3>2. Add the `data-ui-load` attribute to the container element</h3>
-
-    ` // TODO: ... `
+    <h3>2. Load the gesture helper on the target element</h3>
+    <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
+<pre><code class="html">&lt;div data-ui-load="@lib/controllers/gesture_helper"
+     data-ui-options="gesture_options"&gt;
+    <!-- gesture detection area -->
+&lt;/div&gt;
+<script>
+var gesture_options = {
+  ready: function() {
+    // register event callbacks
+    this.on('gesture:touch', function(e, tp) {
+      // TODO: handle touch
+    }).on('gesture:pan', function(e, tp) {
+      // TODO: handle pan
+    }).on('gesture:release', function(e, tp) {
+      // TODO: handle release
+    }).on('gesture:tap', function(e, tp) {
+      // TODO: handle tap
+    }).on('gesture:swipe', function(e, tp) {
+      // TODO: handle swipe
+      switch(tp.direction) {
+        case 'up':
+          break;
+        case 'down':
+          break;
+        case 'left':
+          break;
+        case 'right':
+          break;
+      }
+    });
+  }
+}
+</script></code></pre>
+    <p>
+        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> argument
+    </p>
+<pre><code class="js">tp = {
+  // time frame
+  startTime,
+  endTime,
+  // initial touch position
+  startX,
+  startY,
+  // relative movement
+  shiftX,
+  shiftY,
+  // actual position and speed
+  velocity: 0,
+  x: x,
+  y: y,
+  // original event + cancel method
+  event,
+  cancel()
+};</code></pre>
 
     <h2>Option attributes</h2>
     <ul>
@@ -53,41 +136,5 @@ head:
 {% endblock %}
 
 {% block footer_end %}
-
-<!-- Begin zUIx Kit Component code -->
-<div data-ui-load="@lib/components/menu_overlay">
-    <div data-ui-field="items">
-        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
-        <a class="mo-item-mdl" href="#noop" title="Settings">
-            <span>Settings</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">settings</i>
-            </span>
-        </a>
-        <a class="mo-item-mdl" href="#noop" title="Share">
-            <span>Share</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">share</i>
-            </span>
-        </a>
-        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
-            <span>Add to favorite</span>
-            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
-                <i class="material-icons">favorite</i>
-            </span>
-        </a>
-    </div>
-    <div data-ui-field="menu_button">
-        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">message</i>
-        </a>
-    </div>
-    <div data-ui-field="menu_button_close">
-        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">close</i>
-        </a>
-    </div>
-</div>
-<!-- End zUIx Kit Component code -->
 
 {% endblock %}

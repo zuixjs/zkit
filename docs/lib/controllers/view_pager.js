@@ -452,25 +452,25 @@ zuix.controller(function(cp) {
             y: (tp.velocity * 1000)
         };
         switch (tp.direction) {
-            case 'left':
+            case 'right':
                 if (layoutType === LAYOUT_HORIZONTAL) {
                     if (fastSwipe) fly(tp, ap);
                     else if (enablePaging) prev();
                 }
                 break;
-            case 'right':
+            case 'left':
                 if (layoutType === LAYOUT_HORIZONTAL) {
                     if (fastSwipe) fly(tp, ap);
                     else if (enablePaging) next();
                 }
                 break;
-            case 'up':
+            case 'down':
                 if (layoutType === LAYOUT_VERTICAL) {
                     if (fastSwipe) fly(tp, ap);
                     else if (enablePaging) prev();
                 }
                 break;
-            case 'down':
+            case 'up':
                 if (layoutType === LAYOUT_VERTICAL) {
                     if (fastSwipe) fly(tp, ap);
                     else if (enablePaging) next();

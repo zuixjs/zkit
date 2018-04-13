@@ -33,6 +33,8 @@ zuix.controller(function(cp) {
     };
 
     cp.create = function() {
+
+        console.log(cp.options(), cp.view());
         // TODO: should use event "capturing" instead of "bubbling"
         cp.view().on('dragstart', function(e) {
             if (!ignoreSession) {
@@ -155,26 +157,26 @@ zuix.controller(function(cp) {
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)
             && d > minDistance && ((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135))) {
             // gesture swipe RIGHT
-            touchPointer.direction = 'right';
+            touchPointer.direction = 'left';
             touchPointer.velocity *= -1;
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_HORIZONTAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)
             && d > minDistance && ((angle >= 0 && angle <= 45) || (angle >= -45 && angle < 0))) {
             // gesture swipe LEFT
-            touchPointer.direction = 'left';
+            touchPointer.direction = 'right';
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_HORIZONTAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)
             && d > minDistance && (angle > 45 && angle < 135)) {
             // gesture swipe UP
-            touchPointer.direction = 'up';
+            touchPointer.direction = 'down';
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_VERTICAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)
             && d > minDistance && (angle > -135 && angle < -45)) {
             // gesture swipe DOWN
-            touchPointer.direction = 'down';
+            touchPointer.direction = 'up';
             touchPointer.velocity *= -1;
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_VERTICAL;
