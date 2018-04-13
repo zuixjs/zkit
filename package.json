@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
-    "start": "http-server --cors ./build",
-    "build": "cd source; node build"
+    "start": "http-server --cors ./docs",
+    "build": "cd source && node build"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
