@@ -1,0 +1,168 @@
+---
+title: 'zKit'
+description: ''
+---
+{% include "inc/head_open.html" %}
+    <!-- page style and script -->
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+{% include "inc/head_close.html" %}
+
+<body class="mdl-color--black animated fadeIn" onload="init()">
+
+    <main>
+
+        <article layout="column center-center" class="page-active first mdl-color--purple-600 mdl-color-text--white">
+
+            <div self="size-x1" layout="column center-center" class="box-active">
+                <h1 class="animated fadeInDown logo">
+                    <i class="material-icons animated bounce">extension</i>zKit
+                </h1>
+                <h2 class="animated fadeInDown">components for modern web</h2>
+                <p class="animated fadeInDown" align="center">
+                    made with <a href="//genielabs.github.io/zuix">zUIx</a>
+                </p>
+            </div>
+
+            <footer self="bottom" layout="column bottom-center">
+                <div class="box-active animated fadeInUp"></div>
+                <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
+                    <i class="material-icons animated rotateIn">arrow_upward</i>
+                </div>
+            </footer>
+
+        </article>
+
+        <article data-ui-include="templates/article" data-ui-options="options.no_css_lazy_container"
+                 class="mdl-color--blue-600 mdl-color-text--white">
+            <h1 data-ui-field="title">ViewPager</h1>
+            <div data-ui-field="main"
+                 data-ui-load="@lib/controllers/view_pager"
+                 data-ui-options="options.view_pager_1"
+                 data-ui-lazyload="true"
+                 self="size-x1"
+                 class="+horizontal_pager">
+
+                <div class="wh100" layout="column center-center">
+                    <h1>ViewPager</h1>
+                    <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
+                        <i class="material-icons">view_array</i>
+                    </a>
+                </div>
+                <div class="wh100" layout="column center-center">
+                    <h1>Gesture Helper</h1>
+                    <a -href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
+                        <i class="material-icons wip">gesture</i>
+                    </a>
+                    <em>...coming soon...</em>
+                </div>
+                <div class="wh100" layout="column center-center">
+                    <h1>ListView</h1>
+                    <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
+                        <i class="material-icons wip">view_list</i>
+                    </a>
+                    <em>...coming soon...</em>
+                </div>
+                <div class="wh100" layout="column center-center">
+                    <h1>Scroll Helper</h1>
+                    <a -href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
+                        <i class="material-icons wip">all_out</i>
+                    </a>
+                    <em>...coming soon...</em>
+                </div>
+
+
+            </div>
+
+            <div data-ui-field="footer" class="+pager-indicator delay-750" self="center" layout="row center-center">
+                <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
+                <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
+                <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
+                <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
+            </div>
+
+        </article>
+
+        <article data-ui-include="templates/article" data-ui-options="options.no_css"
+                 class="mdl-color--red-600 mdl-color-text--white">
+            <h1 data-ui-field="title">Menu Overlay</h1>
+            <div data-ui-field="main" data-ui-test="test">
+
+                <h1>Menu Overlay</h1>
+                <a href="docs/components/menu_overlay" class="exit-link animated fadeInUp">
+                    <i class="material-icons">menu</i>
+                </a>
+
+            </div>
+        </article>
+
+        <article data-ui-include="templates/article" data-ui-options="options.no_css"
+                 class="mdl-color--green-600 mdl-color-text--white">
+            <h1 data-ui-field="title">Media Browser</h1>
+            <div data-ui-field="main" data-ui-test2="test2">
+
+                <h1>Media Browser</h1>
+                <a href="docs/components/media_browser" class="exit-link animated fadeInUp">
+                    <i class="material-icons">video_library</i>
+                </a>
+
+            </div>
+        </article>
+
+        <article layout="column center-center" class="last mdl-color--purple-600 mdl-color-text--white">
+
+            <header self="top" layout="column top-center">
+                <div class="black-band"></div>
+                <div class="box-active animated fadeInDown"></div>
+                <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
+                    <i class="material-icons animated rotateIn">arrow_downward</i>
+                </div>
+            </header>
+
+            <div self="size-x1 center" layout="column center-center" class="box-active">
+
+                <div class="animated fadeInDown">
+                    <a href="//github.com/genielabs/zkit" layout="column center-center" class="animated bounceInUp">
+                        <img src="images/github-octocat.svg" width="56" hspace="12">
+                        <h2>View on GitHub</h2>
+                    </a>
+                </div>
+
+            </div>
+
+        </article>
+
+    </main>
+
+
+    <!-- inline templates -->
+    <div class="hidden">
+
+        <div data-ui-view="templates/article" layout="column spread-center"
+             class="article-body">
+
+            <header self="top" layout="column top-stretch">
+                <div class="black-band"></div>
+                <div class="box-active animated fadeIn" data-ui-field="header"></div>
+                <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
+                    <i class="material-icons animated rotateIn">arrow_downward</i>
+                </div>
+            </header>
+
+            <div data-ui-field="main" self="center" layout="column center-center" class="box-active animated fadeInUp"></div>
+
+            <footer self="bottom" layout="row bottom-center">
+                <div data-ui-field="footer" class="box-active animated fadeIn"></div>
+                <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
+                    <i class="material-icons animated rotateIn">arrow_upward</i>
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+
+{% include "inc/body_end.html" %}
+
+</body>
+</html>

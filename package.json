@@ -2,11 +2,13 @@
   "private": true,
   "scripts": {
     "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
-    "start": "http-server --cors ./"
+    "start": "http-server --cors ./build",
+    "build": "cd source; node build"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "static-site": "^1.3.2"
   }
 }

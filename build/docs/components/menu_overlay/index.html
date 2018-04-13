@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>zKit: Menu Overlay (lib/components)</title>
+
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <meta name="description" content="zKit, a collection of framework-agnostic components for modern web." />
+    <meta name="keywords" lang="en-us" content="web components,polymer,react,react.js,angular,angular.js,ember,ember.js,vue,vue.js,meteor,meteor.js,web app,pwa,progressive,web application,modern web,framework,javascript,library,content manager,component manager,web app,content authoring,web master,static site,spa,single page application,content loader,content include,material,material design lite,mdl" />
+    <meta name="author" content="G-Labs" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../../../../images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="../../../../images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="../../../../images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="../../../../images/favicon.png">
+
+    <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4" />
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="../../../../css/flex-layout-attribute.min.css">
+
+    <!-- zUIx library  -->
+    <script src="//genielabs.github.io/zuix/js/zuix.min.js"></script>
+
+
+    <script>
+        // use 'var' or 'window.' for options (global object)
+        var options = {
+            no_css: {
+                css: false
+            }
+        };
+    </script>
+
+</head>
+
+<body layout="column top-center">
+
+<header class="header-cover animated fadeIn">
+    <div self="size-large center" layout="rows center-left">
+        <div><h1 data-ui-field="page_title" class="animated fadeInLeft">Menu Overlay</h1></div>
+        <div self="center-right"><a href="../../../.."><i class="material-icons animated fadeInRight">extension</i></a></div>
+    </div>
+</header>
+
+
+
+
+
+<main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
+
+    
+
+    <div self="size-large center">
+        <p>
+            A menu overlay activated by a floating action button. The pink button
+            in the lower right corner of this page is a sample usage.
+            No JavaScript coding is required for a basic use.
+        </p>
+        <p>
+            This component is framework-agnostic, so it can be used with any UI framework or
+            even with just plain <code>HTML/CSS</code>.
+        </p>
+    </div>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        <h2>Basic usage</h2>
+        <h3>1. Include zUIx library</h3>
+        <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
+
+<pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>this is the library that does all the magic : )</p>
+
+        <h3>2. Add the menu markup</h3>
+        <p>Put inside the field <code>items</code> the code for your menu items.</p>
+
+<pre><code class="html"><div data-ui-load="@lib/components/menu_overlay">
+  <div data-ui-field="items">
+    <!-- menu items list -->
+    <a href="#link_1">Menu Item 1</a>
+    <a href="#link_2">Menu Item 2</a>
+    <a href="#link_3">Menu Item 3</a>
+  </div>
+</div></code></pre>
+
+        <p>... and that's it, super duper easy <strong>: )</strong></p>
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-o-scroller</code>
+                <small>optional</small><br>
+                if the scrolling container it is not the main document, use this parameter to specify the value of <code>data-ui-field</code> attribute assigned to the container with the scroll.
+            </li>
+            <li>
+                <code class="option">data-o-button-color</code>
+                <small>optional</small><br>
+                color of the menu button. The default value is <code>deeppink</code>.
+            </li>
+            <li>
+                <code class="option">data-o-icon-color</code>
+                <small>optional</small><br>
+                color of the menu button icon. The default value is <code>white</code>.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+        </ul>
+
+
+        <h2>Theming</h2>
+        <p>You can customize the appearance of the menu button by overriding the template fields:
+        </p>
+        <ul>
+            <li class="no-bullet">
+                <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--green-300 mdl-color-text--white">
+                    <i class="material-icons">add</i>
+                </span>
+                <code>menu_button</code> for the normal state button
+            </li>
+            <li class="no-bullet">
+                <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--green-300 mdl-color-text--white">
+                    <i class="material-icons">close</i>
+                </span>
+                <code>menu_button_close</code> for the open state button
+            </li>
+        </ul>
+
+        <p>For instance the example menu shown in this page is using a
+            <a href="https://getmdl.io/components/index.html" target="_blank" rel="noopener">Material Design Lite</a> theme.
+        </p>
+
+<h5>HTML</h5>
+<pre><code class="html"><div data-ui-load="@lib/components/menu_overlay">
+  <div data-ui-field="items">
+        <!-- menu items list -->
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+  </div>
+  <!-- open/close menu button -->
+  <div data-ui-field="menu_button">
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <i class="material-icons">message</i>
+    </a>
+  </div>
+  <div data-ui-field="menu_button_close">
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+</div></code></pre>
+
+        <h5>CSS</h5>
+<pre><code class="css"><style>
+.mo-title-mdl {
+    font-size: 80%;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px;
+    margin-right: 8px;
+}
+.mo-item-mdl span:first-child {
+    padding: 8px 8px;
+    margin-right: 4px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    font-size: 80%;
+    font-weight: 600;
+    color: white;
+}
+.mo-item-mdl span {
+    margin-right: 8px;
+}
+</style></code></pre>
+
+        <p>
+            You can read further about <code>zUIx</code> templates and other features in
+            the library <a href="//genielabs.github.io/zuix/">documentation</a> site.
+        </p>
+
+
+        <h2>Scripting</h2>
+        <h3>Event listeners</h3>
+
+<pre><code class="js">var menuOverlay;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('my-menu-id', function () {
+    // add event listeners
+    this.on('open', function() { /* ... */})
+        .on('close', function() { /* ... */});
+    // store a global reference of the
+    // component for eventual later use
+    menuOverlay = this;
+});</code></pre>
+
+        <h3>Programmatically show/hide</h3>
+
+        <pre><code class="js">// show the menu (enable)
+menuOverlay.hide();
+// hide the menu (disable)
+menuOverlay.hide();
+// show the menu button
+menuOverlay.showButton();
+// hide the menu button
+menuOverlay.hideButton();</code></pre>
+
+
+        <h2>Source code</h2>
+        <p>
+            Source code is available in the <code>lib/components</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+        </p>
+        <div self="size-large">
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/menu_overlay.js">menu_overlay.js</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/menu_overlay.html">menu_overlay.html</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/menu_overlay.css">menu_overlay.css</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+</main>
+
+<footer>
+    <div layout="rows center-justify" class="footer-block">
+        <div self="size-x1 center-right"><a href="../../../.."><strong>zKit</strong></a> <small>components for modern web</small></div>
+        <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+    </div>
+</footer>
+
+
+
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="@lib/components/menu_overlay">
+    <div data-ui-field="items">
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+    </div>
+    <div data-ui-field="menu_button">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">message</i>
+        </a>
+    </div>
+    <div data-ui-field="menu_button_close">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+</div>
+<!-- End zUIx Kit Component code -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="//www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
+<script>
+    // Google Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-116384214-1');
+</script>
+
+<!-- MDL -->
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+
+<link rel="stylesheet" href="../../../../css/docs.css">
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
+</body>
+</html>

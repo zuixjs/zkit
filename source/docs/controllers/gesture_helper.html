@@ -1,0 +1,99 @@
+---
+title: 'Gesture Helper'
+head:
+    title: 'zKit: Gesture Helper (lib/controllers)'
+    description: 'zKit, a collection of framework-agnostic components for modern web.'
+---
+{% extends '../../inc/docs_page.html' %}
+
+{% block head_end %}
+<script>
+    // use 'var' or 'window.' for options (global object)
+</script>
+{% endblock %}
+
+{% block content_main %}
+
+<div self="size-large center">
+    <p>
+        Detect tap and swipe gestures over elements.
+    </p>
+</div>
+
+<div self="size-large center" layout="columns top-stretch">
+
+    <h2>Basic usage</h2>
+    <h3>1. Include zUIx library</h3>
+    <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
+
+    <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+    <p>this is the library that does all the magic : )</p>
+
+    <h3>2. Add the markup</h3>
+
+    ` // TODO: ... `
+
+    <h2>Option attributes</h2>
+    <ul>
+        <li>
+            <code class="option">data-ui-context</code>
+            <small>optional</small><br>
+            identifier name to be used to reference this component from JavaScript.
+        </li>
+    </ul>
+
+
+    <h2>Source code</h2>
+    <p>
+        Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+    </p>
+    <div self="size-large">
+        <ul class="list">
+            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/gesture_helper.js">gesture_helper.js</a></li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_end %}
+
+<!-- Begin zUIx Kit Component code -->
+<div data-ui-load="@lib/components/menu_overlay">
+    <div data-ui-field="items">
+        <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+        <a class="mo-item-mdl" href="#noop" title="Settings">
+            <span>Settings</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Share">
+            <span>Share</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+        </a>
+        <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+            <span>Add to favorite</span>
+            <span class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+        </a>
+    </div>
+    <div data-ui-field="menu_button">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">message</i>
+        </a>
+    </div>
+    <div data-ui-field="menu_button_close">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+</div>
+<!-- End zUIx Kit Component code -->
+
+{% endblock %}
