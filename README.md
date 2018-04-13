@@ -11,15 +11,17 @@ https://genielabs.github.io/zkit
 
 1. Run `npm install` to install development dependencies
 2. Run `npm start` to start local web server
+3. Run `npm run watch` to watch file tree for changes and rebuild
 
-The `source/lib` folder is where components are stored.
+The `source/lib` folder is where zKit components are located.
 The `source/docs` folder contains documentation of each component in the `lib` folder.
 
-To build the website
+To manually build the website files
 
-`npm run build`
+    npm run build
 
-this will generate website static files to the `docs` folder.
+files are generated in the `docs` folder.
+
 
 
 ###### Resources
