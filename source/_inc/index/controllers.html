@@ -1,0 +1,58 @@
+{% extends "article.html" %}
+
+{% block header %}
+<style>
+.horizontal_pager {
+    display: table-row;
+    width: 100%;
+    margin: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div data-ui-load="@lib/controllers/view_pager"
+     data-ui-options="options.view_pager_1"
+     self="size-x1"
+     class="horizontal_pager">
+
+    <div class="wh100" layout="column center-center">
+        <h1>ViewPager</h1>
+        <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
+            <i class="material-icons">view_array</i>
+        </a>
+    </div>
+    <div class="wh100" layout="column center-center">
+        <h1>Gesture Helper</h1>
+        <a href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
+            <i class="material-icons">gesture</i>
+        </a>
+        <em>...coming soon...</em>
+    </div>
+    <div class="wh100" layout="column center-center">
+        <h1>ListView</h1>
+        <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
+            <i class="material-icons wip">view_list</i>
+        </a>
+        <em>...coming soon...</em>
+    </div>
+    <div class="wh100" layout="column center-center">
+        <h1>Scroll Helper</h1>
+        <a -href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
+            <i class="material-icons wip">all_out</i>
+        </a>
+        <em>...coming soon...</em>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
+    <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
+    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
+    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
+    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
+</div>
+{% endblock %}
+s

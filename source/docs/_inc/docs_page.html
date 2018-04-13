@@ -1,10 +1,10 @@
-{% include "head_open.html" %}
+{% include "../../_inc/head_open.html" %}
 {% block head_end %}{% endblock %}
-{% include "head_close.html" %}
+{% include "../../_inc/head_close.html" %}
 
 <body layout="column top-center">
 
-{% include "docs/header.html" %}
+{% include "header.html" %}
 
 <main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
 
@@ -12,11 +12,11 @@
 
 </main>
 
-{% include "docs/footer.html" %}
+{% include "footer.html" %}
 
 {% block footer_end %}{% endblock %}
 
-{% include "body_end.html" %}
+{% include "../../_inc/body_end.html" %}
 
 <link rel="stylesheet" href="{{root}}/css/docs.css">
 

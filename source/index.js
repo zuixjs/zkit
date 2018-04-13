@@ -10,19 +10,6 @@ var options = {
     no_css: {
         css: false
     },
-    no_css_lazy_container: {
-        css: false,
-        ready: function() {
-            // This is the actual way of nesting components:
-            // wait for the main component to become ready,
-            // while child components are set to lazyLoad, and then,
-            // when it become ready call zuix.componentize()
-            zuix.$(this.view()).find('[data-ui-lazyload="true"]').each(function(i, el) {
-                this.attr('data-ui-lazyload', false);
-            });
-            zuix.componentize(this.view());
-        }
-    },
     view_pager_1: {
         enablePaging: true,
         autoSlide: true,
