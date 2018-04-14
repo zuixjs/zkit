@@ -164,7 +164,7 @@
 
 <div self="size-large center" layout="columns top-stretch">
 
-    <h2>Basic usage</h2>
+    <h2>Usage</h2>
 <h3>1. Include zUIx library</h3>
 <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
 
@@ -208,7 +208,7 @@ var gesture_options = {
 }
 </script></code></pre>
     <p>
-        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> argument
+        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> parameter
     </p>
 <pre><code class="js">tp = {
   // time frame
@@ -220,8 +220,9 @@ var gesture_options = {
   // relative movement
   shiftX,
   shiftY,
-  // actual position and speed
-  velocity: 0,
+  // actual direction, speed, position
+  direction, // 'left' | 'right' | 'up' | 'down'
+  velocity,
   x: x,
   y: y,
   // original event + cancel method

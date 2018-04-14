@@ -148,7 +148,7 @@ var gesture_options = {
 }
 </script></code></pre>
     <p>
-        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> argument
+        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> parameter
     </p>
 <pre><code class="js">tp = {
   // time frame
@@ -160,8 +160,9 @@ var gesture_options = {
   // relative movement
   shiftX,
   shiftY,
-  // actual position and speed
-  velocity: 0,
+  // actual direction, speed, position
+  direction, // 'left' | 'right' | 'up' | 'down'
+  velocity,
   x: x,
   y: y,
   // original event + cancel method
