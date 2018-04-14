@@ -356,6 +356,8 @@
     document.querySelectorAll("code").forEach(function(element) {
         element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     });
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
     // Code highlighting
     zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
         zuix.$('pre code').each(function(i, block) {
