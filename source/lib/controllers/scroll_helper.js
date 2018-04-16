@@ -16,7 +16,11 @@ zuix.controller(function(cp) {
     };
 
     cp.create = function() {
-        cp.view().on('scroll', scrollCheck);
+        if (cp.view().get() === document.body) {
+            window.onscroll = scrollCheck;
+        } else {
+            cp.view().on('scroll', scrollCheck);
+        }
         cp.expose('watch', function(filter, callback) {
             setWatchList(filter, callback);
             return cp.context;
@@ -43,19 +47,20 @@ zuix.controller(function(cp) {
 
     function scrollCheck() {
         const scrollable = cp.view().get();
+        const viewport = scrollable.getBoundingClientRect();
         let scrollTop;
+        let scrollLeft;
         let scrollHeight;
+        let visibleWidth;
         let visibleHeight;
-
-        if (scrollable === document) {
-            scrollTop = (window.pageYOffset !== undefined)
-                ? window.pageYOffset
-                : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        scrollTop = viewport.y;
+        scrollHeight = viewport.height;
+        if (scrollable === document.body) {
             scrollHeight = document.body.offsetHeight;
+            visibleWidth = document.documentElement.offsetWidth;
             visibleHeight = document.documentElement.offsetHeight;
         } else {
-            scrollTop = scrollable.scrollTop;
-            scrollHeight = scrollable.scrollHeight;
+            visibleWidth = scrollable.offsetWidth;
             visibleHeight = scrollable.offsetHeight;
         }
 
@@ -78,36 +83,53 @@ zuix.controller(function(cp) {
                 let visible = false;
                 let tolerance = 0;
                 if (el.offsetParent === null) {
+                    // not attached yet.
                     return false;
                 }
                 if (tolerance == null) tolerance = 0;
-                const r1 = (el.offsetParent).getBoundingClientRect();
-                const r2 = el.getBoundingClientRect();
+
+                const r1 = {
+                    left: 0,
+                    top: 0,
+                    right: visibleWidth,
+                    bottom: visibleHeight,
+                    width: visibleWidth,
+                    height: visibleHeight
+                };
+                let r2 = el.getBoundingClientRect();
+                let parent = el.offsetParent;
+                while (parent !== null && parent !== scrollable) {
+                    const pr = parent.getBoundingClientRect();
+                    r2.left += pr.left;
+                    r2.rop += pr.top;
+                    r2.right += pr.left;
+                    r2.bottom += pr.top;
+                    parent = parent.offsetParent;
+                }
+
                 visible = !(r2.left > r1.right-tolerance ||
                     r2.right < r1.left+tolerance ||
                     r2.top > r1.bottom-tolerance ||
                     r2.bottom < r1.top+tolerance);
-
 
                 position.frame = {
                     dx: (r2.left+(r2.width/2)-r1.left)/r1.width,
                     dy: (r2.top+(r2.height/2)-r1.top)/r1.height
                 };
                 position.visible = visible;
+
                 if (!visible && this.hasClass(visibleClass)) {
                     this.removeClass(visibleClass);
                     position.event = 'exit';
-                    watchCallback(this, position);
                 } else if (!visible) {
                     position.event = 'off-scroll';
-                    watchCallback(this, position);
                 } else if (visible) {
                     if (!this.hasClass(visibleClass)) {
                         position.event = 'enter';
                         this.addClass(visibleClass);
                     } else position.event = 'scroll';
-                    watchCallback(this, position);
-                }
+                } else return;
+                watchCallback(this, position);
             });
         }
     }
