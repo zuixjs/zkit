@@ -1,0 +1,208 @@
+---
+title: 'Scroll Helper'
+head:
+    title: 'zKit: Scroll Helper (lib/controllers)'
+    description: 'zKit, a collection of framework-agnostic components for modern web.'
+---
+{% extends "../_inc/docs_page.html" %}
+
+{% block head_end %}
+<script>
+    // use 'var' or 'window.' for options (global object)
+</script>
+{% endblock %}
+
+{% block content_main %}
+
+<div self="size-large center">
+
+    <p>
+        To-do...
+    </p>
+    <div data-ui-load="@lib/controllers/scroll_helper"
+         data-ui-options="scroll_opts"
+         self="center" class="no-select scroll-box">
+
+        <div style="min-height: 120vh;background-color: #5ec8d5">
+            &nbsp;
+        </div>
+
+        <img class="watch parallax" data-translate="-520" data-stop="0.01" src="{{root}}/images/parallax/layer07_Sky.png">
+        <img class="watch parallax" data-translate="-400" data-stop="0.01" src="{{root}}/images/parallax/layer06_Rocks.png">
+        <img class="watch parallax" data-translate="-280" data-stop="0.01" src="{{root}}/images/parallax/layer05_Hills.png">
+        <img class="watch parallax" data-translate="-180" data-stop="0.01" src="{{root}}/images/parallax/layer04_Clouds.png">
+        <img class="watch parallax" data-translate="-120" data-stop="0.01" src="{{root}}/images/parallax/layer03_Hills_Castle.png">
+        <img class="watch parallax" data-translate="-60" data-stop="0.01" src="{{root}}/images/parallax/layer02_Trees_rocks.png">
+        <img class="watch parallax" data-translate="0" data-stop="0.01" src="{{root}}/images/parallax/layer01_Ground.png">
+
+        <img class="watch" src="{{root}}/images/alice-falling.png" style="max-width:240px">
+
+        <div style="height: 30vh;" layout="column center-center">&nbsp;</div>
+
+        <div style="height: 70vh;" layout="column center-center">
+            <h2 align="center">scroll more</h2>
+        </div>
+
+        <img class="watch" src="{{root}}/images/alice-falling.png" style="max-width:240px">
+
+        <div style="height: 70vh;" layout="column center-center">
+            <i class="material-icons">arrow_upward</i>
+            <h2 align="center">scroll up</h2>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    var scroll_opts = {
+        ready: function() {
+            this.on('scroll:change', function(e, data) {
+                // console.log(data);
+            }).watch('.watch', function(el, data) {
+                el = zuix.$(el);
+                if (el.hasClass('animated'))
+                    return;
+                if (data.event === 'enter') {
+                    //el.animateCss(data.frame.dy < 0.5 ? 'fadeInDown' : 'fadeInUp')
+                    //    .visibility('visible');
+                } else if (data.event === 'exit') {
+                    //el.animateCss(data.frame.dy < 0.5 ? 'fadeOutUp' : 'fadeOutDown', function() {
+                    //    this.visibility('hidden');
+                    //});
+                } else if (data.event === 'scroll') {
+
+                    if (el.attr('data-translate') != null) {
+
+                        const translate = parseFloat(el.attr('data-translate'));
+                        const dy = data.frame.dy;
+
+                        if (el.attr('data-stop') != null) {
+                            const stop = parseFloat(el.attr('data-stop'));
+                            if (dy < stop) return;
+                        }
+
+                        //let scale = 0.15+dy;
+                        //if (scale < 1) scale = 1;
+                        //el.css('transform', 'scale('+scale+') translateY('+ (-300+(-40*(translate * dy))) + 'px)');
+
+                        el.css('transform', 'translateY('+ (-280+((translate * dy))) + 'px)');
+                        el.css('opacity', 1.65-dy);
+                        //if (el.attr('data-opacity') != null) {
+                        //    const opacity = parseFloat(el.attr('data-opacity'));
+                        //    el.css('opacity', opacity - Math.abs(dy*2));
+                        //}
+                        //if (dy > 0.9)
+                        //    el.css('opacity', 1-((1-dy)*10));
+
+                    } else {
+
+                        if (data.frame.dy < 0.2)
+                            el.css('opacity', data.frame.dy * 5);
+                        else if (data.frame.dy > 0.8)
+                            el.css('opacity', (1 - data.frame.dy) * 5);
+                        else if (parseFloat(el.css('opacity')) !== 1)
+                            el.css('opacity', 1);
+
+                        if (data.frame.dy >= -0.5 && data.frame.dy <= 1.5) {
+                            el.css('transform', 'rotate(' + (360 * data.frame.dy) + 'deg)');
+                        }
+
+                    }
+                }
+            }).scrollEnd();
+        }
+    };
+</script>
+<style>
+    .scroll-box {
+        position: relative;
+        max-width: 100vh;
+        height: 80vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin: 0; /*32px auto 16px;*/
+        border-radius: 8px;
+        border: solid 2px rgba(255,255,255,0.5);
+        background: #89675b;
+        color: white;
+        font-size: 160%;
+        line-height: 120%;
+        font-family: Helvetica, sans-serif;
+        -webkit-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+        box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+    }
+    .scroll-box i {
+        font-size: 300%;
+        display: table;
+        margin: auto;
+    }
+    .watch {
+        -webkit-transition: opacity 0.2s ease;
+        -moz-transition: opacity 0.2s ease;
+        -ms-transition: opacity 0.2s ease;
+        -o-transition: opacity 0.2s ease;
+        transition: opacity 0.2s ease;
+        display: table;
+        margin: auto;
+    }
+    .parallax {
+        position: absolute;
+        width: 100%;
+        transform: translateY(0);
+    }
+    [data-opacity].parallax {
+        opacity: 0;
+    }
+</style>
+
+<div self="size-large center" layout="columns top-stretch">
+
+    {% include '../_inc/zkit_basic_usage.html' %}
+
+    <h3>2. Load the scroll helper on the target element</h3>
+    <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
+<pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
+     data-ui-options="scroll_options"&gt;
+    <!-- scroll container -->
+&lt;/div&gt;
+<script>
+var scroll_options = {
+    ready: function() {
+        // register event callbacks
+        // TODO: ....
+    }
+}
+</script></code></pre>
+    <p>
+        `// TODO: ...`
+    </p>
+    <pre><code class="js">// TODO: ...</code></pre>
+
+    <h2>Option attributes</h2>
+    <ul>
+        <li>
+            <code class="option">data-ui-context</code>
+            <small>optional</small><br>
+            identifier name to be used to reference this component from JavaScript.
+        </li>
+    </ul>
+
+
+    <h2>Source code</h2>
+    <p>
+        Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+    </p>
+    <div self="size-large">
+        <ul class="list">
+            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/scroll_helper.js">scroll_helper.js</a></li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_end %}
+
+{% endblock %}

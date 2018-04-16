@@ -1,19 +1,29 @@
-const staticSite = require('static-site');
 const fs = require('fs');
+const delay = require('delay');
+const BuildingState = {
+    IDLE: 0,
+    RUNNING: 1,
+    PENDING: 2
+};
+let status = BuildingState.IDLE;
+function build() {
+    status = BuildingState.RUNNING;
+    const childProcess = require('child_process');
+    childProcess.execFileSync('npm', ['run', 'build'], {stdio:[0, 1, 2]});
+    delay(1000).then(function() {
+        if (status === BuildingState.PENDING) {
+            build();
+        } else status = BuildingState.IDLE;
+    });
+}
+function buildSite() {
+    if (status === BuildingState.IDLE) {
+        build();
+    } else status = BuildingState.PENDING;
+}
 
 buildSite();
 fs.watch('./source', {recursive: true}, function(event, filename) {
+    console.log(new Date().toLocaleTimeString(), event, filename);
     buildSite();
 });
-
-function buildSite() {
-    staticSite({
-        build: 'docs',
-        source: 'source',
-        files: ['html', 'css', 'js', 'md', 'svg'],
-        ignore: ['_inc', 'docs/_inc', 'build.js'],
-        helpers: ['helpers/subfolder_root.js']
-    }, function(err, stats) {
-        console.log(err, stats); // {pages: [...], source: '', build: '', start: 1434175863750, end: 1434175863770, duration: 20}
-    });
-}

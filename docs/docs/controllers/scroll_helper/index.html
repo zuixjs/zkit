@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>zKit: Gesture Helper (lib/controllers)</title>
+    <title>zKit: Scroll Helper (lib/controllers)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us" />
@@ -54,7 +54,7 @@
 
 <header class="header-cover animated fadeIn">
     <div self="size-large center" layout="rows center-left">
-        <div><h1 data-ui-field="page_title" class="animated fadeInLeft">Gesture Helper</h1></div>
+        <div><h1 data-ui-field="page_title" class="animated fadeInLeft">Scroll Helper</h1></div>
         <div self="center-right"><a href="../../../"><i class="material-icons animated fadeInRight">extension</i></a></div>
     </div>
 </header>
@@ -70,95 +70,142 @@
 <div self="size-large center">
 
     <p>
-        Detect tap and swipe gestures over elements.
+        To-do...
     </p>
-    <div data-ui-load="@lib/controllers/gesture_helper"
-         data-ui-options="gesture_opts"
-         layout="column center-center"
-         self="center"
-         class="no-select gesture-box">
-        <!-- gesture detection area -->
-        <div data-ui-field="gesture-xy"></div>
-        <div data-ui-field="gesture-shift"></div>
-        <div data-ui-field="gesture" layout="row center-center">Try me!</div>
+    <div data-ui-load="/lib/controllers/scroll_helper"
+         data-ui-options="scroll_opts"
+         self="center" class="no-select scroll-box">
+
+        <div style="min-height: 120vh;background-color: #5ec8d5">
+            &nbsp;
+        </div>
+
+        <img class="watch parallax" data-translate="-520" data-stop="0.01" src="../../..//images/parallax/layer07_Sky.png">
+        <img class="watch parallax" data-translate="-400" data-stop="0.01" src="../../..//images/parallax/layer06_Rocks.png">
+        <img class="watch parallax" data-translate="-280" data-stop="0.01" src="../../..//images/parallax/layer05_Hills.png">
+        <img class="watch parallax" data-translate="-180" data-stop="0.01" src="../../..//images/parallax/layer04_Clouds.png">
+        <img class="watch parallax" data-translate="-120" data-stop="0.01" src="../../..//images/parallax/layer03_Hills_Castle.png">
+        <img class="watch parallax" data-translate="-60" data-stop="0.01" src="../../..//images/parallax/layer02_Trees_rocks.png">
+        <img class="watch parallax" data-translate="0" data-stop="0.01" src="../../..//images/parallax/layer01_Ground.png">
+
+        <img class="watch" src="../../..//images/alice-falling.png" style="max-width:240px">
+
+        <div style="height: 30vh;" layout="column center-center">&nbsp;</div>
+
+        <div style="height: 70vh;" layout="column center-center">
+            <h2 align="center">scroll more</h2>
+        </div>
+
+        <img class="watch" src="../../..//images/alice-falling.png" style="max-width:240px">
+
+        <div style="height: 70vh;" layout="column center-center">
+            <i class="material-icons">arrow_upward</i>
+            <h2 align="center">scroll up</h2>
+        </div>
+
     </div>
 
 </div>
 <script>
-    var gesture_opts = {
+    var scroll_opts = {
         ready: function() {
-            let gh = this;
-            let view = zuix.$(gh.view());
-            let infoXy = zuix.field('gesture-xy');
-            let infoShift = zuix.field('gesture-shift');
-            let info = zuix.field('gesture');
-            view.css('opacity', 1.0);
-            // register event callbacks
-            gh.on('gesture:touch', function(e, tp) {
-                view.addClass('active');
-                info.html('touch').animateCss('flash');
-                tp.cancel();
-            }).on('gesture:pan', function(e, tp) {
-                infoXy.show().html(Math.round(tp.x)+' ; '+Math.round(tp.y));
-                infoShift.show().html(Math.round(tp.shiftX)+' ;'+Math.round(tp.shiftY));
-                info.html('pan').animateCss('fadeIn');
-            }).on('gesture:release', function(e, tp) {
-                view.removeClass('active');
-                infoXy.hide();
-                infoShift.hide();
-            }).on('gesture:tap', function(e, tp) {
-                info.html('tap').animateCss('tada');
-            }).on('gesture:swipe', function(e, tp) {
-                info.html('swipe <i class="material-icons animated tada">keyboard_arrow_'+tp.direction+'</i> '+tp.direction);
-            });
+            this.on('scroll:change', function(e, data) {
+                // console.log(data);
+            }).watch('.watch', function(el, data) {
+                el = zuix.$(el);
+                if (el.hasClass('animated'))
+                    return;
+                if (data.event === 'enter') {
+                    //el.animateCss(data.frame.dy < 0.5 ? 'fadeInDown' : 'fadeInUp')
+                    //    .visibility('visible');
+                } else if (data.event === 'exit') {
+                    //el.animateCss(data.frame.dy < 0.5 ? 'fadeOutUp' : 'fadeOutDown', function() {
+                    //    this.visibility('hidden');
+                    //});
+                } else if (data.event === 'scroll') {
+
+                    if (el.attr('data-translate') != null) {
+
+                        const translate = parseFloat(el.attr('data-translate'));
+                        const dy = data.frame.dy;
+
+                        if (el.attr('data-stop') != null) {
+                            const stop = parseFloat(el.attr('data-stop'));
+                            if (dy < stop) return;
+                        }
+
+                        //let scale = 0.15+dy;
+                        //if (scale < 1) scale = 1;
+                        //el.css('transform', 'scale('+scale+') translateY('+ (-300+(-40*(translate * dy))) + 'px)');
+
+                        el.css('transform', 'translateY('+ (-280+((translate * dy))) + 'px)');
+                        el.css('opacity', 1.65-dy);
+                        //if (el.attr('data-opacity') != null) {
+                        //    const opacity = parseFloat(el.attr('data-opacity'));
+                        //    el.css('opacity', opacity - Math.abs(dy*2));
+                        //}
+                        //if (dy > 0.9)
+                        //    el.css('opacity', 1-((1-dy)*10));
+
+                    } else {
+
+                        if (data.frame.dy < 0.2)
+                            el.css('opacity', data.frame.dy * 5);
+                        else if (data.frame.dy > 0.8)
+                            el.css('opacity', (1 - data.frame.dy) * 5);
+                        else if (parseFloat(el.css('opacity')) !== 1)
+                            el.css('opacity', 1);
+
+                        if (data.frame.dy >= -0.5 && data.frame.dy <= 1.5) {
+                            el.css('transform', 'rotate(' + (360 * data.frame.dy) + 'deg)');
+                        }
+
+                    }
+                }
+            }).scrollEnd();
         }
     };
 </script>
 <style>
-    .gesture-box {
-        border: solid 2px rgba(255,255,255,0.5);
+    .scroll-box {
         position: relative;
-        background: #5f99cf;
-        border-radius: 16px;
-        width: 70%;
-        height: 140px;
+        max-width: 100vh;
+        height: 80vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        margin: 0; /*32px auto 16px;*/
+        border-radius: 8px;
+        border: solid 2px rgba(255,255,255,0.5);
+        background: #89675b;
         color: white;
         font-size: 160%;
         line-height: 120%;
-        margin: 32px 16px 16px;
         font-family: Helvetica, sans-serif;
-        cursor: -webkit-grab;
-        cursor: -moz-grab;
-        cursor: grab;
         -webkit-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
         -moz-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
         box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
-        opacity: 0.75;
     }
-    .gesture-box.active {
-        -webkit-box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
-        box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
-        opacity: 1.0;
-    }
-    [data-ui-field="gesture"] {
-        transition: 0.1s ease-out;
-    }
-    [data-ui-field="gesture"] i {
+    .scroll-box i {
         font-size: 300%;
-        color: lime;
+        display: table;
+        margin: auto;
     }
-    [data-ui-field="gesture-xy"] {
-        position: absolute;
-        top: 8px; left: 16px;
-        font-size: 50%;
-        font-weight: 700;
+    .watch {
+        -webkit-transition: opacity 0.2s ease;
+        -moz-transition: opacity 0.2s ease;
+        -ms-transition: opacity 0.2s ease;
+        -o-transition: opacity 0.2s ease;
+        transition: opacity 0.2s ease;
+        display: table;
+        margin: auto;
     }
-    [data-ui-field="gesture-shift"] {
+    .parallax {
         position: absolute;
-        top: 8px; right: 16px;
-        font-size: 50%;
-        font-weight: 700;
+        width: 100%;
+        transform: translateY(0);
+    }
+    [data-opacity].parallax {
+        opacity: 0;
     }
 </style>
 
@@ -173,62 +220,24 @@
 <p>this is the library that does all the magic : )</p>
 
 
-    <h3>2. Load the gesture helper on the target element</h3>
+    <h3>2. Load the scroll helper on the target element</h3>
     <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
-<pre><code class="html">&lt;div data-ui-load="@lib/controllers/gesture_helper"
-     data-ui-options="gesture_options"&gt;
-    <!-- gesture detection area -->
+<pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
+     data-ui-options="scroll_options"&gt;
+    <!-- scroll container -->
 &lt;/div&gt;
 <script>
-var gesture_options = {
-  ready: function() {
-    // register event callbacks
-    this.on('gesture:touch', function(e, tp) {
-      // TODO: handle touch
-    }).on('gesture:pan', function(e, tp) {
-      // TODO: handle pan
-    }).on('gesture:release', function(e, tp) {
-      // TODO: handle release
-    }).on('gesture:tap', function(e, tp) {
-      // TODO: handle tap
-    }).on('gesture:swipe', function(e, tp) {
-      // TODO: handle swipe
-      switch(tp.direction) {
-        case 'up':
-          break;
-        case 'down':
-          break;
-        case 'left':
-          break;
-        case 'right':
-          break;
-      }
-    });
-  }
+var scroll_options = {
+    ready: function() {
+        // register event callbacks
+        // TODO: ....
+    }
 }
 </script></code></pre>
     <p>
-        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> parameter
+        `// TODO: ...`
     </p>
-<pre><code class="js">tp = {
-  // time frame
-  startTime,
-  endTime,
-  // initial touch position
-  startX,
-  startY,
-  // relative movement
-  shiftX,
-  shiftY,
-  // actual direction, speed, position
-  direction, // 'left' | 'right' | 'up' | 'down'
-  velocity,
-  x: x,
-  y: y,
-  // original event + cancel method
-  event,
-  cancel()
-};</code></pre>
+    <pre><code class="js">// TODO: ...</code></pre>
 
     <h2>Option attributes</h2>
     <ul>
@@ -246,7 +255,7 @@ var gesture_options = {
     </p>
     <div self="size-large">
         <ul class="list">
-            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/gesture_helper.js">gesture_helper.js</a></li>
+            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/scroll_helper.js">scroll_helper.js</a></li>
         </ul>
     </div>
 

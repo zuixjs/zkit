@@ -17,7 +17,23 @@ zuix.controller(function(cp) {
 
     cp.create = function() {
         cp.view().on('scroll', scrollCheck);
-        cp.expose('watch', setWatchList);
+        cp.expose('watch', function(filter, callback) {
+            setWatchList(filter, callback);
+            return cp.context;
+        });
+        cp.expose('scrollStart', function() {
+            cp.view().get().scrollTop = 0;
+            scrollCheck();
+            return cp.context;
+        }).expose('scrollEnd', function(){
+            cp.view().get().scrollTop = cp.view().get().scrollHeight;
+            scrollCheck();
+            return cp.context;
+        }).expose('scrollTo', function(target){
+            scrollTo(target);
+            scrollCheck();
+            return cp.context;
+        });
     };
 
     const scrollInfo = {
@@ -25,8 +41,8 @@ zuix.controller(function(cp) {
         timestamp: 0
     };
 
-    function scrollCheck(e) {
-        const scrollable = e.target;
+    function scrollCheck() {
+        const scrollable = cp.view().get();
         let scrollTop;
         let scrollHeight;
         let visibleHeight;
@@ -58,14 +74,34 @@ zuix.controller(function(cp) {
         if (watchList != null && watchCallback != null) {
             watchList.each(function(i, el) {
                 const position = this.position();
-                if (!position.visible && this.hasClass(visibleClass)) {
+
+                let visible = false;
+                let tolerance = 0;
+                if (el.offsetParent === null) {
+                    return false;
+                }
+                if (tolerance == null) tolerance = 0;
+                const r1 = (el.offsetParent).getBoundingClientRect();
+                const r2 = el.getBoundingClientRect();
+                visible = !(r2.left > r1.right-tolerance ||
+                    r2.right < r1.left+tolerance ||
+                    r2.top > r1.bottom-tolerance ||
+                    r2.bottom < r1.top+tolerance);
+
+
+                position.frame = {
+                    dx: (r2.left+(r2.width/2)-r1.left)/r1.width,
+                    dy: (r2.top+(r2.height/2)-r1.top)/r1.height
+                };
+                position.visible = visible;
+                if (!visible && this.hasClass(visibleClass)) {
                     this.removeClass(visibleClass);
                     position.event = 'exit';
                     watchCallback(this, position);
-                } else if (!position.visible) {
+                } else if (!visible) {
                     position.event = 'off-scroll';
                     watchCallback(this, position);
-                } else if (position.visible) {
+                } else if (visible) {
                     if (!this.hasClass(visibleClass)) {
                         position.event = 'enter';
                         this.addClass(visibleClass);
@@ -85,4 +121,43 @@ zuix.controller(function(cp) {
             watchCallback = null;
         }
     }
+
+    let scrollEndTs;
+    function scrollTo(element, to, duration) {
+        const currentTs = Date.now();
+        if (duration != null) {
+            scrollEndTs = currentTs + duration;
+        }
+        duration = scrollEndTs-currentTs;
+
+        /*
+        const scrollable = cp.view();
+        let scrollTop = 0;
+        if (scrollable === document) {
+            scrollTop = (window.pageYOffset !== undefined)
+                ? window.pageYOffset
+                : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+        } else {
+            scrollTop = scrollable.scrollTop;
+        }
+        */
+
+        const difference = to - scrollTop;
+        if (duration <= 0) {
+            setScroll(to);
+            return;
+        }
+
+        requestAnimationFrame(function() {
+            setScroll(scrollTop + (difference / (duration/2)));
+            scrollTo(element, to);
+        });
+    }
+    function setScroll(to) {
+        if (cp.view().get() === document) {
+            document.documentElement.scrollTop = to;
+            document.body.scrollTop = to;
+        } else element.scrollTop = to;
+    }
+
 });
