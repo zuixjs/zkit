@@ -57,27 +57,24 @@
 
 
 
-<div style="min-height: 120vh;background-color: #5ec8d5;padding-top:32px">
-    &nbsp;
+<div style="min-height: 110vh;background-color: #5ec8d5;padding-top:48px">
     <i>Scroll Helper</i>
 </div>
 
 <div>
-    <img class="watch parallax" data-translate="-520" data-stop="0.01" src="../../../images/parallax/layer07_Sky.png">
-    <img class="watch parallax" data-translate="-400" data-stop="0.01" src="../../../images/parallax/layer06_Rocks.png">
-    <img class="watch parallax" data-translate="-280" data-stop="0.01" src="../../../images/parallax/layer05_Hills.png">
-    <img class="watch parallax" data-translate="-180" data-stop="0.01" src="../../../images/parallax/layer04_Clouds.png">
-    <img class="watch parallax" data-translate="-120" data-stop="0.01" src="../../../images/parallax/layer03_Hills_Castle.png">
-    <img class="watch parallax" data-translate="-60" data-stop="0.01" src="../../../images/parallax/layer02_Trees_rocks.png">
-    <img class="watch parallax" data-translate="0" data-stop="0.01" src="../../../images/parallax/layer01_Ground.png">
+    <!--
+    "Castle Hills" graphics &copy; craftpix.net
+    -->
+    <img class="watch parallax" data-translate="-0.1" data-stop="0.01" src="../../../images/parallax/layer07_Sky.png">
+    <img class="watch parallax" data-translate="-0.025" data-stop="0.01" src="../../../images/parallax/layer06_Rocks.png">
+    <img class="watch parallax" data-translate="0.05" data-stop="0.01" src="../../../images/parallax/layer05_Hills.png">
+    <img class="watch parallax" data-translate="0.11" data-stop="0.01" src="../../../images/parallax/layer04_Clouds.png">
+    <img class="watch parallax" data-translate="0.15" data-stop="0.01" src="../../../images/parallax/layer03_Hills_Castle.png">
+    <img class="watch parallax" data-translate="0.19" data-stop="0.01" src="../../../images/parallax/layer02_Trees_rocks.png">
+    <img class="watch parallax" data-translate="0.2" data-stop="0.01" src="../../../images/parallax/layer01_Ground.png">
 </div>
 
 <div class="watch capguy"><h3>Hello World!</h3></div>
-
-<!--
-"Castle Hills" graphics &copy; craftpix.net
--->
-
 
 <div style="height: 30vh;" layout="column center-center">&nbsp;</div>
 
@@ -136,8 +133,8 @@
                     if (zuix.$(el).hasClass('capguy')) {
                         const dy = (1-data.frame.dy);
                         const width = ctx.view().clientWidth;
-                        if (dy >= 0.2 && dy <= 1) {
-                            el.css('transform', 'translateX(' + width*(dy-0.2) + 'px)');
+                        if (dy >= -0.5 && dy <= 1.5) {
+                            el.css('transform', 'translateX(' + (width*2*(dy-0.2)) + 'px)');
                             el.css('animation-play-state', 'initial');
                             if (capGuyAnimationTimeout != null) {
                                 clearTimeout(capGuyAnimationTimeout);
@@ -147,13 +144,7 @@
                             }, 250);
                         }
                         // ---> Fade-In enter / Fade-Out exit
-                        if (data.frame.dy < 0.2) {
-                            el.css('opacity', data.frame.dy * 5);
-                        } else if (data.frame.dy > 0.8) {
-                            el.css('opacity', (1 - data.frame.dy) * 5);
-                        } else if (parseFloat(el.css('opacity')) !== 1) {
-                            el.css('opacity', 1);
-                        }
+                        fadeInOut(el, data);
                         return;
                     }
 
@@ -161,22 +152,17 @@
                     if (el.attr('data-translate') != null) {
                         const dy = data.frame.dy;
                         const stop = parseFloat(el.attr('data-stop'));
-                        let translate = -280+(dy*parseFloat(el.attr('data-translate')));
+                        let translate = -(document.documentElement.offsetHeight/2)+(dy*parseFloat(el.attr('data-translate'))*document.documentElement.offsetHeight);
                         if (!isNaN(stop) && dy < stop) {
                             return;
                         }
                         el.css('transform', 'translateY('+ translate + 'px)');
-                        el.css('opacity', 1.65-dy);
+                        fadeInOut(el, data, 0, 0.1);
+                        //el.css('opacity', 1.65-dy);
                     } else {
                         // Default "watchable" anim:
                         // ---> Fade-In enter / Fade-Out exit
-                        if (data.frame.dy < 0.2) {
-                            el.css('opacity', data.frame.dy * 5);
-                        } else if (data.frame.dy > 0.8) {
-                            el.css('opacity', (1 - data.frame.dy) * 5);
-                        } else if (parseFloat(el.css('opacity')) !== 1) {
-                            el.css('opacity', 1);
-                        }
+                        fadeInOut(el, data);
                         /*
                         if (data.frame.dy >= -0.5 && data.frame.dy <= 1.5) {
                             el.css('transform', 'rotate(' + (360 * data.frame.dy) + 'deg)');
@@ -188,6 +174,25 @@
             }).scrollStart();
         }
     };
+    function fadeInOut(el, data, startOffset, endOffset) {
+        if (startOffset == null) {
+            startOffset = 0.2;
+        }
+        if (endOffset == null) {
+            endOffset = 0.2;
+        }
+        if (data.frame.dy < startOffset) {
+            el.css('opacity', data.frame.dy / startOffset);
+        } else if (data.frame.dx < startOffset) {
+            el.css('opacity', data.frame.dx / startOffset);
+        } else if (data.frame.dy > 1-endOffset) {
+            el.css('opacity', (1 - data.frame.dy) / endOffset);
+        } else if (data.frame.dx > 1-endOffset) {
+            el.css('opacity', (1 - data.frame.dx) / endOffset);
+        } else if (parseFloat(el.css('opacity')) !== 1) {
+            el.css('opacity', 1);
+        }
+    }
     // rotate point around [cx, cy] by given angle
     function rotate(cx, cy, x, y, angle) {
         const radians = (Math.PI / 180) * angle,
@@ -205,6 +210,7 @@
         font-size: 160%;
         line-height: 120%;
         font-family: Helvetica, sans-serif;
+        overflow-x: hidden;
     }
     body i {
         font-size: 300%;
@@ -212,19 +218,16 @@
         margin: auto;
     }
     .watch {
-        -webkit-transition: opacity 0.2s ease-in;
-        -moz-transition: opacity 0.2s ease-in;
-        -ms-transition: opacity 0.2s ease-in;
-        -o-transition: opacity 0.2s ease-in;
-        transition: opacity 0.1s ease-in;
+        -webkit-transition: opacity 0.1s ease;
+        -moz-transition: opacity 0.1s ease;
+        -ms-transition: opacity 0.1s ease;
+        -o-transition: opacity 0.1s ease;
+        transition: opacity 0.1s ease;
     }
     .parallax {
         position: absolute;
         width: 100%;
         transform: translateY(0);
-    }
-    [data-opacity].parallax {
-        opacity: 0;
     }
 
     /*
@@ -234,6 +237,7 @@
     */
     .capguy {
         position: relative;
+        margin-top: 10vw;
         width: 184px; height: 325px; /* <--  size of a single frame*/
         background-image: url('../../../images/capguy-walk.png'); /* <-- url to spritesheet*/
         -webkit-animation: walk 1s steps(8) infinite;
@@ -241,7 +245,7 @@
         -o-animation: walk 1s steps(8) infinite;
         animation: walk 1s steps(8) infinite; /* <-- animation parameters, see below*/
         z-index: 10;
-        margin-top: -88px;
+        opacity: 0;
     }
     .capguy h3 {
         position: absolute;
