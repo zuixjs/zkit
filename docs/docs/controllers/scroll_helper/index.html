@@ -76,7 +76,63 @@
 <!-- brown header (underground) -->
 <div class="watch sh--follow-landscape" data-ui-field="underground" layout="column top-center">
 
-    <h2>Scroll Helper</h2>
+    <h1>Scroll Helper</h1>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        <h2>Usage</h2>
+        <h3>1. Include zUIx library</h3>
+        <p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
+
+        <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>this is the library that does all the magic : )</p>
+
+
+        <h3>2. Load the scroll helper on the target element</h3>
+        <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
+        <pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
+     data-ui-options="scroll_options"&gt;
+            <!-- scroll container -->
+&lt;/div&gt;
+<script>
+var scroll_options = {
+    ready: function() {
+        // register event callbacks
+        // TODO: ....
+    }
+}
+</script></code></pre>
+        <p>
+            `// TODO: ...`
+        </p>
+        <pre><code class="js">// TODO: ...</code></pre>
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+        </ul>
+
+
+        <h2>Source code</h2>
+        <p>
+            Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+        </p>
+        <div self="size-large">
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/scroll_helper.js">scroll_helper.js</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
 
 </div>
 
@@ -106,20 +162,24 @@
                 } else if (data.event === 'exit') {
                     // TODO: ...
                 } else if (data.event === 'scroll' || data.event === 'off-scroll') {
+                    const position = el.position();
 
                     // CapGuy walking animation
                     if (el.hasClass('sh--capguy')) {
-                        const dy = (1-data.frame.dy);
+                        const dy = (1 - data.frame.dy);
                         const width = ctx.view().clientWidth;
                         if (dy >= -0.5 && dy <= 1.5) {
-                            el.css('transform', 'translateX(' + (width*2*(dy-0.2)) + 'px)');
+                            let offsetX = (width*1.5*(dy - 0.2));
+                            let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
+                            offsetY -= el.get().clientHeight;
+                            el.css('transform', 'translate(' + offsetX + 'px,' + offsetY + 'px)');
                             el.css('animation-play-state', 'initial');
                             if (capGuyAnimationTimeout != null) {
                                 clearTimeout(capGuyAnimationTimeout);
                             }
                             capGuyAnimationTimeout = setTimeout(function(){
                                 pauseCapGuy(el);
-                            }, 250);
+                            }, 100);
                         }
                         fadeInOut(el, data);
                     } else if (el.get().className.indexOf('sh-alpha--') > -1) {
@@ -130,9 +190,8 @@
                             el.css('opacity', '1');
                         }
                     } else if (el.hasClass('sh--follow-landscape')) {
-                        const landscape = zuix.field('landscape');
                         const marginTop = parseFloat(el.css('margin-top'))-2;
-                        let offsetY = landscape.position().rect.bottom-el.position().y;
+                        let offsetY = zuix.field('landscape').position().rect.bottom-position.y;
                         if (!isNaN(marginTop)) {
                             offsetY+=marginTop;
                         }
@@ -222,6 +281,7 @@
         background: #89675b;
         width: 100%;
         min-height: 75vh;
+        padding: 16px;
     }
     [data-ui-field="arrow-down"] {
         transition: 0.1s ease-in-out;
@@ -238,7 +298,6 @@
     */
     .sh--capguy {
         position: relative;
-        margin-top: 10vw;
         width: 184px; height: 325px; /* <--  size of a single frame*/
         background-image: url('../../../images/capguy-walk.png'); /* <-- url to spritesheet*/
         -webkit-animation: sh--capguy-walk 1s steps(8) infinite;
@@ -250,7 +309,7 @@
     }
     .sh--capguy h3 {
         position: absolute;
-        top: -72px;
+        top: -80px;
         -webkit-text-stroke: 1px black;
         color: white;
         text-shadow:
@@ -295,6 +354,23 @@
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
 
 </body>
 </html>
