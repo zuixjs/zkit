@@ -1467,6 +1467,7 @@ z$.getPosition = function(el) {
     const visible = z$.isInView(el);
     let x = 0;
     let y = 0;
+    let rect = el.getBoundingClientRect();
     while (el) {
         if (el.tagName.toLowerCase() === 'body') {
             // deal with browser quirks with body/window/document and page scroll
@@ -1484,6 +1485,7 @@ z$.getPosition = function(el) {
     return {
         x: x,
         y: y,
+        rect: rect,
         visible: visible
     };
 };

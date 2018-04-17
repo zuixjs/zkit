@@ -47,69 +47,41 @@
 </head>
 
 <body layout="column top-stretch" data-ui-load="@lib/controllers/scroll_helper"
+      data-ui-context="scroll-helper"
       data-ui-options="scroll_opts">
 
 
-
-
-
-
-
-
-
-<div style="min-height: 110vh;background-color: #5ec8d5;padding-top:48px">
-    <i>Scroll Helper</i>
+<div style="min-height: 110vh;background-color: #5ec8d5;" layout="column center-center">
+    <div data-ui-field="arrow-down" class="watch sh-alpha--a200" style="z-index:10">
+        <i class="material-icons animated fadeInDown infinite">arrow_downward</i>
+    </div>
 </div>
 
-<div>
+<div layout="row top-stretch">
     <!--
     "Castle Hills" graphics &copy; craftpix.net
     -->
-    <img class="watch parallax" data-translate="-0.1" data-stop="0.01" src="../../../images/parallax/layer07_Sky.png">
-    <img class="watch parallax" data-translate="-0.025" data-stop="0.01" src="../../../images/parallax/layer06_Rocks.png">
-    <img class="watch parallax" data-translate="0.05" data-stop="0.01" src="../../../images/parallax/layer05_Hills.png">
-    <img class="watch parallax" data-translate="0.11" data-stop="0.01" src="../../../images/parallax/layer04_Clouds.png">
-    <img class="watch parallax" data-translate="0.15" data-stop="0.01" src="../../../images/parallax/layer03_Hills_Castle.png">
-    <img class="watch parallax" data-translate="0.19" data-stop="0.01" src="../../../images/parallax/layer02_Trees_rocks.png">
-    <img class="watch parallax" data-translate="0.2" data-stop="0.01" src="../../../images/parallax/layer01_Ground.png">
+    <img class="watch sh-parallax" data-translate="-0.1" data-stop="0.01" src="../../../images/parallax/layer07_Sky.png">
+    <img class="watch sh-parallax" data-translate="-0.025" data-stop="0.01" src="../../../images/parallax/layer06_Rocks.png">
+    <img class="watch sh-parallax" data-translate="0.05" data-stop="0.01" src="../../../images/parallax/layer05_Hills.png">
+    <img class="watch sh-parallax" data-translate="0.11" data-stop="0.01" src="../../../images/parallax/layer04_Clouds.png">
+    <img class="watch sh-parallax" data-translate="0.15" data-stop="0.01" src="../../../images/parallax/layer03_Hills_Castle.png">
+    <img class="watch sh-parallax" data-translate="0.19" data-stop="0.01" src="../../../images/parallax/layer02_Trees_rocks.png">
+    <img class="watch sh-parallax" data-translate="0.2" data-stop="0.01" src="../../../images/parallax/layer01_Ground.png"
+         data-ui-field="landscape">
 </div>
 
-<div class="watch capguy"><h3>Hello World!</h3></div>
+<div class="watch sh--capguy"><h3>Hello World!</h3></div>
 
-<div style="height: 30vh;" layout="column center-center">&nbsp;</div>
+<!-- brown header (underground) -->
+<div class="watch sh--follow-landscape" data-ui-field="underground" layout="column top-center">
 
-<div class="watch" data-translate="300" style="height: 70vh;" layout="column center-center">
-    <h2 align="center">... todo: documentation ...</h2>
-</div>
+    <h2>Scroll Helper</h2>
 
-<p>...</p>
-
-<div style="height: 70vh;" layout="column center-center">
-    <i class="material-icons">arrow_upward</i>
-    <h2 align="center">scroll up</h2>
 </div>
 
 
 
-
-
-
-
-
-<div self="size-large center">
-
-    <p>
-        To-do...
-    </p>
-    <div
-         self="center" class="no-select scroll-box">
-
-
-
-
-    </div>
-
-</div>
 <script>
     const pauseCapGuy = function(el) {
         el.css('animation-play-state', 'paused');
@@ -119,10 +91,16 @@
         ready: function(ctx) {
             this.on('scroll:change', function(e, data) {
                 // console.log(data);
+                if (data.event === 'hitTop') {
+                    // TODO: ...
+                } else if (data.event === 'hitBottom') {
+                    // TODO: ...
+                }
             }).watch('.watch', function(el, data) {
                 el = zuix.$(el);
-                if (el.hasClass('animated'))
-                    return;
+                //if (el.hasClass('animated'))
+                //    return;
+
                 if (data.event === 'enter') {
                     // TODO: ...
                 } else if (data.event === 'exit') {
@@ -130,7 +108,7 @@
                 } else if (data.event === 'scroll' || data.event === 'off-scroll') {
 
                     // CapGuy walking animation
-                    if (zuix.$(el).hasClass('capguy')) {
+                    if (el.hasClass('sh--capguy')) {
                         const dy = (1-data.frame.dy);
                         const width = ctx.view().clientWidth;
                         if (dy >= -0.5 && dy <= 1.5) {
@@ -143,37 +121,49 @@
                                 pauseCapGuy(el);
                             }, 250);
                         }
-                        // ---> Fade-In enter / Fade-Out exit
                         fadeInOut(el, data);
-                        return;
-                    }
-
-                    // Castle Hills parallax animation
-                    if (el.attr('data-translate') != null) {
+                    } else if (el.get().className.indexOf('sh-alpha--') > -1) {
+                        // TODO:
+                        if (data.frame.dy < 0.45 && data.frame.dy >= 0) {
+                            el.css('opacity', data.frame.dy/0.5);
+                        } else if (el.css('opacity') !== '1') {
+                            el.css('opacity', '1');
+                        }
+                    } else if (el.hasClass('sh--follow-landscape')) {
+                        const landscape = zuix.field('landscape');
+                        const marginTop = parseFloat(el.css('margin-top'))-2;
+                        let offsetY = landscape.position().rect.bottom-el.position().y;
+                        if (!isNaN(marginTop)) {
+                            offsetY+=marginTop;
+                        }
+                        el.css('margin-top', offsetY+'px');
+                    } else if (el.hasClass('sh-parallax') != null) {
+                        // Castle Hills parallax animation
                         const dy = data.frame.dy;
                         const stop = parseFloat(el.attr('data-stop'));
-                        let translate = -(document.documentElement.offsetHeight/2)+(dy*parseFloat(el.attr('data-translate'))*document.documentElement.offsetHeight);
+                        let translate = -(document.documentElement.offsetHeight / 2) + (dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                         if (!isNaN(stop) && dy < stop) {
                             return;
                         }
-                        el.css('transform', 'translateY('+ translate + 'px)');
+                        el.css('transform', 'translateY(' + translate + 'px)');
                         fadeInOut(el, data, 0, 0.1);
-                        //el.css('opacity', 1.65-dy);
-                    } else {
-                        // Default "watchable" anim:
-                        // ---> Fade-In enter / Fade-Out exit
-                        fadeInOut(el, data);
-                        /*
+                    } else if (el.hasClass('sh-fade--in-out')) {
                         if (data.frame.dy >= -0.5 && data.frame.dy <= 1.5) {
                             el.css('transform', 'rotate(' + (360 * data.frame.dy) + 'deg)');
                         }
-                        */
+                    } else {
+                        // Default "watchable" animation:
+                        //     ---> Fade-In enter / Fade-Out exit
+                        fadeInOut(el, data);
                     }
 
                 }
-            }).scrollStart();
+            }).scrollStart().scrollEnd().scrollStart();
         }
     };
+    zuix.field('arrow-down').on('click', function () {
+        zuix.context('scroll-helper').scrollTo(500, 2000);
+    });
     function fadeInOut(el, data, startOffset, endOffset) {
         if (startOffset == null) {
             startOffset = 0.2;
@@ -205,7 +195,6 @@
 </script>
 <style>
     body {
-        background: #89675b;
         color: white;
         font-size: 160%;
         line-height: 120%;
@@ -224,10 +213,22 @@
         -o-transition: opacity 0.1s ease;
         transition: opacity 0.1s ease;
     }
-    .parallax {
+    .sh-parallax {
         position: absolute;
         width: 100%;
         transform: translateY(0);
+    }
+    [data-ui-field="underground"] {
+        background: #89675b;
+        width: 100%;
+        min-height: 75vh;
+    }
+    [data-ui-field="arrow-down"] {
+        transition: 0.1s ease-in-out;
+    }
+    [data-ui-field="arrow-down"] i {
+        font-size:400% !important;
+        z-index:10;
     }
 
     /*
@@ -235,19 +236,19 @@
     || (c) Kerstin Mueller
     || https://www.codeandweb.com/blog/2014/11/05/animate-sprites-in-css-with-texturepacker
     */
-    .capguy {
+    .sh--capguy {
         position: relative;
         margin-top: 10vw;
         width: 184px; height: 325px; /* <--  size of a single frame*/
         background-image: url('../../../images/capguy-walk.png'); /* <-- url to spritesheet*/
-        -webkit-animation: walk 1s steps(8) infinite;
-        -moz-animation: walk 1s steps(8) infinite;
-        -o-animation: walk 1s steps(8) infinite;
-        animation: walk 1s steps(8) infinite; /* <-- animation parameters, see below*/
+        -webkit-animation: sh--capguy-walk 1s steps(8) infinite;
+        -moz-animation: sh--capguy-walk 1s steps(8) infinite;
+        -o-animation: sh--capguy-walk 1s steps(8) infinite;
+        animation: sh--capguy-walk 1s steps(8) infinite; /* <-- animation parameters, see below*/
         z-index: 10;
         opacity: 0;
     }
-    .capguy h3 {
+    .sh--capguy h3 {
         position: absolute;
         top: -72px;
         -webkit-text-stroke: 1px black;
@@ -259,79 +260,26 @@
                 -1px 1px 0 #000,
                 1px 1px 0 #000;
     }
-    @-webkit-keyframes walk {
+    @-webkit-keyframes sh--capguy-walk {
         from { background-position: 0; }
         to { background-position: -1472px; }  /* <-- width of spritesheet*/
     }
 
-    @-moz-keyframes walk {
+    @-moz-keyframes sh--capguy-walk {
         from { background-position: 0; }
         to { background-position: -1472px; } /* <-- width of spritesheet*/
     }
 
-    @-o-keyframes walk {
+    @-o-keyframes sh--capguy-walk {
         from { background-position: 0; }
         to { background-position: -1472px; } /* <-- width of spritesheet*/
     }
 
-    @keyframes walk {
+    @keyframes sh--capguy-walk {
         from { background-position: 0; }
         to { background-position: -1472px; } /* <-- width of spritesheet*/
     }
 </style>
-
-<div self="size-large center" layout="columns top-stretch">
-
-    <h2>Usage</h2>
-<h3>1. Include zUIx library</h3>
-<p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
-
-<pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
-
-<p>this is the library that does all the magic : )</p>
-
-
-    <h3>2. Load the scroll helper on the target element</h3>
-    <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
-<pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
-     data-ui-options="scroll_options"&gt;
-    <!-- scroll container -->
-&lt;/div&gt;
-<script>
-var scroll_options = {
-    ready: function() {
-        // register event callbacks
-        // TODO: ....
-    }
-}
-</script></code></pre>
-    <p>
-        `// TODO: ...`
-    </p>
-    <pre><code class="js">// TODO: ...</code></pre>
-
-    <h2>Option attributes</h2>
-    <ul>
-        <li>
-            <code class="option">data-ui-context</code>
-            <small>optional</small><br>
-            identifier name to be used to reference this component from JavaScript.
-        </li>
-    </ul>
-
-
-    <h2>Source code</h2>
-    <p>
-        Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
-    </p>
-    <div self="size-large">
-        <ul class="list">
-            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/scroll_helper.js">scroll_helper.js</a></li>
-        </ul>
-    </div>
-
-</div>
-
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>

@@ -26,15 +26,15 @@ zuix.controller(function(cp) {
             return cp.context;
         });
         cp.expose('scrollStart', function() {
-            cp.view().get().scrollTop = 0;
+            setScroll(0);
             scrollCheck();
             return cp.context;
-        }).expose('scrollEnd', function(){
-            cp.view().get().scrollTop = cp.view().get().scrollHeight;
+        }).expose('scrollEnd', function() {
+            setScroll(cp.view().get().scrollHeight);
             scrollCheck();
             return cp.context;
-        }).expose('scrollTo', function(target){
-            scrollTo(target);
+        }).expose('scrollTo', function(to, duration) {
+            scrollTo(to, duration);
             scrollCheck();
             return cp.context;
         });
@@ -144,42 +144,39 @@ zuix.controller(function(cp) {
         }
     }
 
-    let scrollEndTs;
-    function scrollTo(element, to, duration) {
+    let scrollEndTs = 0;
+    function scrollTo(to, duration) {
         const currentTs = Date.now();
         if (duration != null) {
             scrollEndTs = currentTs + duration;
         }
         duration = scrollEndTs-currentTs;
 
-        /*
-        const scrollable = cp.view();
+        const el = cp.view().get();
         let scrollTop = 0;
-        if (scrollable === document) {
+        if (el === document.body) {
             scrollTop = (window.pageYOffset !== undefined)
                 ? window.pageYOffset
                 : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-        } else {
-            scrollTop = scrollable.scrollTop;
-        }
-        */
+        } else scrollTop = el.scrollTop;
 
-        const difference = to - scrollTop;
         if (duration <= 0) {
             setScroll(to);
             return;
         }
 
-        requestAnimationFrame(function() {
-            setScroll(scrollTop + (difference / (duration/2)));
-            scrollTo(element, to);
-        });
+        const difference = to - scrollTop;
+        setTimeout(function() {
+            setScroll(scrollTop + (difference / duration));
+            scrollCheck();
+            scrollTo(to);
+        }, 30);
     }
     function setScroll(to) {
-        if (cp.view().get() === document) {
+        const el = cp.view().get();
+        if (el === document.body) {
             document.documentElement.scrollTop = to;
             document.body.scrollTop = to;
-        } else element.scrollTop = to;
+        } else el.scrollTop = to;
     }
-
 });
