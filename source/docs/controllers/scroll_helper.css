@@ -1,0 +1,100 @@
+body {
+    background-color: black;
+    color: white;
+    font-size: 160%;
+    line-height: 120%;
+    font-family: Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+a,a:hover,a:visited {
+    color:yellow !important;
+}
+.max-width--1024 {
+    max-width: 1024px;
+}
+.watch {
+    -webkit-transition: opacity 0.1s ease;
+    -moz-transition: opacity 0.1s ease;
+    -ms-transition: opacity 0.1s ease;
+    -o-transition: opacity 0.1s ease;
+    transition: opacity 0.1s ease;
+}
+.sh-parallax {
+    position: absolute;
+    max-width: 1024px;
+    transform: translateY(0);
+}
+[data-ui-field="underground"] {
+    background: #89675b;
+    width: 100%;
+    min-height: 75vh;
+    padding: 16px;
+}
+[data-ui-field="arrow-down"] {
+    transition: 0.1s ease-in-out;
+}
+[data-ui-field="arrow-down"] i {
+    font-size:400% !important;
+    z-index:10;
+}
+
+
+.sh-sky-background {
+    max-width: '{{layout_width}}';
+    min-height: 175vh;
+    background-color: #5ec8d5;
+}
+
+.sh-sky-background .arrow-down {
+    margin-top: 50vh;
+    z-index: 10;
+}
+
+
+/*
+|| CapGuy Animation
+|| (c) Kerstin Mueller
+|| https://www.codeandweb.com/blog/2014/11/05/animate-sprites-in-css-with-texturepacker
+*/
+.sh--capguy {
+    position: relative;
+    width: 184px; height: 325px; /* <--  size of a single frame*/
+    background-image: url('{{root}}images/capguy-walk.png'); /* <-- url to spritesheet*/
+    -webkit-animation: sh--capguy-walk 1s steps(8) infinite;
+    -moz-animation: sh--capguy-walk 1s steps(8) infinite;
+    -o-animation: sh--capguy-walk 1s steps(8) infinite;
+    animation: sh--capguy-walk 1s steps(8) infinite; /* <-- animation parameters, see below*/
+    z-index: 20;
+    opacity: 0;
+}
+.sh--capguy h3 {
+    position: absolute;
+    top: -80px;
+    -webkit-text-stroke: 1px black;
+    color: white;
+    text-shadow:
+            2px 2px 0 #000,
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+}
+@-webkit-keyframes sh--capguy-walk {
+    from { background-position: 0; }
+    to { background-position: -1472px; }  /* <-- width of spritesheet*/
+}
+
+@-moz-keyframes sh--capguy-walk {
+    from { background-position: 0; }
+    to { background-position: -1472px; } /* <-- width of spritesheet*/
+}
+
+@-o-keyframes sh--capguy-walk {
+    from { background-position: 0; }
+    to { background-position: -1472px; } /* <-- width of spritesheet*/
+}
+
+@keyframes sh--capguy-walk {
+    from { background-position: 0; }
+    to { background-position: -1472px; } /* <-- width of spritesheet*/
+}
