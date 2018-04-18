@@ -62,11 +62,24 @@ a,a:hover,a:visited {
     z-index: 10;
 }
 .watch {
+    -webkit-transition: opacity 0.1s ease-out;
+    -moz-transition: opacity 0.1s ease-out;
+    -ms-transition: opacity 0.1s ease-out;
+    -o-transition: opacity 0.1s ease-out;
+    transition: opacity 0.1s ease-out;
 }
 .sh-parallax {
     position: absolute;
     max-width: 1024px;
     transform: translateY(0);
+}
+.sh-title {
+    font-family: serif;
+    -webkit-transform-origin: top center;
+    -moz-transform-origin: top center;
+    -ms-transform-origin: top center;
+    -o-transform-origin: top center;
+    transform-origin: top center;
 }
 [data-ui-field="underground"] {
     background: #89675b;
@@ -75,6 +88,10 @@ a,a:hover,a:visited {
     padding: 16px;
 }
 [data-ui-field="arrow-down"] {
+    -webkit-transition: 0.1s ease-in-out;
+    -moz-transition: 0.1s ease-in-out;
+    -ms-transition: 0.1s ease-in-out;
+    -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 }
 [data-ui-field="arrow-down"] i {
@@ -267,12 +284,12 @@ var scroll_opts = {
         }).watch('.watch', function(el, data) {
             el = zuix.$(el);
             if (data.event === 'scroll' || data.event === 'off-scroll') {
-
+                let dy = data.frame.dy;
                 if (el.hasClass('sh--capguy')) {
                     // CapGuy walking animation
-                    const dy = (1 - data.frame.dy);
                     const position = el.position();
                     const availableWidth = ctx.view().clientWidth;
+                    dy = (1 - dy);
                     if (dy <= 1.5) {
                         let offsetX = (availableWidth*2*(dy - 0.2));
                         let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
@@ -287,13 +304,19 @@ var scroll_opts = {
                         }, 100);
                     }
                     fadeInOut(el, data);
-                } else if (el.hasClass('sh-parallax') != null) {
+                } else if (el.hasClass('sh-parallax')) {
                     // Castle Hills parallax animation
-                    const dy = data.frame.dy;
                     if (dy < 0.001) return;
                     let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
                     fadeInOut(el, data, 0, 0.15);
+                } else if (el.hasClass('sh-title')) {
+                    console.log(dy);
+                    if (dy < 1.1 && dy > 0.5) {
+                        const scale = dy / 0.5;
+                        el.css('transform', 'scale('+scale+')');
+                        fadeInOut(el, data, 0, 0.25);
+                    }
                 } else {
                     // Default "watchable" animation:
                     //     ---> Fade-In enter / Fade-Out exit
@@ -359,7 +382,7 @@ function fadeInOut(el, data, startOffset, endOffset) {
     <!-- Content (underground) -->
     <div data-ui-field="underground" layout="column top-center">
 
-        <h1>Scroll Helper</h1>
+        <h1 class="watch sh-title">Scroll Helper</h1>
 
         <div self="size-large center" layout="columns top-stretch">
 

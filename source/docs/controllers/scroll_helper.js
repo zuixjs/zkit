@@ -20,12 +20,12 @@ var scroll_opts = {
         }).watch('.watch', function(el, data) {
             el = zuix.$(el);
             if (data.event === 'scroll' || data.event === 'off-scroll') {
-
+                let dy = data.frame.dy;
                 if (el.hasClass('sh--capguy')) {
                     // CapGuy walking animation
-                    const dy = (1 - data.frame.dy);
                     const position = el.position();
                     const availableWidth = ctx.view().clientWidth;
+                    dy = (1 - dy);
                     if (dy <= 1.5) {
                         let offsetX = (availableWidth*2*(dy - 0.2));
                         let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
@@ -40,13 +40,19 @@ var scroll_opts = {
                         }, 100);
                     }
                     fadeInOut(el, data);
-                } else if (el.hasClass('sh-parallax') != null) {
+                } else if (el.hasClass('sh-parallax')) {
                     // Castle Hills parallax animation
-                    const dy = data.frame.dy;
                     if (dy < 0.001) return;
                     let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
                     fadeInOut(el, data, 0, 0.15);
+                } else if (el.hasClass('sh-title')) {
+                    console.log(dy);
+                    if (dy < 1.1 && dy > 0.5) {
+                        const scale = dy / 0.5;
+                        el.css('transform', 'scale('+scale+')');
+                        fadeInOut(el, data, 0, 0.25);
+                    }
                 } else {
                     // Default "watchable" animation:
                     //     ---> Fade-In enter / Fade-Out exit

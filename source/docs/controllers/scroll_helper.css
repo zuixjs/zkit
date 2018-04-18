@@ -16,11 +16,24 @@ a,a:hover,a:visited {
     z-index: 10;
 }
 .watch {
+    -webkit-transition: opacity 0.1s ease-out;
+    -moz-transition: opacity 0.1s ease-out;
+    -ms-transition: opacity 0.1s ease-out;
+    -o-transition: opacity 0.1s ease-out;
+    transition: opacity 0.1s ease-out;
 }
 .sh-parallax {
     position: absolute;
     max-width: 1024px;
     transform: translateY(0);
+}
+.sh-title {
+    font-family: serif;
+    -webkit-transform-origin: top center;
+    -moz-transform-origin: top center;
+    -ms-transform-origin: top center;
+    -o-transform-origin: top center;
+    transform-origin: top center;
 }
 [data-ui-field="underground"] {
     background: #89675b;
@@ -29,6 +42,10 @@ a,a:hover,a:visited {
     padding: 16px;
 }
 [data-ui-field="arrow-down"] {
+    -webkit-transition: 0.1s ease-in-out;
+    -moz-transition: 0.1s ease-in-out;
+    -ms-transition: 0.1s ease-in-out;
+    -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 }
 [data-ui-field="arrow-down"] i {
