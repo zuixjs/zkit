@@ -1,7 +1,7 @@
 const pauseCapGuy = function(el) {
     el.css('animation-play-state', 'paused');
 };
-let capGuyAnimationTimeout;
+let guyAnimationTimeout;
 var scroll_opts = {
     ready: function(ctx) {
         this.on('scroll:change', function(e, data) {
@@ -13,64 +13,38 @@ var scroll_opts = {
             }
         }).watch('.watch', function(el, data) {
             el = zuix.$(el);
-            //if (el.hasClass('animated'))
-            //    return;
-
             if (data.event === 'enter') {
                 // TODO: ...
             } else if (data.event === 'exit') {
                 // TODO: ...
             } else if (data.event === 'scroll' || data.event === 'off-scroll') {
-                const position = el.position();
 
-                // CapGuy walking animation
                 if (el.hasClass('sh--capguy')) {
+                    // CapGuy walking animation
                     const dy = (1 - data.frame.dy);
-                    const width = ctx.view().clientWidth;
+                    const position = el.position();
+                    const availableWidth = ctx.view().clientWidth;
                     if (dy <= 1.5) {
-                        let offsetX = (width*1.5*(dy - 0.2));
+                        let offsetX = (availableWidth*2*(dy - 0.2));
                         let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
                         offsetY -= el.get().clientHeight;
                         el.css('transform', 'translate(' + offsetX + 'px,' + offsetY + 'px)');
                         el.css('animation-play-state', 'initial');
-                        if (capGuyAnimationTimeout != null) {
-                            clearTimeout(capGuyAnimationTimeout);
+                        if (guyAnimationTimeout != null) {
+                            clearTimeout(guyAnimationTimeout);
                         }
-                        capGuyAnimationTimeout = setTimeout(function(){
+                        guyAnimationTimeout = setTimeout(function(){
                             pauseCapGuy(el);
                         }, 100);
                     }
                     fadeInOut(el, data);
-                } else if (el.get().className.indexOf('sh-alpha--') > -1) {
-                    // TODO:
-                    if (data.frame.dy < 0.45 && data.frame.dy >= 0) {
-                        el.css('opacity', data.frame.dy/0.5);
-                    } else if (el.css('opacity') !== '1') {
-                        el.css('opacity', '1');
-                    }
-                } else if (el.hasClass('sh--follow-landscape')) {
-                    const marginTop = parseFloat(el.css('margin-top'))-2;
-                    let offsetY = zuix.field('landscape').position().rect.bottom-position.y;
-                    if (!isNaN(marginTop)) {
-                        offsetY+=marginTop;
-                    }
-                    el.css('margin-top', offsetY+'px');
                 } else if (el.hasClass('sh-parallax') != null) {
                     // Castle Hills parallax animation
                     const dy = data.frame.dy;
-                    const stop = parseFloat(el.attr('data-stop'));
-                    let translate =
-                        - (dy * parseFloat(el.attr('data-translate'))
-                            * document.documentElement.offsetHeight);
-                    if (!isNaN(stop) && dy < stop) {
-                        return;
-                    }
+                    if (dy < 0.001) return;
+                    let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
-                    fadeInOut(el, data, 0, 0.1);
-                } else if (el.hasClass('sh-fade--in-out')) {
-                    if (data.frame.dy >= -0.5 && data.frame.dy <= 1.5) {
-                        el.css('transform', 'rotate(' + (360 * data.frame.dy) + 'deg)');
-                    }
+                    fadeInOut(el, data, 0, 0.15);
                 } else {
                     // Default "watchable" animation:
                     //     ---> Fade-In enter / Fade-Out exit
@@ -81,9 +55,7 @@ var scroll_opts = {
         }).scrollStart().scrollEnd().scrollStart();
     }
 };
-zuix.field('arrow-down').on('click', function () {
-    zuix.context('scroll-helper').scrollTo(500, 2000);
-});
+
 function fadeInOut(el, data, startOffset, endOffset) {
     if (startOffset == null) {
         startOffset = 0.2;
@@ -102,13 +74,4 @@ function fadeInOut(el, data, startOffset, endOffset) {
     } else if (parseFloat(el.css('opacity')) !== 1) {
         el.css('opacity', 1);
     }
-}
-// rotate point around [cx, cy] by given angle
-function rotate(cx, cy, x, y, angle) {
-    const radians = (Math.PI / 180) * angle,
-        cos = Math.cos(radians),
-        sin = Math.sin(radians),
-        nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
-        ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
-    return [nx, ny];
 }
