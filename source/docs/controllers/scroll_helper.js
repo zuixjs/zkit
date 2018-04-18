@@ -6,18 +6,20 @@ var scroll_opts = {
     ready: function(ctx) {
         this.on('scroll:change', function(e, data) {
             // console.log(data);
-            if (data.event === 'hitTop') {
-                // TODO: ...
-            } else if (data.event === 'hitBottom') {
-                // TODO: ...
+            switch (data.event) {
+                case 'hitTop':
+                    // TODO: reached top of the page
+                    break;
+                case 'scroll':
+                    // TODO: scrolling...
+                    break;
+                case 'hitBottom':
+                    // TODO: reached end of the page
+                    break;
             }
         }).watch('.watch', function(el, data) {
             el = zuix.$(el);
-            if (data.event === 'enter') {
-                // TODO: ...
-            } else if (data.event === 'exit') {
-                // TODO: ...
-            } else if (data.event === 'scroll' || data.event === 'off-scroll') {
+            if (data.event === 'scroll' || data.event === 'off-scroll') {
 
                 if (el.hasClass('sh--capguy')) {
                     // CapGuy walking animation

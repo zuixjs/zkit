@@ -16,11 +16,6 @@ a,a:hover,a:visited {
     z-index: 10;
 }
 .watch {
-    -webkit-transition: opacity 0.1s ease-out;
-    -moz-transition: opacity 0.1s ease-out;
-    -ms-transition: opacity 0.1s ease-out;
-    -o-transition: opacity 0.1s ease-out;
-    transition: opacity 0.1s ease-out;
 }
 .sh-parallax {
     position: absolute;
@@ -46,9 +41,11 @@ a,a:hover,a:visited {
     max-width: '';
     min-height: 175vh;
     background-color: #5ec8d5;
+    background: linear-gradient(to bottom, rgb(155, 190, 209) 0%, rgb(247, 247, 246) 50%, rgb(250, 202, 158) 70%, rgb(246, 155, 108) 85%, darkblue 100%);
 }
 
 .sh-sky-background .arrow-down {
+    color: forestgreen;
     margin-top: 50vh;
     z-index: 10;
 }
