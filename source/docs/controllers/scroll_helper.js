@@ -45,21 +45,22 @@ var scroll_opts = {
                 } else if (el.hasClass('sh-parallax')) {
                     // Castle Hills parallax animation
                     if (dy < 0) return;
-                    let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
+                    const dt = parseFloat(el.attr('data-translate'));
+                    let translate = -(dy * dt * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
+                    blur(el, (dy - dt), -0.25, 0.25);
                     fadeInOut(el, data, 0, 0.15);
                 } else if (el.hasClass('sh-title')) {
                     if (dy < 1.1 && dy > 0.5) {
                         const scale = dy / 0.5;
                         el.css('transform', 'scale('+scale+')');
-                        fadeInOut(el, data, 0, 0.25);
                     }
+                    fadeInOut(el, data);
                 } else {
                     // Default "watchable" animation:
                     //     ---> Fade-In enter / Fade-Out exit
                     fadeInOut(el, data);
                 }
-
             }
         });
         zuix.field('arrow-down').on('click', function() {
@@ -68,6 +69,17 @@ var scroll_opts = {
         });
     }
 };
+
+function blur(el, dy, startOffset, endOffset) {
+    if (dy >= startOffset && dy <= endOffset) {
+        const radius = Math.round((endOffset - dy) * 100 / 5);
+        el.css('-webkit-filter', 'blur(' + radius + 'px)');
+        el.css('filter', 'blur(' + radius + 'px)');
+    } else {
+        el.css('-webkit-filter', null);
+        el.css('filter', null);
+    }
+}
 
 function fadeInOut(el, data, startOffset, endOffset) {
     if (startOffset == null) {
