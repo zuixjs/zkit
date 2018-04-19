@@ -62,11 +62,11 @@ a,a:hover,a:visited {
     z-index: 10;
 }
 .watch {
-    -webkit-transition: opacity 0.1s ease-out;
-    -moz-transition: opacity 0.1s ease-out;
-    -ms-transition: opacity 0.1s ease-out;
-    -o-transition: opacity 0.1s ease-out;
-    transition: opacity 0.1s ease-out;
+    -webkit-transition: 75ms linear;
+    -moz-transition: 75ms linear;
+    -ms-transition: 75ms linear;
+    -o-transition: 75ms linear;
+    transition: 75ms linear;
 }
 .sh-parallax {
     position: absolute;
@@ -86,8 +86,10 @@ a,a:hover,a:visited {
     width: 100%;
     min-height: 75vh;
     padding: 16px;
+    z-index:10;
 }
 [data-ui-field="arrow-down"] {
+    cursor: pointer;
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
     -ms-transition: 0.1s ease-in-out;
@@ -265,19 +267,21 @@ a,a:hover,a:visited {
 <script>const pauseCapGuy = function(el) {
     el.css('animation-play-state', 'paused');
 };
+let scrollHelper;
 let guyAnimationTimeout;
 var scroll_opts = {
     ready: function(ctx) {
+        scrollHelper = this;
         this.on('scroll:change', function(e, data) {
             // console.log(data);
             switch (data.event) {
-                case 'hitTop':
+                case 'hit-top':
                     // TODO: reached top of the page
                     break;
                 case 'scroll':
                     // TODO: scrolling...
                     break;
-                case 'hitBottom':
+                case 'hit-bottom':
                     // TODO: reached end of the page
                     break;
             }
@@ -301,17 +305,16 @@ var scroll_opts = {
                         }
                         guyAnimationTimeout = setTimeout(function(){
                             pauseCapGuy(el);
-                        }, 100);
+                        }, 200);
                     }
                     fadeInOut(el, data);
                 } else if (el.hasClass('sh-parallax')) {
                     // Castle Hills parallax animation
-                    if (dy < 0.001) return;
+                    if (dy < 0) return;
                     let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
                     fadeInOut(el, data, 0, 0.15);
                 } else if (el.hasClass('sh-title')) {
-                    console.log(dy);
                     if (dy < 1.1 && dy > 0.5) {
                         const scale = dy / 0.5;
                         el.css('transform', 'scale('+scale+')');
@@ -324,7 +327,11 @@ var scroll_opts = {
                 }
 
             }
-        }).scrollStart().scrollEnd().scrollStart();
+        });
+        zuix.field('arrow-down').on('click', function() {
+            const viewport = scrollHelper.viewport();
+            scrollHelper.scrollTo(viewport.height, 2000);
+        });
     }
 };
 
@@ -409,13 +416,13 @@ var scroll_options = {
         // register event callbacks
         this.on('scroll:change', function(e, data) {
             switch (data.event) {
-                case 'hitTop':
+                case 'hit:top':
                     // TODO: reached top of the page
                     break;
                 case 'scroll':
                     // TODO: scrolling...
                     break;
-                case 'hitBottom':
+                case 'hit:bottom':
                     // TODO: reached end of the page
                     break;
             }

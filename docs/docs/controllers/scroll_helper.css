@@ -16,11 +16,11 @@ a,a:hover,a:visited {
     z-index: 10;
 }
 .watch {
-    -webkit-transition: opacity 0.1s ease-out;
-    -moz-transition: opacity 0.1s ease-out;
-    -ms-transition: opacity 0.1s ease-out;
-    -o-transition: opacity 0.1s ease-out;
-    transition: opacity 0.1s ease-out;
+    -webkit-transition: 75ms linear;
+    -moz-transition: 75ms linear;
+    -ms-transition: 75ms linear;
+    -o-transition: 75ms linear;
+    transition: 75ms linear;
 }
 .sh-parallax {
     position: absolute;
@@ -40,8 +40,10 @@ a,a:hover,a:visited {
     width: 100%;
     min-height: 75vh;
     padding: 16px;
+    z-index:10;
 }
 [data-ui-field="arrow-down"] {
+    cursor: pointer;
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
     -ms-transition: 0.1s ease-in-out;

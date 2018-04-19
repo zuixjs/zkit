@@ -1,19 +1,21 @@
 const pauseCapGuy = function(el) {
     el.css('animation-play-state', 'paused');
 };
+let scrollHelper;
 let guyAnimationTimeout;
 var scroll_opts = {
     ready: function(ctx) {
+        scrollHelper = this;
         this.on('scroll:change', function(e, data) {
             // console.log(data);
             switch (data.event) {
-                case 'hitTop':
+                case 'hit-top':
                     // TODO: reached top of the page
                     break;
                 case 'scroll':
                     // TODO: scrolling...
                     break;
-                case 'hitBottom':
+                case 'hit-bottom':
                     // TODO: reached end of the page
                     break;
             }
@@ -37,17 +39,16 @@ var scroll_opts = {
                         }
                         guyAnimationTimeout = setTimeout(function(){
                             pauseCapGuy(el);
-                        }, 100);
+                        }, 200);
                     }
                     fadeInOut(el, data);
                 } else if (el.hasClass('sh-parallax')) {
                     // Castle Hills parallax animation
-                    if (dy < 0.001) return;
+                    if (dy < 0) return;
                     let translate = -(dy * parseFloat(el.attr('data-translate')) * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
                     fadeInOut(el, data, 0, 0.15);
                 } else if (el.hasClass('sh-title')) {
-                    console.log(dy);
                     if (dy < 1.1 && dy > 0.5) {
                         const scale = dy / 0.5;
                         el.css('transform', 'scale('+scale+')');
@@ -60,7 +61,11 @@ var scroll_opts = {
                 }
 
             }
-        }).scrollStart().scrollEnd().scrollStart();
+        });
+        zuix.field('arrow-down').on('click', function() {
+            const viewport = scrollHelper.viewport();
+            scrollHelper.scrollTo(viewport.height, 2000);
+        });
     }
 };
 
