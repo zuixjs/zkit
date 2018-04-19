@@ -3,6 +3,7 @@ const pauseCapGuy = function(el) {
 };
 let scrollHelper;
 let guyAnimationTimeout;
+let guyLastPosition = 0;
 var scroll_opts = {
     ready: function(ctx) {
         scrollHelper = this;
@@ -32,7 +33,13 @@ var scroll_opts = {
                         let offsetX = (availableWidth*2*(dy - 0.2));
                         let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
                         offsetY -= el.get().clientHeight;
-                        el.css('transform', 'translate(' + offsetX + 'px,' + offsetY + 'px)');
+                        let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+                        if (guyLastPosition > dy) {
+                            transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+                        }
+                        guyLastPosition = dy;
+                        el.css('transition', 'none');
+                        el.css('transform', transform);
                         el.css('animation-play-state', 'initial');
                         if (guyAnimationTimeout != null) {
                             clearTimeout(guyAnimationTimeout);

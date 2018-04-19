@@ -20,7 +20,7 @@ layout_width: '1024px'
     <!-- Parallax Header -->
     <div data-ui-field="parallax-header" self="center" layout="column center-center" class="sh-sky-background max-width--1024">
 
-        <div data-ui-field="arrow-down" class="watch sh-alpha--a200 arrow-down">
+        <div data-ui-field="arrow-down" class="watch arrow-down">
             <i class="material-icons animated fadeInDown infinite">arrow_downward</i>
         </div>
 
@@ -39,6 +39,9 @@ layout_width: '1024px'
         </div>
 
     </div>
+
+    <!-- The guy -->
+    <div class="watch sh--capguy"><!--<h3>Hello World!</h3> --></div>
 
     <!-- Content (underground) -->
     <div data-ui-field="underground" layout="column top-center">
@@ -66,28 +69,28 @@ var scroll_options = {
         this.on('scroll:change', function(e, data) {
             switch (data.event) {
                 case 'hit:top':
-                    // TODO: reached top of the page
+                    // reached top of page
                     break;
                 case 'scroll':
-                    // TODO: scrolling...
+                    // scrolling...
                     break;
                 case 'hit:bottom':
-                    // TODO: reached end of the page
+                    // reached end of page
                     break;
             }
         }).watch('.watch', function(el, data) {
             switch (data.event) {
                 case 'enter':
-                    // TODO: element entered the visible area
+                    // element entered the visible area
                     break;
                 case 'exit':
-                    // TODO: element out of the visible area
+                    // element out of the visible area
                     break;
                 case 'scroll':
-                    // TODO: element is being scrolled in the visible area
+                    // element is being scrolled in the visible area
                     break;
                 case 'off-scroll':
-                    // TODO: element is being scrolled out of the visible area
+                    // element is being scrolled out of the visible area
                     break;
             }
         })
@@ -123,9 +126,6 @@ var scroll_options = {
         </div>
 
     </div>
-
-    <!-- The guy -->
-    <div class="watch sh--capguy"><h3>Hello World!</h3></div>
 
 {% include "../../_inc/body_end.html" %}
 

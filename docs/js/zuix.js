@@ -2291,7 +2291,7 @@ module.exports = ComponentContext;
 const _optionAttributes =
     _dereq_('./OptionAttributes')();
 
-const LIBRARY_PATH_DEFAULT = '/lib';
+const LIBRARY_PATH_DEFAULT = '//genielabs.github.io/zkit/lib';
 let _libraryPath = LIBRARY_PATH_DEFAULT;
 
 /**

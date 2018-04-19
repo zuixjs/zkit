@@ -47,14 +47,45 @@
 <style>body {
     background-color: black;
     color: white;
-    font-size: 160%;
-    line-height: 120%;
+    font-size: 16px;
     font-family: Helvetica, sans-serif;
     overflow-x: hidden;
+}
+p {
+    font-family: serif;
+    font-size: 180% !important;
+    line-height: 120% !important;
+    margin-top: 16px !important;
+}
+p code {
+    font-size: 90%;
+    opacity: 0.7;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+h3 {
+    opacity: 0.6;
 }
 a,a:hover,a:visited {
     color:yellow !important;
 }
+li {
+    font-family: serif;
+    font-size: 170%;
+    line-height: 160%;
+    margin-bottom: 8px;
+}
+li small {
+    opacity: 0.5;
+}
+code.option {
+    font-size: 80%;
+    padding: 4px;
+    border-radius: 6px;
+    border: solid 1px rgba(0,200,0,0.25);
+    background: rgba(255,255,255,0.15);
+}
+
 .max-width--1024 {
     max-width: 1024px;
 }
@@ -110,7 +141,7 @@ a,a:hover,a:visited {
 }
 
 .sh-sky-background .arrow-down {
-    color: forestgreen;
+    color: purple;
     margin-top: 50vh;
     z-index: 10;
 }
@@ -122,7 +153,7 @@ a,a:hover,a:visited {
 || https://www.codeandweb.com/blog/2014/11/05/animate-sprites-in-css-with-texturepacker
 */
 .sh--capguy {
-    position: relative;
+    position: absolute;
     width: 184px; height: 325px; /* <--  size of a single frame*/
     background-image: url('../../../images/capguy-walk.png'); /* <-- url to spritesheet*/
     -webkit-animation: sh--capguy-walk 1s steps(8) infinite;
@@ -136,13 +167,21 @@ a,a:hover,a:visited {
     position: absolute;
     top: -80px;
     -webkit-text-stroke: 1px black;
-    color: white;
+    color: lime;
     text-shadow:
             2px 2px 0 #000,
-            -1px -1px 0 #000,
+            -1px -1px 0 #fff,
             1px -1px 0 #000,
             -1px 1px 0 #000,
             1px 1px 0 #000;
+}
+.sh--capguy .back {
+    moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: 'FlipH';
+    -ms-filter: 'FlipH';
 }
 @-webkit-keyframes sh--capguy-walk {
     from { background-position: 0; }
@@ -163,112 +202,13 @@ a,a:hover,a:visited {
     from { background-position: 0; }
     to { background-position: -1472px; } /* <-- width of spritesheet*/
 }
-
-
-
-/* Sky Gradients from https://codepen.io/billyysea/pen/whjbK */
-
-.sky-gradient-0, .sky-gradient-24 {
-    background: #00000c;
-}
-
-.sky-gradient-1 {
-    background: linear-gradient(to bottom, #020111 85%, #191621 100%);
-}
-
-.sky-gradient-2 {
-    background: linear-gradient(to bottom, #020111 60%, #20202c 100%);
-}
-
-.sky-gradient-3 {
-    background: linear-gradient(to bottom, #020111 10%, #3a3a52 100%);
-}
-
-.sky-gradient-4 {
-    background: linear-gradient(to bottom, #20202c 0%, #515175 100%);
-}
-
-.sky-gradient-5 {
-    background: linear-gradient(to bottom, #40405c 0%, #6f71aa 80%, #8a76ab 100%);
-}
-
-.sky-gradient-6 {
-    background: linear-gradient(to bottom, #4a4969 0%, #7072ab 50%, #cd82a0 100%);
-}
-
-.sky-gradient-7 {
-    background: linear-gradient(to bottom, #757abf 0%, #8583be 60%, #eab0d1 100%);
-}
-
-.sky-gradient-8 {
-    background: linear-gradient(to bottom, #82addb 0%, #ebb2b1 100%);
-}
-
-.sky-gradient-9 {
-    background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
-}
-
-.sky-gradient-10 {
-    background: linear-gradient(to bottom, #b7eaff 0%, #94dfff 100%);
-}
-
-.sky-gradient-11 {
-    background: linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%);
-}
-
-.sky-gradient-12 {
-    background: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
-}
-
-.sky-gradient-13 {
-    background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
-}
-
-.sky-gradient-14 {
-    background: linear-gradient(to bottom, #2d91c2 0%, #1e528e 100%);
-}
-
-.sky-gradient-15 {
-    background: linear-gradient(to bottom, #2473ab 0%, #1e528e 70%, #5b7983 100%);
-}
-
-.sky-gradient-16 {
-    background: linear-gradient(to bottom, #1e528e 0%, #265889 50%, #9da671 100%);
-}
-
-.sky-gradient-17 {
-    background: linear-gradient(to bottom, #1e528e 0%, #728a7c 50%, #e9ce5d 100%);
-}
-
-.sky-gradient-18 {
-    background: linear-gradient(to bottom, #154277 0%, #576e71 30%, #e1c45e 70%, #b26339 100%);
-}
-
-.sky-gradient-19 {
-    background: linear-gradient(to bottom, #163C52 0%, #4F4F47 30%, #C5752D 60%, #B7490F 80%, #2F1107 100%);
-}
-
-.sky-gradient-20 {
-    background: linear-gradient(to bottom, #071B26 0%, #071B26 30%, #8A3B12 80%, #240E03 100%);
-}
-
-.sky-gradient-21 {
-    background: linear-gradient(to bottom, #010A10 30%, #59230B 80%, #2F1107 100%);
-}
-
-.sky-gradient-22 {
-    background: linear-gradient(to bottom, #090401 50%, #4B1D06 100%);
-}
-
-.sky-gradient-23 {
-    background: linear-gradient(to bottom, #00000c 80%, #150800 100%);
-}
 </style>
 <script>const pauseCapGuy = function(el) {
     el.css('animation-play-state', 'paused');
 };
 let scrollHelper;
 let guyAnimationTimeout;
+let guyLastPosition = 0;
 var scroll_opts = {
     ready: function(ctx) {
         scrollHelper = this;
@@ -298,7 +238,13 @@ var scroll_opts = {
                         let offsetX = (availableWidth*2*(dy - 0.2));
                         let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
                         offsetY -= el.get().clientHeight;
-                        el.css('transform', 'translate(' + offsetX + 'px,' + offsetY + 'px)');
+                        let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+                        if (guyLastPosition > dy) {
+                            transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+                        }
+                        guyLastPosition = dy;
+                        el.css('transition', 'none');
+                        el.css('transform', transform);
                         el.css('animation-play-state', 'initial');
                         if (guyAnimationTimeout != null) {
                             clearTimeout(guyAnimationTimeout);
@@ -378,7 +324,7 @@ function fadeInOut(el, data, startOffset, endOffset) {
     <!-- Parallax Header -->
     <div data-ui-field="parallax-header" self="center" layout="column center-center" class="sh-sky-background max-width--1024">
 
-        <div data-ui-field="arrow-down" class="watch sh-alpha--a200 arrow-down">
+        <div data-ui-field="arrow-down" class="watch arrow-down">
             <i class="material-icons animated fadeInDown infinite">arrow_downward</i>
         </div>
 
@@ -397,6 +343,9 @@ function fadeInOut(el, data, startOffset, endOffset) {
         </div>
 
     </div>
+
+    <!-- The guy -->
+    <div class="watch sh--capguy"><!--<h3>Hello World!</h3> --></div>
 
     <!-- Content (underground) -->
     <div data-ui-field="underground" layout="column top-center">
@@ -429,28 +378,28 @@ var scroll_options = {
         this.on('scroll:change', function(e, data) {
             switch (data.event) {
                 case 'hit:top':
-                    // TODO: reached top of the page
+                    // reached top of page
                     break;
                 case 'scroll':
-                    // TODO: scrolling...
+                    // scrolling...
                     break;
                 case 'hit:bottom':
-                    // TODO: reached end of the page
+                    // reached end of page
                     break;
             }
         }).watch('.watch', function(el, data) {
             switch (data.event) {
                 case 'enter':
-                    // TODO: element entered the visible area
+                    // element entered the visible area
                     break;
                 case 'exit':
-                    // TODO: element out of the visible area
+                    // element out of the visible area
                     break;
                 case 'scroll':
-                    // TODO: element is being scrolled in the visible area
+                    // element is being scrolled in the visible area
                     break;
                 case 'off-scroll':
-                    // TODO: element is being scrolled out of the visible area
+                    // element is being scrolled out of the visible area
                     break;
             }
         })
@@ -486,9 +435,6 @@ var scroll_options = {
         </div>
 
     </div>
-
-    <!-- The guy -->
-    <div class="watch sh--capguy"><h3>Hello World!</h3></div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
