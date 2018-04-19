@@ -55,7 +55,10 @@ var scroll_opts = {
                     const dt = parseFloat(el.attr('data-translate'));
                     let translate = -(dy * dt * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
-                    blur(el, (dy - dt), -0.25, 0.25);
+                    // TODO: blur effect is causing "jumps" in FireFox whens scrolling
+                    if (navigator.userAgent.toLowerCase().indexOf('firefox') < 0) {
+                        blur(el, (dy - dt), -0.25, 0.25);
+                    }
                     fadeInOut(el, data, 0, 0.15);
                 } else if (el.hasClass('sh-title')) {
                     if (dy < 1.1 && dy > 0.5) {
