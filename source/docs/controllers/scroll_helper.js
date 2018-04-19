@@ -55,10 +55,8 @@ var scroll_opts = {
                     const dt = parseFloat(el.attr('data-translate'));
                     let translate = -(dy * dt * document.documentElement.offsetHeight);
                     el.css('transform', 'translateY(' + translate + 'px)');
-                    // TODO: blur effect is causing "jumps" in FireFox whens scrolling
-                    if (navigator.userAgent.toLowerCase().indexOf('firefox') < 0) {
-                        blur(el, (dy - dt), -0.25, 0.25);
-                    }
+                    // TODO: blur effect is likely to cause scroll jumps/glitches
+                    // blur(el, (dy - dt), -0.25, 0.25);
                     fadeInOut(el, data, 0, 0.15);
                 } else if (el.hasClass('sh-title')) {
                     if (dy < 1.1 && dy > 0.5) {
@@ -79,7 +77,7 @@ var scroll_opts = {
         });
     }
 };
-
+/*
 function blur(el, dy, startOffset, endOffset) {
     if (dy >= startOffset && dy <= endOffset) {
         const radius = Math.round((endOffset - dy) * 100 / 5);
@@ -90,7 +88,7 @@ function blur(el, dy, startOffset, endOffset) {
         el.css('filter', null);
     }
 }
-
+*/
 function fadeInOut(el, data, startOffset, endOffset) {
     if (startOffset == null) {
         startOffset = 0.2;
