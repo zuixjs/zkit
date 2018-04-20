@@ -46,7 +46,24 @@ layout_width: '1024px'
     <!-- Content (underground) -->
     <div data-ui-field="underground" layout="column top-center">
 
-        <h1 class="watch sh-title">Scroll Helper</h1>
+        <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
+
+        <div self="size-medium center" layout="columns top-stretch">
+            <h3 class="watch mdl-color-text--yellow-200" align="center">
+                Handle common UI scroll related tasks.
+            </h3>
+            <ul class="features">
+                <li class="watch">Event notifications for motion, bounds hitting and direction change</li>
+                <li class="watch">Watch elements with a callback as they move inside or enter/exit the viewport</li>
+                <li class="watch">
+                    Reported element position is relative to the viewport
+                    and expressed as percentage of its width/height.
+                    This allow turning the whole page scroll experience
+                    into a synchronized animation storyboard.
+                </li>
+                <li class="watch">Smooth <code>scrollTo(element|offset)</code> method</li>
+            </ul>
+        </div>
 
         <div self="size-large center" layout="columns top-stretch">
 

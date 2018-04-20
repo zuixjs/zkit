@@ -20,6 +20,9 @@ p code {
 h3 {
     opacity: 0.6;
 }
+h3 {
+    font-weight: 900;
+}
 a,a:hover,a:visited {
     color:yellow !important;
 }
@@ -85,7 +88,10 @@ code.option {
     font-size:400% !important;
     z-index:10;
 }
-
+.features {
+    margin-top: 32px;
+    margin-bottom: 48px;
+}
 
 .sh-sky-background {
     max-width: '';

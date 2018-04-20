@@ -66,6 +66,9 @@ p code {
 h3 {
     opacity: 0.6;
 }
+h3 {
+    font-weight: 900;
+}
 a,a:hover,a:visited {
     color:yellow !important;
 }
@@ -131,7 +134,10 @@ code.option {
     font-size:400% !important;
     z-index:10;
 }
-
+.features {
+    margin-top: 32px;
+    margin-bottom: 48px;
+}
 
 .sh-sky-background {
     max-width: '1024px';
@@ -226,54 +232,9 @@ var scroll_opts = {
                     break;
             }
         }).watch('.watch', function(el, data) {
-            el = zuix.$(el);
             if (data.event === 'scroll' || data.event === 'off-scroll') {
-                let dy = data.frame.dy;
-                if (el.hasClass('sh--capguy')) {
-                    // CapGuy walking animation
-                    const position = el.position();
-                    const availableWidth = ctx.view().clientWidth;
-                    dy = (1 - dy);
-                    if (dy <= 1.5) {
-                        let offsetX = (availableWidth*2*(dy - 0.2));
-                        let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
-                        offsetY -= el.get().clientHeight;
-                        let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
-                        if (guyLastPosition > dy) {
-                            transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
-                        }
-                        guyLastPosition = dy;
-                        el.css('transition', 'none');
-                        el.css('transform', transform);
-                        el.css('animation-play-state', 'initial');
-                        if (guyAnimationTimeout != null) {
-                            clearTimeout(guyAnimationTimeout);
-                        }
-                        guyAnimationTimeout = setTimeout(function(){
-                            pauseCapGuy(el);
-                        }, 200);
-                    }
-                    fadeInOut(el, data);
-                } else if (el.hasClass('sh-parallax')) {
-                    // Castle Hills parallax animation
-                    if (dy < 0) return;
-                    const dt = parseFloat(el.attr('data-translate'));
-                    let translate = -(dy * dt * document.documentElement.offsetHeight);
-                    el.css('transform', 'translateY(' + translate + 'px)');
-                    // TODO: blur effect is likely to cause scroll jumps/glitches
-                    // blur(el, (dy - dt), -0.25, 0.25);
-                    fadeInOut(el, data, 0, 0.15);
-                } else if (el.hasClass('sh-title')) {
-                    if (dy < 1.1 && dy > 0.5) {
-                        const scale = dy / 0.5;
-                        el.css('transform', 'scale('+scale+')');
-                    }
-                    fadeInOut(el, data);
-                } else {
-                    // Default "watchable" animation:
-                    //     ---> Fade-In enter / Fade-Out exit
-                    fadeInOut(el, data);
-                }
+                el = zuix.$(el);
+                playStoryBoard(el, data);
             }
         });
         zuix.field('arrow-down').on('click', function() {
@@ -282,6 +243,56 @@ var scroll_opts = {
         });
     }
 };
+
+function playStoryBoard(el, data) {
+    let dy = data.frame.dy;
+    if (el.hasClass('sh--capguy')) {
+        // CapGuy walking animation
+        const position = el.position();
+        const availableWidth = scrollHelper.viewport().width;
+        dy = (1 - dy);
+        if (dy <= 1.5) {
+            let offsetX = (availableWidth*2*(dy - 0.2));
+            let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
+            offsetY -= el.get().clientHeight;
+            let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+            if (guyLastPosition > dy) {
+                transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+            }
+            guyLastPosition = dy;
+            el.css('transition', 'none');
+            el.css('transform', transform);
+            el.css('animation-play-state', 'initial');
+            if (guyAnimationTimeout != null) {
+                clearTimeout(guyAnimationTimeout);
+            }
+            guyAnimationTimeout = setTimeout(function() {
+                pauseCapGuy(el);
+            }, 200);
+        }
+        fadeInOut(el, data);
+    } else if (el.hasClass('sh-parallax')) {
+        // Castle Hills parallax animation
+        if (dy < 0) return;
+        const dt = parseFloat(el.attr('data-translate'));
+        let translate = -(dy * dt * document.documentElement.offsetHeight);
+        el.css('transform-origin', 'center bottom');
+        el.css('transform', 'translateY(' + translate + 'px)');
+        // TODO: blur effect is likely to cause scroll jumps/glitches
+        // blur(el, (dy - dt), -0.25, 0.25);
+        fadeInOut(el, data, 0, 0.15);
+    } else if (el.hasClass('sh-title')) {
+        if (dy < 1.1 && dy > 0.5) {
+            const scale = dy / 0.5;
+            el.css('transform', 'scale('+scale+')');
+        }
+        fadeInOut(el, data);
+    } else {
+        // Default "watchable" animation:
+        //     ---> Fade-In enter / Fade-Out exit
+        fadeInOut(el, data);
+    }
+}
 /*
 function blur(el, dy, startOffset, endOffset) {
     if (dy >= startOffset && dy <= endOffset) {
@@ -351,7 +362,24 @@ function fadeInOut(el, data, startOffset, endOffset) {
     <!-- Content (underground) -->
     <div data-ui-field="underground" layout="column top-center">
 
-        <h1 class="watch sh-title">Scroll Helper</h1>
+        <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
+
+        <div self="size-medium center" layout="columns top-stretch">
+            <h3 class="watch mdl-color-text--yellow-200" align="center">
+                Handle common UI scroll related tasks.
+            </h3>
+            <ul class="features">
+                <li class="watch">Event notifications for motion, bounds hitting and direction change</li>
+                <li class="watch">Watch elements with a callback as they move inside or enter/exit the viewport</li>
+                <li class="watch">
+                    Reported element position is relative to the viewport
+                    and expressed as percentage of its width/height.
+                    This allow turning the whole page scroll experience
+                    into a synchronized animation storyboard.
+                </li>
+                <li class="watch">Smooth <code>scrollTo(element|offset)</code> method</li>
+            </ul>
+        </div>
 
         <div self="size-large center" layout="columns top-stretch">
 

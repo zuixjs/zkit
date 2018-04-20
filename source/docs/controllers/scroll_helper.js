@@ -21,54 +21,9 @@ var scroll_opts = {
                     break;
             }
         }).watch('.watch', function(el, data) {
-            el = zuix.$(el);
             if (data.event === 'scroll' || data.event === 'off-scroll') {
-                let dy = data.frame.dy;
-                if (el.hasClass('sh--capguy')) {
-                    // CapGuy walking animation
-                    const position = el.position();
-                    const availableWidth = ctx.view().clientWidth;
-                    dy = (1 - dy);
-                    if (dy <= 1.5) {
-                        let offsetX = (availableWidth*2*(dy - 0.2));
-                        let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
-                        offsetY -= el.get().clientHeight;
-                        let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
-                        if (guyLastPosition > dy) {
-                            transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
-                        }
-                        guyLastPosition = dy;
-                        el.css('transition', 'none');
-                        el.css('transform', transform);
-                        el.css('animation-play-state', 'initial');
-                        if (guyAnimationTimeout != null) {
-                            clearTimeout(guyAnimationTimeout);
-                        }
-                        guyAnimationTimeout = setTimeout(function(){
-                            pauseCapGuy(el);
-                        }, 200);
-                    }
-                    fadeInOut(el, data);
-                } else if (el.hasClass('sh-parallax')) {
-                    // Castle Hills parallax animation
-                    if (dy < 0) return;
-                    const dt = parseFloat(el.attr('data-translate'));
-                    let translate = -(dy * dt * document.documentElement.offsetHeight);
-                    el.css('transform', 'translateY(' + translate + 'px)');
-                    // TODO: blur effect is likely to cause scroll jumps/glitches
-                    // blur(el, (dy - dt), -0.25, 0.25);
-                    fadeInOut(el, data, 0, 0.15);
-                } else if (el.hasClass('sh-title')) {
-                    if (dy < 1.1 && dy > 0.5) {
-                        const scale = dy / 0.5;
-                        el.css('transform', 'scale('+scale+')');
-                    }
-                    fadeInOut(el, data);
-                } else {
-                    // Default "watchable" animation:
-                    //     ---> Fade-In enter / Fade-Out exit
-                    fadeInOut(el, data);
-                }
+                el = zuix.$(el);
+                playStoryBoard(el, data);
             }
         });
         zuix.field('arrow-down').on('click', function() {
@@ -77,6 +32,56 @@ var scroll_opts = {
         });
     }
 };
+
+function playStoryBoard(el, data) {
+    let dy = data.frame.dy;
+    if (el.hasClass('sh--capguy')) {
+        // CapGuy walking animation
+        const position = el.position();
+        const availableWidth = scrollHelper.viewport().width;
+        dy = (1 - dy);
+        if (dy <= 1.5) {
+            let offsetX = (availableWidth*2*(dy - 0.2));
+            let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
+            offsetY -= el.get().clientHeight;
+            let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+            if (guyLastPosition > dy) {
+                transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+            }
+            guyLastPosition = dy;
+            el.css('transition', 'none');
+            el.css('transform', transform);
+            el.css('animation-play-state', 'initial');
+            if (guyAnimationTimeout != null) {
+                clearTimeout(guyAnimationTimeout);
+            }
+            guyAnimationTimeout = setTimeout(function() {
+                pauseCapGuy(el);
+            }, 200);
+        }
+        fadeInOut(el, data);
+    } else if (el.hasClass('sh-parallax')) {
+        // Castle Hills parallax animation
+        if (dy < 0) return;
+        const dt = parseFloat(el.attr('data-translate'));
+        let translate = -(dy * dt * document.documentElement.offsetHeight);
+        el.css('transform-origin', 'center bottom');
+        el.css('transform', 'translateY(' + translate + 'px)');
+        // TODO: blur effect is likely to cause scroll jumps/glitches
+        // blur(el, (dy - dt), -0.25, 0.25);
+        fadeInOut(el, data, 0, 0.15);
+    } else if (el.hasClass('sh-title')) {
+        if (dy < 1.1 && dy > 0.5) {
+            const scale = dy / 0.5;
+            el.css('transform', 'scale('+scale+')');
+        }
+        fadeInOut(el, data);
+    } else {
+        // Default "watchable" animation:
+        //     ---> Fade-In enter / Fade-Out exit
+        fadeInOut(el, data);
+    }
+}
 /*
 function blur(el, dy, startOffset, endOffset) {
     if (dy >= startOffset && dy <= endOffset) {
