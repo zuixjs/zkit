@@ -5,6 +5,10 @@ body {
     font-family: Helvetica, sans-serif;
     overflow-x: hidden;
 }
+footer {
+    font-size: 120%;
+    padding: 12px;
+}
 p {
     font-family: serif;
     font-size: 180% !important;
@@ -73,7 +77,7 @@ code.option {
     background: #89675b;
     width: 100%;
     min-height: 75vh;
-    padding: 16px;
+    padding: 16px 16px 72px;
     z-index:10;
 }
 [data-ui-field="arrow-down"] {

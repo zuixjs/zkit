@@ -75,10 +75,10 @@ layout_width: '1024px'
                 or a <code>div</code> element)
             </p>
 
-<pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
-  data-ui-context="scroll-helper"&gt;
+<pre><code class="html">&lt;body data-ui-load="@lib/controllers/scroll_helper"
+      data-ui-context="scroll-helper"&gt;
   <!-- scrollable content -->
-&lt;/div&gt;</code></pre>
+&lt;/body&gt;</code></pre>
 
 
 
@@ -114,23 +114,8 @@ zuix.context('scroll-helper', function() {
   scrollHelper.scrollEnd();
 });</code></pre>
 
-            <h3>Methods</h3>
 
-<pre><code class="js">// scroll to the start of page
-scrollHelper.scrollStart( [duration_ms] );
-// scroll to the end of page
-scrollHelper.scrollEnd( [duration_ms] );
-// scroll to element or offset
-scrollHelper.scrollTo( element | offset_px );
-// get the scroll info object
-let info = scrollHelper.info();
-// Set elements to be observed
-scrollHelper.watch('.watchable', callback);
-</code></pre>
-
-
-
-            <h3>Event listener</h3>
+            <h3>Listen to events</h3>
 
 <pre><code class="js">scrollHelper.on('scroll:change', function(e, data) {
     switch (data.event) {
@@ -138,13 +123,45 @@ scrollHelper.watch('.watchable', callback);
             // reached top of page
             break;
         case 'scroll':
-            // scrolling...
+            if (data.info.shift.y < 0) {
+                // scrolling up
+            } if (data.info.shift.y > 0) {
+                // scrolling down
+            }
             break;
         case 'hit:bottom':
             // reached end of page
             break;
     }
 });</code></pre>
+
+            <h3>Get scroll information</h3>
+
+<pre><code class="js">// get the scroll info object
+const info = scrollHelper.info();
+
+info -> {
+  // last event timestamp
+  timestamp: 1524263175438,
+  // movement since previous event
+  shift: {
+    x: 0,
+    y: -3
+  },
+  // total scroll area size
+  size: {
+    width: 1280,
+    height: 5281
+  },
+  // visible area
+  viewport: {
+    x: 0,
+    y: -3313,
+    width: 1280,
+    height: 720
+  }
+}</code></pre>
+
 
 
 
@@ -173,6 +190,18 @@ scrollHelper.watch('.watchable', callback);
 
 
 
+            <h3>Other methods</h3>
+
+<pre><code class="js">// scroll to the start of page
+scrollHelper.scrollStart( [duration_ms] );
+// scroll to the end of page
+scrollHelper.scrollEnd( [duration_ms] );
+// scroll to element or offset
+scrollHelper.scrollTo( element | offset_px );
+</code></pre>
+
+
+
             <h2>Source code</h2>
             <p>
                 Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
@@ -187,7 +216,9 @@ scrollHelper.watch('.watchable', callback);
 
     </div>
 
-{% include "../../_inc/body_end.html" %}
+    {% include "../_inc/footer.html" %}
+
+    {% include "../../_inc/body_end.html" %}
 
 <!-- Common JS scripts -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">

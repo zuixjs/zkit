@@ -51,6 +51,10 @@
     font-family: Helvetica, sans-serif;
     overflow-x: hidden;
 }
+footer {
+    font-size: 120%;
+    padding: 12px;
+}
 p {
     font-family: serif;
     font-size: 180% !important;
@@ -119,7 +123,7 @@ code.option {
     background: #89675b;
     width: 100%;
     min-height: 75vh;
-    padding: 16px;
+    padding: 16px 16px 72px;
     z-index:10;
 }
 [data-ui-field="arrow-down"] {
@@ -385,7 +389,7 @@ function fadeInOut(el, data, startOffset, endOffset) {
 
             <h2>Usage</h2>
 <h3>1. Include zUIx library</h3>
-<p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> page:</p>
+<p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> document:</p>
 
 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
 
@@ -396,10 +400,10 @@ function fadeInOut(el, data, startOffset, endOffset) {
                 or a <code>div</code> element)
             </p>
 
-<pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
-  data-ui-context="scroll-helper"&gt;
+<pre><code class="html">&lt;body data-ui-load="@lib/controllers/scroll_helper"
+      data-ui-context="scroll-helper"&gt;
   <!-- scrollable content -->
-&lt;/div&gt;</code></pre>
+&lt;/body&gt;</code></pre>
 
 
 
@@ -435,23 +439,8 @@ zuix.context('scroll-helper', function() {
   scrollHelper.scrollEnd();
 });</code></pre>
 
-            <h3>Methods</h3>
 
-<pre><code class="js">// scroll to the start of page
-scrollHelper.scrollStart( [duration_ms] );
-// scroll to the end of page
-scrollHelper.scrollEnd( [duration_ms] );
-// scroll to element or offset
-scrollHelper.scrollTo( element | offset_px );
-// get the scroll info object
-let info = scrollHelper.info();
-// Set elements to be observed
-scrollHelper.watch('.watchable', callback);
-</code></pre>
-
-
-
-            <h3>Event listener</h3>
+            <h3>Listen to events</h3>
 
 <pre><code class="js">scrollHelper.on('scroll:change', function(e, data) {
     switch (data.event) {
@@ -459,13 +448,45 @@ scrollHelper.watch('.watchable', callback);
             // reached top of page
             break;
         case 'scroll':
-            // scrolling...
+            if (data.info.shift.y < 0) {
+                // scrolling up
+            } if (data.info.shift.y > 0) {
+                // scrolling down
+            }
             break;
         case 'hit:bottom':
             // reached end of page
             break;
     }
 });</code></pre>
+
+            <h3>Get scroll information</h3>
+
+<pre><code class="js">// get the scroll info object
+const info = scrollHelper.info();
+
+info -> {
+  // last event timestamp
+  timestamp: 1524263175438,
+  // movement since previous event
+  shift: {
+    x: 0,
+    y: -3
+  },
+  // total scroll area size
+  size: {
+    width: 1280,
+    height: 5281
+  },
+  // visible area
+  viewport: {
+    x: 0,
+    y: -3313,
+    width: 1280,
+    height: 720
+  }
+}</code></pre>
+
 
 
 
@@ -494,6 +515,18 @@ scrollHelper.watch('.watchable', callback);
 
 
 
+            <h3>Other methods</h3>
+
+<pre><code class="js">// scroll to the start of page
+scrollHelper.scrollStart( [duration_ms] );
+// scroll to the end of page
+scrollHelper.scrollEnd( [duration_ms] );
+// scroll to element or offset
+scrollHelper.scrollTo( element | offset_px );
+</code></pre>
+
+
+
             <h2>Source code</h2>
             <p>
                 Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
@@ -508,7 +541,15 @@ scrollHelper.watch('.watchable', callback);
 
     </div>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
+    <footer>
+    <div layout="rows center-justify" class="footer-block">
+        <div self="size-x1 center-right"><a href="../../../"><strong>zKit</strong></a> <small>components for modern web</small></div>
+        <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+    </div>
+</footer>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="//www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
 <script>
     // Google Analytics

@@ -8,13 +8,14 @@
 
 zuix.controller(function(cp) {
     const scrollInfo = {
-        scrollTop: 0,
         timestamp: 0,
         size: {
             width: 0,
             height: 0
         },
         viewport: {
+            x: 0,
+            y: 0,
             width: 0,
             height: 0
         }
@@ -85,15 +86,18 @@ zuix.controller(function(cp) {
 
         const now = new Date().getTime();
         const endScroll = scrollInfo.size.height-scrollInfo.viewport.y-scrollInfo.viewport.height;
-        // TODO: const dx = vp.x - scrollInfo.viewport.x;
-        const dy = vp.y - scrollInfo.viewport.y;
         if ((endScroll === 0 || vp.y === 0)) {
-            cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', delta: dy});
+            cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
         } else if (now - scrollInfo.timestamp > 200) {
+            // TODO: last event might be lost... fix this
             scrollInfo.timestamp = now;
-            cp.trigger('scroll:change', {event: 'moving', delta: dy});
+            scrollInfo.shift = {
+                x: vp.x - scrollInfo.viewport.x,
+                y: vp.y - scrollInfo.viewport.y
+            };
             scrollInfo.viewport.x = vp.x;
             scrollInfo.viewport.y = vp.y;
+            cp.trigger('scroll:change', {event: 'scroll', info: scrollInfo});
         }
 
         const visibleClass = 'scroll-helper-visible';
