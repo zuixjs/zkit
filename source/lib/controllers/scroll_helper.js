@@ -7,13 +7,21 @@
  */
 
 zuix.controller(function(cp) {
+    const scrollInfo = {
+        scrollTop: 0,
+        timestamp: 0,
+        size: {
+            width: 0,
+            height: 0
+        },
+        viewport: {
+            width: 0,
+            height: 0
+        }
+    };
     let watchList;
     let watchCallback;
-    let scrollEndTs = 0;
-    let scrollWidth;
-    let scrollHeight;
-    let visibleWidth;
-    let visibleHeight;
+    let scrollToEndTs = 0;
 
     cp.init = function() {
         cp.options().html = false;
@@ -44,56 +52,48 @@ zuix.controller(function(cp) {
             return cp.context;
         }).expose('scrollEnd', function(duration) {
             if (duration == null) duration = -1;
-            scrollTo(scrollHeight, duration);
+            scrollTo(scrollInfo.size.height, duration);
             return cp.context;
         }).expose('scrollTo', function(to, duration) {
             if (duration == null) duration = -1;
             scrollTo(to, duration);
             return cp.context;
-        }).expose('size', function() {
-            return {width: scrollWidth, height: scrollHeight};
-        }).expose('viewport', function() {
-            return {width: visibleWidth, height: visibleHeight};
+        }).expose('info', function() {
+            return scrollInfo;
         });
         // TODO: that's a temp hack to force measure at start
         scrollTo(5, -1);
         scrollTo(0, 200);
     };
 
-    const scrollInfo = {
-        lastTop: 0,
-        timestamp: 0
-    };
-
     function scrollCheck() {
         // TODO: implement code for horizontal scroll as well
         const scrollable = cp.view().get();
-        const viewport = scrollable.getBoundingClientRect();
-        let scrollLeft;
-        let scrollTop;
-        scrollLeft = viewport.x;
-        scrollTop = viewport.y;
-        scrollWidth = viewport.width;
-        scrollHeight = viewport.height;
+        const vp = scrollable.getBoundingClientRect();
+
+        scrollInfo.size.width = vp.width;
+        scrollInfo.size.height = vp.height;
         if (scrollable === document.body) {
-            scrollWidth = document.body.offsetWidth;
-            scrollHeight = document.body.offsetHeight;
-            visibleWidth = document.documentElement.offsetWidth;
-            visibleHeight = document.documentElement.offsetHeight;
+            scrollInfo.size.width = document.body.offsetWidth;
+            scrollInfo.size.height = document.body.offsetHeight;
+            scrollInfo.viewport.width = document.documentElement.offsetWidth;
+            scrollInfo.viewport.height = document.documentElement.offsetHeight;
         } else {
-            visibleWidth = scrollable.offsetWidth;
-            visibleHeight = scrollable.offsetHeight;
+            scrollInfo.viewport.width = scrollable.offsetWidth;
+            scrollInfo.viewport.height = scrollable.offsetHeight;
         }
 
         const now = new Date().getTime();
-        const endScroll = scrollHeight-scrollTop-visibleHeight;
-        const dy = scrollTop - scrollInfo.lastTop;
-        if ((endScroll === 0 || scrollTop === 0)) {
-            cp.trigger('scroll:change', {event: scrollTop === 0 ? 'hit-top' : 'hit-bottom', delta: dy});
+        const endScroll = scrollInfo.size.height-scrollInfo.viewport.y-scrollInfo.viewport.height;
+        // TODO: const dx = vp.x - scrollInfo.viewport.x;
+        const dy = vp.y - scrollInfo.viewport.y;
+        if ((endScroll === 0 || vp.y === 0)) {
+            cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', delta: dy});
         } else if (now - scrollInfo.timestamp > 200) {
             scrollInfo.timestamp = now;
             cp.trigger('scroll:change', {event: 'moving', delta: dy});
-            scrollInfo.lastTop = scrollTop;
+            scrollInfo.viewport.x = vp.x;
+            scrollInfo.viewport.y = vp.y;
         }
 
         const visibleClass = 'scroll-helper-visible';
@@ -112,10 +112,10 @@ zuix.controller(function(cp) {
                 const r1 = {
                     left: 0,
                     top: 0,
-                    right: visibleWidth,
-                    bottom: visibleHeight,
-                    width: visibleWidth,
-                    height: visibleHeight
+                    right: scrollInfo.viewport.width,
+                    bottom: scrollInfo.viewport.height,
+                    width: scrollInfo.viewport.width,
+                    height: scrollInfo.viewport.height
                 };
                 let r2 = el.getBoundingClientRect();
                 let parent = el.offsetParent;
@@ -175,9 +175,9 @@ zuix.controller(function(cp) {
         }
         const currentTs = Date.now();
         if (duration != null) {
-            scrollEndTs = currentTs + duration;
+            scrollToEndTs = currentTs + duration;
         }
-        duration = scrollEndTs-currentTs;
+        duration = scrollToEndTs-currentTs;
 
         const el = cp.view().get();
         let scrollTop = 0;
@@ -228,5 +228,4 @@ zuix.controller(function(cp) {
             }
         };
     }
-
 });

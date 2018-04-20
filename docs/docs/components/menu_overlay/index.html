@@ -96,19 +96,30 @@
         <h3>2. Add the menu markup</h3>
         <p>Put inside the field <code>items</code> the code for your menu items.</p>
 
-<pre><code class="html"><div data-ui-load="@lib/components/menu_overlay">
+<pre><code class="html">&lt;div data-ui-load="@lib/components/menu_overlay"
+    data-ui-context="menu-overlay"&gt;
   <div data-ui-field="items">
     <!-- menu items list -->
     <a href="#link_1">Menu Item 1</a>
     <a href="#link_2">Menu Item 2</a>
     <a href="#link_3">Menu Item 3</a>
   </div>
-</div></code></pre>
+&lt;/div&gt;</code></pre>
 
         <p>... and that's it, super duper easy <strong>: )</strong></p>
 
         <h2>Option attributes</h2>
         <ul>
+            <li>
+                <code class="option">data-ui-load="@lib/components/menu_overlay"</code>
+                <small>constructor</small><br>
+                load the <code>menu_overlay</code> component on the element.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
             <li>
                 <code class="option">data-o-scroller</code>
                 <small>optional</small><br>
@@ -123,11 +134,6 @@
                 <code class="option">data-o-icon-color</code>
                 <small>optional</small><br>
                 color of the menu button icon. The default value is <code>white</code>.
-            </li>
-            <li>
-                <code class="option">data-ui-context</code>
-                <small>optional</small><br>
-                identifier name to be used to reference this component from JavaScript.
             </li>
         </ul>
 
@@ -226,7 +232,7 @@
 <pre><code class="js">var menuOverlay;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
-zuix.context('my-menu-id', function () {
+zuix.context('menu-overlay', function () {
     // add event listeners
     this.on('open', function() { /* ... */})
         .on('close', function() { /* ... */});
@@ -237,7 +243,7 @@ zuix.context('my-menu-id', function () {
 
         <h3>Programmatically show/hide</h3>
 
-        <pre><code class="js">// show the menu (enable)
+<pre><code class="js">// show the menu (enable)
 menuOverlay.hide();
 // hide the menu (disable)
 menuOverlay.hide();

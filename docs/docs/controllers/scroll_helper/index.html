@@ -238,7 +238,7 @@ var scroll_opts = {
             }
         });
         zuix.field('arrow-down').on('click', function() {
-            const viewport = scrollHelper.viewport();
+            const viewport = scrollHelper.info().viewport;
             scrollHelper.scrollTo(viewport.height, 2000);
         });
     }
@@ -249,7 +249,7 @@ function playStoryBoard(el, data) {
     if (el.hasClass('sh--capguy')) {
         // CapGuy walking animation
         const position = el.position();
-        const availableWidth = scrollHelper.viewport().width;
+        const availableWidth = scrollHelper.info().viewport.width;
         dy = (1 - dy);
         if (dy <= 1.5) {
             let offsetX = (availableWidth*2*(dy - 0.2));
@@ -397,58 +397,101 @@ function fadeInOut(el, data, startOffset, endOffset) {
             </p>
 
 <pre><code class="html">&lt;div data-ui-load="@lib/controllers/scroll_helper"
-  data-ui-options="scroll_options"&gt;
+  data-ui-context="scroll-helper"&gt;
   <!-- scrollable content -->
-&lt;/div&gt;
-<script>
-var scroll_options = {
-    ready: function() {
-        // register event callbacks
-        this.on('scroll:change', function(e, data) {
-            switch (data.event) {
-                case 'hit:top':
-                    // reached top of page
-                    break;
-                case 'scroll':
-                    // scrolling...
-                    break;
-                case 'hit:bottom':
-                    // reached end of page
-                    break;
-            }
-        }).watch('.watch', function(el, data) {
-            switch (data.event) {
-                case 'enter':
-                    // element entered the visible area
-                    break;
-                case 'exit':
-                    // element out of the visible area
-                    break;
-                case 'scroll':
-                    // element is being scrolled in the visible area
-                    break;
-                case 'off-scroll':
-                    // element is being scrolled out of the visible area
-                    break;
-            }
-        })
-    }
-}
-</script></code></pre>
+&lt;/div&gt;</code></pre>
 
-            <p>
-                `// TODO: ...`
-            </p>
-            <pre><code class="js">// TODO: ...</code></pre>
+
+
 
             <h2>Option attributes</h2>
             <ul>
                 <li>
+                    <code class="option">data-ui-load="@lib/controllers/scroll_helper"</code>
+                    <small>constructor</small><br>
+                    load the <code>scroll_helper</code> controller on the element.
+                </li>
+                <li>
                     <code class="option">data-ui-context</code>
                     <small>optional</small><br>
-                    identifier name to be used to reference this component from JavaScript.
+                    identifier name to be used to reference this instance from JavaScript.
                 </li>
             </ul>
+
+
+
+
+            <h2>Scripting</h2>
+            <h3>Get a reference to the scroll helper object</h3>
+
+<pre><code class="js">var scrollHelper;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('scroll-helper', function() {
+  // store a global reference of the
+  // component for eventual later use
+  scrollHelper = this;
+  // scroll to the end of the page
+  scrollHelper.scrollEnd();
+});</code></pre>
+
+            <h3>Methods</h3>
+
+<pre><code class="js">// scroll to the start of page
+scrollHelper.scrollStart( [duration_ms] );
+// scroll to the end of page
+scrollHelper.scrollEnd( [duration_ms] );
+// scroll to element or offset
+scrollHelper.scrollTo( element | offset_px );
+// get the scroll info object
+let info = scrollHelper.info();
+// Set elements to be observed
+scrollHelper.watch('.watchable', callback);
+</code></pre>
+
+
+
+            <h3>Event listener</h3>
+
+<pre><code class="js">scrollHelper.on('scroll:change', function(e, data) {
+    switch (data.event) {
+        case 'hit:top':
+            // reached top of page
+            break;
+        case 'scroll':
+            // scrolling...
+            break;
+        case 'hit:bottom':
+            // reached end of page
+            break;
+    }
+});</code></pre>
+
+
+
+            <h3>Watching elements</h3>
+            <p>
+                `// TODO: ...`
+            </p>
+
+<pre><code class="js">scrollHelper.watch('div.watch', function(el, data) {
+    switch (data.event) {
+        case 'enter':
+            // element entered the visible area
+            break;
+        case 'exit':
+            // element out of the visible area
+            break;
+        case 'scroll':
+            // element is being scrolled in the visible area
+            break;
+        case 'off-scroll':
+            // element is being scrolled out of the visible area
+            break;
+    }
+});</code></pre>
+
+
 
 
             <h2>Source code</h2>

@@ -27,7 +27,7 @@ var scroll_opts = {
             }
         });
         zuix.field('arrow-down').on('click', function() {
-            const viewport = scrollHelper.viewport();
+            const viewport = scrollHelper.info().viewport;
             scrollHelper.scrollTo(viewport.height, 2000);
         });
     }
@@ -38,7 +38,7 @@ function playStoryBoard(el, data) {
     if (el.hasClass('sh--capguy')) {
         // CapGuy walking animation
         const position = el.position();
-        const availableWidth = scrollHelper.viewport().width;
+        const availableWidth = scrollHelper.info().viewport.width;
         dy = (1 - dy);
         if (dy <= 1.5) {
             let offsetX = (availableWidth*2*(dy - 0.2));

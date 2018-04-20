@@ -41,39 +41,44 @@ head:
         <h3>2. Add the media list markup</h3>
         <p>Put inside the field <code>media</code> the markup defining image and video list.</p>
 
-        <pre><code class="html">&lt;div data-ui-load="@lib/components/media_browser"
-        data-ui-context="media-browser"&gt;
-            <!-- List of images/videos -->
-        <div data-ui-field="media">
-            <!-- Example image item -->
-            <article>
-                <h1 data-ui-field="title">Title</h1>
-                <h2 data-ui-field="description">Description of the image.</h2>
-                <div data-ui-field="preview">
-                    <!-- Image thumbnail url -->
-                    <img src="https://picsum.photos/400/300/?image=201">
-                </div>
-                <!-- Full-size image url -->
-                <a data-ui-field="full"
-                   href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
-            </article>
-            <!-- Example YT video item -->
-            <article data-type="video">
-                <!-- YouTube video id -->
-                <div data-ui-field="video">dzvM0M6lRfI</div>
-                <div data-ui-field="preview">
-                    <!-- Video thumbnail url -->
-                    <img src="https://img.youtube.com/vi/dzvM0M6lRfI/2.jpg">
-                </div>
-            </article>
-        </div>
-    &lt;/div&gt;</code></pre>
+<pre><code class="html">&lt;div data-ui-load="@lib/components/media_browser"
+    data-ui-context="media-browser"&gt;
+    <!-- List of images/videos -->
+    <div data-ui-field="media">
+        <!-- Example image item -->
+        <article>
+            <h1 data-ui-field="title">Title</h1>
+            <h2 data-ui-field="description">Description of the image.</h2>
+            <div data-ui-field="preview">
+                <!-- Image thumbnail url -->
+                <img src="https://picsum.photos/400/300/?image=201">
+            </div>
+            <!-- Full-size image url -->
+            <a data-ui-field="full"
+               href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
+        </article>
+        <!-- Example YT video item -->
+        <article data-type="video">
+            <!-- YouTube video id -->
+            <div data-ui-field="video">dzvM0M6lRfI</div>
+            <div data-ui-field="preview">
+                <!-- Video thumbnail url -->
+                <img src="https://img.youtube.com/vi/dzvM0M6lRfI/2.jpg">
+            </div>
+        </article>
+    </div>
+&lt;/div&gt;</code></pre>
 
         <p>That's all.</p>
 
 
         <h2>Option attributes</h2>
         <ul>
+            <li>
+                <code class="option">data-ui-load="@lib/components/media_browser"</code>
+                <small>constructor</small><br>
+                load the <code>media_browser</code> component on the element.
+            </li>
             <li>
                 <code class="option">data-ui-context</code>
                 <small>optional</small><br>
@@ -85,23 +90,23 @@ head:
         <h2>Scripting</h2>
 
         <h3>Get a reference to the media browser object</h3>
-        <pre><code class="js">var mediaBrowser;
-    // since the component loads asynchronously
-    // a callback is required to ensure the component is ready
-    zuix.context('media-browser', function () {
-        // store a global reference of the
-        // component for eventual later use
-        mediaBrowser = this;
-        // open the media browser
-        mediaBrowser.open();
-    });</code></pre>
+<pre><code class="js">var mediaBrowser;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('media-browser', function () {
+    // store a global reference of the
+    // component for eventual later use
+    mediaBrowser = this;
+    // open the media browser
+    mediaBrowser.open();
+});</code></pre>
 
         <h3>Programmatically show/hide</h3>
 
-        <pre><code class="js">// show the media browser
-    mediaBrowser.open();
-    // hide the media browser
-    mediaBrowser.close();</code></pre>
+<pre><code class="js">// show the media browser
+mediaBrowser.open();
+// hide the media browser
+mediaBrowser.close();</code></pre>
 
 
         <h3>Example</h3>
