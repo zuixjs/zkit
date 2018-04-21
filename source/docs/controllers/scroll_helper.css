@@ -6,8 +6,11 @@ body {
     overflow-x: hidden;
 }
 footer {
+    min-height: 96px;
     font-size: 120%;
     padding: 12px;
+    background: #89675b;
+    background: linear-gradient(#78909C 5%, #89675b);
 }
 p {
     font-family: serif;
@@ -54,11 +57,11 @@ code.option {
     z-index: 10;
 }
 .watch {
-    -webkit-transition: 75ms linear;
-    -moz-transition: 75ms linear;
-    -ms-transition: 75ms linear;
-    -o-transition: 75ms linear;
-    transition: 75ms linear;
+    -webkit-transition: 150ms linear;
+    -moz-transition: 150ms linear;
+    -ms-transition: 150ms linear;
+    -o-transition: 150ms linear;
+    transition: 150ms linear;
 }
 .sh-parallax {
     position: absolute;
@@ -73,7 +76,7 @@ code.option {
     -o-transform-origin: top center;
     transform-origin: top center;
 }
-[data-ui-field="arrow-down"] {
+.arrow-down {
     cursor: pointer;
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
@@ -81,7 +84,7 @@ code.option {
     -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 }
-[data-ui-field="arrow-down"] i {
+.arrow-down i {
     font-size:500% !important;
     opacity: 0.5;
     z-index:10;

@@ -52,8 +52,11 @@
     overflow-x: hidden;
 }
 footer {
+    min-height: 96px;
     font-size: 120%;
     padding: 12px;
+    background: #89675b;
+    background: linear-gradient(#78909C 5%, #89675b);
 }
 p {
     font-family: serif;
@@ -100,11 +103,11 @@ code.option {
     z-index: 10;
 }
 .watch {
-    -webkit-transition: 75ms linear;
-    -moz-transition: 75ms linear;
-    -ms-transition: 75ms linear;
-    -o-transition: 75ms linear;
-    transition: 75ms linear;
+    -webkit-transition: 150ms linear;
+    -moz-transition: 150ms linear;
+    -ms-transition: 150ms linear;
+    -o-transition: 150ms linear;
+    transition: 150ms linear;
 }
 .sh-parallax {
     position: absolute;
@@ -119,7 +122,7 @@ code.option {
     -o-transform-origin: top center;
     transform-origin: top center;
 }
-[data-ui-field="arrow-down"] {
+.arrow-down {
     cursor: pointer;
     -webkit-transition: 0.1s ease-in-out;
     -moz-transition: 0.1s ease-in-out;
@@ -127,7 +130,7 @@ code.option {
     -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 }
-[data-ui-field="arrow-down"] i {
+.arrow-down i {
     font-size:500% !important;
     opacity: 0.5;
     z-index:10;
@@ -294,9 +297,15 @@ var scroll_opts = {
             const viewport = scrollHelper.info().viewport;
             scrollHelper.scrollTo(viewport.height*1.75, 2000);
         });
+        zuix.field('arrow-docs').on('click', function() {
+            const viewport = scrollHelper.info().viewport;
+            const docs = zuix.$.find('.sh-usage-anchor');
+            scrollHelper.scrollTo(docs.position().y-viewport.y+8, 500);
+        });
     }
 };
 
+let scrollDirection = 1;
 function playStoryBoard(el, data) {
     let dy = data.frame.dy;
     if (el.hasClass('sh--capguy')) {
@@ -309,11 +318,19 @@ function playStoryBoard(el, data) {
             let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
             offsetY -= el.get().clientHeight;
             let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+            let changedDirection = false;
             if (guyLastPosition > dy) {
+                changedDirection = scrollDirection > 0;
+                scrollDirection = -1;
                 transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+            } else {
+                changedDirection = scrollDirection < 0;
+                scrollDirection = 1;
             }
             guyLastPosition = dy;
-            el.css('transition', 'none');
+            if (changedDirection) {
+                el.css('transition', 'none');
+            } else el.css('transition', '');
             el.css('transform', transform);
             el.css('animation-play-state', 'initial');
             if (guyAnimationTimeout != null) {
@@ -335,8 +352,8 @@ function playStoryBoard(el, data) {
         // blur(el, (dy - dt), -0.25, 0.25);
         fadeInOut(el, data, 0, 0.15);
     } else if (el.hasClass('sh-title')) {
-        if (dy < 1.1 && dy > 0.5) {
-            const scale = dy / 0.5;
+        if (dy < 1.2 && dy > 0.4) {
+            const scale = dy / 0.4;
             el.css('transform', 'scale('+scale+')');
         }
         fadeInOut(el, data);
@@ -448,13 +465,13 @@ function hideMenu() {
         <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
 
         <div self="size-medium center" layout="columns top-stretch">
-            <h3 class="watch mdl-color-text--yellow-200" align="center">
-                a solution for common scroll-related tasks
+            <h3 class="watch" align="left">
+                Effective handling of common tasks tied to page scroll.
             </h3>
             <ul class="features">
                 <li class="watch">
                     <code>scroll:change</code> <strong>event</strong>
-                    to handle bound hitting, motion and direction update
+                    to handle motion, direction update and boundary hit
                 </li>
                 <li class="watch">
                     <code>watch</code> <strong>method</strong> to get
@@ -462,15 +479,13 @@ function hideMenu() {
                 </li>
                 <li class="watch">
                     <code>scrollTo</code> <strong>method</strong> with
-                    smooth scroll facility
-                </li>
-                <li class="watch">
-                    <code>comprehensive</code> <strong>data</strong> including element frame
-                    expressed as percentage of viewport size.
-                    This facilitates the creation of a synchronized and responsive animation
-                    storyboard based on actual viewport and elements position.
+                    smooth scrolling facility
                 </li>
             </ul>
+        </div>
+
+        <div self="bottom" data-ui-field="arrow-docs" class="watch arrow-down">
+            <i class="material-icons">arrow_downward</i>
         </div>
 
     </div>
@@ -524,13 +539,15 @@ function hideMenu() {
             <h3>Get a reference to the scroll helper object</h3>
 
             <p>Before component is loaded</p>
+
 <pre><code class="js">var scrollHelper; // it will be == null until component is loaded
 zuix.context('scroll-helper', function() {
   scrollHelper = this;
 });</code></pre>
+
             <p>or after component is loaded</p>
-            <pre><code class="js">var scrollHelper = zuix.context('scroll-helper');
-});</code></pre>
+
+<pre><code class="js">var scrollHelper = zuix.context('scroll-helper');</code></pre>
 
 
             <h3>Listen to events</h3>
@@ -605,6 +622,12 @@ info -> {
     }
 });</code></pre>
 
+            <p>
+                Element frame is expressed as percentage of viewport size.
+                This facilitates the creation of a synchronized and responsive animation
+                storyboard based on current viewport and elements position.
+            </p>
+
 
 
 
@@ -652,7 +675,7 @@ scrollHelper.scrollTo( element | offset_px );
     </div>
 
 
-    <footer>
+    <footer layout="column center-center">
     <div layout="rows center-justify" class="footer-block">
         <div self="size-x1 center-right"><a href="../../../"><strong>zKit</strong></a> <small>components for modern web</small></div>
         <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>

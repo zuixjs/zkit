@@ -20,6 +20,7 @@ zuix.controller(function(cp) {
             height: 0
         }
     };
+    let updateTimeout;
     let watchList;
     let watchCallback;
     let scrollToEndTs = 0;
@@ -84,20 +85,20 @@ zuix.controller(function(cp) {
             scrollInfo.viewport.height = scrollable.offsetHeight;
         }
 
+        if (updateTimeout != null) {
+            clearTimeout(updateTimeout);
+        }
+
         const now = new Date().getTime();
         const endScroll = scrollInfo.size.height+vp.y-scrollInfo.viewport.height;
         if ((endScroll === 0 || vp.y === 0)) {
             cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
-        } else if (now - scrollInfo.timestamp > 200) {
-            // TODO: last event might be lost... fix this
-            scrollInfo.timestamp = now;
-            scrollInfo.shift = {
-                x: vp.x - scrollInfo.viewport.x,
-                y: vp.y - scrollInfo.viewport.y
-            };
-            scrollInfo.viewport.x = vp.x;
-            scrollInfo.viewport.y = vp.y;
-            cp.trigger('scroll:change', {event: 'scroll', info: scrollInfo});
+        } else if (now - scrollInfo.timestamp > 100) {
+            updateScroll(vp);
+        } else {
+            updateTimeout = setTimeout(function() {
+                updateScroll(vp);
+            }, 100);
         }
 
         const visibleClass = 'scroll-helper-visible';
@@ -171,6 +172,19 @@ zuix.controller(function(cp) {
             watchList = null;
             watchCallback = null;
         }
+    }
+
+    function updateScroll(vp) {
+        const now = new Date().getTime();
+        scrollInfo.timestamp = now;
+        scrollInfo.shift = {
+            x: vp.x - scrollInfo.viewport.x,
+            y: vp.y - scrollInfo.viewport.y
+        };
+        scrollInfo.viewport.x = vp.x;
+        scrollInfo.viewport.y = vp.y;
+        cp.trigger('scroll:change', {event: 'scroll', info: scrollInfo});
+
     }
 
     function scrollTo(to, duration) {

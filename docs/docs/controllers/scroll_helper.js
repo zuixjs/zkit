@@ -35,9 +35,15 @@ var scroll_opts = {
             const viewport = scrollHelper.info().viewport;
             scrollHelper.scrollTo(viewport.height*1.75, 2000);
         });
+        zuix.field('arrow-docs').on('click', function() {
+            const viewport = scrollHelper.info().viewport;
+            const docs = zuix.$.find('.sh-usage-anchor');
+            scrollHelper.scrollTo(docs.position().y-viewport.y+8, 500);
+        });
     }
 };
 
+let scrollDirection = 1;
 function playStoryBoard(el, data) {
     let dy = data.frame.dy;
     if (el.hasClass('sh--capguy')) {
@@ -50,11 +56,19 @@ function playStoryBoard(el, data) {
             let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
             offsetY -= el.get().clientHeight;
             let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+            let changedDirection = false;
             if (guyLastPosition > dy) {
+                changedDirection = scrollDirection > 0;
+                scrollDirection = -1;
                 transform = 'scaleX(-1) translate(' + (-offsetX) + 'px,' + offsetY + 'px)';
+            } else {
+                changedDirection = scrollDirection < 0;
+                scrollDirection = 1;
             }
             guyLastPosition = dy;
-            el.css('transition', 'none');
+            if (changedDirection) {
+                el.css('transition', 'none');
+            } else el.css('transition', '');
             el.css('transform', transform);
             el.css('animation-play-state', 'initial');
             if (guyAnimationTimeout != null) {
@@ -76,8 +90,8 @@ function playStoryBoard(el, data) {
         // blur(el, (dy - dt), -0.25, 0.25);
         fadeInOut(el, data, 0, 0.15);
     } else if (el.hasClass('sh-title')) {
-        if (dy < 1.1 && dy > 0.5) {
-            const scale = dy / 0.5;
+        if (dy < 1.2 && dy > 0.4) {
+            const scale = dy / 0.4;
             el.css('transform', 'scale('+scale+')');
         }
         fadeInOut(el, data);
