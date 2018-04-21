@@ -15,9 +15,14 @@ var scroll_opts = {
                     break;
                 case 'scroll':
                     // TODO: scrolling...
+                    // console.log(data.info);
+                    if (zuix.field('btn-go-bottom').hasClass('mdl-button--disabled')) {
+                        zuix.field('btn-go-bottom').removeClass('mdl-button--disabled');
+                    }
                     break;
                 case 'hit-bottom':
                     // TODO: reached end of the page
+                    zuix.field('btn-go-bottom').addClass('mdl-button--disabled');
                     break;
             }
         }).watch('.watch', function(el, data) {
@@ -28,7 +33,7 @@ var scroll_opts = {
         });
         zuix.field('arrow-down').on('click', function() {
             const viewport = scrollHelper.info().viewport;
-            scrollHelper.scrollTo(viewport.height, 2000);
+            scrollHelper.scrollTo(viewport.height*1.75, 2000);
         });
     }
 };
@@ -41,7 +46,7 @@ function playStoryBoard(el, data) {
         const availableWidth = scrollHelper.info().viewport.width;
         dy = (1 - dy);
         if (dy <= 1.5) {
-            let offsetX = (availableWidth*2*(dy - 0.2));
+            let offsetX = (availableWidth*1.5*(dy - 0.2));
             let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
             offsetY -= el.get().clientHeight;
             let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
@@ -76,6 +81,17 @@ function playStoryBoard(el, data) {
             el.css('transform', 'scale('+scale+')');
         }
         fadeInOut(el, data);
+    } else if (el.hasClass('sh-usage-anchor')) {
+        // show/hide header-menu when below/above the 'Usage' title
+        if (dy <= 0) {
+            if (scrollHelper.info().shift.y < 0) {
+                showMenu();
+            } else {
+                hideMenu();
+            }
+        } else {
+            hideMenu();
+        }
     } else {
         // Default "watchable" animation:
         //     ---> Fade-In enter / Fade-Out exit
@@ -111,5 +127,22 @@ function fadeInOut(el, data, startOffset, endOffset) {
         el.css('opacity', (1 - data.frame.dx) / endOffset);
     } else if (parseFloat(el.css('opacity')) !== 1) {
         el.css('opacity', 1);
+    }
+}
+
+function showMenu() {
+    const menu = zuix.field('header-menu');
+    if (menu.hasClass('hidden')) {
+        menu.removeClass('hidden')
+            .animateCss('fadeInDown').show();
+    }
+}
+
+function hideMenu() {
+    const menu = zuix.field('header-menu');
+    if (!menu.hasClass('hidden') && !menu.hasClass('animated')) {
+        menu.animateCss('fadeOutUp', function() {
+            this.addClass('hidden');
+        });
     }
 }

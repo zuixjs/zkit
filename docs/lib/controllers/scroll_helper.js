@@ -85,7 +85,7 @@ zuix.controller(function(cp) {
         }
 
         const now = new Date().getTime();
-        const endScroll = scrollInfo.size.height-scrollInfo.viewport.y-scrollInfo.viewport.height;
+        const endScroll = scrollInfo.size.height+vp.y-scrollInfo.viewport.height;
         if ((endScroll === 0 || vp.y === 0)) {
             cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
         } else if (now - scrollInfo.timestamp > 200) {
@@ -194,6 +194,7 @@ zuix.controller(function(cp) {
         const difference = to - scrollTop;
         if (duration <= 0 || difference === 0) {
             setScroll(to);
+            scrollCheck();
             return;
         }
 

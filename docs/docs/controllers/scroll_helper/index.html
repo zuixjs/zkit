@@ -119,13 +119,6 @@ code.option {
     -o-transform-origin: top center;
     transform-origin: top center;
 }
-[data-ui-field="underground"] {
-    background: #89675b;
-    width: 100%;
-    min-height: 75vh;
-    padding: 16px 16px 72px;
-    z-index:10;
-}
 [data-ui-field="arrow-down"] {
     cursor: pointer;
     -webkit-transition: 0.1s ease-in-out;
@@ -135,12 +128,64 @@ code.option {
     transition: 0.1s ease-in-out;
 }
 [data-ui-field="arrow-down"] i {
-    font-size:400% !important;
+    font-size:500% !important;
+    opacity: 0.5;
     z-index:10;
 }
+
+.intro-page {
+    width: 100%;
+    min-height: 100vh;
+    z-index:10;
+    background: #89675b;
+    background: linear-gradient(#89675b 30%, #78909C);
+    padding: 16px 16px 72px;
+}
+
 .features {
-    margin-top: 32px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 24px;
     margin-bottom: 48px;
+}
+.features li {
+    list-style: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-family: Helvetica, sans-serif;
+}
+.features li code {
+    color: #ffff66;
+}
+.features li strong {
+    opacity: 0.75;
+}
+
+.content {
+    margin-top: 1px;
+    padding: 72px 16px 72px;
+}
+
+.hidden {
+    display: none;
+}
+
+[data-ui-field="header-menu"] {
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    top:0; left: 0;
+    box-shadow: 0 6px 10px 6px rgba(0,0,0,0.15);
+    z-index: 100;
+    color: rgba(255,255,255,0.75);
+}
+[data-ui-field="header-menu"] .title {
+    font-size:160%;
+    font-weight: 700;
+    margin-left: 24px;
+}
+[data-ui-field="header-menu"] button {
+    margin-right: 20px;
 }
 
 .sh-sky-background {
@@ -151,7 +196,6 @@ code.option {
 }
 
 .sh-sky-background .arrow-down {
-    color: purple;
     margin-top: 50vh;
     z-index: 10;
 }
@@ -230,9 +274,14 @@ var scroll_opts = {
                     break;
                 case 'scroll':
                     // TODO: scrolling...
+                    // console.log(data.info);
+                    if (zuix.field('btn-go-bottom').hasClass('mdl-button--disabled')) {
+                        zuix.field('btn-go-bottom').removeClass('mdl-button--disabled');
+                    }
                     break;
                 case 'hit-bottom':
                     // TODO: reached end of the page
+                    zuix.field('btn-go-bottom').addClass('mdl-button--disabled');
                     break;
             }
         }).watch('.watch', function(el, data) {
@@ -243,7 +292,7 @@ var scroll_opts = {
         });
         zuix.field('arrow-down').on('click', function() {
             const viewport = scrollHelper.info().viewport;
-            scrollHelper.scrollTo(viewport.height, 2000);
+            scrollHelper.scrollTo(viewport.height*1.75, 2000);
         });
     }
 };
@@ -256,7 +305,7 @@ function playStoryBoard(el, data) {
         const availableWidth = scrollHelper.info().viewport.width;
         dy = (1 - dy);
         if (dy <= 1.5) {
-            let offsetX = (availableWidth*2*(dy - 0.2));
+            let offsetX = (availableWidth*1.5*(dy - 0.2));
             let offsetY = zuix.field('landscape').position().rect.bottom-position.y+50;
             offsetY -= el.get().clientHeight;
             let transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
@@ -291,6 +340,17 @@ function playStoryBoard(el, data) {
             el.css('transform', 'scale('+scale+')');
         }
         fadeInOut(el, data);
+    } else if (el.hasClass('sh-usage-anchor')) {
+        // show/hide header-menu when below/above the 'Usage' title
+        if (dy <= 0) {
+            if (scrollHelper.info().shift.y < 0) {
+                showMenu();
+            } else {
+                hideMenu();
+            }
+        } else {
+            hideMenu();
+        }
     } else {
         // Default "watchable" animation:
         //     ---> Fade-In enter / Fade-Out exit
@@ -328,6 +388,23 @@ function fadeInOut(el, data, startOffset, endOffset) {
         el.css('opacity', 1);
     }
 }
+
+function showMenu() {
+    const menu = zuix.field('header-menu');
+    if (menu.hasClass('hidden')) {
+        menu.removeClass('hidden')
+            .animateCss('fadeInDown').show();
+    }
+}
+
+function hideMenu() {
+    const menu = zuix.field('header-menu');
+    if (!menu.hasClass('hidden') && !menu.hasClass('animated')) {
+        menu.animateCss('fadeOutUp', function() {
+            this.addClass('hidden');
+        });
+    }
+}
 </script>
 
 </head>
@@ -340,7 +417,7 @@ function fadeInOut(el, data, startOffset, endOffset) {
     <!-- Parallax Header -->
     <div data-ui-field="parallax-header" self="center" layout="column center-center" class="sh-sky-background max-width--1024">
 
-        <div data-ui-field="arrow-down" class="watch arrow-down">
+        <div data-ui-field="arrow-down" class="arrow-down">
             <i class="material-icons animated fadeInDown infinite">arrow_downward</i>
         </div>
 
@@ -360,30 +437,48 @@ function fadeInOut(el, data, startOffset, endOffset) {
 
     </div>
 
+
     <!-- The guy -->
     <div class="watch sh--capguy"><!--<h3>Hello World!</h3> --></div>
 
-    <!-- Content (underground) -->
-    <div data-ui-field="underground" layout="column top-center">
+
+    <!-- Introduction -->
+    <div class="intro-page" layout="column center-center">
 
         <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
 
         <div self="size-medium center" layout="columns top-stretch">
             <h3 class="watch mdl-color-text--yellow-200" align="center">
-                Handle common UI scroll related tasks.
+                a solution for common scroll-related tasks
             </h3>
             <ul class="features">
-                <li class="watch">Event notifications for motion, bounds hitting and direction change</li>
-                <li class="watch">Watch elements with a callback as they move inside or enter/exit the viewport</li>
                 <li class="watch">
-                    Reported element position is relative to the viewport
-                    and expressed as percentage of its width/height.
-                    This allow turning the whole page scroll experience
-                    into a synchronized animation storyboard.
+                    <code>scroll:change</code> <strong>event</strong>
+                    to handle bound hitting, motion and direction update
                 </li>
-                <li class="watch">Smooth <code>scrollTo(element|offset)</code> method</li>
+                <li class="watch">
+                    <code>watch</code> <strong>method</strong> to get
+                    notified as DOM elements move inside or enter/exit the viewport
+                </li>
+                <li class="watch">
+                    <code>scrollTo</code> <strong>method</strong> with
+                    smooth scroll facility
+                </li>
+                <li class="watch">
+                    <code>comprehensive</code> <strong>data</strong> including element frame
+                    expressed as percentage of viewport size.
+                    This facilitates the creation of a synchronized and responsive animation
+                    storyboard based on actual viewport and elements position.
+                </li>
             </ul>
         </div>
+
+    </div>
+
+
+    <!-- Content -->
+    <a class="watch sh-usage-anchor"></a>
+    <div class="content mdl-color--blue-grey-400" layout="column top-center">
 
         <div self="size-large center" layout="columns top-stretch">
 
@@ -394,7 +489,7 @@ function fadeInOut(el, data, startOffset, endOffset) {
 <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
 
 
-            <h3>2. Load the scroll helper on the target element</h3>
+            <h3>2. Load the scroll helper</h3>
             <p>
                 Add the <code>data-ui-load</code> attribute to the element implementing the scroll (usually <code>body</code>
                 or a <code>div</code> element)
@@ -428,15 +523,13 @@ function fadeInOut(el, data, startOffset, endOffset) {
             <h2>Scripting</h2>
             <h3>Get a reference to the scroll helper object</h3>
 
-<pre><code class="js">var scrollHelper;
-// since the component loads asynchronously
-// a callback is required to ensure the component is ready
+            <p>Before component is loaded</p>
+<pre><code class="js">var scrollHelper; // it will be == null until component is loaded
 zuix.context('scroll-helper', function() {
-  // store a global reference of the
-  // component for eventual later use
   scrollHelper = this;
-  // scroll to the end of the page
-  scrollHelper.scrollEnd();
+});</code></pre>
+            <p>or after component is loaded</p>
+            <pre><code class="js">var scrollHelper = zuix.context('scroll-helper');
 });</code></pre>
 
 
@@ -444,7 +537,7 @@ zuix.context('scroll-helper', function() {
 
 <pre><code class="js">scrollHelper.on('scroll:change', function(e, data) {
     switch (data.event) {
-        case 'hit:top':
+        case 'hit-top':
             // reached top of page
             break;
         case 'scroll':
@@ -454,7 +547,7 @@ zuix.context('scroll-helper', function() {
                 // scrolling down
             }
             break;
-        case 'hit:bottom':
+        case 'hit-bottom':
             // reached end of page
             break;
     }
@@ -490,7 +583,7 @@ info -> {
 
 
 
-            <h3>Watching elements</h3>
+            <h3>Watching DOM elements</h3>
             <p>
                 `// TODO: ...`
             </p>
@@ -540,6 +633,24 @@ scrollHelper.scrollTo( element | offset_px );
         </div>
 
     </div>
+
+
+    <div data-ui-field="header-menu" class="hidden mdl-color--green-400" layout="row center-left">
+        <div self="size-1of2" class="title">Scroll Helper</div>
+        <div self="size-1of2" align="right">
+
+            <button data-ui-field="btn-go-top" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--green-200"
+                    onclick="scrollHelper.scrollStart(750)">
+                <i class="material-icons">arrow_upward</i>
+            </button>
+            <button data-ui-field="btn-go-bottom" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--green-200"
+                    onclick="scrollHelper.scrollEnd(750)">
+                <i class="material-icons">arrow_downward</i>
+            </button>
+
+        </div>
+    </div>
+
 
     <footer>
     <div layout="rows center-justify" class="footer-block">
