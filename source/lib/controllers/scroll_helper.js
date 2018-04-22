@@ -84,10 +84,10 @@ zuix.controller(function(cp) {
         } else {
             updateTimeout = setTimeout(function() {
                 updateScrollInfo();
-            }, 100);
+            }, 99);
         }
 
-        if (now < scrollToEndTs && now-frameSkipTs < 72.5) {
+        if (now < scrollToEndTs && now-frameSkipTs < 66) {
             return;
         }
         frameSkipTs = now;
