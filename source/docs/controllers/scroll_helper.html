@@ -51,8 +51,8 @@ layout_width: '1024px'
         <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
 
         <div self="size-medium" layout="columns top-stretch">
-            <h3 class="watch" align="left">
-                Handling common tasks tied to page scroll.
+            <h3 class="watch no-index" align="left">
+                Solution to web page scroll handling.
             </h3>
             <ul class="features">
                 <li class="watch">
@@ -280,11 +280,11 @@ scrollHelper.scrollTo( element | offset_px );
         <div self="size-1of2" align="right">
 
             <button data-ui-field="btn-go-top" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--green-200"
-                    onclick="scrollHelper.scrollStart(750)">
+                    onclick="scrollPrev()">
                 <i class="material-icons">arrow_upward</i>
             </button>
             <button data-ui-field="btn-go-bottom" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--green-200"
-                    onclick="scrollHelper.scrollEnd(750)">
+                    onclick="scrollNext()">
                 <i class="material-icons">arrow_downward</i>
             </button>
 

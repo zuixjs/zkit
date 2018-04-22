@@ -31,8 +31,7 @@ var scroll_opts = {
             }
         });
         zuix.field('arrow-down').on('click', function() {
-            const viewport = scrollHelper.info().viewport;
-            scrollHelper.scrollTo(viewport.height*1.75, 1500);
+            scrollToIntro(1250);
         });
         zuix.field('arrow-docs').on('click', function() {
             scrollHelper.scrollTo(zuix.$.find('.sh-usage-anchor'), 500);
@@ -156,5 +155,38 @@ function hideMenu() {
         menu.animateCss('fadeOutUp', function() {
             this.addClass('hidden');
         });
+    }
+}
+
+function scrollToIntro(duration) {
+    const viewport = scrollHelper.info().viewport;
+    scrollHelper.scrollTo(viewport.height*1.75, duration);
+}
+
+function scrollNext() {
+    let nextElement;
+    const vp = scrollHelper.info().viewport;
+    zuix.$.find('h2,h3').each(function(i, el) {
+        if (this.position().y > vp.height && (nextElement == null || nextElement.position().y > this.position().y)) {
+            nextElement = this;
+        }
+    });
+    if (nextElement != null) {
+        scrollHelper.scrollTo(nextElement.position().y-vp.y-80, 500);
+    }
+}
+
+function scrollPrev() {
+    let prevElement;
+    const vp = scrollHelper.info().viewport;
+    zuix.$.find('h2,h3').each(function(i, el) {
+        if (!this.hasClass('no-index') && this.position().y < 0 && (prevElement == null || prevElement.position().y < this.position().y)) {
+            prevElement = this;
+        }
+    });
+    if (prevElement != null) {
+        scrollHelper.scrollTo(prevElement.position().y-vp.y-80, 500);
+    } else {
+        scrollToIntro(500);
     }
 }
