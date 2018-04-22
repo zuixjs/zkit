@@ -8,21 +8,20 @@ var scroll_opts = {
     ready: function(ctx) {
         scrollHelper = this;
         this.on('scroll:change', function(e, data) {
-            // console.log(data);
             switch (data.event) {
                 case 'hit-top':
                     // TODO: reached top of the page
                     break;
                 case 'scroll':
-                    // TODO: scrolling...
-                    // console.log(data.info);
+                    // scrolling...
                     if (zuix.field('btn-go-bottom').hasClass('mdl-button--disabled')) {
                         zuix.field('btn-go-bottom').removeClass('mdl-button--disabled');
                     }
                     break;
                 case 'hit-bottom':
-                    // TODO: reached end of the page
+                    // reached end of the page
                     zuix.field('btn-go-bottom').addClass('mdl-button--disabled');
+                    showMenu();
                     break;
             }
         }).watch('.watch', function(el, data) {
