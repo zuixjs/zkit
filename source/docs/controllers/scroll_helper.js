@@ -166,7 +166,7 @@ function scrollToIntro(duration) {
 function scrollNext() {
     let nextElement;
     const vp = scrollHelper.info().viewport;
-    zuix.$.find('h2,h3').each(function(i, el) {
+    zuix.$.find('h2').each(function(i, el) {
         if (this.position().y > vp.height && (nextElement == null || nextElement.position().y > this.position().y)) {
             nextElement = this;
         }
@@ -179,7 +179,7 @@ function scrollNext() {
 function scrollPrev() {
     let prevElement;
     const vp = scrollHelper.info().viewport;
-    zuix.$.find('h2,h3').each(function(i, el) {
+    zuix.$.find('h2').each(function(i, el) {
         if (!this.hasClass('no-index') && this.position().y < 0 && (prevElement == null || prevElement.position().y < this.position().y)) {
             prevElement = this;
         }
