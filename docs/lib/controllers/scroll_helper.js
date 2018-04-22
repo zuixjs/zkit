@@ -94,10 +94,10 @@ zuix.controller(function(cp) {
         if ((endScroll === 0 || vp.y === 0)) {
             cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
         } else if (now - scrollInfo.timestamp > 100) {
-            updateScroll(vp);
+            updateScrollInfo(vp);
         } else {
             updateTimeout = setTimeout(function() {
-                updateScroll(vp);
+                updateScrollInfo(vp);
             }, 100);
         }
 
@@ -174,7 +174,7 @@ zuix.controller(function(cp) {
         }
     }
 
-    function updateScroll(vp) {
+    function updateScrollInfo(vp) {
         const now = new Date().getTime();
         scrollInfo.timestamp = now;
         scrollInfo.shift = {
@@ -188,6 +188,9 @@ zuix.controller(function(cp) {
     }
 
     function scrollTo(to, duration) {
+        if (to instanceof Element || to instanceof zuix.$.ZxQuery) {
+            to = zuix.$(to).position().y - scrollInfo.viewport.y;
+        }
         if (duration === -1) {
             return setScroll(to);
         }

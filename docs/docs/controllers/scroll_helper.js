@@ -36,9 +36,8 @@ var scroll_opts = {
             scrollHelper.scrollTo(viewport.height*1.75, 2000);
         });
         zuix.field('arrow-docs').on('click', function() {
-            const viewport = scrollHelper.info().viewport;
-            const docs = zuix.$.find('.sh-usage-anchor');
-            scrollHelper.scrollTo(docs.position().y-viewport.y+8, 500);
+            scrollHelper.scrollTo(zuix.$.find('.sh-usage-anchor'), 500);
+            showMenu();
         });
     }
 };
@@ -98,7 +97,7 @@ function playStoryBoard(el, data) {
     } else if (el.hasClass('sh-usage-anchor')) {
         // show/hide header-menu when below/above the 'Usage' title
         if (dy <= 0) {
-            if (scrollHelper.info().shift.y < 0) {
+            if (scrollHelper.info().shift.y >= 0) {
                 showMenu();
             } else {
                 hideMenu();

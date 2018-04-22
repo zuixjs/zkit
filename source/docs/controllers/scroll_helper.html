@@ -50,7 +50,7 @@ layout_width: '1024px'
 
         <h1 class="watch sh-title mdl-color-text--green-200">Scroll Helper</h1>
 
-        <div self="size-medium center" layout="columns top-stretch">
+        <div self="size-medium" layout="columns top-stretch">
             <h3 class="watch" align="left">
                 Effective handling of common tasks tied to page scroll.
             </h3>
@@ -70,7 +70,7 @@ layout_width: '1024px'
             </ul>
         </div>
 
-        <div self="bottom" data-ui-field="arrow-docs" class="watch arrow-down">
+        <div data-ui-field="arrow-docs" class="watch arrow-down">
             <i class="material-icons">arrow_downward</i>
         </div>
 
@@ -123,10 +123,11 @@ layout_width: '1024px'
 
 <pre><code class="js">var scrollHelper; // it will be == null until component is loaded
 zuix.context('scroll-helper', function() {
+  // component loaded
   scrollHelper = this;
 });</code></pre>
 
-            <p>or after component is loaded</p>
+            <p>or at any time after component is loaded</p>
 
 <pre><code class="js">var scrollHelper = zuix.context('scroll-helper');</code></pre>
 
@@ -179,14 +180,14 @@ info -> {
 }</code></pre>
 
 
-
-
             <h3>Watching DOM elements</h3>
             <p>
-                `// TODO: ...`
+                The <code>watch</code> method takes one argument that can be either an element object or a valid
+                DOM query selector expression.
             </p>
 
-<pre><code class="js">scrollHelper.watch('div.watch', function(el, data) {
+<pre><code class="js">// watch elements having the 'watchable' class
+scrollHelper.watch('.watchable', function(el, data) {
     switch (data.event) {
         case 'enter':
             // element entered the visible area
@@ -204,9 +205,39 @@ info -> {
 });</code></pre>
 
             <p>
-                Element frame is expressed as percentage of viewport size.
-                This facilitates the creation of a synchronized and responsive animation
-                storyboard based on current viewport and elements position.
+                The <code>data</code> object passed to the watch callback is described below
+            </p>
+
+<pre><code class="js">data = {
+    // event: 'enter' | 'exit' | 'scroll' | 'off-scroll'
+    event,
+    // element position, status, rect and frame
+    x,       // float
+    y,       // float
+    visible, // boolean
+    rect: {  // DOMRect
+        x,
+        y,
+        height,
+        width,
+        left,
+        right,
+        top,
+        bottom
+    },
+    frame: { // relative center position
+        dx,
+        dy,
+    }
+}</code></pre>
+
+            <p>
+                The <code>frame</code> object represents the position of the center of the element
+                relative to the viewport size. Values of <code>dx</code> and <code>dy</code> are
+                float numbers between 0 (top) and 1 (bottom) when the element is inside the viewport
+                or outside otherwise.
+                This value can be used to create responsive and synchronized scroll animations based on
+                current viewport offset and elements position.
             </p>
 
 
