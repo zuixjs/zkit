@@ -42,12 +42,24 @@ li {
 li small {
     opacity: 0.5;
 }
+pre {
+    font-size:130%;
+    line-height: 140%;
+}
 code.option {
     font-size: 80%;
     padding: 4px;
     border-radius: 6px;
     border: solid 1px rgba(0,200,0,0.25);
     background: rgba(255,255,255,0.15);
+}
+
+.logo {
+    opacity: 0.5;
+    color: white;
+    font-size: 300% !important;
+    vertical-align: middle;
+    margin-right: 16px;
 }
 
 .max-width--1024 {

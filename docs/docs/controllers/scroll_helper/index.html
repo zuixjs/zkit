@@ -88,12 +88,24 @@ li {
 li small {
     opacity: 0.5;
 }
+pre {
+    font-size:130%;
+    line-height: 140%;
+}
 code.option {
     font-size: 80%;
     padding: 4px;
     border-radius: 6px;
     border: solid 1px rgba(0,200,0,0.25);
     background: rgba(255,255,255,0.15);
+}
+
+.logo {
+    opacity: 0.5;
+    color: white;
+    font-size: 300% !important;
+    vertical-align: middle;
+    margin-right: 16px;
 }
 
 .max-width--1024 {
@@ -464,7 +476,7 @@ function hideMenu() {
 
         <div self="size-medium" layout="columns top-stretch">
             <h3 class="watch" align="left">
-                Effective handling of common tasks tied to page scroll.
+                Handling common tasks tied to page scroll.
             </h3>
             <ul class="features">
                 <li class="watch">
@@ -552,21 +564,23 @@ zuix.context('scroll-helper', function() {
             <h3>Listen to events</h3>
 
 <pre><code class="js">scrollHelper.on('scroll:change', function(e, data) {
-    switch (data.event) {
-        case 'hit-top':
-            // reached top of page
-            break;
-        case 'scroll':
-            if (data.info.shift.y < 0) {
-                // scrolling up
-            } if (data.info.shift.y > 0) {
-                // scrolling down
-            }
-            break;
-        case 'hit-bottom':
-            // reached end of page
-            break;
-    }
+  switch (data.event) {
+    case 'hit-top':
+      // reached top of page
+      break;
+    case 'scroll':
+      if (data.info.shift.y < 0) {
+        // scrolling up
+      } if (data.info.shift.y > 0) {
+        // scrolling down
+      }
+      // for all fields of the data.info
+      // object see next paragraph
+      break;
+    case 'hit-bottom':
+      // reached end of page
+      break;
+  }
 });</code></pre>
 
             <h3>Get scroll information</h3>
@@ -587,7 +601,7 @@ info -> {
     width: 1280,
     height: 5281
   },
-  // visible area
+  // visible area size and position
   viewport: {
     x: 0,
     y: -3313,
@@ -650,9 +664,12 @@ scrollHelper.watch('.watchable', function(el, data) {
 
             <p>
                 The <code>frame</code> object represents the position of the center of the element
-                relative to the viewport size. Values of <code>dx</code> and <code>dy</code> are
-                float numbers between 0 (top) and 1 (bottom) when the element is inside the viewport
-                or outside otherwise.
+                relative to the viewport size. Specifically, <code>dx</code> and <code>dy</code> are
+                float numbers that have values between <code>0</code> and <code>1</code> when the element
+                is inside the viewport. So when the element is at the center of the viewport, <code>dx</code>
+                and <code>dy</code> will have a value of <code>0.5</code>.
+                Otherwise it will be less than <code>0</code> if the element is above the viewport top or
+                lastly greater than <code>1</code> when the element is below the viewport bottom.
                 This value can be used to create responsive and synchronized scroll animations based on
                 current viewport offset and elements position.
             </p>
@@ -699,6 +716,8 @@ scrollHelper.scrollTo( element | offset_px );
                     onclick="scrollHelper.scrollEnd(750)">
                 <i class="material-icons">arrow_downward</i>
             </button>
+
+            <a href="../../../"><i class="material-icons logo">extension</i></a>
 
         </div>
     </div>

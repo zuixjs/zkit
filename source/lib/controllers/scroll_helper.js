@@ -1,6 +1,9 @@
 /**
  * ZUIX - ScrollHelper Controller
  *
+ * @version 1.1.0 (2018-04-22)
+ * @author Gene
+ *
  * @version 1.0.1 (2017-06-16)
  * @author Gene
  *
