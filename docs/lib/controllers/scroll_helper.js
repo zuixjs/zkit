@@ -71,39 +71,28 @@ zuix.controller(function(cp) {
         scrollTo(0, 200);
     };
 
+    let frameSkipTs;
     function scrollCheck() {
         // TODO: implement code for horizontal scroll as well
-        const scrollable = cp.view().get();
-        const vp = scrollable.getBoundingClientRect();
-
-        scrollInfo.size.width = vp.width;
-        scrollInfo.size.height = vp.height;
-        if (scrollable === document.body) {
-            scrollInfo.size.width = document.body.offsetWidth;
-            scrollInfo.size.height = document.body.offsetHeight;
-            scrollInfo.viewport.width = document.documentElement.offsetWidth;
-            scrollInfo.viewport.height = document.documentElement.offsetHeight;
-        } else {
-            scrollInfo.viewport.width = scrollable.offsetWidth;
-            scrollInfo.viewport.height = scrollable.offsetHeight;
-        }
 
         if (updateTimeout != null) {
             clearTimeout(updateTimeout);
         }
-
         const now = new Date().getTime();
-        const endScroll = scrollInfo.size.height+vp.y-scrollInfo.viewport.height;
-        if ((endScroll === 0 || vp.y === 0)) {
-            cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
-        } else if (now - scrollInfo.timestamp > 100) {
-            updateScrollInfo(vp);
+        if (now - scrollInfo.timestamp > 100) {
+            updateScrollInfo();
         } else {
             updateTimeout = setTimeout(function() {
-                updateScrollInfo(vp);
+                updateScrollInfo();
             }, 100);
         }
 
+        if (now < scrollToEndTs && now-frameSkipTs < 72.5) {
+            return;
+        }
+        frameSkipTs = now;
+
+        const scrollable = cp.view().get();
         const visibleClass = 'scroll-helper-visible';
         if (watchList != null && watchCallback != null) {
             watchList.each(function(i, el) {
@@ -177,17 +166,35 @@ zuix.controller(function(cp) {
         }
     }
 
-    function updateScrollInfo(vp) {
-        const now = new Date().getTime();
-        scrollInfo.timestamp = now;
+    function updateScrollInfo() {
+        const scrollable = cp.view().get();
+        const vp = scrollable.getBoundingClientRect();
+
+        scrollInfo.size.width = vp.width;
+        scrollInfo.size.height = vp.height;
+        if (scrollable === document.body) {
+            scrollInfo.size.width = document.body.offsetWidth;
+            scrollInfo.size.height = document.body.offsetHeight;
+            scrollInfo.viewport.width = document.documentElement.offsetWidth;
+            scrollInfo.viewport.height = document.documentElement.offsetHeight;
+        } else {
+            scrollInfo.viewport.width = scrollable.offsetWidth;
+            scrollInfo.viewport.height = scrollable.offsetHeight;
+        }
+
+        scrollInfo.timestamp = new Date().getTime();
         scrollInfo.shift = {
             x: vp.x - scrollInfo.viewport.x,
             y: vp.y - scrollInfo.viewport.y
         };
         scrollInfo.viewport.x = vp.x;
         scrollInfo.viewport.y = vp.y;
-        cp.trigger('scroll:change', {event: 'scroll', info: scrollInfo});
-
+        const endScroll = scrollInfo.size.height+vp.y-scrollInfo.viewport.height;
+        if ((endScroll === 0 || vp.y === 0)) {
+            cp.trigger('scroll:change', {event: vp.y === 0 ? 'hit-top' : 'hit-bottom', info: scrollInfo});
+        } else {
+            cp.trigger('scroll:change', {event: 'scroll', info: scrollInfo});
+        }
     }
 
     function scrollTo(to, duration) {
