@@ -173,6 +173,8 @@ function scrollNext() {
     });
     if (nextElement != null) {
         scrollHelper.scrollTo(nextElement.position().y-vp.y-80, 500);
+    } else {
+        scrollHelper.scrollEnd(500);
     }
 }
 

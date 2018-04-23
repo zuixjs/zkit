@@ -57,7 +57,7 @@ code.option {
 .logo {
     opacity: 0.5;
     color: white;
-    font-size: 300% !important;
+    font-size: 280% !important;
     vertical-align: middle;
     margin-right: 16px;
 }
@@ -114,7 +114,7 @@ code.option {
 .features {
     padding-left: 8px;
     padding-right: 8px;
-    margin-top: 24px;
+    margin-top: 48px;
     margin-bottom: 48px;
 }
 .features li {

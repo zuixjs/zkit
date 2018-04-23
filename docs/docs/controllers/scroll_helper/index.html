@@ -103,7 +103,7 @@ code.option {
 .logo {
     opacity: 0.5;
     color: white;
-    font-size: 300% !important;
+    font-size: 280% !important;
     vertical-align: middle;
     margin-right: 16px;
 }
@@ -160,7 +160,7 @@ code.option {
 .features {
     padding-left: 8px;
     padding-right: 8px;
-    margin-top: 24px;
+    margin-top: 48px;
     margin-bottom: 48px;
 }
 .features li {
@@ -447,6 +447,8 @@ function scrollNext() {
     });
     if (nextElement != null) {
         scrollHelper.scrollTo(nextElement.position().y-vp.y-80, 500);
+    } else {
+        scrollHelper.scrollEnd(500);
     }
 }
 
@@ -741,6 +743,8 @@ scrollHelper.scrollTo( element | offset_px );
         <div self="size-1of2" class="title">Scroll Helper</div>
         <div self="size-1of2" align="right">
 
+            <a href="../../../"><i class="material-icons logo">extension</i></a>
+
             <button data-ui-field="btn-go-top" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--green-200"
                     onclick="scrollPrev()">
                 <i class="material-icons">arrow_upward</i>
@@ -749,8 +753,6 @@ scrollHelper.scrollTo( element | offset_px );
                     onclick="scrollNext()">
                 <i class="material-icons">arrow_downward</i>
             </button>
-
-            <a href="../../../"><i class="material-icons logo">extension</i></a>
 
         </div>
     </div>
