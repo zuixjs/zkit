@@ -1,21 +1,40 @@
 {
+  "name": "zuix-kit",
+  "version": "1.0.1",
+  "description": "zKit is a collection of framework-agnostic web components made with zUIx.",
+  "homepage": "https://genielabs.github.io/zkit",
   "private": true,
   "scripts": {
     "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
-    "start": "http-server --cors ./docs",
-    "watch": "node watch",
-    "build": "node build"
+    "start": "http-server --cors ../docs",
+    "watch": "node tasks/zuix/bin/watch",
+    "build": "node tasks/zuix/bin/build"
   },
+  "author": "G-Labs",
+  "license": "Apache 2.0",
+  "repository": "https://github.com/genielabs/zkit",
   "devDependencies": {
+    "chokidar": "^2.0.3",
+    "config": "^1.30.0",
+    "delay": "^2.0.0",
+    "es6-promise": "latest",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
-    "http-server": "^0.11.1",
-    "static-site": "^1.3.2"
-  },
-  "dependencies": {
-    "chokidar": "^2.0.3",
-    "delay": "^2.0.0",
     "fs-extra": "^5.0.0",
-    "ncp": "^2.0.0"
+    "highlight.js": "latest",
+    "http-server": "^0.11.1",
+    "jsdom": "^11.10.0",
+    "json-stringify": "^1.0.0",
+    "less": "^3.0.2",
+    "measure-time": "^3.1.1",
+    "ncp": "^2.0.0",
+    "npmlog": "^4.1.2",
+    "showdown": "^1.8.6",
+    "static-site": "^1.3.3",
+    "swig-extras": "latest",
+    "swig-templates": "latest",
+    "sync-request": "^6.0.0",
+    "terminal-kit": "^1.15.1",
+    "zuix-dist": "^0.4.9-40"
   }
 }

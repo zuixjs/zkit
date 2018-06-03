@@ -1,4 +1,4 @@
-/* zUIx v0.4.9-34 18.04.22 02:20:15 */
+/* zUIx v0.4.9-40 18.04.30 17:17:19 */
 
 /** @typedef {Zuix} window.zuix */!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.zuix=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /*
@@ -1711,16 +1711,23 @@ const util =
  * @this {ZxQuery}
  */
 
+// TODO: convert all 'this.<field>' to 'let' variables
+
+/** @type {Zuix} **/
+let zuix = null;
+
 /**
  * The component context object.
  *
+ * @param {Zuix} zuixInstance
  * @param {ContextOptions} options The context options.
  * @param {function} [eventCallback] Event routing callback.
  * @return {ComponentContext} The component context instance.
  * @constructor
  */
 
-function ComponentContext(options, eventCallback) {
+function ComponentContext(zuixInstance, options, eventCallback) {
+    zuix = zuixInstance;
     this._options = null;
     this.contextId = (options == null || options.contextId == null) ? null : options.contextId;
     this.componentId = null;
@@ -1815,17 +1822,26 @@ ComponentContext.prototype.view = function(view) {
         this.trigger(this, 'html:parse', hookData);
         view = hookData.content;
 
+        const viewDiv = z$.wrapElement('div', view);
+        if (viewDiv.firstElementChild != null) {
+            // remove data-ui-view attribute from template if present on root node
+            if (viewDiv.firstElementChild.getAttribute(_optionAttributes.dataUiView) != null) {
+                if (viewDiv.children.length === 1) {
+                    view = viewDiv.firstElementChild.innerHTML;
+                }
+            } else view = viewDiv.innerHTML;
+        }
         if (this._container != null) {
             // append view content to the container
             this._view = this._container;
             this._view.innerHTML += view;
         } else {
-            const viewDiv = z$.wrapElement('div', view);
             if (this._view != null) {
-                this._view.innerHTML = viewDiv.innerHTML;
+                this._view.innerHTML = view;
             } else this._view = viewDiv;
         }
 
+        // Run embedded scripts
         z$(this._view).find('script').each(function(i, el) {
             if (this.attr('zuix-loaded') !== 'true') {
                 this.attr('zuix-loaded', 'true');
@@ -1843,7 +1859,7 @@ ComponentContext.prototype.view = function(view) {
                         clonedScript.src = this.src;
                     this.get().parentNode.insertBefore(clonedScript, this.get());
                 } else */
-                    (eval).call(window, el.innerHTML);
+                (eval).call(window, el.innerHTML);
             }
         });
 
@@ -1856,6 +1872,7 @@ ComponentContext.prototype.view = function(view) {
         // load inline view
         if (this._container != null) {
             this._view = z$.wrapElement('div', view.outerHTML).firstElementChild;
+            // remove data-ui-view attribute if present on root node
             this._view.removeAttribute(_optionAttributes.dataUiView);
             this._container.appendChild(this._view);
             this._view = this._container;
@@ -1870,6 +1887,11 @@ ComponentContext.prototype.view = function(view) {
         // enable local css styling
         v.removeClass('zuix-css-ignore');
     }
+    // Disable loading of nested components until the component is ready
+    v.find('['+_optionAttributes.dataUiLoad+']').each(function(i, v) {
+        this.attr(_optionAttributes.dataUiLoad+'-', this.attr(_optionAttributes.dataUiLoad));
+        this.attr(_optionAttributes.dataUiLoad, null);
+    });
 
     this.modelToView();
 
@@ -2055,7 +2077,7 @@ ComponentContext.prototype.loadCss = function(options, enableCaching) {
         cssPath += '?'+new Date().getTime();
     }
     z$.ajax({
-        url: cssPath,
+        url: zuix.getResourcePath(cssPath),
         success: function(viewCss) {
             context.style(viewCss);
             if (util.isFunction(options.success)) {
@@ -2132,7 +2154,7 @@ ComponentContext.prototype.loadHtml = function(options, enableCaching) {
             htmlPath += cext + (!enableCaching ? '?' + new Date().getTime() : '');
         }
         z$.ajax({
-            url: htmlPath,
+            url: zuix.getResourcePath(htmlPath),
             success: function(viewHtml) {
                 context.view(viewHtml);
                 if (util.isFunction(options.success)) {
@@ -2166,6 +2188,7 @@ ComponentContext.prototype.viewToModel = function() {
     this._model = {};
     // create data model from inline view fields
     z$(this._view).find('['+_optionAttributes.dataUiField+']').each(function(i, el) {
+        // TODO: this is not so clean
         if (this.parent('pre,code').length() > 0) {
             return true;
         }
@@ -2291,8 +2314,7 @@ module.exports = ComponentContext;
 const _optionAttributes =
     _dereq_('./OptionAttributes')();
 
-const LIBRARY_PATH_DEFAULT = '/lib';
-let _libraryPath = LIBRARY_PATH_DEFAULT;
+const LIBRARY_PATH_DEFAULT = '//genielabs.github.io/zkit/lib';
 
 /**
  * TODO: describe this...
@@ -2510,12 +2532,29 @@ function queueLoadables(element) {
 //    }
     const waitingTasks = [];
     for (let w = 0; w < waitingLoad.length; w++) {
-        let pri = parseInt(waitingLoad[w].getAttribute(_optionAttributes.dataUiPriority));
+        const el = waitingLoad[w];
+        let pri = parseInt(el.getAttribute(_optionAttributes.dataUiPriority));
         if (isNaN(pri)) pri = 0;
-        const task = new TaskItem();
-        task.element = waitingLoad[w];
-        task.priority = pri; // w - ( 12 * ( w % 2 ) ) + ( pri * 73 ); // fuzzy pri
-        waitingTasks.push(task);
+        // adjust priority by element level
+        let level = 0;
+        let parent = el.parentNode;
+        let ignore = false;
+        while (parent != null && parent !== document) {
+            level++;
+            if (parent.getAttribute(_optionAttributes.dataUiView) != null) {
+                ignore = true;
+                break;
+            }
+            parent = parent.parentNode;
+        }
+        if (!ignore) {
+            const task = new TaskItem();
+            task.element = el;
+            task.priority = pri + (level * 1000);
+            waitingTasks.push(task);
+        } else {
+            // _log.w("Element belongs to a template: process only when attached to a context instance.", el);
+        }
     }
     let added = 0;
     // add selected elements to the requests queue
@@ -2622,12 +2661,17 @@ function loadInline(element) {
 
     let componentId = v.attr(_optionAttributes.dataUiLoad);
     if (util.isNoU(componentId)) {
-        componentId = resolvePath(v.attr(_optionAttributes.dataUiInclude));
-        v.attr(_optionAttributes.dataUiInclude, componentId);
-        v.attr(_optionAttributes.dataUiComponent, componentId);
-        // Static include hove no controller
-        if (util.isNoU(options.controller)) {
-            options.controller = function() { };
+        const include = v.attr(_optionAttributes.dataUiInclude);
+        if (include != null) {
+            componentId = resolvePath(include);
+            v.attr(_optionAttributes.dataUiInclude, componentId);
+            v.attr(_optionAttributes.dataUiComponent, componentId);
+            // Static include hove no controller
+            if (util.isNoU(options.controller)) {
+                options.controller = function() {};
+            }
+        } else {
+            return false;
         }
     } else {
         componentId = resolvePath(componentId);
@@ -2658,8 +2702,10 @@ function loadInline(element) {
 }
 
 function resolvePath(path) {
+    const config = zuix.store('config');
+    const libraryPath = config != null && config.libraryPath != null ? config.libraryPath : LIBRARY_PATH_DEFAULT;
     if (path.startsWith('@lib/')) {
-        path = _libraryPath+path.substring(4);
+        path = libraryPath+path.substring(4);
     }
     return path;
 }
@@ -3409,8 +3455,13 @@ let _enableHttpCaching = true;
 function Zuix() {
     _componentizer.setHost(this);
     /**
+     * @type {Array}
      * @private
+     */
+    this._store = [];
+    /**
      * @type {!Array.<ZxQuery>}
+     * @private
      **/
     this._fieldCache = [];
     return this;
@@ -3508,7 +3559,7 @@ function load(componentId, options) {
         // TODO: check if this case is of any use
         // empty context
         options = {};
-        ctx = new ComponentContext(options, trigger);
+        ctx = new ComponentContext(zuix, options, trigger);
     }
 
     // assign the given component (widget) to this context
@@ -3546,6 +3597,15 @@ function load(componentId, options) {
     return ctx;
 }
 
+function getResourcePath(path) {
+    const config = zuix.store('config');
+    path = _componentizer.resolvePath(path);
+    if (!path.startsWith('//') && path.indexOf('://') < 0) {
+        path = (config != null && config.resourcePath != null ? config.resourcePath : '') + path;
+    }
+    return path;
+}
+
 /**
  * @private
  * @param {ComponentContext} ctx Component context
@@ -3562,20 +3622,22 @@ function loadResources(ctx, options) {
     }
 
     if (util.isNoU(options.view)) {
-        if (cachedComponent !== null && cachedComponent.view != null) {
-            ctx.view(cachedComponent.view);
-            _log.t(ctx.componentId+':html', 'component:cached:html');
+        if (cachedComponent !== null) {
+            if (cachedComponent.view != null) {
+                ctx.view(cachedComponent.view);
+                _log.t(ctx.componentId+':html', 'component:cached:html');
+            }
             /*
              TODO: CSS caching, to be tested.
              */
-             if (cachedComponent.view != null && util.isNoU(options.css)) {
-                 options.css = false;
-                 if (!cachedComponent.css_applied) {
-                     cachedComponent.css_applied = true;
-                     ctx.style(cachedComponent.css);
-                     _log.t(ctx.componentId+':css', 'component:cached:css');
-                 }
-             }
+            if (options.css !== false) {
+                options.css = false;
+                if (!cachedComponent.css_applied) {
+                    cachedComponent.css_applied = true;
+                    ctx.style(cachedComponent.css);
+                    _log.t(ctx.componentId + ':css', 'component:cached:css');
+                }
+            }
         }
 
         // if not able to inherit the view from the base cachedComponent
@@ -3677,7 +3739,7 @@ function unload(context) {
 
 /** @private */
 function createContext(options) {
-    const context = new ComponentContext(options, trigger);
+    const context = new ComponentContext(zuix, options, trigger);
     _contextRoot.push(context);
     return context;
 }
@@ -3798,8 +3860,9 @@ function loadController(context, task) {
             createComponent(context, task);
         } else {
             const job = function(t) {
+                const jsPath = context.componentId + '.js' + (_enableHttpCaching ? '' : '?'+new Date().getTime());
                 z$.ajax({
-                    url: context.componentId + '.js' + (_enableHttpCaching ? '' : '?'+new Date().getTime()),
+                    url: getResourcePath(jsPath),
                     success: function(ctrlJs) {
                         // TODO: improve js parsing!
                         try {
@@ -3885,6 +3948,7 @@ function createComponent(context, task) {
                 initController(context._c);
             });
         }
+        z$(context.view()).attr(_optionAttributes.dataUiContext, context.contextId);
 
         _log.d(context.componentId, 'component:initializing');
         if (util.isFunction(context.controller())) {
@@ -3999,6 +4063,12 @@ function createComponent(context, task) {
  */
 function initController(c) {
     _log.t(c.context.componentId, 'controller:init', 'timer:init:start');
+
+    // re-enable nested components loading
+    c.view().find('['+_optionAttributes.dataUiLoad+'-]').each(function(i, v) {
+        this.attr(_optionAttributes.dataUiLoad, this.attr(_optionAttributes.dataUiLoad+'-'));
+        this.attr(_optionAttributes.dataUiLoad+'-', null);
+    });
 
     // bind {ContextController}.field method
     c.field = function(fieldName) {
@@ -4491,6 +4561,26 @@ Zuix.prototype.componentize = function(element) {
     return this;
 };
 /**
+ * Gets/Sets a global store entry.
+ * @param {string} name Entry name
+ * @param {object} value Entry value
+ * @return {object}
+ */
+Zuix.prototype.store = function(name, value) {
+    if (value != null) {
+        this._store[name] = value;
+    }
+    return this._store[name];
+};
+/**
+ * Get a resource path.
+ * @param {string} path resource id/path
+ * @return {string}
+ */
+Zuix.prototype.getResourcePath = function(path) {
+    return getResourcePath(path);
+};
+/**
  * Gets/Sets the components data bundle.
  *
  * @param {!Array.<BundleItem>} bundleData A bundle object holding in memory all components data (cache).
@@ -4525,6 +4615,9 @@ Zuix.prototype.bundle = function(bundleData, callback) {
         for (let c = 0; c < bundleData.length; c++) {
             if (bundleData[c].css_applied) {
                 delete bundleData[c].css_applied;
+            }
+            if (typeof bundleData[c].controller === 'string') {
+                bundleData[c].controller = eval(bundleData[c].controller);
             }
         }
         _componentCache = bundleData;

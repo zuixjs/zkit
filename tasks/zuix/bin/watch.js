@@ -1,11 +1,42 @@
+/*
+ * Copyright 2015-2017 G-Labs. All Rights Reserved.
+ *         https://genielabs.github.io/zuix
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ *
+ *  This file is part of
+ *  zUIx, Javascript library for component-based development.
+ *        https://genielabs.github.io/zuix
+ *
+ * @author Generoso Martello <generoso@martello.com>
+ */
+
 const delay = require('delay');
 const chokidar = require('chokidar');
+const config = require('config');
+const zuixConfig = config.get('zuix');
+
+const sourceFolder = zuixConfig.get('build.input');
+
 const BuildingState = {
     IDLE: 0,
     RUNNING: 1,
     PENDING: 2
 };
-const watcher = chokidar.watch('./source', {
+const watcher = chokidar.watch(sourceFolder, {
     ignored: /[\/\\]\./, persistent: true
 });
 let status = BuildingState.IDLE;
@@ -15,7 +46,6 @@ let status = BuildingState.IDLE;
 watcher
     .on('change', fileChanged)
     .on('add', fileChanged);
-
 /*
 watcher
     .on('add', function(path) { log('File', path, 'has been added'); })
@@ -49,8 +79,5 @@ function buildSite() {
 }
 
 function fileChanged(path, stats) {
-    if (stats) {
-        console.log('File', path, 'changed size to', stats.size);
-    }
     buildSite();
 }

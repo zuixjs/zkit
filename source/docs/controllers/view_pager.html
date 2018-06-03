@@ -458,10 +458,12 @@ var vp_options = {
     <div class="hidden">
 
         <!-- MDL Button Next -->
-        <a data-ui-view="next-page-button" class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
-            <span data-ui-field="title" class="mdl-color-text--white">Button title</span>
-            <i class="material-icons mdl-color-text--red-300">chevron_right</i>
-        </a>
+        <div data-ui-view="next-page-button">
+            <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
+                <span data-ui-field="title" class="mdl-color-text--white">Button title</span>
+                <i class="material-icons mdl-color-text--red-300">chevron_right</i>
+            </a>
+        </div>
 
     </div>
 

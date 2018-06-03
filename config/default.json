@@ -1,0 +1,39 @@
+{
+  "zuix": {
+    "build": {
+      "input": "./source",
+      "output": "./docs",
+      "copy": [
+        "css",
+        "images",
+        "lib",
+        ".nojekyll",
+        "manifest.json",
+        "manifest.webapp",
+        "humans.txt",
+        "favicon.ico",
+        "robots.txt"
+      ],
+      "ignore": [
+        "_inc",
+        "docs/_inc"
+      ],
+      "compile": [
+        "html",
+        "less",
+        "css",
+        "js",
+        "md",
+        "svg"
+      ],
+      "less": true,
+      "eslint": true
+    },
+    "app": {
+      "title": "zKit, components for modern web.",
+      "googleSiteId": "UA-123-456",
+      "resourcePath": "./app/",
+      "libraryPath": "./lib"
+    }
+  }
+}
