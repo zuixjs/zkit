@@ -95,11 +95,13 @@ zuix.controller(function(cp) {
         menuButton.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
             this.hide();
         });
+        cp.trigger('hide');
     }
 
     function showButton() {
         menuButtonShowing = true;
         menuButton.animateCss('fadeInUp').show();
+        cp.trigger('show');
     }
 
     function toggleMenu() {
