@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
-    "start": "http-server --cors ../docs",
+    "start": "http-server --cors ./docs",
     "watch": "node tasks/zuix/bin/watch",
     "build": "node tasks/zuix/bin/build"
   },

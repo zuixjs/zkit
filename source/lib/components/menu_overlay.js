@@ -48,14 +48,14 @@ zuix.controller(function(cp) {
             scroller.on('scroll', function(e) {
                 const scrollTop = scroller.get() === window ? (document.documentElement.scrollTop || document.body.scrollTop) : scroller.get().scrollTop;
                 if (!menuButton.hasClass('animated')) {
-                    if (menuButtonShowing && (currentOffset - scrollTop) < 10 && scrollTop > 1) {
-                        hideButton();
-                        currentOffset = scrollTop;
-                    } else if (!menuButtonShowing && (currentOffset - scrollTop) > 10) {
-                        showButton();
-                        currentOffset = scrollTop;
+                    if (menuButtonShowing) {
+                        if ((currentOffset - scrollTop) < -2) hideButton();
+                    } else if (!menuButtonShowing) {
+                        if ((currentOffset - scrollTop) > 2) showButton();
                     }
                 }
+                console.log(currentOffset - scrollTop);
+                currentOffset = scrollTop;
                 if (menuOverlayShowing) {
                     toggleMenu();
                 }
