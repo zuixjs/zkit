@@ -50,11 +50,12 @@ zuix.controller(function(cp) {
                 if (!menuButton.hasClass('animated')) {
                     if (menuButtonShowing && (currentOffset - scrollTop) < 10 && scrollTop > 1) {
                         hideButton();
+                        currentOffset = scrollTop;
                     } else if (!menuButtonShowing && (currentOffset - scrollTop) > 10) {
                         showButton();
+                        currentOffset = scrollTop;
                     }
                 }
-                currentOffset = scrollTop;
                 if (menuOverlayShowing) {
                     toggleMenu();
                 }
