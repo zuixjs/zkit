@@ -169,6 +169,8 @@ zuix.controller(function(cp) {
     function updateScrollInfo() {
         const scrollable = cp.view().get();
         const vp = scrollable.getBoundingClientRect();
+        vp.y = cp.view().get().scrollTop | vp.y;
+        vp.height = cp.view().get().scrollHeight | vp.height;
 
         scrollInfo.size.width = vp.width;
         scrollInfo.size.height = vp.height;
@@ -181,7 +183,6 @@ zuix.controller(function(cp) {
             scrollInfo.viewport.width = scrollable.offsetWidth;
             scrollInfo.viewport.height = scrollable.offsetHeight;
         }
-
         scrollInfo.timestamp = new Date().getTime();
         scrollInfo.shift = {
             x: vp.x - scrollInfo.viewport.x,
