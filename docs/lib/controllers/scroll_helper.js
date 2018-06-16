@@ -171,7 +171,6 @@ zuix.controller(function(cp) {
         const vp = scrollable.getBoundingClientRect();
         vp.y = cp.view().get().scrollTop | vp.y;
         vp.height = cp.view().get().scrollHeight | vp.height;
-
         scrollInfo.size.width = vp.width;
         scrollInfo.size.height = vp.height;
         if (scrollable === document.body) {

@@ -1,4 +1,4 @@
-/* zUIx v0.4.9-40 18.04.30 17:17:19 */
+/* zUIx v0.4.9-42 18.06.17 01:47:18 */
 
 /** @typedef {Zuix} window.zuix */!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.zuix=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /*
@@ -1463,43 +1463,104 @@ z$.getClosest = function(elem, selector) {
     }
     return null;
 };
-z$.getPosition = function(el) {
-    const visible = z$.isInView(el);
-    let x = 0;
-    let y = 0;
-    let rect = el.getBoundingClientRect();
-    while (el) {
-        if (el.tagName.toLowerCase() === 'body') {
-            // deal with browser quirks with body/window/document and page scroll
-            const scrollX = el.scrollLeft || document.documentElement.scrollLeft;
-            const scrollY = el.scrollTop || document.documentElement.scrollTop;
-            x += (el.offsetLeft - scrollX + el.clientLeft);
-            y += (el.offsetTop - scrollY + el.clientTop);
-        } else {
-            // for all other non-BODY elements
-            x += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-            y += (el.offsetTop - el.scrollTop + el.clientTop);
+z$.getPosition = function(el, tolerance) {
+    const visibleClass = '--ui--visible';
+    const position = (function() {
+        let x = 0;
+        let y = 0;
+        let rect = el.getBoundingClientRect();
+        let parent = el;
+        while (parent) {
+            if (parent.tagName.toLowerCase() === 'body') {
+                // deal with browser quirks with body/window/document and page scroll
+                const scrollX = parent.scrollLeft || document.documentElement.scrollLeft;
+                const scrollY = parent.scrollTop || document.documentElement.scrollTop;
+                x += (parent.offsetLeft - scrollX + parent.clientLeft);
+                y += (parent.offsetTop - scrollY + parent.clientTop);
+            } else {
+                // for all other non-BODY elements
+                x += (parent.offsetLeft - parent.scrollLeft + parent.clientLeft);
+                y += (parent.offsetTop - parent.scrollTop + parent.clientTop);
+            }
+            parent = parent.offsetParent;
         }
-        el = el.offsetParent;
-    }
-    return {
-        x: x,
-        y: y,
-        rect: rect,
-        visible: visible
+        return {
+            x: x,
+            y: y,
+            rect: rect
+        };
+    })(el);
+    const scrollInfo = {
+        size: {},
+        viewport: {x: 0, y: 0},
+        offset: {x: 0, y: 0}
     };
-};
-z$.isInView = function(el, tolerance) {
-    if (el.offsetParent === null) {
-        return false;
+    position.visible = false;
+    const scrollable = el.offsetParent;
+    if (scrollable != null) {
+        const vp = scrollable.getBoundingClientRect();
+        vp.x = el.scrollLeft | vp.x;
+        vp.width = el.scrollWidth | vp.width;
+        vp.y = el.scrollTop | vp.y;
+        vp.height = el.scrollHeight | vp.height;
+        scrollInfo.size.width = vp.width;
+        scrollInfo.size.height = vp.height;
+        if (scrollable === document.body) {
+            scrollInfo.size.width = document.body.offsetWidth;
+            scrollInfo.size.height = document.body.offsetHeight;
+            scrollInfo.viewport.width = document.documentElement.clientWidth || scrollInfo.size.width;
+            scrollInfo.viewport.height = document.documentElement.clientHeight || scrollInfo.size.height;
+        } else {
+            // find the scrollable container
+            let s = scrollable.offsetParent;
+            while (s != null && s.offsetParent !== null && s.offsetHeight === s.scrollHeight) {
+                s = s.offsetParent;
+            }
+            if (s != null) {
+                scrollInfo.viewport.width = s.offsetWidth;
+                scrollInfo.viewport.height = s.offsetHeight;
+            } else {
+                scrollInfo.viewport.width = scrollable.offsetWidth;
+                scrollInfo.viewport.height = scrollable.offsetHeight;
+            }
+        }
+        if (tolerance == null) tolerance = 0;
+        const r1 = {
+            left: 0,
+            top: 0,
+            right: scrollInfo.viewport.width,
+            bottom: scrollInfo.viewport.height,
+            width: scrollInfo.viewport.width,
+            height: scrollInfo.viewport.height
+        };
+        let r2 = el.getBoundingClientRect();
+        // visible status
+        let visible = !(r2.left > r1.right - tolerance ||
+            r2.right < r1.left + tolerance ||
+            r2.top > r1.bottom - tolerance ||
+            r2.bottom < r1.top + tolerance);
+        position.visible = visible;
+        // viewport-relative frame position
+        position.frame = {
+            dx: (r2.left + (r2.width / 2) - r1.left) / r1.width,
+            dy: (r2.top + (r2.height / 2) - r1.top) / r1.height
+        };
+        // update status event and and/remove 'visibleClass'
+        el = z$(el);
+        if (!visible && el.hasClass(visibleClass)) {
+            el.removeClass(visibleClass);
+            position.event = 'exit';
+        } else if (!visible) {
+            position.event = 'off-scroll';
+        } else if (visible) {
+            if (!el.hasClass(visibleClass)) {
+                position.event = 'enter';
+                el.addClass(visibleClass);
+            } else position.event = 'scroll';
+        }
     }
-    if (tolerance == null) tolerance = 0;
-    const r1 = (el.offsetParent).getBoundingClientRect();
-    const r2 = el.getBoundingClientRect();
-    return !(r2.left > r1.right-tolerance ||
-        r2.right < r1.left+tolerance ||
-        r2.top > r1.bottom-tolerance ||
-        r2.bottom < r1.top+tolerance);
+
+    return position;
 };
 
 z$.ZxQuery = ZxQuery;
@@ -2314,7 +2375,7 @@ module.exports = ComponentContext;
 const _optionAttributes =
     _dereq_('./OptionAttributes')();
 
-const LIBRARY_PATH_DEFAULT = '//genielabs.github.io/zkit/lib';
+const LIBRARY_PATH_DEFAULT = 'https://genielabs.github.io/zkit/lib'; // CORS works only over HTTPS
 
 /**
  * TODO: describe this...
@@ -2596,7 +2657,7 @@ function getNextLoadable() {
         const isLazy = lazyElementCheck(item.element);
         if (lazyLoad() && isLazy) {
             item.lazy = true;
-            item.visible = z$.isInView(item.element, _lazyLoadingThreshold);
+            item.visible = z$.getPosition(item.element, _lazyLoadingThreshold).visible;
         } else {
             item.lazy = false;
             item.visible = true;

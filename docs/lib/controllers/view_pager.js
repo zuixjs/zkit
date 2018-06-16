@@ -20,6 +20,9 @@ zuix.controller(function(cp) {
     let enableAutoSlide = false;
     let enablePaging = false;
     let holdTouch = false;
+    let isDragging = false;
+    let componentizeInterval = null;
+    let componentizeTimeout = null;
     /** @typedef {ZxQuery} */
     let pageList = null;
 
@@ -118,6 +121,10 @@ zuix.controller(function(cp) {
         updateLayoutTimeout = setTimeout(layoutElements, 250);
     }
     function layoutElements() {
+        if (isDragging || componentizeInterval != null) {
+            updateLayout();
+            return;
+        }
         // init elements
         pageList.each(function(i, el) {
             this.css({
@@ -183,7 +190,9 @@ zuix.controller(function(cp) {
     }
 
     function slideNext() {
-        setPage(parseInt(currentPage)+slideDirection, DEFAULT_PAGE_TRANSITION);
+        if (cp.view().position().visible) {
+            setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);
+        }
         resetAutoSlide();
     }
 
@@ -323,7 +332,30 @@ zuix.controller(function(cp) {
         return data;
     }
 
+    function componentizeStart() {
+        if (isLazyContainer()) {
+            componentizeStop();
+            if (componentizeTimeout != null) {
+                clearTimeout(componentizeTimeout);
+            }
+            if (componentizeInterval != null) {
+                clearInterval(componentizeInterval);
+            }
+            componentizeInterval = setInterval(function() {
+                zuix.componentize(cp.view());
+            }, 100);
+        }
+    }
+
+    function componentizeStop() {
+        if (isLazyContainer() && componentizeTimeout == null) {
+            clearInterval(componentizeInterval);
+        }
+    }
+
     function dragStart() {
+        isDragging = true;
+        componentizeStart();
         pageList.each(function(i, el) {
             const data = getData(this);
             const frameSpec = getFrameSpec();
@@ -358,31 +390,37 @@ zuix.controller(function(cp) {
     }
 
     function dragShift(x, y, tr) {
-        if (tr != null) tr = tr.duration+'s '+tr.easing;
+        if (tr != null) {
+            componentizeStart();
+            componentizeTimeout = setTimeout(function() {
+                componentizeTimeout = null;
+                componentizeStop();
+            }, tr.duration*1000);
+            tr = tr.duration+'s '+tr.easing;
+        } else if (isLazyContainer()) {
+            zuix.componentize(cp.view());
+        }
         pageList.each(function(i, el) {
             const data = getData(this);
             transition(this, tr);
             position(this, data.dragStart.x+x, data.dragStart.y+y);
         });
-        if (isLazyContainer()) {
-            zuix.componentize(cp.view());
-        }
     }
 
     function dragStop(tp) {
-        if (enablePaging) {
-            setPage(currentPage, DEFAULT_PAGE_TRANSITION);
+        if (enablePaging && componentizeTimeout == null) {
+            setTimeout(function() {
+                setPage(currentPage, DEFAULT_PAGE_TRANSITION);
+            }, 10);
         }
         if (tp != null) tp.done = true;
-        if (isLazyContainer()) {
-            setTimeout(function() {
-                zuix.componentize(cp.view());
-            }, 500);
-        }
+        componentizeStop();
+        isDragging = false;
     }
 
     function isLazyContainer() {
-        return cp.view().attr('data-ui-lazyload') === 'auto';
+        const lazy = cp.view().find('[data-ui-lazyload="true"]').length() > 0;
+        return lazy;
     }
 
     // Gesture handling
