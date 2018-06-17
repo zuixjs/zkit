@@ -96,6 +96,9 @@ zuix.controller(function(cp) {
         const visibleClass = 'scroll-helper-visible';
         if (watchList != null && watchCallback != null) {
             watchList.each(function(i, el) {
+
+                // TODO: replace this code using the new "zuix.$(el).position()" method
+
                 const position = this.position();
 
                 let visible = false;

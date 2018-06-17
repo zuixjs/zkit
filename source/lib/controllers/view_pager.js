@@ -11,7 +11,7 @@ zuix.controller(function(cp) {
     let currentPage = -1;
     let oldPage = 0;
     let slideTimeout = null;
-    let slideInterval = 3000;
+    let slideIntervalMs = 3000;
     let slideDirection = SLIDE_DIRECTION_FORWARD;
     let updateLayoutTimeout = null;
     let inputCaptured = false;
@@ -21,6 +21,7 @@ zuix.controller(function(cp) {
     let enablePaging = false;
     let holdTouch = false;
     let isDragging = false;
+    let wasVisible = false;
     let componentizeInterval = null;
     let componentizeTimeout = null;
     /** @typedef {ZxQuery} */
@@ -38,9 +39,9 @@ zuix.controller(function(cp) {
             layoutType = LAYOUT_VERTICAL;
         }
         if (options.slideInterval != null) {
-            slideInterval = options.slideInterval;
+            slideIntervalMs = options.slideInterval;
         } else if (view.attr('data-o-slide-interval') != null) {
-            slideInterval = parseInt(view.attr('data-o-slide-interval'));
+            slideIntervalMs = parseInt(view.attr('data-o-slide-interval'));
         }
     };
 
@@ -190,16 +191,23 @@ zuix.controller(function(cp) {
     }
 
     function slideNext() {
-        if (cp.view().position().visible) {
-            setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);
-        }
+        setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);
         resetAutoSlide();
     }
 
-    function resetAutoSlide() {
+    function resetAutoSlide(timeout) {
         stopAutoSlide();
         if (enableAutoSlide === true) {
-            slideTimeout = setTimeout(slideNext, slideInterval);
+            const visible = cp.view().position().visible;
+            if (visible) {
+                if (!wasVisible) {
+                    zuix.componentize(cp.view());
+                }
+                slideTimeout = setTimeout(slideNext, slideIntervalMs);
+            } else {
+                slideTimeout = setTimeout(resetAutoSlide, 500);
+            }
+            wasVisible = visible;
         }
     }
     function stopAutoSlide() {
