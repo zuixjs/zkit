@@ -1,5 +1,5 @@
 /**
- * ZUIX - ListView Component
+ * zUIx - ListView Component
  *
  * @version 1.0.3 (2017-06-11)
  * @author Gene

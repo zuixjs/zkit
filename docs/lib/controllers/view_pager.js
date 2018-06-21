@@ -1,6 +1,13 @@
+/**
+ * zUIx - ViewPager Component
+ *
+ * @version 1.0.1 (2018-02-12)
+ * @author Gene
+ *
+ */
+
 'use strict';
 
-// Basic image carousel
 zuix.controller(function(cp) {
     const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};
     const LAYOUT_HORIZONTAL = 'horizontal';
@@ -329,8 +336,18 @@ zuix.controller(function(cp) {
     }
 
     function getSize(el) {
-        const width = el.getBoundingClientRect().width || el.offsetWidth;
-        const height = el.offsetHeight || el.getBoundingClientRect().height;
+        const rect = el.getBoundingClientRect();
+        const width = rect.width || el.offsetWidth;
+        const height = el.offsetHeight || rect.height;
+        /*
+        let computed = window.getComputedStyle(el, null);
+        computed = {
+            width: parseFloat(computed.width.replace('px', '')),
+            height: parseFloat(computed.height.replace('px', ''))
+        };
+        const width = rect.width || el.offsetWidth || computed.width;
+        const height = el.offsetHeight || rect.height || computed.height;
+        */
         return {width: width, height: height};
     }
 
@@ -350,8 +367,28 @@ zuix.controller(function(cp) {
                 clearInterval(componentizeInterval);
             }
             componentizeInterval = setInterval(function() {
+                const viewSize = getSize(cp.view().get());
+                pageList.each(function(i, el) {
+                    // hide elements if not inside the view_pager
+                    const computed = window.getComputedStyle(el, null);
+                    const size = {
+                        width: parseFloat(computed.width.replace('px', '')),
+                        height: parseFloat(computed.height.replace('px', ''))
+                    };
+                    const x = parseFloat(computed.left.replace('px', ''));
+                    const y = parseFloat(computed.top.replace('px', ''));
+                    el = zuix.$(el);
+                    // check if element is inside the view_pager
+                    if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
+                        if (el.visibility() !== 'hidden') {
+                            el.visibility('hidden');
+                        }
+                    } else if (el.visibility() !== 'visible') {
+                        el.visibility('visible');
+                    }
+                });
                 zuix.componentize(cp.view());
-            }, 100);
+            }, 50);
         }
     }
 

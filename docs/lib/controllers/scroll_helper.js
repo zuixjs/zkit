@@ -9,6 +9,8 @@
  *
  */
 
+'use strict';
+
 zuix.controller(function(cp) {
     const scrollInfo = {
         timestamp: 0,
