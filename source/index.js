@@ -2,7 +2,7 @@
 
 zuix.using('component', '@lib/extensions/animate_css');
 
-let viewPager;
+let mainPager;
 let viewPager1;
 
 // use 'var' or 'window.' for options (global object)
@@ -33,8 +33,8 @@ function init() {
         enablePaging: true,
         verticalLayout: true,
         ready: function() {
-            viewPager = this;
-            viewPager.on('page:change', pageChangeListener);
+            mainPager = this;
+            mainPager.on('page:change', pageChangeListener);
             // use 'go()' method to route anchors with 'exit-link' class
             zuix.$.find('a.exit-link').each(function() {
                 let link = this.attr('href');
@@ -52,22 +52,22 @@ function init() {
     document.onkeydown = function(e) {
         switch (e.keyCode) {
             case 37: // left
-                if (viewPager.page() === 1 && viewPager1.prev()) {
+                if (mainPager.page() === 1 && viewPager1.prev()) {
                     break;
                 }
-                viewPager.prev();
+                mainPager.prev();
                 break;
             case 38: // up
-                viewPager.prev();
+                mainPager.prev();
                 break;
             case 39: // right
-                if (viewPager.page() === 1 && viewPager1.next()) {
+                if (mainPager.page() === 1 && viewPager1.next()) {
                     break;
                 }
-                viewPager.next();
+                mainPager.next();
                 break;
             case 40: // down
-                viewPager.next();
+                mainPager.next();
                 break;
         }
     };
@@ -84,7 +84,7 @@ function go(url) {
 }
 function pageChangeListener(e, page) {
     zuix.$.find('article').removeClass('page-active');
-    viewPager
+    mainPager
         .get(page.in)
         .addClass('page-active');
     if (page.in === 1 && page.out < 1) {

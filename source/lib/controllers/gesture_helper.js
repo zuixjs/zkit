@@ -124,6 +124,7 @@ zuix.controller(function(cp) {
     }
 
     function touchStop(e) {
+        cp.trigger('gesture:release', touchPointer);
         if (touchPointer != null) {
             touchPointer.event = e;
             if (currentGesture == null) {
@@ -133,7 +134,6 @@ zuix.controller(function(cp) {
                 cp.trigger(currentGesture, touchPointer);
             }
         }
-        cp.trigger('gesture:release', touchPointer);
         scrollMode = SCROLL_MODE_NONE;
         swipeDirection = null;
         currentGesture = null;
