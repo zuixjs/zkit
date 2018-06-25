@@ -86,6 +86,7 @@ zuix.controller(function(cp) {
         updateLayout();
         // Set starting page
         setPage(0);
+        let tapTimeout = null;
         // gestures handling - load gesture_helper controller
         zuix.load('@lib/controllers/gesture_helper', {
             view: view,
@@ -100,7 +101,14 @@ zuix.controller(function(cp) {
                     dragStop(tp);
                     resetAutoSlide();
                 },
-                'gesture:tap': handleTap,
+                'gesture:tap': function(e, tp) {
+                    if (tapTimeout != null) {
+                        clearTimeout(tapTimeout);
+                    }
+                    tapTimeout = setTimeout(function() {
+                        handleTap(e, tp);
+                    }, 50);
+                },
                 'gesture:pan': handlePan,
                 'gesture:swipe': handleSwipe
             }
