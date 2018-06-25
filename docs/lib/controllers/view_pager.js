@@ -1,6 +1,9 @@
 /**
  * zUIx - ViewPager Component
  *
+ * @version 1.0.2 (2018-06-25)
+ * @author Gene
+ *
  * @version 1.0.1 (2018-02-12)
  * @author Gene
  *
@@ -33,6 +36,13 @@ zuix.controller(function(cp) {
     let componentizeTimeout = null;
     /** @typedef {ZxQuery} */
     let pageList = null;
+    // Create an observer instance to watch for child add/remove
+    const domObserver = new MutationObserver(function(a, b) {
+        // TODO: this does not seem to be working, fix it! =/
+        // update child list and re-layout
+        pageList = cp.view().children();
+        updateLayout();
+    });
 
     cp.init = function() {
         let options = cp.options();
@@ -53,33 +63,32 @@ zuix.controller(function(cp) {
     };
 
     cp.create = function() {
+        const view = cp.view();
         // enable absolute positioning for items in this view
-        cp.view().css({
+       view.css({
             'position': 'relative',
             'overflow': 'hidden'
         });
         // get child items (pages)
-        pageList = cp.view().children();
+        pageList = view.children();
         // loading of images could change elements size, so layout update might be required
-        cp.view().find('img').each(function(i, el) {
+        view.find('img').each(function(i, el) {
             this.one('load', updateLayout);
         });
         // re-arrange view on layout changes
         zuix.$(window).on('orientationchange', function() {
             updateLayout();
         });
-        cp.view().on('DOMNodeInserted', function() {
-            updateLayout();
-        });
-        cp.view().on('DOMNodeRemoved', function() {
-            updateLayout();
-        });
+        // Options for the observer (which mutations to observe)
+        const config = {attributes: false, childList: true, subtree: false};
+        // DOM mutation observer
+        domObserver.observe(view.get(), config);
         updateLayout();
         // set starting page
         setPage(0);
         // gestures handling - load gesture_helper controller
         zuix.load('@lib/controllers/gesture_helper', {
-            view: cp.view(),
+            view: view,
             on: {
                 'gesture:touch': function(e, tp) {
                     inputCaptured = false;
@@ -120,6 +129,12 @@ zuix.controller(function(cp) {
             .expose('prev', prev)
             .expose('last', last)
             .expose('first', first);
+    };
+
+    cp.destroy = function() {
+        if (domObserver != null) {
+            domObserver.disconnect();
+        }
     };
 
     function updateLayout() {
@@ -228,7 +243,7 @@ zuix.controller(function(cp) {
         pageList.each(function(i, el) {
             let data = getData(this);
             focusedPage = i;
-            const size = getSize(el);
+            const size = data.size;
             const rect = {
                 x: data.position.x,
                 y: data.position.y,
@@ -270,7 +285,7 @@ zuix.controller(function(cp) {
         }
         const el = pageList.eq(n);
         const data = getData(el);
-        const elSize = getSize(el.get());
+        const elSize = data.size;
         const viewSize = getSize(cp.view().get());
         const focusPoint = {
             x: (viewSize.width - elSize.width) / 2 - data.position.x,
@@ -339,20 +354,18 @@ zuix.controller(function(cp) {
         const rect = el.getBoundingClientRect();
         const width = rect.width || el.offsetWidth;
         const height = el.offsetHeight || rect.height;
-        /*
-        let computed = window.getComputedStyle(el, null);
-        computed = {
-            width: parseFloat(computed.width.replace('px', '')),
-            height: parseFloat(computed.height.replace('px', ''))
-        };
-        const width = rect.width || el.offsetWidth || computed.width;
-        const height = el.offsetHeight || rect.height || computed.height;
-        */
         return {width: width, height: height};
     }
 
     function getData(el) {
         const data = el.get().data = el.get().data || {};
+        const size = getSize(el.get());
+        if (size.width > 0 && size.height > 0) {
+            data.size = {
+                width: size.width,
+                height: size.height
+            };
+        } else data.size = data.size || {width: 0, height: 0};
         data.position = data.position || {x: 0, y: 0};
         return data;
     }
@@ -377,18 +390,20 @@ zuix.controller(function(cp) {
                     };
                     const x = parseFloat(computed.left.replace('px', ''));
                     const y = parseFloat(computed.top.replace('px', ''));
-                    el = zuix.$(el);
-                    // check if element is inside the view_pager
-                    if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
-                        if (el.visibility() !== 'hidden') {
-                            el.visibility('hidden');
+                    if (size.width > 0 && size.height > 0) {
+                        el = zuix.$(el);
+                        // check if element is inside the view_pager
+                        if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
+                            if (el.visibility() !== 'hidden') {
+                                el.visibility('hidden');
+                            }
+                        } else if (el.visibility() !== 'visible') {
+                            el.visibility('visible');
                         }
-                    } else if (el.visibility() !== 'visible') {
-                        el.visibility('visible');
                     }
                 });
                 zuix.componentize(cp.view());
-            }, 50);
+            }, 100);
         }
     }
 
@@ -402,13 +417,8 @@ zuix.controller(function(cp) {
         isDragging = true;
         componentizeStart();
         pageList.each(function(i, el) {
-            const data = getData(this);
             const frameSpec = getFrameSpec();
-            const computed = window.getComputedStyle(el, null);
-            data.position.x = parseFloat(computed.left.replace('px', ''));
-            data.position.y = parseFloat(computed.top.replace('px', ''));
-            this.css('left', data.position.x+'px');
-            this.css('top', data.position.y+'px');
+            const data = position(this);
             data.dragStart = {x: frameSpec.marginLeft+data.position.x, y: frameSpec.marginTop+data.position.y};
         });
     }
@@ -564,8 +574,11 @@ zuix.controller(function(cp) {
 
     function position(el, x, y) {
         const data = getData(el);
-        data.position = {'x': x, 'y': y};
-        el.css({'left': x+'px', 'top': y+'px'});
+        if (!isNaN(x) && !isNaN(y)) {
+            data.position = {'x': x, 'y': y};
+            el.css({'left': data.position.x+'px', 'top': data.position.y+'px'});
+        }
+        return data;
     }
 
     function transition(el, transition) {

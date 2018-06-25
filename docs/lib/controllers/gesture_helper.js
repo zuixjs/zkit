@@ -33,8 +33,6 @@ zuix.controller(function(cp) {
     };
 
     cp.create = function() {
-
-        console.log(cp.options(), cp.view());
         // TODO: should use event "capturing" instead of "bubbling"
         cp.view().on('dragstart', function(e) {
             if (!ignoreSession) {
