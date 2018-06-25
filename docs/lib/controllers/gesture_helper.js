@@ -146,7 +146,7 @@ zuix.controller(function(cp) {
         const l = {x: (touchPointer.shiftX-touchPointer.stepX), y: (touchPointer.shiftY-touchPointer.stepY)};
         const d = Math.sqrt(l.x*l.x+l.y*l.y);
         touchPointer.velocity = (d/elapsedTime);
-        const minDistance = 5;
+        const minDistance = 3;
         const angle = Math.atan2(touchPointer.shiftY-touchPointer.stepY, touchPointer.shiftX-touchPointer.stepX) * 180 / Math.PI;
         if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && elapsedTime < GESTURE_TAPTIMEOUT) {
             // gesture TAP

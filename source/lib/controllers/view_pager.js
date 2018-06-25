@@ -81,10 +81,10 @@ zuix.controller(function(cp) {
         });
         // Options for the observer (which mutations to observe)
         const config = {attributes: false, childList: true, subtree: false};
-        // DOM mutation observer
+        // Register DOM mutation observer callback
         domObserver.observe(view.get(), config);
         updateLayout();
-        // set starting page
+        // Set starting page
         setPage(0);
         // gestures handling - load gesture_helper controller
         zuix.load('@lib/controllers/gesture_helper', {
@@ -243,7 +243,7 @@ zuix.controller(function(cp) {
         pageList.each(function(i, el) {
             let data = getData(this);
             focusedPage = i;
-            const size = data.size;
+            const size = getSize(el);
             const rect = {
                 x: data.position.x,
                 y: data.position.y,
@@ -285,7 +285,7 @@ zuix.controller(function(cp) {
         }
         const el = pageList.eq(n);
         const data = getData(el);
-        const elSize = data.size;
+        const elSize = getSize(el.get());
         const viewSize = getSize(cp.view().get());
         const focusPoint = {
             x: (viewSize.width - elSize.width) / 2 - data.position.x,
@@ -359,13 +359,6 @@ zuix.controller(function(cp) {
 
     function getData(el) {
         const data = el.get().data = el.get().data || {};
-        const size = getSize(el.get());
-        if (size.width > 0 && size.height > 0) {
-            data.size = {
-                width: size.width,
-                height: size.height
-            };
-        } else data.size = data.size || {width: 0, height: 0};
         data.position = data.position || {x: 0, y: 0};
         return data;
     }
@@ -403,7 +396,7 @@ zuix.controller(function(cp) {
                     }
                 });
                 zuix.componentize(cp.view());
-            }, 100);
+            }, 50);
         }
     }
 
@@ -417,8 +410,13 @@ zuix.controller(function(cp) {
         isDragging = true;
         componentizeStart();
         pageList.each(function(i, el) {
+            const data = getData(this);
             const frameSpec = getFrameSpec();
-            const data = position(this);
+            const computed = window.getComputedStyle(el, null);
+            data.position.x = parseFloat(computed.left.replace('px', ''));
+            data.position.y = parseFloat(computed.top.replace('px', ''));
+            this.css('left', data.position.x+'px');
+            this.css('top', data.position.y+'px');
             data.dragStart = {x: frameSpec.marginLeft+data.position.x, y: frameSpec.marginTop+data.position.y};
         });
     }
