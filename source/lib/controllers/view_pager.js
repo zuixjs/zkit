@@ -404,7 +404,7 @@ zuix.controller(function(cp) {
                     }
                 });
                 zuix.componentize(cp.view());
-            }, 50);
+            }, 10);
         }
     }
 
