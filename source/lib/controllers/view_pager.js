@@ -1,7 +1,7 @@
 /**
  * zUIx - ViewPager Component
  *
- * @version 1.0.2 (2018-06-25)
+ * @version 1.0.3 (2018-06-26)
  * @author Gene
  *
  * @version 1.0.1 (2018-02-12)
@@ -38,9 +38,11 @@ zuix.controller(function(cp) {
     let pageList = null;
     // Create an observer instance to watch for child add/remove
     const domObserver = new MutationObserver(function(a, b) {
-        // TODO: this does not seem to be working, fix it! =/
         // update child list and re-layout
         pageList = cp.view().children();
+        // force update layout by canceling any pending 'componentize' request
+        clearInterval(componentizeInterval);
+        componentizeInterval = null;
         updateLayout();
     });
 
@@ -63,9 +65,8 @@ zuix.controller(function(cp) {
     };
 
     cp.create = function() {
-        const view = cp.view();
         // enable absolute positioning for items in this view
-       view.css({
+        const view = cp.view().css({
             'position': 'relative',
             'overflow': 'hidden'
         });
