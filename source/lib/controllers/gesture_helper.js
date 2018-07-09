@@ -34,15 +34,18 @@ zuix.controller(function(cp) {
 
     cp.create = function() {
         // TODO: should use event "capturing" instead of "bubbling"
-        cp.view().on('dragstart', function(e) {
+        cp.view()/* .on('dragstart', function(e) {
             if (!ignoreSession) {
-                e.preventDefault();
+                // e.preve ntDefault();
+                // TODO: find alternate way of dragging preventing
             }
-        }).on('mousedown', function(e) {
+        }) */.on('mousedown', function(e) {
             const targetElement = zuix.$(e.target);
             if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
                 mouseButtonDown = true;
                 ignoreSession = false;
+                targetElement.css('touch-action', 'none');
+                targetElement.get().draggable = false;
                 touchStart(e, e.x, e.y);
             } else ignoreSession = true;
         }).on('mousemove', function(e) {
@@ -58,6 +61,8 @@ zuix.controller(function(cp) {
             const targetElement = zuix.$(e.target);
             if (targetElement.parent('[class*="no-gesture"]').length() === 0) {
                 ignoreSession = false;
+                targetElement.css('touch-action', 'none');
+                targetElement.get().draggable = false;
                 touchStart(e, e.touches[0].clientX, e.touches[0].clientY);
             } else ignoreSession = true;
         }).on('touchmove', function(e) {
@@ -78,7 +83,8 @@ zuix.controller(function(cp) {
             event: e,
             cancel: function() {
                 touchPointer.event.cancelBubble = true;
-                touchPointer.event.preventDefault();
+                // TODO: the commented below is because it cannot be used with passive listeners
+                // touchPointer.event.preventDefault();
             },
             // initial touch position
             startX: x,
