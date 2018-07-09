@@ -42,7 +42,7 @@ zuix.controller(function(cp) {
             'bottom': 0,
             'right': 0,
             'z-index': 10,
-            'background-color': 'rgba(0, 0, 0, 0.35)'
+            'background-color': 'rgba(0, 0, 0, 0.5)'
         }).on('click', function() {
             closeDrawer();
         }).hide();
