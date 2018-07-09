@@ -34,12 +34,12 @@ zuix.controller(function(cp) {
 
     cp.create = function() {
         // TODO: should use event "capturing" instead of "bubbling"
-        cp.view().on('dragstart', function(e) {
+        cp.view()/* .on('dragstart', function(e) {
             if (!ignoreSession) {
-                // e.preventDefault();
+                // e.preve ntDefault();
                 // TODO: find alternate way of dragging preventing
             }
-        }).on('mousedown', function(e) {
+        }) */.on('mousedown', function(e) {
             const targetElement = zuix.$(e.target);
             if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
                 mouseButtonDown = true;
