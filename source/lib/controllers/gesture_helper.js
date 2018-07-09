@@ -36,7 +36,9 @@ zuix.controller(function(cp) {
         // TODO: should use event "capturing" instead of "bubbling"
         cp.view().on('dragstart', function(e) {
             if (!ignoreSession) {
-                e.preventDefault();
+                try {
+                    e.preventDefault();
+                } catch (e) {}
             }
         }).on('mousedown', function(e) {
             const targetElement = zuix.$(e.target);
@@ -78,7 +80,9 @@ zuix.controller(function(cp) {
             event: e,
             cancel: function() {
                 touchPointer.event.cancelBubble = true;
-                touchPointer.event.preventDefault();
+                try {
+                    touchPointer.event.preventDefault();
+                } catch (e) {}
             },
             // initial touch position
             startX: x,
