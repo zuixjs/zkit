@@ -36,7 +36,7 @@ zuix.controller(function(cp) {
         // TODO: should use event "capturing" instead of "bubbling"
         cp.view()/* .on('dragstart', function(e) {
             if (!ignoreSession) {
-                // e.preve ntDefault();
+                // e.preventDefault();
                 // TODO: find alternate way of dragging preventing
             }
         }) */.on('mousedown', function(e) {
@@ -44,7 +44,8 @@ zuix.controller(function(cp) {
             if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
                 mouseButtonDown = true;
                 ignoreSession = false;
-                targetElement.css('touch-action', 'none');
+                // targetElement.css('touch-action', 'none');
+                // TODO: add 'cp.options().preventDrag'
                 targetElement.get().draggable = false;
                 touchStart(e, e.x, e.y);
             } else ignoreSession = true;
@@ -61,7 +62,7 @@ zuix.controller(function(cp) {
             const targetElement = zuix.$(e.target);
             if (targetElement.parent('[class*="no-gesture"]').length() === 0) {
                 ignoreSession = false;
-                targetElement.css('touch-action', 'none');
+                // targetElement.css('touch-action', 'none');
                 targetElement.get().draggable = false;
                 touchStart(e, e.touches[0].clientX, e.touches[0].clientY);
             } else ignoreSession = true;
