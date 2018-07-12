@@ -1,0 +1,161 @@
+---
+title: 'Drawer Layout'
+head:
+title: 'zKit: Drawer Layout (lib/controllers)'
+description: 'zKit, a collection of framework-agnostic components for modern web.'
+---
+{% include "../../_inc/head_open.html" %}
+
+<style>{% include "drawer_layout.css" %}</style>
+<script>{% include "drawer_layout.js" %}</script>
+
+{% include "../../_inc/head_close.html" %}
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body data-ui-load="@lib/controllers/scroll_helper"
+      data-ui-context="scroll-helper"
+      data-ui-options="scroll_opts">
+
+<header data-ui-field="header" layout="row center-left" class="mdl-shadow--2dp">
+    <div self="size-large center" layout="row center-left">
+        <div self="size-x1">
+            <h1>DrawerLayout</h1>
+        </div>
+        <div data-ui-load="@lib/components/hamburger_icon"
+             data-ui-context="menu_hamburger"
+             data-ui-options="menuButtonOptions"
+             self="center-right"></div>
+    </div>
+</header>
+
+<main>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        <h1 data-ui-field="alt_header">DrawerLayout</h1>
+        <p>
+            A layout controller for implementing a Navigation Drawer.
+            Swipe from left edge or tap the menu button to open the drawer.
+        </p>
+        <blockquote cite="https://developer.android.com/training/implementing-navigation/nav-drawer">
+            The navigation drawer is a UI panel that shows your app's main navigation menu.
+            It is hidden when not in use, but appears when the user swipes a finger from the left edge of the screen or,
+            when at the top level of the app, the user touches the drawer icon in the app bar.
+        </blockquote>
+
+    </div>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        {% include '../_inc/zkit_basic_usage.html' %}
+
+        <h3>2. Load the drawer layout</h3>
+        <p>Add the <code>data-ui-load</code> attribute to the container of your navigation drawer</p>
+<pre><code class="html">&lt;div data-ui-load="@lib/controllers/drawer_layout"
+  data-ui-options="drawer_options"&gt;
+  <!-- Add Navigation Drawer menu and content here -->
+&lt;/div&gt;</code></pre>
+        <p>
+            Set the option object
+        </p>
+<pre><code class="js">var drawer_opts = {
+  on: {
+    'drawer:open': function() {
+      // things to do when drawer os open
+    },
+    'drawer:close': function() {
+      // things to do when drawer is closed
+    }
+  },
+  autoHideWidth: 960,
+  drawerWidth: 280
+};</code></pre>
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-ui-load="@lib/controllers/drawer_layout"</code>
+                <small>constructor</small><br>
+                load the <code>drawer_layout</code> controller on the element.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+        </ul>
+
+
+        <h2>Source code</h2>
+        <p>
+            Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+        </p>
+        <div self="size-large">
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/drawer_layout.js">drawer_layout.js</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Navigation Drawer -->
+<div data-ui-load="@lib/controllers/drawer_layout"
+     data-ui-context="drawer_panel"
+     class="drawer-layout no-select"
+     layout="column top-stretch"
+     data-ui-options="drawer_opts">
+    <!-- Navigation Drawer content -->
+
+    <!-- Header -->
+    <div class="drawer-header" layout="column bottom-stretch">
+        <img src="../../../images/profile-icon.png">
+        <div class="title">Example Drawer</div>
+        <div class="subtitle">www.glabs.it</div>
+    </div>
+
+    <!-- Menu items and other content -->
+    <div class="drawer-content" self="size-x1">
+        <ul>
+            <li>
+                <a href="#" layout="row center-left"><i class="material-icons">photo_camera</i> <span>Import</span></a>
+            </li>
+            <li>
+                <a href="#" layout="row center-left"><i class="material-icons">perm_media</i> <span>Gallery</span></a>
+            </li>
+            <li>
+                <a href="#" layout="row center-left"><i class="material-icons">slideshow</i> <span>Slideshow</span></a>
+            </li>
+            <li>
+                <a href="#" layout="row center-left"><i class="material-icons">build</i> <span>Tools</span></a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+{% include "../_inc/footer.html" %}
+
+{% include "../../_inc/body_end.html" %}
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
+</body>
+</html>

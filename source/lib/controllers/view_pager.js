@@ -30,8 +30,11 @@ zuix.controller(function(cp) {
     let enableAutoSlide = false;
     let enablePaging = false;
     let holdTouch = false;
+    let passiveMode = true;
+    // status
     let isDragging = false;
     let wasVisible = false;
+    // timers
     let componentizeInterval = null;
     let componentizeTimeout = null;
     /** @typedef {ZxQuery} */
@@ -53,6 +56,7 @@ zuix.controller(function(cp) {
         options.css = false;
         enablePaging = (options.enablePaging === true || (view.attr('data-o-paging') === 'true'));
         enableAutoSlide = (options.autoSlide === true || (view.attr('data-o-slide') === 'true'));
+        passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
         holdTouch = (options.holdTouch === true || (view.attr('data-o-hold') === 'true'));
         if (options.verticalLayout === true || (view.attr('data-o-layout') === LAYOUT_VERTICAL)) {
             layoutType = LAYOUT_VERTICAL;
@@ -91,6 +95,7 @@ zuix.controller(function(cp) {
         // gestures handling - load gesture_helper controller
         zuix.load('@lib/controllers/gesture_helper', {
             view: view,
+            passive: passiveMode,
             on: {
                 'gesture:touch': function(e, tp) {
                     inputCaptured = false;
@@ -488,7 +493,7 @@ zuix.controller(function(cp) {
     // Gesture handling
 
     function handlePan(e, tp) {
-        if (tp.scrollMode === 0 || tp.done) {
+        if (!tp.scrollIntent() || tp.done) {
             return;
         }
         if (inputCaptured
@@ -499,8 +504,9 @@ zuix.controller(function(cp) {
                 cp.view().get().addEventListener('click', function(e) {
                     if (inputCaptured) {
                         inputCaptured = false;
-                        e.preventDefault();
                         e.cancelBubble = true;
+                        // TODO: 'preventDefault' should not be used with passive listeners
+                        e.preventDefault();
                     }
                     // release mouse click capture
                     cp.view().get().removeEventListener('click', this, true);
@@ -510,9 +516,9 @@ zuix.controller(function(cp) {
             tp.cancel();
         }
         const spec = getFrameSpec();
-        if (layoutType === LAYOUT_HORIZONTAL && tp.scrollMode === 1) {
+        if (layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') {
             dragShift(tp.shiftX-spec.marginLeft, 0);
-        } else if (layoutType === LAYOUT_VERTICAL && tp.scrollMode === 2) {
+        } else if (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical') {
             dragShift(0, tp.shiftY-spec.marginTop);
         }
     }

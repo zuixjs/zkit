@@ -156,7 +156,6 @@ head:
                         <h5>attributes of <code>div</code> container</h5>
 <pre><code class="html">data-o-slide="true"
 data-o-paging="true"
-
 </code></pre>
                     </div>
 
@@ -164,10 +163,8 @@ data-o-paging="true"
                         <h4>Vertical layout</h4>
 
                         <div data-ui-load="@lib/controllers/view_pager"
-                             data-o-slide="true"
-                             data-o-paging="true"
-                             data-o-hold="false"
                              data-o-layout="vertical"
+                             data-o-passive="false"
                              class="mdl-shadow--8dp"
                              style="max-width:300px;height:300px;">
 
@@ -187,9 +184,8 @@ data-o-paging="true"
                         </div>
 
                         <h5>attributes of <code>div</code> container</h5>
-                        <pre><code class="html">data-o-layout="vertical"
-data-o-slide="true"
-data-o-paging="true"
+<pre><code class="html">data-o-layout="vertical"
+data-o-passive="false"
 </code></pre>
                     </div>
 
@@ -251,6 +247,12 @@ data-o-paging="true"
                         <code class="option">data-o-slide-interval</code>
                         <small>optional</small><br>
                         interval between each slide (milliseconds). The default value is <code>750</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-passive</code>
+                        <small>optional</small><br>
+                        use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener" class="mdl-color-text--yellow-200">passive mode</a>
+                        for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.
                     </li>
                     <li>
                         <code class="option">data-o-hold</code>

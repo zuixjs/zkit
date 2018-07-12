@@ -33,6 +33,7 @@ head:
 </div>
 <script>
     var gesture_opts = {
+        passive: false,
         ready: function() {
             let gh = this;
             let view = zuix.$(gh.view());
@@ -165,6 +166,8 @@ var gesture_options = {
   velocity,
   x: x,
   y: y,
+  // guessed scrolling direction
+  scrollIntent(),  // false | 'horizontal' | 'vertical'
   // original event + cancel method
   event,
   cancel()
@@ -181,6 +184,12 @@ var gesture_options = {
             <code class="option">data-ui-context</code>
             <small>optional</small><br>
             identifier name to be used to reference this component from JavaScript.
+        </li>
+        <li>
+            <code class="option">data-o-passive</code>
+            <small>optional</small><br>
+            use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener">passive mode</a>
+            for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.
         </li>
     </ul>
 

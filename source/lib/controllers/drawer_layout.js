@@ -11,7 +11,8 @@
 zuix.controller(function(cp) {
     let isDrawerOpen = true;
     let isDrawerLocked = false;
-    let smallScreen = false;
+    let isSmallScreen = false;
+    let isTransitionOn = false;
     let firstCheck = true;
 
     let overlay = null;
@@ -36,12 +37,12 @@ zuix.controller(function(cp) {
         // add overlay for small screens when menu is open
         overlay = zuix.$(document.createElement('div'));
         overlay.css({
-            'position': 'absolute',
+            'position': 'fixed',
             'top': 0,
             'left': 0,
             'bottom': 0,
             'right': 0,
-            'z-index': 10,
+            'z-index': 100,
             'background-color': 'rgba(0, 0, 0, 0.5)'
         }).on('click', function() {
             closeDrawer();
@@ -52,8 +53,8 @@ zuix.controller(function(cp) {
         drawerLayout.css({
             'position': 'fixed',
             'overflow-y': 'auto',
-            'left': 0, 'width': '320px', 'top': 0, 'bottom': 0,
-            'z-index': 100,
+            'left': 0, 'width': drawerWidth+'px', 'top': 0, 'bottom': 0,
+            'z-index': 101,
             '-webkit-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',
             '-moz-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',
             'box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)'
@@ -81,7 +82,8 @@ zuix.controller(function(cp) {
                     }
                 },
                 'gesture:pan': function(e, tp) {
-                    if (isDrawerLocked) return;
+                    // wait until horizontal scrolling gesture is detected (tp.scrollIntent() === 'horizontal')
+                    if (isDrawerLocked || tp.scrollIntent() !== 'horizontal') return;
                     if ((isDragging || isDrawerOpen) && tp.x < drawerWidth || (!isDragging && tp.x < 50)) {
                         if (!isDragging) {
                             isDragging = true;
@@ -95,7 +97,7 @@ zuix.controller(function(cp) {
         });
 
         // public component methods
-        cp.expose('toggle', toggleMenu);
+        cp.expose('toggle', toggleDrawer);
         cp.expose('open', function() {
             transitionOn();
             return openDrawer();
@@ -119,8 +121,8 @@ zuix.controller(function(cp) {
             }
         });
 
-        // TODO: create cp.options().drawerWidth, with '280' as default value
-        drawerWidth = 320; //drawerLayout.get().offsetWidth;
+        // TODO: create cp.options().drawerWidth, with '300' as default value
+        drawerWidth = 300; //drawerLayout.get().offsetWidth;
 
         // detect screen size and set large/small layout
         sizeCheck();
@@ -132,35 +134,12 @@ zuix.controller(function(cp) {
         });
     };
 
-    function sizeCheck() {
-        const width = document.body.clientWidth;
-        if (width < autoHideWidth) {
-            if (!smallScreen || firstCheck) {
-                smallScreen = true;
-                cp.trigger('drawer:autoHide', true);
-            }
-            closeDrawer();
-        } else {
-            if (smallScreen || firstCheck) {
-                if (smallScreen) {
-                    overlay.hide();
-                    if (isDrawerOpen) {
-                        closeDrawer();
-                    }
-                }
-                smallScreen = false;
-                cp.trigger('drawer:autoHide', false);
-                openDrawer();
-            }
-        }
-    }
-
     function openDrawer() {
         drawerLayout
             .visibility('initial')
             .css('left', 0)
             .get().focus();
-        if (smallScreen) {
+        if (isSmallScreen) {
             drawerLayout.find('a').one('click', function() {
                 closeDrawer();
             });
@@ -169,12 +148,12 @@ zuix.controller(function(cp) {
         }
         if (!isDrawerOpen) {
             isDrawerOpen = true;
-            cp.trigger('drawer:open', {smallScreen: smallScreen});
+            cp.trigger('drawer:open', {smallScreen: isSmallScreen});
         }
     }
 
     function closeDrawer() {
-        if (smallScreen) {
+        if (isSmallScreen) {
             transitionEnd(function() {
                 if (!isDrawerOpen) {
                     drawerLayout.visibility('hidden');
@@ -184,19 +163,23 @@ zuix.controller(function(cp) {
             overlay.hide();
             if (isDrawerOpen) {
                 isDrawerOpen = false;
-                cp.trigger('drawer:close', {smallScreen: smallScreen});
+                cp.trigger('drawer:close', {smallScreen: isSmallScreen});
             }
         }
         isDrawerOpen = false;
         drawerLayout.find('a').off('click');
     }
 
-    function toggleMenu() {
+    function toggleDrawer() {
         if (isDrawerOpen) {
             closeDrawer();
         } else {
             openDrawer();
         }
+    }
+
+    function isOpen() {
+        return isDrawerOpen;
     }
 
     function dragTo(x) {
@@ -213,11 +196,38 @@ zuix.controller(function(cp) {
         }
     }
 
-    function isOpen() {
-        return isDrawerOpen;
+    function sizeCheck() {
+        const width = document.body.clientWidth;
+        if (width < autoHideWidth) {
+            if (!isSmallScreen || firstCheck) {
+                isSmallScreen = true;
+                isDrawerLocked = false;
+                layoutChange();
+            }
+            closeDrawer();
+        } else {
+            if (isSmallScreen || firstCheck) {
+                if (isSmallScreen) {
+                    overlay.hide();
+                    if (isDrawerOpen) {
+                        closeDrawer();
+                    }
+                }
+                isSmallScreen = false;
+                isDrawerLocked = true;
+                layoutChange();
+                openDrawer();
+            }
+        }
     }
 
-    let isTransitionOn = false;
+    function layoutChange() {
+        cp.trigger('layout:change', {
+            smallScreen: isSmallScreen,
+            drawerLocked: isDrawerLocked
+        });
+    }
+
     function transitionOn() {
         if (!isTransitionOn) {
             isTransitionOn = true;
@@ -260,7 +270,6 @@ zuix.controller(function(cp) {
             });
         }
     }
-
     function transitionEnd(callback) {
         drawerLayout.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
             callback();

@@ -12,11 +12,12 @@ zuix.controller(function(cp) {
     const SCROLL_MODE_NONE = 0;
     const SCROLL_MODE_HORIZONTAL = 1;
     const SCROLL_MODE_VERTICAL = 2;
-    const GESTURE_TAPTIMEOUT = 750;
+    const GESTURE_TAP_TIMEOUT = 750;
 
     let scrollMode = SCROLL_MODE_NONE;
     let touchPointer = null;
     let ignoreSession = false;
+    let passiveMode = true;
     let currentGesture = null;
     let swipeDirection = null;
     let mouseButtonDown = false;
@@ -28,48 +29,65 @@ zuix.controller(function(cp) {
     };
 
     cp.init = function() {
-        cp.options().html = false;
-        cp.options().css = false;
+        let view = cp.view();
+        const options = cp.options();
+        options.html = false;
+        options.css = false;
+        passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
     };
 
     cp.create = function() {
         // TODO: should use event "capturing" instead of "bubbling"
-        cp.view()/* .on('dragstart', function(e) {
-            if (!ignoreSession) {
-                // e.preventDefault();
-                // TODO: find alternate way of dragging preventing
-            }
-        }) */.on('mousedown', function(e) {
-            const targetElement = zuix.$(e.target);
-            if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
-                mouseButtonDown = true;
-                ignoreSession = false;
-                // targetElement.css('touch-action', 'none');
-                // TODO: add 'cp.options().preventDrag'
-                targetElement.get().draggable = false;
-                touchStart(e, e.x, e.y);
-            } else ignoreSession = true;
-        }).on('mousemove', function(e) {
-            if (!ignoreSession && mouseButtonDown) {
-                touchMove(e, e.x, e.y);
-            }
+        cp.view().on('dragstart', {
+            handler: function(e) {
+                if (!ignoreSession && !passiveMode) {
+                    e.preventDefault();
+                }
+            },
+            passive: passiveMode
+        }).on('mousedown', {
+            handler: function(e) {
+                const targetElement = zuix.$(e.target);
+                if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                    mouseButtonDown = true;
+                    ignoreSession = false;
+                    // targetElement.css('touch-action', 'none');
+                    // TODO: add 'cp.options().preventDrag'
+                    targetElement.get().draggable = false;
+                    touchStart(e, e.x, e.y);
+                } else ignoreSession = true;
+            },
+            passive: passiveMode
+        }).on('mousemove', {
+            handler: function(e) {
+                if (!ignoreSession && mouseButtonDown) {
+                    touchMove(e, e.x, e.y);
+                }
+            },
+            passive: passiveMode
         }).on('mouseup', function(e) {
             if (e.which === 1 && !ignoreSession) {
                 mouseButtonDown = false;
                 touchStop(e);
             }
-        }).on('touchstart', function(e) {
-            const targetElement = zuix.$(e.target);
-            if (targetElement.parent('[class*="no-gesture"]').length() === 0) {
-                ignoreSession = false;
-                // targetElement.css('touch-action', 'none');
-                targetElement.get().draggable = false;
-                touchStart(e, e.touches[0].clientX, e.touches[0].clientY);
-            } else ignoreSession = true;
-        }).on('touchmove', function(e) {
-            if (!ignoreSession) {
-                touchMove(e, e.touches[0].clientX, e.touches[0].clientY);
-            }
+        }).on('touchstart', {
+            handler: function(e) {
+                const targetElement = zuix.$(e.target);
+                if (targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                    ignoreSession = false;
+                    // targetElement.css('touch-action', 'none');
+                    targetElement.get().draggable = false;
+                    touchStart(e, e.touches[0].clientX, e.touches[0].clientY);
+                } else ignoreSession = true;
+            },
+            passive: passiveMode
+        }).on('touchmove', {
+            handler: function(e) {
+                if (!ignoreSession) {
+                    touchMove(e, e.touches[0].clientX, e.touches[0].clientY);
+                }
+            },
+            passive: passiveMode
         }).on('touchend', function(e) {
             if (!ignoreSession) {
                 touchStop(e);
@@ -84,8 +102,9 @@ zuix.controller(function(cp) {
             event: e,
             cancel: function() {
                 touchPointer.event.cancelBubble = true;
-                // TODO: the commented below is because it cannot be used with passive listeners
-                // touchPointer.event.preventDefault();
+                if (!passiveMode) {
+                    touchPointer.event.preventDefault();
+                }
             },
             // initial touch position
             startX: x,
@@ -102,7 +121,16 @@ zuix.controller(function(cp) {
             // actual position and speed
             velocity: 0,
             x: x,
-            y: y
+            y: y,
+            scrollIntent: function() {
+                switch (scrollMode) {
+                    case SCROLL_MODE_HORIZONTAL:
+                        return 'horizontal';
+                    case SCROLL_MODE_VERTICAL:
+                        return 'vertical';
+                }
+                return false;
+            }
         };
         cp.trigger('gesture:touch', touchPointer);
     }
@@ -155,7 +183,7 @@ zuix.controller(function(cp) {
         touchPointer.velocity = (d/elapsedTime);
         const minDistance = 3;
         const angle = Math.atan2(touchPointer.shiftY-touchPointer.stepY, touchPointer.shiftX-touchPointer.stepX) * 180 / Math.PI;
-        if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && elapsedTime < GESTURE_TAPTIMEOUT) {
+        if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && elapsedTime < GESTURE_TAP_TIMEOUT) {
             // gesture TAP
             lastTapTime = new Date().getTime();
             gesture = 'gesture:tap';
@@ -186,7 +214,6 @@ zuix.controller(function(cp) {
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_VERTICAL;
         }
-        touchPointer.scrollMode = scrollMode;
         // reset touch step data
         if (d > minDistance) {
             touchPointer.stepTime = touchPointer.endTime;
