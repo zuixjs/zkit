@@ -32,6 +32,7 @@ function init() {
         view: zuix.$.find('main'),
         enablePaging: true,
         verticalLayout: true,
+        passive: false,
         ready: function() {
             mainPager = this;
             mainPager.on('page:change', pageChangeListener);
