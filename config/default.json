@@ -26,14 +26,20 @@
         "md",
         "svg"
       ],
+      "prettyUrl": true,
       "less": true,
-      "eslint": true
+      "esLint": true,
+      "bundle": {
+        "js": true,
+        "css": false,
+        "zuix": true
+      }
     },
     "app": {
       "title": "zKit, components for modern web.",
       "googleSiteId": "UA-123-456",
-      "resourcePath": "./",
-      "libraryPath": "./lib"
+      "resourcePath": "",
+      "libraryPath": "/lib"
     }
   }
 }

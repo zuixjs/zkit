@@ -52,19 +52,27 @@ description: 'zKit, a collection of framework-agnostic components for modern web
         <h3>2. Load the drawer layout</h3>
         <p>Add the <code>data-ui-load</code> attribute to the container of your navigation drawer</p>
 <pre><code class="html">&lt;div data-ui-load="@lib/controllers/drawer_layout"
+  data-ui-context="menu-drawer"
   data-ui-options="drawer_options"&gt;
   <!-- Add Navigation Drawer menu and content here -->
 &lt;/div&gt;</code></pre>
         <p>
-            Set the option object
+            Set the options object
         </p>
-<pre><code class="js">var drawer_opts = {
+<pre><code class="js">var drawer_options = {
   on: {
-    'drawer:open': function() {
+    'drawer:open': function(e) {
       // things to do when drawer os open
     },
-    'drawer:close': function() {
+    'drawer:close': function(e) {
       // things to do when drawer is closed
+    },
+    'layout:change': function(e, data) {
+        // where `data` object has two fields
+        // {
+        //    smallScreen, (boolean)
+        //    drawerLocked (boolean)
+        // }
     }
   },
   autoHideWidth: 960,
@@ -83,7 +91,49 @@ description: 'zKit, a collection of framework-agnostic components for modern web
                 <small>optional</small><br>
                 identifier name to be used to reference this component from JavaScript.
             </li>
+            <li>
+                <code class="option">data-o-width</code>
+                <small>optional</small><br>
+                panel width. Default value is <code>280</code> pixels.
+            </li>
+            <li>
+                <code class="option">data-o-hide-width</code>
+                <small>optional</small><br>
+                auto-hide panel if available width is less than specified value, otherwise show as fixed.
+                Default value is <code>960</code> pixels.
+            </li>
         </ul>
+
+
+
+        <h2>Scripting</h2>
+        <h3>Event listeners</h3>
+
+        <pre><code class="js">var menuDrawer;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('menu-drawer', function() {
+  // add event listeners
+  this
+    .on('drawer:open', function(e) { /* ... */})
+    .on('drawer:close', function(e) { /* ... */});
+    .on('layout:change', function(e, d) { /* ... */});
+  // store a global reference of
+  // the component for later use
+  menuDrawer = this;
+});</code></pre>
+
+        <h3>Methods</h3>
+
+        <pre><code class="js">// open the drawer
+menuDrawer.open();
+// close the drawer
+menuDrawer.close();
+// toggle open/close drawer
+menuDrawer.toggle();
+// show as fixed
+menuDrawer.lock(true);</code></pre>
+
 
 
         <h2>Source code</h2>

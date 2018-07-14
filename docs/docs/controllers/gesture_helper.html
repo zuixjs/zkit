@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head>
-    <title>zKit, components for modern web</title>
+    <title>zKit: Gesture Helper (lib/controllers)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us">
@@ -14,19 +14,19 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="../../images/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="../../images/ios-desktop.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileImage" content="../../images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="../../images/favicon.png">
 
     <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4">
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
@@ -36,316 +36,245 @@
 
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
 
     <!-- zUIx library  -->
-    <script src="js/zuix.js"></script>
-    <script src="config.js"></script>
+    <script src="../../js/zuix.js"></script>
+    <script src="../../config.js"></script>
 
-    <!-- page style and script -->
-    <link rel="stylesheet" href="index.css">
-    <script>//{% raw %}
-'use strict';
 
-zuix.using('component', '@lib/extensions/animate_css');
+<script>
+    // use 'var' or 'window.' for options (global object)
+</script>
 
-let mainPager;
-let viewPager1;
-
-// use 'var' or 'window.' for options (global object)
-var options = {
-    no_css: {
-        css: false
-    },
-    view_pager_1: {
-        enablePaging: true,
-        autoSlide: true,
-        ready: function() {
-            viewPager1 = this;
-            const indicator = zuix.$.find('.pager-indicator');
-            this.on('page:change', function(e, page) {
-                indicator.find('a').eq(parseInt(page.in))
-                    .addClass('page-active');
-                indicator.find('a').eq(parseInt(page.out))
-                    .removeClass('page-active');
-            });
-        }
-    }
-};
-
-function init() {
-    // load the view-pager controller on this document layout
-    zuix.load('@lib/controllers/view_pager', {
-        view: zuix.$.find('main'),
-        enablePaging: true,
-        verticalLayout: true,
-        passive: false,
-        ready: function() {
-            mainPager = this;
-            mainPager.on('page:change', pageChangeListener);
-            // use 'go()' method to route anchors with 'exit-link' class
-            zuix.$.find('a.exit-link').each(function() {
-                let link = this.attr('href');
-                const t = this;
-                t.attr('href', null);
-                t.on('click', function(e) {
-                    if (link != null && t.display() !== 'none') {
-                        go(link);
-                    }
-                });
-            });
-        }
-    });
-    // keyboard navigation
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 37: // left
-                if (mainPager.page() === 1 && viewPager1.prev()) {
-                    break;
-                }
-                mainPager.prev();
-                break;
-            case 38: // up
-                mainPager.prev();
-                break;
-            case 39: // right
-                if (mainPager.page() === 1 && viewPager1.next()) {
-                    break;
-                }
-                mainPager.next();
-                break;
-            case 40: // down
-                mainPager.next();
-                break;
-        }
-    };
-}
-function go(url) {
-    // animate and open link
-    zuix.$(document.body).animateCss('fadeOut', {duration: '0.3s'}, function() {
-        document.location.href = url;
-        const t = this.hide();
-        setTimeout(function() {
-            t.show();
-        }, 1000);
-    });
-}
-function pageChangeListener(e, page) {
-    zuix.$.find('article').removeClass('page-active');
-    mainPager
-        .get(page.in)
-        .addClass('page-active');
-    if (page.in === 1 && page.out < 1) {
-        viewPager1.first();
-    } else if (page.in === 1) {
-        viewPager1.last();
-    }
-}
-
-//{% endraw %}</script>
     <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>
 </head>
 
-<body class="mdl-color--black animated fadeIn" onload="init()">
+<body layout="column top-center">
 
-    <main>
-
-        <article layout="column center-center" class="page-active first mdl-color--purple-600 mdl-color-text--white">
-            <div self="size-x1" layout="column center-center" class="box-active">
-    <h1 class="animated fadeInDown logo">
-        <i class="material-icons animated bounce">extension</i>zKit
-    </h1>
-    <h2 class="animated fadeInDown">components for modern web</h2>
-    <p class="animated fadeInDown" align="center">
-        made with <a href="//genielabs.github.io/zuix">zUIx</a>
-    </p>
-</div>
-
-<footer self="bottom" layout="column bottom-center">
-    <div class="box-active animated fadeInUp"></div>
-    <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_upward</i>
-    </div>
-</footer>
-
-        </article>
-
-        <article class="mdl-color--blue-600 mdl-color-text--white zuix-css-ignore">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-<style>
-.horizontal_pager {
-    display: table-row;
-    width: 100%;
-    margin: auto;
-}
-</style>
-
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.view_pager_1" self="size-x1" class="horizontal_pager">
-
-    <div class="wh100" layout="column center-center">
-        <h1>ViewPager</h1>
-        <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
-            <i class="material-icons">view_array</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Gesture Helper</h1>
-        <a href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">gesture</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Scroll Helper</h1>
-        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">all_out</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>DrawerLayout</h1>
-        <a href="docs/controllers/drawer_layout" class="exit-link animated fadeInUp">
-            <i class="material-icons">chrome_reader_mode</i>
-        </a>
-    </div>
-    <!--
-    <div class="wh100" layout="column center-center">
-        <h1>ListView</h1>
-        <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
-            <i class="material-icons wip">view_list</i>
-        </a>
-        <em>...coming soon...</em>
-    </div>
-    -->
-
-</div>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-<div class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
-    <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
-    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
-</div>
-
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article class="mdl-color--red-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Menu Overlay</h1>
-<a href="docs/components/menu_overlay" class="exit-link animated fadeInUp">
-    <i class="material-icons">menu</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article class="mdl-color--green-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Media Browser</h1>
-<a href="docs/components/media_browser" class="exit-link animated fadeInUp">
-    <i class="material-icons">video_library</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article layout="column center-center" class="last mdl-color--purple-600 mdl-color-text--white">
-            <header self="top" layout="column top-center">
-    <div class="black-band"></div>
-    <div class="box-active animated fadeInDown"></div>
-    <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_downward</i>
+<header class="header-cover animated fadeIn">
+    <div self="size-large center" layout="rows center-left">
+        <div><h1 data-ui-field="page_title" class="animated fadeInLeft">Gesture Helper</h1></div>
+        <div self="center-right"><a href="../../"><i class="material-icons animated fadeInRight">extension</i></a></div>
     </div>
 </header>
 
-<div self="size-x1 center" layout="column center-center" class="box-active">
 
-    <div class="animated fadeInDown">
-        <a href="//github.com/genielabs/zkit" layout="column center-center" class="animated bounceInUp">
-            <img src="images/github-octocat.svg" width="56" hspace="12">
-            <h2>View on GitHub</h2>
-        </a>
+
+
+
+<main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
+
+    
+
+<div self="size-large center">
+
+    <p>
+        Detect tap and swipe gestures over elements.
+    </p>
+    <div data-ui-load="@lib/controllers/gesture_helper" data-ui-options="gesture_opts" layout="column center-center" self="center" class="no-select gesture-box">
+        <!-- gesture detection area -->
+        <div data-ui-field="gesture-xy"></div>
+        <div data-ui-field="gesture-shift"></div>
+        <div data-ui-field="gesture" layout="row center-center">Try me!</div>
+    </div>
+
+</div>
+<script>
+    var gesture_opts = {
+        passive: false,
+        ready: function() {
+            let gh = this;
+            let view = zuix.$(gh.view());
+            let infoXy = zuix.field('gesture-xy');
+            let infoShift = zuix.field('gesture-shift');
+            let info = zuix.field('gesture');
+            view.css('opacity', 1.0);
+            // register event callbacks
+            gh.on('gesture:touch', function(e, tp) {
+                view.addClass('active');
+                info.html('touch').animateCss('flash');
+                tp.cancel();
+            }).on('gesture:pan', function(e, tp) {
+                infoXy.show().html(Math.round(tp.x)+' ; '+Math.round(tp.y));
+                infoShift.show().html(Math.round(tp.shiftX)+' ;'+Math.round(tp.shiftY));
+                info.html('pan').animateCss('fadeIn');
+            }).on('gesture:release', function(e, tp) {
+                view.removeClass('active');
+                infoXy.hide();
+                infoShift.hide();
+            }).on('gesture:tap', function(e, tp) {
+                info.html('tap').animateCss('tada');
+            }).on('gesture:swipe', function(e, tp) {
+                info.html('swipe <i class="material-icons animated tada">keyboard_arrow_'+tp.direction+'</i> '+tp.direction);
+            });
+        }
+    };
+</script>
+<style>
+    .gesture-box {
+        border: solid 2px rgba(255,255,255,0.5);
+        position: relative;
+        background: #5f99cf;
+        border-radius: 16px;
+        width: 70%;
+        height: 140px;
+        color: white;
+        font-size: 160%;
+        line-height: 120%;
+        margin: 32px 16px 16px;
+        font-family: Helvetica, sans-serif;
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+        cursor: grab;
+        -webkit-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+        box-shadow: 0 0 40px -8px rgba(0,0,0,0.75);
+        opacity: 0.75;
+    }
+    .gesture-box.active {
+        -webkit-box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
+        box-shadow: 0 0 20px -2px rgba(0,0,0,0.75);
+        opacity: 1.0;
+    }
+    [data-ui-field="gesture"] {
+        transition: 0.1s ease-out;
+    }
+    [data-ui-field="gesture"] i {
+        font-size: 300%;
+        color: lime;
+    }
+    [data-ui-field="gesture-xy"] {
+        position: absolute;
+        top: 8px; left: 16px;
+        font-size: 50%;
+        font-weight: 700;
+    }
+    [data-ui-field="gesture-shift"] {
+        position: absolute;
+        top: 8px; right: 16px;
+        font-size: 50%;
+        font-weight: 700;
+    }
+</style>
+
+<div self="size-large center" layout="columns top-stretch">
+
+    <h2>Usage</h2>
+<h3>1. Include zUIx library</h3>
+<p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> document:</p>
+
+<pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+
+    <h3>2. Load the gesture helper on the target element</h3>
+    <p>Add the <code>data-ui-load</code> attribute to the element you want to detect gesture on</p>
+<pre><code class="html">&lt;div data-ui-load="@lib/controllers/gesture_helper"
+     data-ui-options="gesture_options"&gt;
+    <!-- gesture detection area -->
+&lt;/div&gt;
+<script>
+var gesture_options = {
+  ready: function() {
+    // register event callbacks
+    this.on('gesture:touch', function(e, tp) {
+      // TODO: handle touch
+    }).on('gesture:pan', function(e, tp) {
+      // TODO: handle pan
+    }).on('gesture:release', function(e, tp) {
+      // TODO: handle release
+    }).on('gesture:tap', function(e, tp) {
+      // TODO: handle tap
+    }).on('gesture:swipe', function(e, tp) {
+      // TODO: handle swipe
+      switch(tp.direction) {
+        case 'up':
+          break;
+        case 'down':
+          break;
+        case 'left':
+          break;
+        case 'right':
+          break;
+      }
+    });
+  }
+}
+</script></code></pre>
+    <p>
+        Callbacks will receive the <code>tp</code> <em>(TouchPointer)</em> parameter
+    </p>
+<pre><code class="js">tp = {
+  // time frame
+  startTime,
+  endTime,
+  // initial touch position
+  startX,
+  startY,
+  // relative movement
+  shiftX,
+  shiftY,
+  // actual direction, speed, position
+  direction, // 'left' | 'right' | 'up' | 'down'
+  velocity,
+  x: x,
+  y: y,
+  // guessed scrolling direction
+  scrollIntent(),  // false | 'horizontal' | 'vertical'
+  // original event + cancel method
+  event,
+  cancel()
+};</code></pre>
+
+    <h2>Option attributes</h2>
+    <ul>
+        <li>
+            <code class="option">data-ui-load="@lib/controllers/gesture_helper"</code>
+            <small>constructor</small><br>
+            load the <code>gesture_helper</code> controller on the element.
+        </li>
+        <li>
+            <code class="option">data-ui-context</code>
+            <small>optional</small><br>
+            identifier name to be used to reference this component from JavaScript.
+        </li>
+        <li>
+            <code class="option">data-o-passive</code>
+            <small>optional</small><br>
+            use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener">passive mode</a>
+            for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.
+        </li>
+    </ul>
+
+
+    <h2>Source code</h2>
+    <p>
+        Source code is available in the <code>lib/controllers</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+    </p>
+    <div self="size-large">
+        <ul class="list">
+            <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/gesture_helper.js">gesture_helper.js</a></li>
+        </ul>
     </div>
 
 </div>
 
-        </article>
 
-    </main>
+
+</main>
+
+<footer layout="column center-center">
+    <div layout="rows center-justify" class="footer-block">
+        <div self="size-x1 center-right"><a href="../../"><strong>zKit</strong></a> <small>components for modern web</small></div>
+        <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+    </div>
+</footer>
+
+
+
+
+
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async="">//{% raw %}
@@ -524,13 +453,32 @@ if(!id)break a;ld();od=void 0;pd={};md={};rd=void 0;qd={};nd="";sd=jd();C.setInt
 <script defer="" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 
+<link rel="stylesheet" href="../..//css/docs.css">
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
 
 
 <!-- zUIx inline resource resourceBundle -->
 <script>zuix.bundle([
   {
-    "componentId": "/lib/controllers/view_pager",
-    "controller": "/**\n * zUIx - ViewPager Component\n *\n * @version 1.0.3 (2018-06-26)\n * @author Gene\n *\n * @version 1.0.1 (2018-02-12)\n * @author Gene\n *\n */\n\n'use strict';\n\nzuix.controller(function(cp) {\n    const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};\n    const LAYOUT_HORIZONTAL = 'horizontal';\n    const LAYOUT_VERTICAL = 'vertical';\n    const SLIDE_DIRECTION_FORWARD = 1;\n    const SLIDE_DIRECTION_BACKWARD = -1;\n    // state vars\n    let currentPage = -1;\n    let oldPage = 0;\n    let slideTimeout = null;\n    let slideIntervalMs = 3000;\n    let slideDirection = SLIDE_DIRECTION_FORWARD;\n    let updateLayoutTimeout = null;\n    let inputCaptured = false;\n    // options\n    let layoutType = LAYOUT_HORIZONTAL;\n    let enableAutoSlide = false;\n    let enablePaging = false;\n    let holdTouch = false;\n    let passiveMode = true;\n    // status\n    let isDragging = false;\n    let wasVisible = false;\n    // timers\n    let componentizeInterval = null;\n    let componentizeTimeout = null;\n    /** @typedef {ZxQuery} */\n    let pageList = null;\n    // Create an observer instance to watch for child add/remove\n    const domObserver = new MutationObserver(function(a, b) {\n        // update child list and re-layout\n        pageList = cp.view().children();\n        // force update layout by canceling any pending 'componentize' request\n        clearInterval(componentizeInterval);\n        componentizeInterval = null;\n        updateLayout();\n    });\n\n    cp.init = function() {\n        let options = cp.options();\n        let view = cp.view();\n        options.html = false;\n        options.css = false;\n        enablePaging = (options.enablePaging === true || (view.attr('data-o-paging') === 'true'));\n        enableAutoSlide = (options.autoSlide === true || (view.attr('data-o-slide') === 'true'));\n        passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));\n        holdTouch = (options.holdTouch === true || (view.attr('data-o-hold') === 'true'));\n        if (options.verticalLayout === true || (view.attr('data-o-layout') === LAYOUT_VERTICAL)) {\n            layoutType = LAYOUT_VERTICAL;\n        }\n        if (options.slideInterval != null) {\n            slideIntervalMs = options.slideInterval;\n        } else if (view.attr('data-o-slide-interval') != null) {\n            slideIntervalMs = parseInt(view.attr('data-o-slide-interval'));\n        }\n    };\n\n    cp.create = function() {\n        // enable absolute positioning for items in this view\n        const view = cp.view().css({\n            'position': 'relative',\n            'overflow': 'hidden'\n        });\n        // get child items (pages)\n        pageList = view.children();\n        // loading of images could change elements size, so layout update might be required\n        view.find('img').each(function(i, el) {\n            this.one('load', updateLayout);\n        });\n        // re-arrange view on layout changes\n        zuix.$(window).on('orientationchange', function() {\n            updateLayout();\n        });\n        // Options for the observer (which mutations to observe)\n        const config = {attributes: false, childList: true, subtree: false};\n        // Register DOM mutation observer callback\n        domObserver.observe(view.get(), config);\n        updateLayout();\n        // Set starting page\n        setPage(0);\n        let tapTimeout = null;\n        // gestures handling - load gesture_helper controller\n        zuix.load('@lib/controllers/gesture_helper', {\n            view: view,\n            passive: passiveMode,\n            on: {\n                'gesture:touch': function(e, tp) {\n                    inputCaptured = false;\n                    stopAutoSlide();\n                    dragStart();\n                    if (holdTouch) tp.cancel();\n                },\n                'gesture:release': function(e, tp) {\n                    dragStop(tp);\n                    resetAutoSlide();\n                },\n                'gesture:tap': function(e, tp) {\n                    if (tapTimeout != null) {\n                        clearTimeout(tapTimeout);\n                    }\n                    tapTimeout = setTimeout(function() {\n                        handleTap(e, tp);\n                    }, 50);\n                },\n                'gesture:pan': handlePan,\n                'gesture:swipe': handleSwipe\n            }\n        });\n        // public component methods\n        cp.expose('page', function(number) {\n            if (number == null) {\n                return parseInt(currentPage);\n            } else setPage(number, DEFAULT_PAGE_TRANSITION);\n        }).expose('get', function(number) {\n            return pageList.eq(number);\n        }).expose('slide', function(activate) {\n            if (activate === true) {\n                resetAutoSlide();\n            } else stopAutoSlide();\n        }).expose('layout', function(mode) {\n            if (mode == null) {\n                return layoutType;\n            } else if (mode === LAYOUT_VERTICAL) {\n                layoutType = LAYOUT_VERTICAL;\n            } else layoutType = LAYOUT_HORIZONTAL;\n            updateLayout();\n        }).expose('refresh', function() {\n            updateLayout();\n        }).expose('next', next)\n            .expose('prev', prev)\n            .expose('last', last)\n            .expose('first', first);\n    };\n\n    cp.destroy = function() {\n        if (domObserver != null) {\n            domObserver.disconnect();\n        }\n    };\n\n    function updateLayout() {\n        if (updateLayoutTimeout != null) {\n            clearTimeout(updateLayoutTimeout);\n        }\n        updateLayoutTimeout = setTimeout(layoutElements, 250);\n    }\n    function layoutElements() {\n        if (isDragging || componentizeInterval != null) {\n            updateLayout();\n            return;\n        }\n        // init elements\n        pageList.each(function(i, el) {\n            this.css({\n                'position': 'absolute',\n                'left': 0,\n                'top': 0\n            });\n        });\n        // measure\n        const viewSize = getSize(cp.view().get());\n        if (viewSize.width === 0 || viewSize.height === 0) {\n            // cannot measure view, try again later\n            updateLayout();\n            return;\n        }\n        // position elements\n        let offset = 0;\n        pageList.each(function(i, el) {\n            let size = getSize(el);\n            if (layoutType === LAYOUT_HORIZONTAL) {\n                transition(this, DEFAULT_PAGE_TRANSITION);\n                position(this, offset, 0);\n                offset += size.width;\n            } else {\n                transition(this, DEFAULT_PAGE_TRANSITION);\n                position(this, 0, offset);\n                offset += size.height;\n            }\n        });\n        // focus to current page\n        setPage(currentPage);\n        // start automatic slide\n        if (pageList.length() > 1) {\n            resetAutoSlide();\n        }\n    }\n\n    function next() {\n        let isLast = false;\n        let page = parseInt(currentPage)+1;\n        if (page >= pageList.length()) {\n            page = pageList.length()-1;\n            isLast = true;\n        }\n        setPage(page, DEFAULT_PAGE_TRANSITION);\n        return !isLast;\n    }\n    function prev() {\n        let isFirst = false;\n        let page = parseInt(currentPage)-1;\n        if (page < 0) {\n            page = 0;\n            isFirst = true;\n        }\n        setPage(page, DEFAULT_PAGE_TRANSITION);\n        return !isFirst;\n    }\n    function first() {\n        setPage(0, DEFAULT_PAGE_TRANSITION);\n    }\n    function last() {\n        setPage(pageList.length()-1, DEFAULT_PAGE_TRANSITION);\n    }\n\n    function slideNext() {\n        setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);\n        resetAutoSlide();\n    }\n\n    function resetAutoSlide(timeout) {\n        stopAutoSlide();\n        if (enableAutoSlide === true) {\n            const visible = cp.view().position().visible;\n            if (visible) {\n                if (!wasVisible) {\n                    zuix.componentize(cp.view());\n                }\n                slideTimeout = setTimeout(slideNext, slideIntervalMs);\n            } else {\n                slideTimeout = setTimeout(resetAutoSlide, 500);\n            }\n            wasVisible = visible;\n        }\n    }\n    function stopAutoSlide() {\n        if (slideTimeout != null) {\n            clearTimeout(slideTimeout);\n        }\n    }\n\n    function getItemIndexAt(x, y) {\n        let focusedPage = 0;\n        pageList.each(function(i, el) {\n            let data = getData(this);\n            focusedPage = i;\n            const size = getSize(el);\n            const rect = {\n                x: data.position.x,\n                y: data.position.y,\n                w: size.width,\n                h: size.height\n            };\n            if ((layoutType === LAYOUT_HORIZONTAL && (rect.x > x || rect.x+rect.w > x))\n                || (layoutType === LAYOUT_VERTICAL && (rect.y > y || rect.y+rect.h > y))) {\n                return false;\n            }\n        });\n        return focusedPage;\n    }\n\n    function focusPageAt(tp, transition) {\n        let vp = cp.view().position();\n        let page = getItemIndexAt(tp.x-vp.x, tp.y-vp.y);\n        setPage(page, transition != null ? transition : DEFAULT_PAGE_TRANSITION);\n    }\n\n    function setPage(n, transition) {\n        oldPage = currentPage;\n        if (n < 0) {\n            slideDirection = SLIDE_DIRECTION_FORWARD;\n            n = 0;\n        } else if (n >= pageList.length()) {\n            slideDirection = SLIDE_DIRECTION_BACKWARD;\n            n = pageList.length() - 1;\n        } else if (n !== currentPage) {\n            slideDirection = (currentPage < n) ? SLIDE_DIRECTION_FORWARD : SLIDE_DIRECTION_BACKWARD;\n        }\n        currentPage = n;\n        if (currentPage != oldPage) {\n            pageList.eq(currentPage).css('z-index', 1);\n            if (oldPage !== -1) {\n                pageList.eq(oldPage).css('z-index', 0);\n            }\n            cp.trigger('page:change', {in: currentPage, out: oldPage});\n        }\n        const el = pageList.eq(n);\n        const data = getData(el);\n        const elSize = getSize(el.get());\n        const viewSize = getSize(cp.view().get());\n        const focusPoint = {\n            x: (viewSize.width - elSize.width) / 2 - data.position.x,\n            y: (viewSize.height - elSize.height) / 2 - data.position.y\n        };\n        flyTo(focusPoint, transition);\n        resetAutoSlide();\n    }\n\n    function flyTo(targetPoint, transition) {\n        const viewSize = getSize(cp.view().get());\n        const spec = getFrameSpec();\n        const firstData = getData(pageList.eq(0));\n        const lastPage = pageList.eq(pageList.length() - 1);\n        const lastData = getData(lastPage);\n\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            const frameSpec = getFrameSpec();\n            data.dragStart = {\n                x: frameSpec.marginLeft + data.position.x,\n                y: frameSpec.marginTop + data.position.y\n            };\n        });\n\n        if (layoutType === LAYOUT_HORIZONTAL) {\n            let x = targetPoint.x;\n            if (firstData.position.x + targetPoint.x > 0) {\n                x = -firstData.position.x;\n            } else {\n                if (lastData.position.x + lastPage.get().offsetWidth + targetPoint.x < viewSize.width) {\n                    x = -spec.marginLeft*2 + viewSize.width - (lastData.position.x + lastPage.get().offsetWidth);\n                }\n            }\n            if (targetPoint.x-x !== 0 && transition != null) {\n                transition = {\n                    duration: transition.duration,\n                    easing: transition.easing\n                };\n                transition.duration *= (x / targetPoint.x);\n                if (transition.duration < 0) transition.duration = 0.15;\n            }\n            dragShift(x, 0, transition);\n        } else {\n            let y = targetPoint.y;\n            if (firstData.position.y + targetPoint.y > 0) {\n                y = -firstData.position.y;\n            } else {\n                if (lastData.position.y + lastPage.get().offsetHeight + targetPoint.y < viewSize.height) {\n                    y = -spec.marginTop*2 + viewSize.height - (lastData.position.y + lastPage.get().offsetHeight);\n                }\n            }\n            if (targetPoint.y-y !== 0 && transition != null) {\n                transition = {\n                    duration: transition.duration,\n                    easing: transition.easing\n                };\n                transition.duration *= (y / targetPoint.y);\n                if (transition.duration < 0) transition.duration = 0.15;\n            }\n            dragShift(0, y, transition);\n        }\n    }\n\n    function getSize(el) {\n        const rect = el.getBoundingClientRect();\n        const width = rect.width || el.offsetWidth;\n        const height = el.offsetHeight || rect.height;\n        return {width: width, height: height};\n    }\n\n    function getData(el) {\n        const data = el.get().data = el.get().data || {};\n        data.position = data.position || {x: 0, y: 0};\n        return data;\n    }\n\n    function componentizeStart() {\n        if (isLazyContainer()) {\n            componentizeStop();\n            if (componentizeTimeout != null) {\n                clearTimeout(componentizeTimeout);\n            }\n            if (componentizeInterval != null) {\n                clearInterval(componentizeInterval);\n            }\n            componentizeInterval = setInterval(function() {\n                const viewSize = getSize(cp.view().get());\n                pageList.each(function(i, el) {\n                    // hide elements if not inside the view_pager\n                    const computed = window.getComputedStyle(el, null);\n                    const size = {\n                        width: parseFloat(computed.width.replace('px', '')),\n                        height: parseFloat(computed.height.replace('px', ''))\n                    };\n                    const x = parseFloat(computed.left.replace('px', ''));\n                    const y = parseFloat(computed.top.replace('px', ''));\n                    if (size.width > 0 && size.height > 0) {\n                        el = zuix.$(el);\n                        // check if element is inside the view_pager\n                        if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {\n                            if (el.visibility() !== 'hidden') {\n                                el.visibility('hidden');\n                            }\n                        } else if (el.visibility() !== 'visible') {\n                            el.visibility('visible');\n                        }\n                    }\n                });\n                zuix.componentize(cp.view());\n            }, 10);\n        }\n    }\n\n    function componentizeStop() {\n        if (isLazyContainer() && componentizeTimeout == null) {\n            clearInterval(componentizeInterval);\n        }\n    }\n\n    function dragStart() {\n        isDragging = true;\n        componentizeStart();\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            const frameSpec = getFrameSpec();\n            const computed = window.getComputedStyle(el, null);\n            data.position.x = parseFloat(computed.left.replace('px', ''));\n            data.position.y = parseFloat(computed.top.replace('px', ''));\n            this.css('left', data.position.x+'px');\n            this.css('top', data.position.y+'px');\n            data.dragStart = {x: frameSpec.marginLeft+data.position.x, y: frameSpec.marginTop+data.position.y};\n        });\n    }\n\n    function getFrameSpec() {\n        const spec = {\n            w: 0,\n            h: 0,\n            marginLeft: 0,\n            marginTop: 0\n        };\n        const viewSize = getSize(cp.view().get());\n        pageList.each(function(i, el) {\n            const size = getSize(el);\n            spec.w += size.width;\n            spec.h += size.height;\n        });\n        if (layoutType === LAYOUT_HORIZONTAL && spec.w < viewSize.width) {\n            spec.marginLeft = (viewSize.width - spec.w) / 2;\n        } else if (layoutType === LAYOUT_VERTICAL && spec.h < viewSize.height) {\n            spec.marginTop = (viewSize.height - spec.h) / 2;\n        }\n        return spec;\n    }\n\n    function dragShift(x, y, tr) {\n        if (tr != null) {\n            componentizeStart();\n            componentizeTimeout = setTimeout(function() {\n                componentizeTimeout = null;\n                componentizeStop();\n            }, tr.duration*1000);\n            tr = tr.duration+'s '+tr.easing;\n        } else if (isLazyContainer()) {\n            zuix.componentize(cp.view());\n        }\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            transition(this, tr);\n            position(this, data.dragStart.x+x, data.dragStart.y+y);\n        });\n    }\n\n    function dragStop(tp) {\n        if (enablePaging && componentizeTimeout == null) {\n            setTimeout(function() {\n                setPage(currentPage, DEFAULT_PAGE_TRANSITION);\n            }, 10);\n        }\n        if (tp != null) tp.done = true;\n        componentizeStop();\n        isDragging = false;\n    }\n\n    function isLazyContainer() {\n        const lazy = cp.view().find('[data-ui-lazyload=\"true\"]').length() > 0;\n        return lazy;\n    }\n\n    // Gesture handling\n\n    function handlePan(e, tp) {\n        if (!tp.scrollIntent() || tp.done) {\n            return;\n        }\n        if (inputCaptured\n            || ((tp.direction === 'left' || tp.direction === 'right') && layoutType === LAYOUT_HORIZONTAL)\n            || ((tp.direction === 'up' || tp.direction === 'down') && layoutType === LAYOUT_VERTICAL)) {\n            // capture click event\n            if (!inputCaptured && tp.event.touches == null) {\n                cp.view().get().addEventListener('click', function(e) {\n                    if (inputCaptured) {\n                        inputCaptured = false;\n                        e.cancelBubble = true;\n                        // TODO: 'preventDefault' should not be used with passive listeners\n                        e.preventDefault();\n                    }\n                    // release mouse click capture\n                    cp.view().get().removeEventListener('click', this, true);\n                }, true);\n            }\n            inputCaptured = true;\n            tp.cancel();\n        }\n        const spec = getFrameSpec();\n        if (layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') {\n            dragShift(tp.shiftX-spec.marginLeft, 0);\n        } else if (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical') {\n            dragShift(0, tp.shiftY-spec.marginTop);\n        }\n    }\n\n    function handleTap(e, tp) {\n        let vp = cp.view().position();\n        let page = getItemIndexAt(tp.x-vp.x, tp.y-vp.y);\n        cp.trigger('page:tap', page, tp);\n        if (enablePaging) focusPageAt(tp);\n    }\n\n    function handleSwipe(e, tp) {\n        const decelerateEasing = {\n            duration: (1+(1/Math.abs(tp.velocity))),\n            easing: 'cubic-bezier(0.1,0.45,0.35,1.1)'\n        };\n        const fly = function(destination, shift) {\n            if (enablePaging) {\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    focusPageAt({\n                        x: destination.x - shift.x,\n                        y: destination.y\n                    }, decelerateEasing);\n                } else {\n                    focusPageAt({\n                        x: destination.x,\n                        y: destination.y - shift.y\n                    }, decelerateEasing);\n                }\n            } else {\n                flyTo(shift, decelerateEasing);\n            }\n        };\n        const fastSwipe = (!enablePaging && Math.abs(tp.velocity) > 0.35) || (Math.abs(tp.velocity) > 1.25);\n        const ap = {\n            x: (tp.velocity * 1000),\n            y: (tp.velocity * 1000)\n        };\n        switch (tp.direction) {\n            case 'right':\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) prev();\n                }\n                break;\n            case 'left':\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) next();\n                }\n                break;\n            case 'down':\n                if (layoutType === LAYOUT_VERTICAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) prev();\n                }\n                break;\n            case 'up':\n                if (layoutType === LAYOUT_VERTICAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) next();\n                }\n                break;\n        }\n    }\n\n    function position(el, x, y) {\n        const data = getData(el);\n        if (!isNaN(x) && !isNaN(y)) {\n            data.position = {'x': x, 'y': y};\n            el.css({'left': data.position.x+'px', 'top': data.position.y+'px'});\n        }\n        return data;\n    }\n\n    function transition(el, transition) {\n        if (transition == null) {\n            transition = 'none';\n        }\n        el.css({\n            '-webkit-transition': transition,\n            '-moz-transition': transition,\n            '-ms-transition': transition,\n            '-o-transition': transition,\n            'transition': transition\n        });\n    }\n});\n"
+    "componentId": "/lib/controllers/gesture_helper",
+    "controller": "/**\n * zUIx - Gesture Controller\n *\n * @version 1.0.0 (2018-03-11)\n * @author Gene\n *\n */\n\n'use strict';\n\nzuix.controller(function(cp) {\n    const SCROLL_MODE_NONE = 0;\n    const SCROLL_MODE_HORIZONTAL = 1;\n    const SCROLL_MODE_VERTICAL = 2;\n    const GESTURE_TAP_TIMEOUT = 750;\n\n    let scrollMode = SCROLL_MODE_NONE;\n    let touchPointer = null;\n    let ignoreSession = false;\n    let passiveMode = true;\n    let currentGesture = null;\n    let swipeDirection = null;\n    let mouseButtonDown = false;\n    let lastTapTime = new Date().getTime();\n\n    // Math.sign Polyfill\n    Math.sign = Math.sign || function(x) {\n        return ((x>0)-(x<0))||+x;\n    };\n\n    cp.init = function() {\n        let view = cp.view();\n        const options = cp.options();\n        options.html = false;\n        options.css = false;\n        passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));\n    };\n\n    cp.create = function() {\n        // TODO: should use event \"capturing\" instead of \"bubbling\"\n        cp.view().on('dragstart', {\n            handler: function(e) {\n                if (!ignoreSession && !passiveMode) {\n                    e.preventDefault();\n                }\n            },\n            passive: passiveMode\n        }).on('mousedown', {\n            handler: function(e) {\n                const targetElement = zuix.$(e.target);\n                if (e.which === 1 && targetElement.parent('[class*=\"no-gesture\"]').length() === 0) {\n                    mouseButtonDown = true;\n                    ignoreSession = false;\n                    // targetElement.css('touch-action', 'none');\n                    // TODO: add 'cp.options().preventDrag'\n                    targetElement.get().draggable = false;\n                    touchStart(e, e.x, e.y);\n                } else ignoreSession = true;\n            },\n            passive: passiveMode\n        }).on('mousemove', {\n            handler: function(e) {\n                if (!ignoreSession && mouseButtonDown) {\n                    touchMove(e, e.x, e.y);\n                }\n            },\n            passive: passiveMode\n        }).on('mouseup', function(e) {\n            if (e.which === 1 && !ignoreSession) {\n                mouseButtonDown = false;\n                touchStop(e);\n            }\n        }).on('touchstart', {\n            handler: function(e) {\n                const targetElement = zuix.$(e.target);\n                if (targetElement.parent('[class*=\"no-gesture\"]').length() === 0) {\n                    ignoreSession = false;\n                    // targetElement.css('touch-action', 'none');\n                    targetElement.get().draggable = false;\n                    touchStart(e, e.touches[0].clientX, e.touches[0].clientY);\n                } else ignoreSession = true;\n            },\n            passive: passiveMode\n        }).on('touchmove', {\n            handler: function(e) {\n                if (!ignoreSession) {\n                    touchMove(e, e.touches[0].clientX, e.touches[0].clientY);\n                }\n            },\n            passive: passiveMode\n        }).on('touchend', function(e) {\n            if (!ignoreSession) {\n                touchStop(e);\n            }\n        });\n    };\n\n    function touchStart(e, x, y) {\n        let timestamp = new Date().getTime();\n        touchPointer = {\n            // original event + cancel method\n            event: e,\n            cancel: function() {\n                touchPointer.event.cancelBubble = true;\n                if (!passiveMode) {\n                    touchPointer.event.preventDefault();\n                }\n            },\n            // initial touch position\n            startX: x,\n            startY: y,\n            startTime: timestamp,\n            // relative movement\n            shiftX: 0,\n            shiftY: 0,\n            endTime: 0,\n            // relative movement at every step\n            stepX: 0,\n            stepY: 0,\n            stepTime: timestamp,\n            // actual position and speed\n            velocity: 0,\n            x: x,\n            y: y,\n            scrollIntent: function() {\n                switch (scrollMode) {\n                    case SCROLL_MODE_HORIZONTAL:\n                        return 'horizontal';\n                    case SCROLL_MODE_VERTICAL:\n                        return 'vertical';\n                }\n                return false;\n            }\n        };\n        cp.trigger('gesture:touch', touchPointer);\n    }\n    function touchMove(e, x, y) {\n        if (touchPointer != null) {\n            touchPointer.event = e;\n            touchPointer.x = x;\n            touchPointer.y = y;\n            touchPointer.shiftX = (x - touchPointer.startX);\n            touchPointer.shiftY = (y - touchPointer.startY);\n            touchPointer.endTime = new Date().getTime();\n            // detect actual gesture\n            let gesture = detectGesture();\n            if (gesture != null && currentGesture !== false) {\n                if (swipeDirection != null && swipeDirection !== touchPointer.direction) {\n                    // stop gesture detection if not coherent\n                    currentGesture = false;\n                    swipeDirection = touchPointer.direction = 'cancel';\n                } else {\n                    currentGesture = gesture;\n                    swipeDirection = touchPointer.direction;\n                }\n            }\n            cp.trigger('gesture:pan', touchPointer);\n        }\n    }\n\n    function touchStop(e) {\n        if (touchPointer != null) {\n            touchPointer.event = e;\n            if (currentGesture == null) {\n                currentGesture = detectGesture();\n            }\n            if (currentGesture != null && currentGesture !== false) {\n                cp.trigger(currentGesture, touchPointer);\n            }\n        }\n        cp.trigger('gesture:release', touchPointer);\n        scrollMode = SCROLL_MODE_NONE;\n        swipeDirection = null;\n        currentGesture = null;\n        touchPointer = null;\n    }\n\n    function detectGesture() {\n        let gesture = null;\n        const elapsedTime = touchPointer.endTime-touchPointer.stepTime;\n        const l = {x: (touchPointer.shiftX-touchPointer.stepX), y: (touchPointer.shiftY-touchPointer.stepY)};\n        const d = Math.sqrt(l.x*l.x+l.y*l.y);\n        touchPointer.velocity = (d/elapsedTime);\n        const minDistance = 3;\n        const angle = Math.atan2(touchPointer.shiftY-touchPointer.stepY, touchPointer.shiftX-touchPointer.stepX) * 180 / Math.PI;\n        if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && elapsedTime < GESTURE_TAP_TIMEOUT) {\n            // gesture TAP\n            lastTapTime = new Date().getTime();\n            gesture = 'gesture:tap';\n        } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)\n            && d > minDistance && ((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135))) {\n            // gesture swipe RIGHT\n            touchPointer.direction = 'left';\n            touchPointer.velocity *= -1;\n            gesture = 'gesture:swipe';\n            scrollMode = SCROLL_MODE_HORIZONTAL;\n        } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)\n            && d > minDistance && ((angle >= 0 && angle <= 45) || (angle >= -45 && angle < 0))) {\n            // gesture swipe LEFT\n            touchPointer.direction = 'right';\n            gesture = 'gesture:swipe';\n            scrollMode = SCROLL_MODE_HORIZONTAL;\n        } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)\n            && d > minDistance && (angle > 45 && angle < 135)) {\n            // gesture swipe UP\n            touchPointer.direction = 'down';\n            gesture = 'gesture:swipe';\n            scrollMode = SCROLL_MODE_VERTICAL;\n        } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)\n            && d > minDistance && (angle > -135 && angle < -45)) {\n            // gesture swipe DOWN\n            touchPointer.direction = 'up';\n            touchPointer.velocity *= -1;\n            gesture = 'gesture:swipe';\n            scrollMode = SCROLL_MODE_VERTICAL;\n        }\n        // reset touch step data\n        if (d > minDistance) {\n            touchPointer.stepTime = touchPointer.endTime;\n            touchPointer.stepX = touchPointer.shiftX;\n            touchPointer.stepY = touchPointer.shiftY;\n        }\n        return gesture;\n    }\n});\n"
   }
 ])</script>
 </body></html>

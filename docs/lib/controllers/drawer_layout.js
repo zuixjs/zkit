@@ -22,13 +22,20 @@ zuix.controller(function(cp) {
     let autoHideWidth = 960;
 
     cp.init = function() {
+        let view = cp.view();
         this.options().html = false;
         this.options().css = false;
         if (!isNaN(this.options().drawerWidth)) {
             drawerWidth = parseInt(this.options().drawerWidth);
+        } else {
+            const w = parseInt(view.attr('data-o-width'));
+            if (!isNaN(w)) drawerWidth = w;
         }
         if (!isNaN(this.options().autoHideWidth)) {
             autoHideWidth = parseInt(this.options().autoHideWidth);
+        } else {
+            const w = parseInt(view.attr('data-o-hide-width'));
+            if (!isNaN(w)) autoHideWidth = w;
         }
     };
 
@@ -97,19 +104,23 @@ zuix.controller(function(cp) {
         });
 
         // public component methods
-        cp.expose('toggle', toggleDrawer);
+        cp.expose('toggle', function() {
+            transitionOn();
+            toggleDrawer();
+        });
         cp.expose('open', function() {
             transitionOn();
-            return openDrawer();
+            openDrawer();
         });
         cp.expose('close', function() {
             transitionOn();
-            return closeDrawer();
+            closeDrawer();
         });
         cp.expose('isOpen', isOpen);
-        // TODO: refactor to 'dragTo'
-        cp.expose('dragTo', dragTo);
         cp.expose('lock', function(locked) {
+            if (locked == null) {
+                return isDrawerLocked;
+            }
             isDrawerLocked = locked;
         });
 
@@ -120,9 +131,6 @@ zuix.controller(function(cp) {
                 closeDrawer();
             }
         });
-
-        // TODO: create cp.options().drawerWidth, with '300' as default value
-        drawerWidth = 300; //drawerLayout.get().offsetWidth;
 
         // detect screen size and set large/small layout
         sizeCheck();

@@ -49,12 +49,41 @@ const buildFolder = zuixConfig.get('build.output');
 const copyFiles = zuixConfig.get('build.copy');
 const ignoreFiles = zuixConfig.get('build.ignore');
 const compileFiles = zuixConfig.get('build.compile');
-tlog.br('   ^Ginput^ %s', sourceFolder);
-tlog.br('  ^Goutput^ %s', buildFolder);
-tlog.br('    ^Gcopy^ %s', copyFiles);
-tlog.br('  ^Gignore^ %s', ignoreFiles);
-tlog.br('  ^Gcompile^ %s', compileFiles)
+const prettyUrl = zuixConfig.get('build.prettyUrl');
+const bundle = zuixConfig.get('build.bundle');
+const less = zuixConfig.get('build.less');
+const esLint = zuixConfig.get('build.esLint');
+const workBox = require('workbox-build');
+
+// Build helpers list
+const helperList = [];
+const zuixHelpersPath = 'tasks/zuix/helpers/';
+fs.readdirSync(zuixHelpersPath).forEach(file => {
+    if (file.endsWith('.js')) {
+        helperList.push(zuixHelpersPath + file);
+    }
+});
+const customHelpersPath = sourceFolder+'/_helpers/';
+if (fs.existsSync(customHelpersPath)) {
+    fs.readdirSync(customHelpersPath).forEach(file => {
+        if (file.endsWith('.js')) {
+            helperList.push(customHelpersPath + file);
+        }
+    });
+}
+
+tlog.br('     ^Ginput^ %s', sourceFolder)
+    .br('    ^Goutput^ %s', buildFolder)
+    .br('      ^Gcopy^ %s', copyFiles)
+    .br('    ^Gignore^ %s', ignoreFiles)
+    .br('   ^Gcompile^ %s', compileFiles)
+    .br(' ^GprettyUrl^ %s', prettyUrl)
+    .br('   ^Ghelpers^ %s', JSON.stringify(helperList))
+    .br('    ^Gbundle^ %s', JSON.stringify(bundle))
+    .br('      ^Gless^ %s', less)
+    .br('    ^GesLint^ %s', esLint)
     .br();
+
 if (!fs.existsSync(sourceFolder)) {
     tlog.error('   "%s" does not exist', sourceFolder);
     process.exitCode = -1;
@@ -76,7 +105,11 @@ for (let i = 0; i < copyFiles.length; i++) {
 
 // Copy zuix-dist files and 'config.json'
 tlog.overwrite('   | "%s" -> "%s"', 'zuix-dist', 'js');
-copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
+// - last zUIx release
+copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js', buildFolder));
+// - last zUIx build (if 'dist' folder is found in parent folder)
+//copyFolder(util.format('%s/../dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
+// - auto-generated config.js
 copyAppConfig();
 tlog.overwrite(' ^G\u2713^: done').br();
 
@@ -89,7 +122,8 @@ staticSite({
     source: sourceFolder,
     ignore: ignoreFiles.concat(copyFiles),
     files: compileFiles,
-    helpers: ['tasks/zuix/helpers/zuix-context.js'],
+    prettyUrl: prettyUrl,
+    helpers: helperList,
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {
     tlog.term.defaultColor('\n\n');
@@ -110,13 +144,38 @@ staticSite({
         tlog.stats().warn,
         plural('warning', tlog.stats().warn),
     ));
-    process.exitCode = tlog.stats().error;
+
+    // TODO: run work box
+    // NOTE: This should be run *AFTER* all your assets are built
+    const buildSW = () => {
+        // This will return a Promise
+        return workBox.generateSW({
+            globDirectory: 'docs',
+            globPatterns: [
+                '**\/*.{html,json,js,css}',
+            ],
+            swDest: 'docs/service-worker.js',
+        });
+    };
+    buildSW().then(function () {
+        process.exitCode = tlog.stats().error;
+    });
 });
 
 function copyAppConfig() {
     let cfg = 'zuix.store("config", ';
     cfg += JSON.stringify(config.get('zuix.app'), null, 4);
     cfg += ');\n';
+    // WorkBox / Service Worker
+    cfg += `
+    // Check that service workers are registered
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js');
+        });
+    }
+    `;
     fs.writeFileSync(buildFolder+'/config.js', cfg);
 }
 

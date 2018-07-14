@@ -174,13 +174,14 @@ head:
 <pre><code class="js">var menuOverlay;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
-zuix.context('menu-overlay', function () {
-    // add event listeners
-    this.on('open', function() { /* ... */})
-        .on('close', function() { /* ... */});
-    // store a global reference of the
-    // component for eventual later use
-    menuOverlay = this;
+zuix.context('menu-overlay', function() {
+  // add event listeners
+  this
+    .on('open', function() { /* ... */})
+    .on('close', function() { /* ... */});
+  // store a global reference of
+  // the component for later use
+  menuOverlay = this;
 });</code></pre>
 
         <h3>Programmatically show/hide</h3>

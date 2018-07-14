@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head>
-    <title>zKit, components for modern web</title>
+    <title>zKit: Media Browser (lib/components)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us">
@@ -14,19 +14,19 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="../../images/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="../../images/ios-desktop.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileImage" content="../../images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="../../images/favicon.png">
 
     <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4">
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
@@ -36,316 +36,300 @@
 
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
 
     <!-- zUIx library  -->
-    <script src="js/zuix.js"></script>
-    <script src="config.js"></script>
+    <script src="../../js/zuix.js"></script>
+    <script src="../../config.js"></script>
 
-    <!-- page style and script -->
-    <link rel="stylesheet" href="index.css">
-    <script>//{% raw %}
-'use strict';
 
-zuix.using('component', '@lib/extensions/animate_css');
-
-let mainPager;
-let viewPager1;
-
-// use 'var' or 'window.' for options (global object)
-var options = {
-    no_css: {
-        css: false
-    },
-    view_pager_1: {
-        enablePaging: true,
-        autoSlide: true,
-        ready: function() {
-            viewPager1 = this;
-            const indicator = zuix.$.find('.pager-indicator');
-            this.on('page:change', function(e, page) {
-                indicator.find('a').eq(parseInt(page.in))
-                    .addClass('page-active');
-                indicator.find('a').eq(parseInt(page.out))
-                    .removeClass('page-active');
-            });
-        }
-    }
-};
-
-function init() {
-    // load the view-pager controller on this document layout
-    zuix.load('@lib/controllers/view_pager', {
-        view: zuix.$.find('main'),
-        enablePaging: true,
-        verticalLayout: true,
-        passive: false,
-        ready: function() {
-            mainPager = this;
-            mainPager.on('page:change', pageChangeListener);
-            // use 'go()' method to route anchors with 'exit-link' class
-            zuix.$.find('a.exit-link').each(function() {
-                let link = this.attr('href');
-                const t = this;
-                t.attr('href', null);
-                t.on('click', function(e) {
-                    if (link != null && t.display() !== 'none') {
-                        go(link);
-                    }
-                });
-            });
-        }
-    });
-    // keyboard navigation
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 37: // left
-                if (mainPager.page() === 1 && viewPager1.prev()) {
-                    break;
+    <script>
+        let mediaBrowser;
+        // use 'var' or 'window.' for options (global object)
+        var options = {
+            no_css: {
+                css: false
+            },
+            mediaBrowser: {
+                ready: function () {
+                    mediaBrowser = this;
                 }
-                mainPager.prev();
-                break;
-            case 38: // up
-                mainPager.prev();
-                break;
-            case 39: // right
-                if (mainPager.page() === 1 && viewPager1.next()) {
-                    break;
-                }
-                mainPager.next();
-                break;
-            case 40: // down
-                mainPager.next();
-                break;
-        }
-    };
-}
-function go(url) {
-    // animate and open link
-    zuix.$(document.body).animateCss('fadeOut', {duration: '0.3s'}, function() {
-        document.location.href = url;
-        const t = this.hide();
-        setTimeout(function() {
-            t.show();
-        }, 1000);
-    });
-}
-function pageChangeListener(e, page) {
-    zuix.$.find('article').removeClass('page-active');
-    mainPager
-        .get(page.in)
-        .addClass('page-active');
-    if (page.in === 1 && page.out < 1) {
-        viewPager1.first();
-    } else if (page.in === 1) {
-        viewPager1.last();
-    }
-}
+            }
+        };
+    </script>
 
-//{% endraw %}</script>
     <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>
 </head>
 
-<body class="mdl-color--black animated fadeIn" onload="init()">
+<body layout="column top-center">
 
-    <main>
-
-        <article layout="column center-center" class="page-active first mdl-color--purple-600 mdl-color-text--white">
-            <div self="size-x1" layout="column center-center" class="box-active">
-    <h1 class="animated fadeInDown logo">
-        <i class="material-icons animated bounce">extension</i>zKit
-    </h1>
-    <h2 class="animated fadeInDown">components for modern web</h2>
-    <p class="animated fadeInDown" align="center">
-        made with <a href="//genielabs.github.io/zuix">zUIx</a>
-    </p>
-</div>
-
-<footer self="bottom" layout="column bottom-center">
-    <div class="box-active animated fadeInUp"></div>
-    <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_upward</i>
-    </div>
-</footer>
-
-        </article>
-
-        <article class="mdl-color--blue-600 mdl-color-text--white zuix-css-ignore">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-<style>
-.horizontal_pager {
-    display: table-row;
-    width: 100%;
-    margin: auto;
-}
-</style>
-
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.view_pager_1" self="size-x1" class="horizontal_pager">
-
-    <div class="wh100" layout="column center-center">
-        <h1>ViewPager</h1>
-        <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
-            <i class="material-icons">view_array</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Gesture Helper</h1>
-        <a href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">gesture</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Scroll Helper</h1>
-        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">all_out</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>DrawerLayout</h1>
-        <a href="docs/controllers/drawer_layout" class="exit-link animated fadeInUp">
-            <i class="material-icons">chrome_reader_mode</i>
-        </a>
-    </div>
-    <!--
-    <div class="wh100" layout="column center-center">
-        <h1>ListView</h1>
-        <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
-            <i class="material-icons wip">view_list</i>
-        </a>
-        <em>...coming soon...</em>
-    </div>
-    -->
-
-</div>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-<div class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
-    <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
-    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
-</div>
-
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article class="mdl-color--red-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Menu Overlay</h1>
-<a href="docs/components/menu_overlay" class="exit-link animated fadeInUp">
-    <i class="material-icons">menu</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article class="mdl-color--green-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Media Browser</h1>
-<a href="docs/components/media_browser" class="exit-link animated fadeInUp">
-    <i class="material-icons">video_library</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article layout="column center-center" class="last mdl-color--purple-600 mdl-color-text--white">
-            <header self="top" layout="column top-center">
-    <div class="black-band"></div>
-    <div class="box-active animated fadeInDown"></div>
-    <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_downward</i>
+<header class="header-cover animated fadeIn">
+    <div self="size-large center" layout="rows center-left">
+        <div><h1 data-ui-field="page_title" class="animated fadeInLeft">Media Browser</h1></div>
+        <div self="center-right"><a href="../../"><i class="material-icons animated fadeInRight">extension</i></a></div>
     </div>
 </header>
 
-<div self="size-x1 center" layout="column center-center" class="box-active">
 
-    <div class="animated fadeInDown">
-        <a href="//github.com/genielabs/zkit" layout="column center-center" class="animated bounceInUp">
-            <img src="images/github-octocat.svg" width="56" hspace="12">
-            <h2>View on GitHub</h2>
-        </a>
+
+
+
+<main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
+
+    
+
+    <div self="size-large center">
+        <p>
+            An image/video gallery component configurable with a minimal HTML code.
+        </p>
+    </div>
+    <div align="center">
+        <button onclick="mediaBrowser.open()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Open Media Browser</button>
     </div>
 
-</div>
+    <div self="size-large center" layout="columns top-stretch">
 
+        <h2>Usage</h2>
+<h3>1. Include zUIx library</h3>
+<p>Add the following line, preferably inside the <code>head</code> section of the <code>HTML</code> document:</p>
+
+<pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+
+        <h3>2. Add the media list markup</h3>
+        <p>Put inside the field <code>media</code> the markup defining image and video list.</p>
+
+<pre><code class="html">&lt;div data-ui-load="@lib/components/media_browser"
+    data-ui-context="media-browser"&gt;
+    <!-- List of images/videos -->
+    <div data-ui-field="media">
+        <!-- Example image item -->
+        <article>
+            <h1 data-ui-field="title">Title</h1>
+            <h2 data-ui-field="description">Description of the image.</h2>
+            <div data-ui-field="preview">
+                <!-- Image thumbnail url -->
+                <img src="https://picsum.photos/400/300/?image=201">
+            </div>
+            <!-- Full-size image url -->
+            <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
         </article>
+        <!-- Example YT video item -->
+        <article data-type="video">
+            <!-- YouTube video id -->
+            <div data-ui-field="video">dzvM0M6lRfI</div>
+            <div data-ui-field="preview">
+                <!-- Video thumbnail url -->
+                <img src="https://img.youtube.com/vi/dzvM0M6lRfI/2.jpg">
+            </div>
+        </article>
+    </div>
+&lt;/div&gt;</code></pre>
 
-    </main>
+        <p>That's all.</p>
+
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-ui-load="@lib/components/media_browser"</code>
+                <small>constructor</small><br>
+                load the <code>media_browser</code> component on the element.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+        </ul>
+
+
+        <h2>Scripting</h2>
+
+        <h3>Get a reference to the media browser object</h3>
+<pre><code class="js">var mediaBrowser;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('media-browser', function () {
+    // store a global reference of the
+    // component for eventual later use
+    mediaBrowser = this;
+    // open the media browser
+    mediaBrowser.open();
+});</code></pre>
+
+        <h3>Programmatically show/hide</h3>
+
+<pre><code class="js">// show the media browser
+mediaBrowser.open();
+// hide the media browser
+mediaBrowser.close();</code></pre>
+
+
+        <h3>Example</h3>
+
+        <div>
+            <button onclick="mediaBrowser.open()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Open Media Browser</button>
+        </div>
+        <p>
+            Edit live this example on <a href="//glitch.com/edit/#!/media-browser?path=index.html:31:0">Glitch</a>.
+        </p>
+
+
+        <h2>Source code</h2>
+        <p>
+            Source code is available in the <code>lib/components</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+        </p>
+        <div self="size-large">
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/media_browser.js">media_browser.js</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/media_browser.html">media_browser.html</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/media_browser.css">media_browser.css</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+</main>
+
+<footer layout="column center-center">
+    <div layout="rows center-justify" class="footer-block">
+        <div self="size-x1 center-right"><a href="../../"><strong>zKit</strong></a> <small>components for modern web</small></div>
+        <div self="center-right">made with <strong><a href="http://zuix.it">zUIx</a></strong></div>
+    </div>
+</footer>
+
+
+
+
+    <!-- Begin zUIx Kit Component code -->
+    <div data-ui-load="@lib/components/media_browser" data-ui-options="options.mediaBrowser" class="topmost" layout="row center-left">
+
+        <div data-ui-field="media">
+            <!-- list of media items -->
+            <article>
+                <h1 data-ui-field="title">Desktop</h1>
+                <h2 data-ui-field="description">Tip: navigate with gestures or keyboard arrows.</h2>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=201">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=201">Full Image</a>
+            </article>
+            <article>
+                <h1 data-ui-field="title">Raspberries</h1>
+                <h2 data-ui-field="description">Tip: hit space bar or tap to toggle overlay.</h2>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=102">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=102">Full Image</a>
+            </article>
+            <article>
+                <h1 data-ui-field="title">Relax</h1>
+                <h2 data-ui-field="description">Tip: not just pics, YT videos too.</h2>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=103">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=103">Full Image</a>
+            </article>
+            <article data-type="video">
+                <!-- YouTube video id and thumbnail -->
+                <div data-ui-field="video">dzvM0M6lRfI</div>
+                <div data-ui-field="preview">
+                    <img src="https://img.youtube.com/vi/dzvM0M6lRfI/2.jpg">
+                </div>
+            </article>
+            <article>
+                <h1 data-ui-field="title">Dreamcatcher</h1>
+                <h2 data-ui-field="description">Tip: video play/pause on focus/blur.</h2>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=104">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=104">Full Image</a>
+            </article>
+            <article>
+                <h1 data-ui-field="title">Wheat</h1>
+                <h2 data-ui-field="description">Tip: only minimal HTML needed to setup this gallery.</h2>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=112">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=112">Full Image</a>
+            </article>
+            <article data-type="video">
+                <!-- YouTube video id and thumbnail -->
+                <div data-ui-field="video">Ju8Hr50Ckwk</div>
+                <div data-ui-field="preview">
+                    <img src="https://img.youtube.com/vi/Ju8Hr50Ckwk/2.jpg">
+                </div>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=106">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=106">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=116">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=116">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=122">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=122">Full Image</a>
+            </article>
+            <article data-type="video">
+                <!-- YouTube video id and thumbnail -->
+                <div data-ui-field="video">eH3giaIzONA</div>
+                <div data-ui-field="preview">
+                    <img src="https://img.youtube.com/vi/eH3giaIzONA/2.jpg">
+                </div>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=123">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=123">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=133">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=133">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=154">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=154">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=159">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=159">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=162">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=162">Full Image</a>
+            </article>
+            <article>
+                <div data-ui-field="preview">
+                    <img src="https://picsum.photos/400/300/?image=186">
+                </div>
+                <a data-ui-field="full" href="https://picsum.photos/1600/1200/?image=186">Full Image</a>
+            </article>
+        </div>
+
+    </div>
+    <!-- End zUIx Kit Component code -->
+
+
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async="">//{% raw %}
@@ -524,10 +508,73 @@ if(!id)break a;ld();od=void 0;pd={};md={};rd=void 0;qd={};nd="";sd=jd();C.setInt
 <script defer="" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 
+<link rel="stylesheet" href="../..//css/docs.css">
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
 
 
 <!-- zUIx inline resource resourceBundle -->
+<!--{[@lib/components/media_browser]}-->
+<div data-ui-view="/lib/components/media_browser">
+<div data-ui-field="container" class="container">
+
+    <div data-ui-load="@lib/controllers/view_pager" data-o-paging="true" data-ui-field="media" class="media-list hidden"><!-- no-view --></div>
+
+    <div data-ui-field="controls">
+
+        <div data-ui-load="@lib/controllers/view_pager" data-ui-field="carousel" layout="row center-left"><!-- no-view --></div>
+
+    </div>
+
+    <div data-ui-field="nav-close">
+        <svg fill="#FFFFFF" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
+    </div>
+    <div data-ui-field="nav-prev">
+        <svg fill="white" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
+    </div>
+    <div data-ui-field="nav-next">
+        <svg fill="white" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
+    </div>
+
+    <div data-ui-field="progress-container">
+        <div data-ui-field="load-progress"></div>
+    </div>
+
+</div>
+<script></script>
+
+</div>
 <script>zuix.bundle([
+  {
+    "componentId": "/lib/components/media_browser",
+    "controller": "'use strict';\n\nzuix.controller(function(cp) {\n    let currentPage = 0;\n    let itemsListVisible = false;\n    // view_pager views\n    let fullView;\n    let listView;\n    /** @typedef {ZxQuery} */\n    let imageList;\n    /** @typedef {ZxQuery} */\n    let buttonNext;\n    /** @typedef {ZxQuery} */\n    let buttonPrev;\n    /** @typedef {ZxQuery} */\n    let buttonClose;\n\n    let youtubeApiCallbacks = [];\n    let youtubeApiReady = false;\n\n    cp.create = function() {\n        // export public component methods\n        cp.expose('open', openBrowser)\n            .expose('close', closeBrowser)\n            // .expose('items', setItems)\n            .expose('youtubeApi', function(callback) {\n                if (youtubeApiReady) callback();\n                else youtubeApiCallbacks.push(callback);\n            }).expose('current', setCurrent)\n            .expose('showControls', showControls)\n            .expose('hideControls', hideControls)\n            .expose('toggleControls', toggleControls)\n            .expose('showList', showList)\n            .expose('hideList', hideList);\n\n        cp.view().css({\n            'position': 'fixed',\n            'left': 0,\n            'right': 0,\n            'top': 0,\n            'bottom': 0,\n            'z-index': 20\n        }).hide();\n\n        // load Animate CSS extension\n        zuix.using('component', '@lib/extensions/animate_css', function() {\n            showControls();\n        });\n\n        // add youtube API\n        // This code loads the IFrame Player API code asynchronously.\n        window.onYouTubeIframeAPIReady = function() {\n            zuix.$.each(youtubeApiCallbacks, function() {\n                this();\n            });\n            youtubeApiCallbacks = [];\n            youtubeApiReady = true;\n        };\n        const tag = document.createElement('script');\n        tag.src = 'https://www.youtube.com/iframe_api';\n        const firstScriptTag = cp.view().find('script').get();\n        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);\n\n        // Main ViewPager\n        zuix.context(cp.field('media'), function() {\n            fullView = this\n                .on('gesture:tap', toggleControls)\n                .on('page:change', function(e, page) {\n                    listView.page(page.in);\n                    cp.trigger('page:change', page);\n                });\n            buttonPrev = cp.field('nav-prev').on('click', function() {\n                fullView.prev();\n            });\n            buttonNext = cp.field('nav-next').on('click', function() {\n                fullView.next();\n            });\n            buttonClose = cp.field('nav-close').on('click', closeBrowser);\n            // setup media list with thumbnails and full screen items with temporary background preview\n            imageList = cp.field('media')\n                .children().each(function(i, el) {\n                    let preview = this.find('[data-ui-field=\"preview\"]');\n                    if (preview.length() > 0) {\n                        this.css('background', 'url(\"'+preview.find('img').attr('src')+'\") scroll no-repeat center/contain');\n                        cp.field('carousel')\n                            .append(preview.detach().get());\n                    } else {\n                        // TODO: add a button or something if preview thumbnail not specified\n                        cp.field('carousel')\n                            .append(document.createElement('div'));\n                    }\n                });\n            cp.field('media').children().each(function(i, el) {\n                let type = this.attr('data-type');\n                if (type == null) type = 'image'; // default type\n                this.attr('data-ui-load', cp.context.componentId+'/'+type);\n                if (type !== 'video') {\n                    this.attr('data-ui-lazyload', true);\n                }\n                this.attr('data-index', i);\n                zuix.context(el, function() {\n                    this.host(cp.view());\n                });\n            });\n        });\n        // Carousel ViewPager\n        zuix.context(cp.field('carousel'), function() {\n            listView = this;\n            listView\n                .on('page:change', pageChanged)\n                .on('page:tap', function(e, page) {\n                    fullView.page(page);\n                });\n        });\n        // Keyboard navigation handling\n        cp.view().attr('tabindex', 0)\n            .on('blur', function() {\n                this.get().focus();\n            }).get().focus();\n        document.onkeydown = function(e) {\n            switch (e.keyCode) {\n                case 27: // esc\n                    closeBrowser();\n                    break;\n                case 32: // space\n                    toggleControls();\n                    break;\n                case 37: // left\n                    fullView.prev();\n                    break;\n                case 38: // up\n                    showControls();\n                    break;\n                case 39: // right\n                    fullView.next();\n                    break;\n                case 40: // down\n                    hideControls();\n                    break;\n            }\n        };\n    };\n\n    function pageChanged(e, page) {\n        currentPage = page.in;\n        listView.get(currentPage)\n            .attr('data-ui-lazyload', false)\n            .children().eq(0).addClass('page-active');\n        if (page.out !== -1) {\n            listView.get(page.out).children().eq(0).removeClass('page-active');\n        }\n        updateButtons();\n        // TODO: not yet sure why is this timeout required to make it work\n        setTimeout(function() {\n            zuix.componentize(cp.field('media'), listView.get(currentPage));\n        }, 200);\n    }\n\n    function setCurrent(current) {\n        return fullView.page(current);\n    }\n\n    function openBrowser() {\n        // hide navigation buttons\n        buttonClose.animateCss('rotateIn', {duration: '0.75s'});\n        buttonNext.hide();\n        buttonPrev.hide();\n        // show the media browser and update buttons\n        cp.field('media').removeClass('hidden');\n        cp.view().animateCss('zoomIn', {duration: '0.5s'}, function() {\n            // refresh ViewPager\n            fullView.refresh();\n            listView.refresh();\n            updateButtons();\n            // TODO: not yet sure why is this timeout required to make it work\n            // force load of current item\n            setTimeout(function() {\n                // make pages visible (this should run once though)\n                cp.field('media').children().each(function() {\n                    this.css('visibility', 'visible');\n                });\n                zuix.componentize(cp.field('media'), listView.get(currentPage));\n            }, 200);\n            this.trigger('open');\n        }).show();\n        return cp.context;\n    }\n\n    function closeBrowser() {\n        buttonClose.animateCss('rotateOut', {duration: '0.5s'});\n        cp.view().animateCss('zoomOut', {duration: '0.5s', delay: '0.15s'}, function() {\n            this.hide();\n        }).trigger('close');\n        return cp.context;\n    }\n\n    function updateButtons() {\n        if (imageList == null) return;\n        // show navigation buttons as needed\n        if (currentPage < imageList.length() - 1) {\n            if (buttonNext.display() === 'none') {\n                buttonNext.animateCss('fadeInRight').show();\n            }\n        } else {\n            if (buttonNext.display() !== 'none') {\n                buttonNext.animateCss('fadeOutRight', function() {\n                    this.hide();\n                });\n            }\n        }\n        if (currentPage > 0 && imageList.length() > 1) {\n            if (buttonPrev.display() === 'none') {\n                buttonPrev.animateCss('fadeInLeft').show();\n            }\n        } else {\n            if (buttonPrev.display() !== 'none') {\n                buttonPrev.animateCss('fadeOutLeft', function() {\n                    this.hide();\n                });\n            }\n        }\n        if (buttonClose.display() === 'none') {\n            buttonClose.animateCss('fadeInDown', {duration: '0.35s', delay: '0.5s'}).show();\n        }\n    }\n\n    function toggleControls(e, tp) {\n        if (tp == null || !zuix.$(tp.event.target).hasClass('capture-touch')) {\n            if (cp.field('controls').display() !== 'none') {\n                hideControls();\n            } else {\n                showControls();\n            }\n            if (tp != null) tp.cancel();\n        }\n    }\n\n    function showList() {\n        if (!itemsListVisible) {\n            itemsListVisible = true;\n            cp.field('controls').animateCss('fadeInUp').show();\n            if (listView != null && fullView != null) {\n                listView.page(fullView.page());\n            }\n            cp.trigger('controls:show');\n        }\n    }\n    function hideList() {\n        if (itemsListVisible) {\n            itemsListVisible = false;\n            cp.field('controls').animateCss('fadeOutDown', function() {\n                this.hide();\n            });\n        }\n    }\n\n    function hideControls() {\n        hideList();\n        if (buttonPrev.display() !== 'none') {\n            buttonPrev.animateCss('fadeOutLeft', function() {\n                this.hide();\n            });\n        }\n        if (buttonNext.display() !== 'none') {\n            buttonNext.animateCss('fadeOutRight', function() {\n                this.hide();\n            });\n        }\n        if (buttonClose.display() !== 'none') {\n            buttonClose.animateCss('fadeOutUp', {duration: '0.35s'}, function() {\n                this.hide();\n            });\n        }\n        cp.trigger('controls:hide');\n    }\n    function showControls() {\n        showList();\n        updateButtons();\n    }\n});\n",
+    "css": ". {\n    -webkit-touch-callout: none; /* iOS Safari */\n    -webkit-user-select: none; /* Safari */\n    -khtml-user-select: none; /* Konqueror HTML */\n    -moz-user-select: none; /* Firefox */\n    -ms-user-select: none; /* Internet Explorer/Edge */\n    user-select: none; /* Non-prefixed version, currently\n                                  supported by Chrome and Opera */\n    overflow: hidden;\n}\n\n.container {\n    position: absolute;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0;\n    z-index: 20;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-flex-align: stretch;\n    -ms-flex-align: stretch;\n    -webkit-align-items: stretch;\n    align-items: stretch;\n    justify-content: center;\n    background: black;\n}\n\nsvg {\n    vertical-align: middle;\n}\n\n[data-ui-field=\"media\"] article {\n    visibility: hidden;\n    width: 100vw;\n    height: 100vh;\n}\n\n[data-ui-field=\"media\"] article:not([data-ui-loaded]) > * {\n    display: none;\n}\n\n[data-ui-field=\"controls\"] {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    height: 140px;\n    z-index: 10;\n    padding-left: 10px;\n    padding-right: 10px;\n    background-color: rgba(255,255,255,0.25);\n    /*background-color: rgba(0,0,0,0.5);*/\n}\n\n[data-ui-field=\"nav-prev\"] {\n    border: solid 2px white;\n    border-radius: 48px;\n    margin: 6px;\n    position: absolute;\n    left: 12px;\n    bottom: 45%;\n    z-index: 10;\n    background-color: rgba(1,1,1,0.5);\n    opacity: 0.5;\n}\n[data-ui-field=\"nav-next\"] {\n    border: solid 2px white;\n    border-radius: 48px;\n    margin: 6px;\n    position: absolute;\n    right: 12px;\n    bottom: 45%;\n    z-index: 10;\n    background-color: rgba(1,1,1,0.5);\n    opacity: 0.5;\n}\n[data-ui-field=\"nav-close\"] {\n    position: absolute;\n    right: 16px;\n    top: 16px;\n    z-index: 10;\n    opacity: 0.5;\n}\n[data-ui-field=\"progress-container\"] {\n    position: absolute;\n    top: 32px;\n    z-index: 10;\n    width: 128px;\n    color: white;\n    font-weight: 700;\n    font-size: 32px;\n    text-align: center;\n    text-shadow:\n        -2px -2px 0 darkblue,\n        2px -2px 0 darkblue,\n        -2px 2px 0 darkblue,\n        2px 2px 0 darkblue;\n}\n\ni {\n    cursor: pointer;\n}\n\n.hidden {\n    display: none;\n}\n\n.media-list {\n    width: 100%;\n    height: 100%;\n}\n\n.above-controls {\n    margin-bottom: 80px;\n}\n\n.rounded-border {\n    border-radius: 5px;\n    -webkit-transform: scale(0.9);\n    -moz-transform: scale(0.9);\n    -ms-transform: scale(0.9);\n    -o-transform: scale(0.9);\n    transform: scale(0.9);\n}\n\n.page-active {\n    border: solid 1px rgba(255,255,255,0.9) !important;\n    -webkit-transform: scale(1.125);\n    -moz-transform: scale(1.125);\n    -ms-transform: scale(1.125);\n    -o-transform: scale(1.125);\n    transform: scale(1.125);\n}\n\n[data-ui-field=\"carousel\"] {\n    overflow: visible !important;\n    height: 100%;\n}\n\n[data-ui-field=\"preview\"] {\n    padding: 10px;\n    max-width: 100%;\n    max-height: 100%;\n}\n[data-ui-field=\"preview\"] img {\n    overflow: hidden;\n    height: 120px;\n    max-height: 120px;\n    border-radius: 8px;\n    border: solid 1px rgba(0,0,0, 0.5);\n    box-shadow: -4px 4px 16px 3px rgba(0,0,0,0.5);\n    transition: 0.1s ease-in;\n}\n\n\n@media only screen and (max-width: 820px) {\n    [data-ui-field=\"controls\"] {\n        height: 104px;\n    }\n    [data-ui-field=\"preview\"] img {\n        max-height: 80px;\n    }\n    [data-ui-field=\"nav-prev\"] {\n        left: 6px;\n    }\n    [data-ui-field=\"nav-next\"] {\n        right: 6px;\n    }\n    [data-ui-field=\"nav-close\"] {\n        right: 12px;\n        top: 12px;\n    }\n}"
+  },
   {
     "componentId": "/lib/controllers/view_pager",
     "controller": "/**\n * zUIx - ViewPager Component\n *\n * @version 1.0.3 (2018-06-26)\n * @author Gene\n *\n * @version 1.0.1 (2018-02-12)\n * @author Gene\n *\n */\n\n'use strict';\n\nzuix.controller(function(cp) {\n    const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};\n    const LAYOUT_HORIZONTAL = 'horizontal';\n    const LAYOUT_VERTICAL = 'vertical';\n    const SLIDE_DIRECTION_FORWARD = 1;\n    const SLIDE_DIRECTION_BACKWARD = -1;\n    // state vars\n    let currentPage = -1;\n    let oldPage = 0;\n    let slideTimeout = null;\n    let slideIntervalMs = 3000;\n    let slideDirection = SLIDE_DIRECTION_FORWARD;\n    let updateLayoutTimeout = null;\n    let inputCaptured = false;\n    // options\n    let layoutType = LAYOUT_HORIZONTAL;\n    let enableAutoSlide = false;\n    let enablePaging = false;\n    let holdTouch = false;\n    let passiveMode = true;\n    // status\n    let isDragging = false;\n    let wasVisible = false;\n    // timers\n    let componentizeInterval = null;\n    let componentizeTimeout = null;\n    /** @typedef {ZxQuery} */\n    let pageList = null;\n    // Create an observer instance to watch for child add/remove\n    const domObserver = new MutationObserver(function(a, b) {\n        // update child list and re-layout\n        pageList = cp.view().children();\n        // force update layout by canceling any pending 'componentize' request\n        clearInterval(componentizeInterval);\n        componentizeInterval = null;\n        updateLayout();\n    });\n\n    cp.init = function() {\n        let options = cp.options();\n        let view = cp.view();\n        options.html = false;\n        options.css = false;\n        enablePaging = (options.enablePaging === true || (view.attr('data-o-paging') === 'true'));\n        enableAutoSlide = (options.autoSlide === true || (view.attr('data-o-slide') === 'true'));\n        passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));\n        holdTouch = (options.holdTouch === true || (view.attr('data-o-hold') === 'true'));\n        if (options.verticalLayout === true || (view.attr('data-o-layout') === LAYOUT_VERTICAL)) {\n            layoutType = LAYOUT_VERTICAL;\n        }\n        if (options.slideInterval != null) {\n            slideIntervalMs = options.slideInterval;\n        } else if (view.attr('data-o-slide-interval') != null) {\n            slideIntervalMs = parseInt(view.attr('data-o-slide-interval'));\n        }\n    };\n\n    cp.create = function() {\n        // enable absolute positioning for items in this view\n        const view = cp.view().css({\n            'position': 'relative',\n            'overflow': 'hidden'\n        });\n        // get child items (pages)\n        pageList = view.children();\n        // loading of images could change elements size, so layout update might be required\n        view.find('img').each(function(i, el) {\n            this.one('load', updateLayout);\n        });\n        // re-arrange view on layout changes\n        zuix.$(window).on('orientationchange', function() {\n            updateLayout();\n        });\n        // Options for the observer (which mutations to observe)\n        const config = {attributes: false, childList: true, subtree: false};\n        // Register DOM mutation observer callback\n        domObserver.observe(view.get(), config);\n        updateLayout();\n        // Set starting page\n        setPage(0);\n        let tapTimeout = null;\n        // gestures handling - load gesture_helper controller\n        zuix.load('@lib/controllers/gesture_helper', {\n            view: view,\n            passive: passiveMode,\n            on: {\n                'gesture:touch': function(e, tp) {\n                    inputCaptured = false;\n                    stopAutoSlide();\n                    dragStart();\n                    if (holdTouch) tp.cancel();\n                },\n                'gesture:release': function(e, tp) {\n                    dragStop(tp);\n                    resetAutoSlide();\n                },\n                'gesture:tap': function(e, tp) {\n                    if (tapTimeout != null) {\n                        clearTimeout(tapTimeout);\n                    }\n                    tapTimeout = setTimeout(function() {\n                        handleTap(e, tp);\n                    }, 50);\n                },\n                'gesture:pan': handlePan,\n                'gesture:swipe': handleSwipe\n            }\n        });\n        // public component methods\n        cp.expose('page', function(number) {\n            if (number == null) {\n                return parseInt(currentPage);\n            } else setPage(number, DEFAULT_PAGE_TRANSITION);\n        }).expose('get', function(number) {\n            return pageList.eq(number);\n        }).expose('slide', function(activate) {\n            if (activate === true) {\n                resetAutoSlide();\n            } else stopAutoSlide();\n        }).expose('layout', function(mode) {\n            if (mode == null) {\n                return layoutType;\n            } else if (mode === LAYOUT_VERTICAL) {\n                layoutType = LAYOUT_VERTICAL;\n            } else layoutType = LAYOUT_HORIZONTAL;\n            updateLayout();\n        }).expose('refresh', function() {\n            updateLayout();\n        }).expose('next', next)\n            .expose('prev', prev)\n            .expose('last', last)\n            .expose('first', first);\n    };\n\n    cp.destroy = function() {\n        if (domObserver != null) {\n            domObserver.disconnect();\n        }\n    };\n\n    function updateLayout() {\n        if (updateLayoutTimeout != null) {\n            clearTimeout(updateLayoutTimeout);\n        }\n        updateLayoutTimeout = setTimeout(layoutElements, 250);\n    }\n    function layoutElements() {\n        if (isDragging || componentizeInterval != null) {\n            updateLayout();\n            return;\n        }\n        // init elements\n        pageList.each(function(i, el) {\n            this.css({\n                'position': 'absolute',\n                'left': 0,\n                'top': 0\n            });\n        });\n        // measure\n        const viewSize = getSize(cp.view().get());\n        if (viewSize.width === 0 || viewSize.height === 0) {\n            // cannot measure view, try again later\n            updateLayout();\n            return;\n        }\n        // position elements\n        let offset = 0;\n        pageList.each(function(i, el) {\n            let size = getSize(el);\n            if (layoutType === LAYOUT_HORIZONTAL) {\n                transition(this, DEFAULT_PAGE_TRANSITION);\n                position(this, offset, 0);\n                offset += size.width;\n            } else {\n                transition(this, DEFAULT_PAGE_TRANSITION);\n                position(this, 0, offset);\n                offset += size.height;\n            }\n        });\n        // focus to current page\n        setPage(currentPage);\n        // start automatic slide\n        if (pageList.length() > 1) {\n            resetAutoSlide();\n        }\n    }\n\n    function next() {\n        let isLast = false;\n        let page = parseInt(currentPage)+1;\n        if (page >= pageList.length()) {\n            page = pageList.length()-1;\n            isLast = true;\n        }\n        setPage(page, DEFAULT_PAGE_TRANSITION);\n        return !isLast;\n    }\n    function prev() {\n        let isFirst = false;\n        let page = parseInt(currentPage)-1;\n        if (page < 0) {\n            page = 0;\n            isFirst = true;\n        }\n        setPage(page, DEFAULT_PAGE_TRANSITION);\n        return !isFirst;\n    }\n    function first() {\n        setPage(0, DEFAULT_PAGE_TRANSITION);\n    }\n    function last() {\n        setPage(pageList.length()-1, DEFAULT_PAGE_TRANSITION);\n    }\n\n    function slideNext() {\n        setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);\n        resetAutoSlide();\n    }\n\n    function resetAutoSlide(timeout) {\n        stopAutoSlide();\n        if (enableAutoSlide === true) {\n            const visible = cp.view().position().visible;\n            if (visible) {\n                if (!wasVisible) {\n                    zuix.componentize(cp.view());\n                }\n                slideTimeout = setTimeout(slideNext, slideIntervalMs);\n            } else {\n                slideTimeout = setTimeout(resetAutoSlide, 500);\n            }\n            wasVisible = visible;\n        }\n    }\n    function stopAutoSlide() {\n        if (slideTimeout != null) {\n            clearTimeout(slideTimeout);\n        }\n    }\n\n    function getItemIndexAt(x, y) {\n        let focusedPage = 0;\n        pageList.each(function(i, el) {\n            let data = getData(this);\n            focusedPage = i;\n            const size = getSize(el);\n            const rect = {\n                x: data.position.x,\n                y: data.position.y,\n                w: size.width,\n                h: size.height\n            };\n            if ((layoutType === LAYOUT_HORIZONTAL && (rect.x > x || rect.x+rect.w > x))\n                || (layoutType === LAYOUT_VERTICAL && (rect.y > y || rect.y+rect.h > y))) {\n                return false;\n            }\n        });\n        return focusedPage;\n    }\n\n    function focusPageAt(tp, transition) {\n        let vp = cp.view().position();\n        let page = getItemIndexAt(tp.x-vp.x, tp.y-vp.y);\n        setPage(page, transition != null ? transition : DEFAULT_PAGE_TRANSITION);\n    }\n\n    function setPage(n, transition) {\n        oldPage = currentPage;\n        if (n < 0) {\n            slideDirection = SLIDE_DIRECTION_FORWARD;\n            n = 0;\n        } else if (n >= pageList.length()) {\n            slideDirection = SLIDE_DIRECTION_BACKWARD;\n            n = pageList.length() - 1;\n        } else if (n !== currentPage) {\n            slideDirection = (currentPage < n) ? SLIDE_DIRECTION_FORWARD : SLIDE_DIRECTION_BACKWARD;\n        }\n        currentPage = n;\n        if (currentPage != oldPage) {\n            pageList.eq(currentPage).css('z-index', 1);\n            if (oldPage !== -1) {\n                pageList.eq(oldPage).css('z-index', 0);\n            }\n            cp.trigger('page:change', {in: currentPage, out: oldPage});\n        }\n        const el = pageList.eq(n);\n        const data = getData(el);\n        const elSize = getSize(el.get());\n        const viewSize = getSize(cp.view().get());\n        const focusPoint = {\n            x: (viewSize.width - elSize.width) / 2 - data.position.x,\n            y: (viewSize.height - elSize.height) / 2 - data.position.y\n        };\n        flyTo(focusPoint, transition);\n        resetAutoSlide();\n    }\n\n    function flyTo(targetPoint, transition) {\n        const viewSize = getSize(cp.view().get());\n        const spec = getFrameSpec();\n        const firstData = getData(pageList.eq(0));\n        const lastPage = pageList.eq(pageList.length() - 1);\n        const lastData = getData(lastPage);\n\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            const frameSpec = getFrameSpec();\n            data.dragStart = {\n                x: frameSpec.marginLeft + data.position.x,\n                y: frameSpec.marginTop + data.position.y\n            };\n        });\n\n        if (layoutType === LAYOUT_HORIZONTAL) {\n            let x = targetPoint.x;\n            if (firstData.position.x + targetPoint.x > 0) {\n                x = -firstData.position.x;\n            } else {\n                if (lastData.position.x + lastPage.get().offsetWidth + targetPoint.x < viewSize.width) {\n                    x = -spec.marginLeft*2 + viewSize.width - (lastData.position.x + lastPage.get().offsetWidth);\n                }\n            }\n            if (targetPoint.x-x !== 0 && transition != null) {\n                transition = {\n                    duration: transition.duration,\n                    easing: transition.easing\n                };\n                transition.duration *= (x / targetPoint.x);\n                if (transition.duration < 0) transition.duration = 0.15;\n            }\n            dragShift(x, 0, transition);\n        } else {\n            let y = targetPoint.y;\n            if (firstData.position.y + targetPoint.y > 0) {\n                y = -firstData.position.y;\n            } else {\n                if (lastData.position.y + lastPage.get().offsetHeight + targetPoint.y < viewSize.height) {\n                    y = -spec.marginTop*2 + viewSize.height - (lastData.position.y + lastPage.get().offsetHeight);\n                }\n            }\n            if (targetPoint.y-y !== 0 && transition != null) {\n                transition = {\n                    duration: transition.duration,\n                    easing: transition.easing\n                };\n                transition.duration *= (y / targetPoint.y);\n                if (transition.duration < 0) transition.duration = 0.15;\n            }\n            dragShift(0, y, transition);\n        }\n    }\n\n    function getSize(el) {\n        const rect = el.getBoundingClientRect();\n        const width = rect.width || el.offsetWidth;\n        const height = el.offsetHeight || rect.height;\n        return {width: width, height: height};\n    }\n\n    function getData(el) {\n        const data = el.get().data = el.get().data || {};\n        data.position = data.position || {x: 0, y: 0};\n        return data;\n    }\n\n    function componentizeStart() {\n        if (isLazyContainer()) {\n            componentizeStop();\n            if (componentizeTimeout != null) {\n                clearTimeout(componentizeTimeout);\n            }\n            if (componentizeInterval != null) {\n                clearInterval(componentizeInterval);\n            }\n            componentizeInterval = setInterval(function() {\n                const viewSize = getSize(cp.view().get());\n                pageList.each(function(i, el) {\n                    // hide elements if not inside the view_pager\n                    const computed = window.getComputedStyle(el, null);\n                    const size = {\n                        width: parseFloat(computed.width.replace('px', '')),\n                        height: parseFloat(computed.height.replace('px', ''))\n                    };\n                    const x = parseFloat(computed.left.replace('px', ''));\n                    const y = parseFloat(computed.top.replace('px', ''));\n                    if (size.width > 0 && size.height > 0) {\n                        el = zuix.$(el);\n                        // check if element is inside the view_pager\n                        if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {\n                            if (el.visibility() !== 'hidden') {\n                                el.visibility('hidden');\n                            }\n                        } else if (el.visibility() !== 'visible') {\n                            el.visibility('visible');\n                        }\n                    }\n                });\n                zuix.componentize(cp.view());\n            }, 10);\n        }\n    }\n\n    function componentizeStop() {\n        if (isLazyContainer() && componentizeTimeout == null) {\n            clearInterval(componentizeInterval);\n        }\n    }\n\n    function dragStart() {\n        isDragging = true;\n        componentizeStart();\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            const frameSpec = getFrameSpec();\n            const computed = window.getComputedStyle(el, null);\n            data.position.x = parseFloat(computed.left.replace('px', ''));\n            data.position.y = parseFloat(computed.top.replace('px', ''));\n            this.css('left', data.position.x+'px');\n            this.css('top', data.position.y+'px');\n            data.dragStart = {x: frameSpec.marginLeft+data.position.x, y: frameSpec.marginTop+data.position.y};\n        });\n    }\n\n    function getFrameSpec() {\n        const spec = {\n            w: 0,\n            h: 0,\n            marginLeft: 0,\n            marginTop: 0\n        };\n        const viewSize = getSize(cp.view().get());\n        pageList.each(function(i, el) {\n            const size = getSize(el);\n            spec.w += size.width;\n            spec.h += size.height;\n        });\n        if (layoutType === LAYOUT_HORIZONTAL && spec.w < viewSize.width) {\n            spec.marginLeft = (viewSize.width - spec.w) / 2;\n        } else if (layoutType === LAYOUT_VERTICAL && spec.h < viewSize.height) {\n            spec.marginTop = (viewSize.height - spec.h) / 2;\n        }\n        return spec;\n    }\n\n    function dragShift(x, y, tr) {\n        if (tr != null) {\n            componentizeStart();\n            componentizeTimeout = setTimeout(function() {\n                componentizeTimeout = null;\n                componentizeStop();\n            }, tr.duration*1000);\n            tr = tr.duration+'s '+tr.easing;\n        } else if (isLazyContainer()) {\n            zuix.componentize(cp.view());\n        }\n        pageList.each(function(i, el) {\n            const data = getData(this);\n            transition(this, tr);\n            position(this, data.dragStart.x+x, data.dragStart.y+y);\n        });\n    }\n\n    function dragStop(tp) {\n        if (enablePaging && componentizeTimeout == null) {\n            setTimeout(function() {\n                setPage(currentPage, DEFAULT_PAGE_TRANSITION);\n            }, 10);\n        }\n        if (tp != null) tp.done = true;\n        componentizeStop();\n        isDragging = false;\n    }\n\n    function isLazyContainer() {\n        const lazy = cp.view().find('[data-ui-lazyload=\"true\"]').length() > 0;\n        return lazy;\n    }\n\n    // Gesture handling\n\n    function handlePan(e, tp) {\n        if (!tp.scrollIntent() || tp.done) {\n            return;\n        }\n        if (inputCaptured\n            || ((tp.direction === 'left' || tp.direction === 'right') && layoutType === LAYOUT_HORIZONTAL)\n            || ((tp.direction === 'up' || tp.direction === 'down') && layoutType === LAYOUT_VERTICAL)) {\n            // capture click event\n            if (!inputCaptured && tp.event.touches == null) {\n                cp.view().get().addEventListener('click', function(e) {\n                    if (inputCaptured) {\n                        inputCaptured = false;\n                        e.cancelBubble = true;\n                        // TODO: 'preventDefault' should not be used with passive listeners\n                        e.preventDefault();\n                    }\n                    // release mouse click capture\n                    cp.view().get().removeEventListener('click', this, true);\n                }, true);\n            }\n            inputCaptured = true;\n            tp.cancel();\n        }\n        const spec = getFrameSpec();\n        if (layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') {\n            dragShift(tp.shiftX-spec.marginLeft, 0);\n        } else if (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical') {\n            dragShift(0, tp.shiftY-spec.marginTop);\n        }\n    }\n\n    function handleTap(e, tp) {\n        let vp = cp.view().position();\n        let page = getItemIndexAt(tp.x-vp.x, tp.y-vp.y);\n        cp.trigger('page:tap', page, tp);\n        if (enablePaging) focusPageAt(tp);\n    }\n\n    function handleSwipe(e, tp) {\n        const decelerateEasing = {\n            duration: (1+(1/Math.abs(tp.velocity))),\n            easing: 'cubic-bezier(0.1,0.45,0.35,1.1)'\n        };\n        const fly = function(destination, shift) {\n            if (enablePaging) {\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    focusPageAt({\n                        x: destination.x - shift.x,\n                        y: destination.y\n                    }, decelerateEasing);\n                } else {\n                    focusPageAt({\n                        x: destination.x,\n                        y: destination.y - shift.y\n                    }, decelerateEasing);\n                }\n            } else {\n                flyTo(shift, decelerateEasing);\n            }\n        };\n        const fastSwipe = (!enablePaging && Math.abs(tp.velocity) > 0.35) || (Math.abs(tp.velocity) > 1.25);\n        const ap = {\n            x: (tp.velocity * 1000),\n            y: (tp.velocity * 1000)\n        };\n        switch (tp.direction) {\n            case 'right':\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) prev();\n                }\n                break;\n            case 'left':\n                if (layoutType === LAYOUT_HORIZONTAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) next();\n                }\n                break;\n            case 'down':\n                if (layoutType === LAYOUT_VERTICAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) prev();\n                }\n                break;\n            case 'up':\n                if (layoutType === LAYOUT_VERTICAL) {\n                    if (fastSwipe) fly(tp, ap);\n                    else if (enablePaging) next();\n                }\n                break;\n        }\n    }\n\n    function position(el, x, y) {\n        const data = getData(el);\n        if (!isNaN(x) && !isNaN(y)) {\n            data.position = {'x': x, 'y': y};\n            el.css({'left': data.position.x+'px', 'top': data.position.y+'px'});\n        }\n        return data;\n    }\n\n    function transition(el, transition) {\n        if (transition == null) {\n            transition = 'none';\n        }\n        el.css({\n            '-webkit-transition': transition,\n            '-moz-transition': transition,\n            '-ms-transition': transition,\n            '-o-transition': transition,\n            'transition': transition\n        });\n    }\n});\n"

@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head>
-    <title>zKit, components for modern web</title>
+    <title>zKit: ViewPager (lib/controllers)</title>
 
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <meta http-equiv="Content-Language" content="en-us">
@@ -14,19 +14,19 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="../../images/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="../../images/ios-desktop.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileImage" content="../../images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="../../images/favicon.png">
 
     <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4">
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
@@ -36,316 +36,466 @@
 
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="../../css/flex-layout-attribute.min.css">
 
     <!-- zUIx library  -->
-    <script src="js/zuix.js"></script>
-    <script src="config.js"></script>
+    <script src="../../js/zuix.js"></script>
+    <script src="../../config.js"></script>
 
-    <!-- page style and script -->
-    <link rel="stylesheet" href="index.css">
-    <script>//{% raw %}
-'use strict';
 
-zuix.using('component', '@lib/extensions/animate_css');
-
-let mainPager;
-let viewPager1;
-
-// use 'var' or 'window.' for options (global object)
-var options = {
-    no_css: {
-        css: false
-    },
-    view_pager_1: {
-        enablePaging: true,
-        autoSlide: true,
-        ready: function() {
-            viewPager1 = this;
-            const indicator = zuix.$.find('.pager-indicator');
-            this.on('page:change', function(e, page) {
-                indicator.find('a').eq(parseInt(page.in))
-                    .addClass('page-active');
-                indicator.find('a').eq(parseInt(page.out))
-                    .removeClass('page-active');
-            });
-        }
-    }
-};
-
-function init() {
-    // load the view-pager controller on this document layout
-    zuix.load('@lib/controllers/view_pager', {
-        view: zuix.$.find('main'),
-        enablePaging: true,
-        verticalLayout: true,
-        passive: false,
-        ready: function() {
-            mainPager = this;
-            mainPager.on('page:change', pageChangeListener);
-            // use 'go()' method to route anchors with 'exit-link' class
-            zuix.$.find('a.exit-link').each(function() {
-                let link = this.attr('href');
-                const t = this;
-                t.attr('href', null);
-                t.on('click', function(e) {
-                    if (link != null && t.display() !== 'none') {
-                        go(link);
+    <script>
+        // use 'var' or 'window.' for options (global object)
+        var options = {
+            no_css: {
+                css: false
+            },
+            viewPager: {
+                contextId: 'view-pager',
+                enablePaging: true,
+                on: {
+                    'page:change': function (e, page) {
+                        zuix.field('pager').find('a')
+                            .removeClass('current-page')
+                            .eq(page.in)
+                            .addClass('current-page');
                     }
-                });
-            });
-        }
-    });
-    // keyboard navigation
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 37: // left
-                if (mainPager.page() === 1 && viewPager1.prev()) {
-                    break;
+                },
+                vertical: {
+                    verticalLayout: true
                 }
-                mainPager.prev();
-                break;
-            case 38: // up
-                mainPager.prev();
-                break;
-            case 39: // right
-                if (mainPager.page() === 1 && viewPager1.next()) {
-                    break;
-                }
-                mainPager.next();
-                break;
-            case 40: // down
-                mainPager.next();
-                break;
+            },
+        };
+        function setPage(n) {
+            zuix.context('view-pager').page(n);
         }
-    };
-}
-function go(url) {
-    // animate and open link
-    zuix.$(document.body).animateCss('fadeOut', {duration: '0.3s'}, function() {
-        document.location.href = url;
-        const t = this.hide();
-        setTimeout(function() {
-            t.show();
-        }, 1000);
-    });
-}
-function pageChangeListener(e, page) {
-    zuix.$.find('article').removeClass('page-active');
-    mainPager
-        .get(page.in)
-        .addClass('page-active');
-    if (page.in === 1 && page.out < 1) {
-        viewPager1.first();
-    } else if (page.in === 1) {
-        viewPager1.last();
-    }
-}
+    </script>
 
-//{% endraw %}</script>
     <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>
 </head>
 
-<body class="mdl-color--black animated fadeIn" onload="init()">
+<body layout="column top-stretch">
 
-    <main>
 
-        <article layout="column center-center" class="page-active first mdl-color--purple-600 mdl-color-text--white">
-            <div self="size-x1" layout="column center-center" class="box-active">
-    <h1 class="animated fadeInDown logo">
-        <i class="material-icons animated bounce">extension</i>zKit
-    </h1>
-    <h2 class="animated fadeInDown">components for modern web</h2>
-    <p class="animated fadeInDown" align="center">
-        made with <a href="//genielabs.github.io/zuix">zUIx</a>
-    </p>
-</div>
+    <!-- load the view_pager controller on the main div -->
+    <div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.viewPager" self="size-x1 stretch" class="mdl-color-text--white animated fadeIn">
 
-<footer self="bottom" layout="column bottom-center">
-    <div class="box-active animated fadeInUp"></div>
-    <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_upward</i>
-    </div>
-</footer>
+        <!-- Page 1 -->
+        <article class="full-view topmost padding-48-16 mdl-color--cyan-700" layout="column top-stretch">
+
+            <header>
+                <div self="size-large center" layout="rows center-left">
+                    <div self="size-x1"><h2 class="animated fadeInLeft">ViewPager</h2></div>
+                    <div self="center"><a href="../../"><i class="material-icons animated fadeInRight">extension</i></a></div>
+                </div>
+            </header>
+
+            <main self="size-x1" layout="column center-center" class="animated fadeIn">
+                <p class="font-p-big" self="size-medium">
+                    A versatile ViewPager controller,
+                    featuring both horizontal and vertical
+                    layout, gestures and automatic sliding.
+                </p>
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">Usage</div>
+            </footer>
 
         </article>
 
-        <article class="mdl-color--blue-600 mdl-color-text--white zuix-css-ignore">
-            <div layout="column spread-center" class="article-body">
 
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-<style>
-.horizontal_pager {
-    display: table-row;
-    width: 100%;
-    margin: auto;
+        <!-- Page 2 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
+
+            <header self="size-large center">
+                <h2>Usage</h2>
+            </header>
+
+            <main self="size-large center">
+                <h4>1. Include zUIx library</h4>
+                <p>Add the following line, preferably inside the <code>head</code> section of the HTML document</p>
+
+                <pre><code class="html">&lt;script src="//genielabs.github.io/zuix/js/zuix.min.js"&gt;&lt;/script&gt;</code></pre>
+
+                <h4>2. Load the ViewPager</h4>
+                <p>Add the <code>data-ui-load</code> attribute to the <code>div</code> container</p>
+<pre><code class="html"><div data-ui-load="@lib/controllers/view_pager">
+  <!-- elements of the ViewPager -->
+  <div>Page 1</div>
+  <div>Page 2</div>
+  <div>Page 3</div>
+</div></code></pre>
+                <p>
+                    The ViewPager will re-arrange all elements stacked horizontally
+                    or vertically accordingly to the chosen layout mode.
+                </p>
+                <p>
+                    Elements do not necessarily require to be sized full screen.
+                    They can have different sizes, in which case the ViewPager
+                    will focus the active element to the center of the view.
+                </p>
+
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">Examples</div>
+            </footer>
+
+        </article>
+
+
+        <!-- Page 3 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
+
+            <header self="size-large center">
+                <h2>Examples</h2>
+            </header>
+
+            <main self="size-large center">
+                <div layout="rows top-spread">
+
+                    <div>
+                        <h4>Horizontal layout</h4>
+
+                        <div data-ui-load="@lib/controllers/view_pager" data-o-paging="true" data-o-slide="true" class="mdl-shadow--8dp" style="width:300px; height: 300px;">
+
+                            <!-- ViewPager items list -->
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=510">
+                            <div class="mdl-color--green-500 size-300-300" layout="row center-center">
+                                <h4>Hello World!</h4>
+                            </div>
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=520">
+                            <div class="mdl-color--pink-500 size-300-300 padding-48-16" layout="row center-center">
+                                <h5 align="center">
+                                    Versatile, gestures enabled
+                                    <code>ViewPager</code> controller
+                                    made with <strong>zUIx</strong>.
+                                </h5>
+                            </div>
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=630">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=740">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=650">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=460">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=310">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=320">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=330">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=340">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=350">
+                            <img class="vp-image" src="https://picsum.photos/300/300/?image=360">
+
+                        </div>
+
+                        <h5>attributes of <code>div</code> container</h5>
+<pre><code class="html">data-o-slide="true"
+data-o-paging="true"
+</code></pre>
+                    </div>
+
+                    <div style="width:300px">
+                        <h4>Vertical layout</h4>
+
+                        <div data-ui-load="@lib/controllers/view_pager" data-o-layout="vertical" data-o-passive="false" class="mdl-shadow--8dp" style="max-width:300px;height:300px;">
+
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=10">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=20">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=30">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=40">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=50">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=60">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=100">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=120">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=130">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=140">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=155">
+                            <img class="vp-image" src="https://picsum.photos/300/200/?image=160">
+
+                        </div>
+
+                        <h5>attributes of <code>div</code> container</h5>
+<pre><code class="html">data-o-layout="vertical"
+data-o-passive="false"
+</code></pre>
+                    </div>
+
+                </div>
+                <p>
+                    The layout of this site itself is also entirely based on the ViewPager.
+                </p>
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">Options</div>
+            </footer>
+
+        </article>
+
+
+        <!-- Page 4 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
+
+            <header self="size-large center">
+                <h2>Options</h2>
+            </header>
+
+            <main self="size-large center">
+
+                <ul>
+                    <li>
+                        <code class="option">data-ui-load="@lib/controllers/view_pager"</code>
+                        <small>constructor</small><br>
+                        load the <code>view_pager</code> controller on the element.
+                    </li>
+                    <li>
+                        <code class="option">data-ui-context</code>
+                        <small>optional</small><br>
+                        identifier name to be used to reference this component from JavaScript.
+                    </li>
+                    <li>
+                        <code class="option">data-ui-options</code>
+                        <small>optional</small><br>
+                        name of a global variable defining options to use
+                        for this component. See next page for details.
+                    </li>
+                    <li>
+                        <code class="option">data-o-layout</code>
+                        <small>optional</small><br>
+                        layout of elements can be <code>horizontal</code> or <code>vertical</code>. The default value is <code>horizontal</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-paging</code>
+                        <small>optional</small><br>
+                        after scrolling, automatically select and focus the closest element centering it in the view. The default value is <code>false</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-slide</code>
+                        <small>optional</small><br>
+                        slide-show mode (cycle elements). The default value is <code>false</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-slide-interval</code>
+                        <small>optional</small><br>
+                        interval between each slide (milliseconds). The default value is <code>750</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-passive</code>
+                        <small>optional</small><br>
+                        use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener" class="mdl-color-text--yellow-200">passive mode</a>
+                        for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.
+                    </li>
+                    <li>
+                        <code class="option">data-o-hold</code>
+                        <small>optional</small><br>
+                        prevent touch events from being propagated to other elements off the view. The default value is <code>false</code>.
+                    </li>
+                </ul>
+
+            </main>
+
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">Scripting</div>
+            </footer>
+
+        </article>
+
+
+        <!-- Page 5 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--green-600" layout="column top-stretch">
+
+            <header self="size-large center">
+                <h2>Scripting</h2>
+            </header>
+
+            <main self="size-large center">
+
+                <h4>ViewPager object</h4>
+                <p>
+                    A reference to a <code>view_pager</code> object can be obtained trough its context identifier
+                    which is assigned by adding the <code>data-ui-context</code> attribute to the ViewPager
+                    element and finally by using the <code>zuix.context(...)</code> method.
+                </p>
+                <p>
+                    Since components are loaded asynchronously the <code>zuix.context</code> method may
+                    return <code>null</code> if called before the component is ready.
+                    So, when not sure if the component is ready, it is more safe to use the <code>callback</code>
+                    argument of the <code>zuix.context</code> method.
+                </p>
+
+<pre self="center"><code class="html">&lt;div data-ui-context="my-view-pager"
+  data-ui-load="@lib/controllers/view_pager"&gt;
+  <!-- ... -->
+&lt;/div&gt;
+<script>
+var viewPager;
+zuix.context('my-view-pager', function(){
+  viewPager = this;
+});
+</script></code></pre>
+
+                <p>
+                    Another way getting a safe reference to a component is by using the
+                    <code>data-ui-options</code> attribute.
+                </p>
+
+<pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
+  data-ui-load="@lib/controllers/view_pager"&gt;
+  <!-- ... -->
+&lt;/div&gt;
+<script>
+var viewPager;
+vp_options = {
+  ready: function(ctx) {
+    viewPager = this;
+  }
 }
-</style>
+</script></code></pre>
 
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
+                <p>
+                    Other option fields
+                </p>
 
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.view_pager_1" self="size-x1" class="horizontal_pager">
+<pre self="center"><code class="html"><script>
+var vp_options = {
+  autoSlide: true,     // default `false`
+  enablePaging: true,  // default `false`
+  slideInterval: 500,  // default `750`
+  verticalLayout: true // default `false`
+}
+</script></code></pre>
 
-    <div class="wh100" layout="column center-center">
-        <h1>ViewPager</h1>
-        <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
-            <i class="material-icons">view_array</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Gesture Helper</h1>
-        <a href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">gesture</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Scroll Helper</h1>
-        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">all_out</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>DrawerLayout</h1>
-        <a href="docs/controllers/drawer_layout" class="exit-link animated fadeInUp">
-            <i class="material-icons">chrome_reader_mode</i>
-        </a>
-    </div>
-    <!--
-    <div class="wh100" layout="column center-center">
-        <h1>ListView</h1>
-        <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
-            <i class="material-icons wip">view_list</i>
-        </a>
-        <em>...coming soon...</em>
-    </div>
-    -->
 
-</div>
+                <h4>Methods</h4>
 
-    </div>
+<pre self="center"><code class="js">// select page
+viewPager.page(2);
+// get element of a page (returns ZxQuery-wrapped element)
+const pageFour = viewPager.get(3);
+pageFour.find('a').attr('rel', 'no-opener');
+// select next page
+viewPager.next();
+// select previous page
+viewPager.prev();
+// get auto-slide mode (true/false)
+const slideMode = viewPager.slide();
+// enable or pause auto-slide mode
+viewPager.slide(true);
+// get current layout mode ('horizontal' or 'vertical')
+const layoutMode = viewPager.layout();
+// change current layout mode
+viewPager.layout('vertical');</code></pre>
 
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-<div class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
-    <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
-    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
-</div>
+                <h4>Events</h4>
 
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
+<pre self="center"><code class="js">// page change event
+viewPager.on('page:change', function(e, pageInfo) {
+  // new page number
+  console.log(pageInfo.in);
+  // old page number
+  console.log(pageInfo.out);
+  // ...
+}).on('page:tap', function(e, pageNumber) {
+  console.log(pageNumber);
+  // ...
+});</code></pre>
 
-</div>
+                <p>
+                    To bind events we can also use the <code>data-ui-options</code> attribute.
+                </p>
 
-        </article>
+<pre self="center"><code class="html">&lt;div data-ui-options="vp_options"
+  data-ui-load="@lib/controllers/view_pager"&gt;
+    <!-- ... -->
+&lt;/div&gt;
+<script>
+var vp_options = {
+  on: {
+    'page:change': function (e, pageInfo) {
+      // ...
+    },
+    'page:tap': function (e, pageNumber) {
+        // ...
+    }
+  }
+}
+</script></code></pre>
 
-        <article class="mdl-color--red-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
+                <p>
+                    Try yourself the ViewPager controller live on
+                    <a class="mdl-color-text--yellow-300" href="//glitch.com/edit/#!/viewpager" target="_blank">Glitch</a>.
+                </p>
 
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
+            </main>
 
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Menu Overlay</h1>
-<a href="docs/components/menu_overlay" class="exit-link animated fadeInUp">
-    <i class="material-icons">menu</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
+            <footer self="bottom-right" data-ui-include="next-page-button" data-ui-options="options.no_css">
+                <div data-ui-field="title">About</div>
+            </footer>
 
         </article>
 
-        <article class="mdl-color--green-600 mdl-color-text--white">
-            <div layout="column spread-center" class="article-body">
 
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
+        <!-- Page 6 -->
+        <article class="full-view vertical-scroll padding-48-16 mdl-color--cyan-700" layout="column center-stretch">
 
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Media Browser</h1>
-<a href="docs/components/media_browser" class="exit-link animated fadeInUp">
-    <i class="material-icons">video_library</i>
-</a>
+            <header self="size-large center">
+                <h2>Source</h2>
+            </header>
 
-    </div>
+            <main self="size-medium size-x1 center" layout="column center-stretch">
 
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
+                <div self="size-medium center">
+                    <p>
+                        Source code is available in the <code>lib/controllers</code> folder of
+                        <a class="mdl-color-text--lime-A200" href="//github.com/genielabs/zkit">zKit</a> repository.
+                    </p>
+                    <div self="size-large">
+                        <ul class="list">
+                            <li><a class="mdl-color-text--lime-A200" href="//github.com/genielabs/zkit/blob/master/source/lib/controllers/view_pager.js" target="_blank">view_pager.js</a></li>
+                        </ul>
+                    </div>
+                    <p>
+                        This component is based on <a class="mdl-color-text--lime-A200" href="//genielabs.github.io/zuix/" target="_blank">zUIx</a> library.
+                        Visit <a class="mdl-color-text--lime-A200" href="../../">zKit</a> home for more components.
+                    </p>
+                </div>
 
-</div>
+            </main>
 
-        </article>
-
-        <article layout="column center-center" class="last mdl-color--purple-600 mdl-color-text--white">
-            <header self="top" layout="column top-center">
-    <div class="black-band"></div>
-    <div class="box-active animated fadeInDown"></div>
-    <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_downward</i>
-    </div>
-</header>
-
-<div self="size-x1 center" layout="column center-center" class="box-active">
-
-    <div class="animated fadeInDown">
-        <a href="//github.com/genielabs/zkit" layout="column center-center" class="animated bounceInUp">
-            <img src="images/github-octocat.svg" width="56" hspace="12">
-            <h2>View on GitHub</h2>
-        </a>
-    </div>
-
-</div>
+            <footer self="bottom-right">
+                <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="setPage(0)">
+                    <i class="material-icons mdl-color-text--red-300">chevron_left</i>
+                    <span class="mdl-color-text--white">Rewind</span>
+                </a>
+            </footer>
 
         </article>
 
-    </main>
+    </div>
+
+
+    <!-- ViewPager - page select buttons -->
+    <div data-ui-field="pager">
+
+        <a onclick="setPage(0)"></a>
+        <a onclick="setPage(1)"></a>
+        <a onclick="setPage(2)"></a>
+        <a onclick="setPage(3)"></a>
+        <a onclick="setPage(4)"></a>
+        <a onclick="setPage(5)"></a>
+
+    </div>
+
+
+    <!-- Inline templates -->
+    <div class="hidden">
+
+        <!-- MDL Button Next -->
+        <div data-ui-view="next-page-button">
+            <a class="button-flat-48 mdl-button mdl-js-button mdl-js-ripple-effect" href="#" onclick="zuix.context('view-pager').next()">
+                <span data-ui-field="title" class="mdl-color-text--white">Button title</span>
+                <i class="material-icons mdl-color-text--red-300">chevron_right</i>
+            </a>
+        </div>
+
+    </div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async="">//{% raw %}
@@ -523,6 +673,29 @@ if(!id)break a;ld();od=void 0;pd={};md={};rd=void 0;qd={};nd="";sd=jd();C.setInt
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <script defer="" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+
+<!-- Code highlighting -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/dracula.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML
+            /*.replace(/&/g, "&amp;")*/
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    });
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="../..//css/docs-view-pager.css">
 
 
 

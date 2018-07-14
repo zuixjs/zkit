@@ -27,16 +27,16 @@
 // common
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 const util = require('util');
 const request = require('sync-request');
 const stringify = require('json-stringify');
-// Markdown
-const showdown = require('showdown');
-const markdown = new showdown.Converter();
+// swig-markdown (static-site)
+const staticSite = require('./swig-md');
 // logging
 const tlog = require('../lib/logger');
 // ESLint
-const linter = require("eslint").linter;
+const linter = require('eslint').linter;
 const lintConfig = require(process.cwd()+'/.eslintrc');
 // LESS
 const less = require('less');
@@ -53,21 +53,61 @@ const LIBRARY_PATH_DEFAULT = 'https://genielabs.github.io/zkit/lib';
 const zuixBundle = {
     viewList: [],
     styleList: [],
-    controllerList: []
+    controllerList: [],
+    assetList: []
 };
-let stats, hasErrors;
+let stats;
+let hasErrors;
 
 function createBundle(sourceFolder, data) {
-    if (data.file.endsWith('.html')) {
-        const dom = new JSDOM(data.content);
+    const dom = new JSDOM(data.content);
+
+    // JavaScript resources
+    if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {
+        // TODO: check/parse scripts
+        const scriptList = dom.window.document.querySelectorAll('script[src]');
+        if (scriptList != null) {
+            scriptList.forEach(function(el) {
+                if (el.getAttribute('defer') != null) {
+                    return;
+                }
+                const resourcePath = el.getAttribute('src');
+                let scriptText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
+                if (scriptText != null) {
+                    scriptText = '//{% raw %}\n' + scriptText + '\n//{% endraw %}';
+                    el.innerHTML = scriptText;
+                    el.removeAttribute('src');
+                    zuixBundle.assetList.push({path: resourcePath, content: scriptText, type: 'script'});
+                }
+            });
+        }
+    }
+
+    // CSS resources
+    if (zuixConfig.build.bundle && zuixConfig.build.bundle.css) {
+        // TODO: check/parse css
+        const styleList = dom.window.document.querySelectorAll('link[rel="stylesheet"][href]');
+        if (styleList != null) {
+            styleList.forEach(function(el) {
+                const resourcePath = el.getAttribute('href');
+                let cssText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
+                if (cssText != null) {
+                    el.outerHTML = '<style>\n/*{% raw %}*/\n'+cssText+'\n/*{% endraw %}*/\n</style>';
+                    zuixBundle.assetList.push({path: resourcePath, content: cssText, type: 'style'});
+                }
+            });
+        }
+    }
+
+    // zUIx resources
+    if (zuixConfig.build.bundle.zuix !== false) {
         const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load]');
         if (nodeList != null) {
             nodeList.forEach(function(el) {
                 let skipElement = false;
                 let parent = el.parentNode;
                 while (parent != null) {
-                    if (parent.tagName == 'PRE')
-                    {
+                    if (parent.tagName == 'PRE') {
                         skipElement = true;
                         break;
                     }
@@ -76,99 +116,143 @@ function createBundle(sourceFolder, data) {
                 if (skipElement) {
                     return;
                 }
+
                 let hasJsFile = false;
-                let path = el.getAttribute('data-ui-include');
-                if (path == null || path === '') {
-                    path = el.getAttribute('data-ui-load');
+                let resourcePath = el.getAttribute('data-ui-include');
+                if (resourcePath == null || resourcePath === '') {
                     hasJsFile = true;
+                    resourcePath = el.getAttribute('data-ui-load');
                 }
-                if (dom.window.document.querySelectorAll('[data-ui-view="'+path+'"]').length > 0)  {
+                // do not process inline views
+                if (dom.window.document.querySelectorAll('[data-ui-view="' + resourcePath + '"]').length > 0) {
                     return;
                 }
+
                 let content;
                 if (hasJsFile) {
-                    if (isBundled(zuixBundle.controllerList, path)) {
+                    if (isBundled(zuixBundle.controllerList, resourcePath)) {
                         return;
                     }
-                    content = fetchResource('js', path, sourceFolder, true);
+                    content = fetchResource(resourcePath + '.js', sourceFolder, true);
                     if (content != null) {
-                        zuixBundle.controllerList.push({path: path, content: content});
+                        zuixBundle.controllerList.push({path: resourcePath, content: content});
                     }
                 }
                 // HTML
-                if (isBundled(zuixBundle.viewList, path)) {
+                const item = isBundled(zuixBundle.viewList, resourcePath);
+                if (item !== false) {
+                    item.count++;
                     return;
                 }
-                content = fetchResource('html', path, sourceFolder, !hasJsFile);
+                content = fetchResource(resourcePath + '.html', sourceFolder, !hasJsFile);
                 if (content != null) {
+                    // Run static-site processing
+                    content = staticSite.swig({file: resourcePath + '.html', content: content, data: data.data, app: data.app})._result.contents;
+                    // check markdown option
                     const md = el.getAttribute('data-o-markdown');
                     if (md != null && md.trim() === 'true') {
-                        content = render(content);
+                        content = staticSite.markdown(content);
+                        el.removeAttribute('data-o-markdown');
                     }
+                    const d = {
+                        file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + resourcePath + '.html',
+                        content: content
+                    };
+                    const dm = createBundle(sourceFolder, d);
+                    content = dm.window.document.body.innerHTML;
                     if (el.getAttribute('data-ui-mode') === 'unwrap') {
                         // TODO: add HTML comment with file info
                         el.outerHTML = content;
                     } else {
-                        createBundle(sourceFolder, {
-                            file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path + '.html',
-                            content: content
-                        });
-                        zuixBundle.viewList.push({path: path, content: content});
+                        // Lazy-loaded elements and components (data-ui-load) can't be defined inline
+                        let inline = false;
+                        // TODO: improve lazy-load check (inherit flag from parents)
+                        if (el.getAttribute('data-ui-lazyload') != 'true' && el.getAttribute('data-ui-load') == null) {
+                            inline = true;
+                            el.innerHTML = '\n' + content + '\n';
+                            let p = resolveAppPath(sourceFolder, resourcePath);
+                            p = p.lib ? p.path : resourcePath;
+                            el.setAttribute('data-ui-view', p);
+                        }
+                        zuixBundle.viewList.push({path: resourcePath, content: content, element: el, bundle: !inline});
                     }
                 }
                 // CSS
-                content = fetchResource('css', path, sourceFolder);
+                content = fetchResource(resourcePath + '.css', sourceFolder);
                 if (content != null) {
                     if (el.getAttribute('data-ui-mode') === 'unwrap') {
                         // TODO: add // comment with file info
-                        content = util.format('\n<style id="%s">\n%s\n</style>\n', path, content);
-                        dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', path, content);
+                        content = util.format('\n<style id="%s">\n%s\n</style>\n', resourcePath, content);
+                        dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', resourcePath, content);
                     } else {
-                        zuixBundle.styleList.push({path: path, content: content});
+                        zuixBundle.styleList.push({path: resourcePath, content: content});
                     }
                 }
             });
         }
-        return dom;
     }
+    return dom;
+}
+
+function resolveAppPath(sourceFolder, filePath) {
+    let isLibraryPath = false;
+    if (!isUrl(filePath)) {
+        if (filePath.startsWith('@lib/')) {
+            const relPath = filePath.substring(5);
+            // resolve components library path
+            if (zuixConfig.app.libraryPath != null) {
+                if (isUrl(zuixConfig.app.libraryPath)) {
+                    filePath = url.resolve(zuixConfig.app.libraryPath, relPath);
+                } else {
+                    filePath = path.join(sourceFolder, zuixConfig.app.libraryPath, relPath);
+                }
+            } else {
+                filePath = url.resolve(LIBRARY_PATH_DEFAULT, relPath);
+            }
+            isLibraryPath = true;
+        }
+        filePath = isLibraryPath ? filePath : path.join(sourceFolder, zuixConfig.app.resourcePath, filePath);
+    }
+    return {
+        lib: isLibraryPath,
+        path: filePath
+    };
+}
+
+function resolveResourcePath(file, resourcePath) {
+    if (!isUrl(resourcePath)) {
+        if (resourcePath.startsWith('.')) {
+            resourcePath = path.resolve(path.dirname(file), resourcePath);
+        } else {
+            resourcePath = path.join(zuixConfig.build.input, resourcePath);
+        }
+        if (!fs.existsSync(resourcePath)) {
+            resourcePath = path.join(zuixConfig.build.output, resourcePath);
+        }
+    }
+    return resourcePath;
 }
 
 function isBundled(list, path) {
-    const AlreadyExistsException = {};
-    try {
-        list.forEach(function(b) {
-            if (b.path === path) {
-                throw AlreadyExistsException;
-            }
-        });
-    } catch (e) {
-        if (e === AlreadyExistsException) {
-            return true;
+    list.forEach(function(b) {
+        if (b.path === path) {
+            return b;
         }
-    }
+    });
     return false;
 }
 
-function fetchResource(type, path, sourceFolder, reportError) {
+function isUrl(path) {
+    return path.indexOf('://') > 0 || path.startsWith('//');
+}
+
+function fetchResource(path, sourceFolder, reportError) {
     let content = null;
-    let isLibraryPath = false;
-    if (path.startsWith('@lib/')) {
-        // resolve components library path
-        if (zuixConfig.app.libraryPath != null) {
-            if (zuixConfig.app.libraryPath.indexOf('://') > 0 || zuixConfig.app.libraryPath.startsWith('//')) {
-                path = zuixConfig.app.libraryPath + path.substring(4);
-            } else {
-                path = sourceFolder + '/' + zuixConfig.app.libraryPath + path.substring(4);
-            }
-        } else {
-            path = LIBRARY_PATH_DEFAULT + path.substring(4);
-        }
-        isLibraryPath = true;
+    if (sourceFolder != null) {
+        path = resolveAppPath(sourceFolder, path).path;
     }
-    // add file type extension
-    path = path + '.' + type;
     const error = '   ^#^R^W[%s]^:';
-    if (path.indexOf('://') > 0 || path.startsWith('//')) {
+    if (isUrl(path)) {
         if (path.startsWith('//')) {
             path = 'https:'+path;
         }
@@ -184,16 +268,15 @@ function fetchResource(type, path, sourceFolder, reportError) {
                 .br();
         }
     } else {
-        const f = isLibraryPath ? path : sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
         tlog.overwrite('   ^C%s^: reading "%s"', tlog.busyCursor(), path);
         try {
-            content = fs.readFileSync(f).toString();
+            content = fs.readFileSync(path).toString();
             tlog.overwrite('');
         } catch (e) {
             if (reportError) {
                 hasErrors = true;
                 tlog.term.previousLine();
-                tlog.error(error+' %s', e.code, f)
+                tlog.error(error+' %s', e.code, path)
                     .br();
             }
         }
@@ -224,36 +307,70 @@ function getBundleItem(bundle, path) {
 }
 
 function generateApp(sourceFolder, data) {
+    // reset bundle
+    zuixBundle.viewList.length = 0;
+    zuixBundle.styleList.length = 0;
+    zuixBundle.controllerList.length = 0;
+    zuixBundle.assetList.length = 0;
     const dom = createBundle(sourceFolder, data);
     if (dom != null) {
-        let inlineViews = '<!-- zUIx inline resource resourceBundle -->';
-        zuixBundle.viewList.forEach(function(v) {
-            const content = util.format('<div data-ui-view="%s">\n%s\n</div>', v.path, v.content);
-            inlineViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
-            stats[v.path] = stats[v.path] || {};
-            stats[v.path].view = true;
-        });
-        let resourceBundle = [];
-        zuixBundle.controllerList.forEach(function(s) {
-            // TODO: ensure it ends with ';'
-            getBundleItem(resourceBundle, s.path).controller = s.content;
-            stats[s.path] = stats[s.path] || {};
-            stats[s.path].controller = true;
-        });
-        zuixBundle.styleList.forEach(function(s) {
-            getBundleItem(resourceBundle, s.path).css = s.content;
-            stats[s.path] = stats[s.path] || {};
-            stats[s.path].css = true;
-        });
-        const json = stringify(resourceBundle, null, 2);
-        let jsonBundle = '\n    <script>zuix.bundle('+json+')</script>\n';
+        if (zuixConfig.build.bundle.zuix !== false) {
+            let bundleViews = '<!-- zUIx inline resource resourceBundle -->';
+            zuixBundle.viewList.forEach(function(v) {
+                if (v.bundle) {
+                    let resourcePath = resolveAppPath('/', v.path);
+                    resourcePath = resourcePath.lib ? resourcePath.path : v.path;
+                    const content = util.format('<div data-ui-view="%s">\n%s\n</div>', resourcePath, v.content);
+                    bundleViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
+                }
+                stats[v.path] = stats[v.path] || {};
+                stats[v.path].view = true;
+            });
+            let resourceBundle = [];
+            zuixBundle.controllerList.forEach(function(s) {
+                // TODO: ensure it ends with ';'
+                let resourcePath = resolveAppPath('/', s.path);
+                resourcePath = resourcePath.lib ? resourcePath.path : s.path;
+                getBundleItem(resourceBundle, resourcePath).controller = s.content;
+                stats[s.path] = stats[s.path] || {};
+                stats[s.path].controller = true;
+            });
+            zuixBundle.styleList.forEach(function(s) {
+                let resourcePath = resolveAppPath('/', s.path);
+                resourcePath = resourcePath.lib ? resourcePath.path : s.path;
+                getBundleItem(resourceBundle, resourcePath).css = s.content;
+                stats[s.path] = stats[s.path] || {};
+                stats[s.path].css = true;
+            });
 
-        // add style to hide inline views
-        dom.window.document.querySelector('head').innerHTML += '    <style>[data-ui-view] { display: none; }</style>\n';
-        // add inline views
-        dom.window.document.body.innerHTML += inlineViews;
-        // add bundle
-        dom.window.document.body.innerHTML += jsonBundle;
+            // add style to hide inline views
+            const head = dom.window.document.querySelector('head');
+            head.innerHTML += '    <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>\n';
+
+            // add inline views
+            dom.window.document.body.innerHTML += bundleViews;
+            // add zuix resource bundle (css,js)
+            const json = stringify(resourceBundle, null, 2);
+            if (resourceBundle.length > 0) {
+                let jsonBundle = '\n<script>zuix.bundle(' + json + ')</script>\n';
+                dom.window.document.body.innerHTML += jsonBundle;
+            }
+        }
+
+        if (zuixConfig.build.bundle.js !== false) {
+            // TODO: report in final summary
+            zuixBundle.assetList.forEach(function(a) {
+                stats[a.path] = stats[a.path] || {};
+                stats[a.path].script = true;
+            });
+        }
+        if (zuixConfig.build.bundle.css !== false) {
+            // TODO: report in final summary
+            zuixBundle.assetList.forEach(function(a) {
+                stats[a.path] = stats[a.path] || {};
+                stats[a.path].style = true;
+            });
+        }
 
         data.content = dom.serialize();
     }
@@ -265,137 +382,88 @@ module.exports = function(options, template, data, cb) {
     hasErrors = false;
     // zUIx bundle
     tlog.br().info('^w%s^:', data.file);
+    let postProcessed = false;
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
-    let html = swigTemplate(data)._result.contents;
+    let html = staticSite.swig(data)._result.contents;
     let isStaticSite = (html != data.content);
     if (isStaticSite) {
         data.content = html;
     }
-    // Generate inline zUIx bundle
-    tlog.overwrite(' ^r*^: zuix bundle');
-    generateApp(options.source, data);
-    if (Object.keys(stats).length > 0) {
-        if (!hasErrors) {
-            tlog.overwrite(' ^G\u2713^: zuix bundle');
-        }
-        // output stats
-        for (const key in stats) {
-            const s = stats[key];
-            const ok = '^+^g';
-            const ko = '^w';
-            tlog.info('   ^w[^:%s^:%s^:%s^:^w]^: %s',
-                s.view ? ok + 'v' : ko + '-',
-                s.css ? ok + 's' : ko + '-',
-                s.controller ? ok + 'c' : ko + '-',
-                '^:' + key
-            );
-        }
-    } else {
-        // no zuix data processed ([data-ui-*] attributes)
-        tlog.overwrite();
-    }
-    // Default static-site processing
-    tlog.info(' ^r*^: static-site content');
-    html = swigTemplate(data)._result.contents;
-    if (html != data.content || isStaticSite) {
-        data.content = html;
-        tlog.overwrite(' ^G\u2713^: static-site content');
-    } else {
-        // no template data processed
-        tlog.overwrite();
-    }
 
-    // run ESlint
-    if (data.file.endsWith('.js')) {
-        tlog.info(' ^r*^: lint');
-        const issues = linter.verify(data.content, lintConfig, data.file);
-        issues.forEach(function (m) {
-            if (m.fatal || m.severity > 1) {
-                tlog.error('   ^RError^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
-            } else {
-                tlog.warn('   ^YWarning^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
+    if (data.file.endsWith('.html')) {
+        // Generate resources bundle
+        tlog.overwrite(' ^r*^: resource bundle');
+        generateApp(options.source, data);
+        if (Object.keys(stats).length > 0) {
+            if (!hasErrors) {
+                tlog.overwrite(' ^G\u2713^: resource bundle');
             }
-        });
-        if (issues.length === 0) {
-            tlog.overwrite(' ^G\u2713^: lint');
+            // output stats
+            for (const key in stats) {
+                const s = stats[key];
+                const ok = '^+^g';
+                const ko = '^w';
+                tlog.info('   ^w[^:%s^:%s^:%s^:^w]^: %s',
+                    s.view ? ok + 'v' : ko + '-',
+                    s.css ? ok + 's' : ko + '-',
+                    s.controller ? ok + 'c' : ko + '-',
+                    '^:' + key
+                );
+            }
+            tlog.info();
+            postProcessed = true;
+        } else {
+            tlog.overwrite();
+        }
+    } else {
+        tlog.overwrite();
+    }
+
+    if (isStaticSite) {
+        tlog.info(' ^G\u2713^: static-site content').br();
+        postProcessed = true;
+    }
+
+    if (zuixConfig.build.esLint) {
+        // run ESlint
+        if (data.file.endsWith('.js')) {
+            tlog.info(' ^r*^: lint');
+            const issues = linter.verify(data.content, lintConfig, data.file);
+            issues.forEach(function(m) {
+                if (m.fatal || m.severity > 1) {
+                    tlog.error('   ^RError^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
+                } else {
+                    tlog.warn('   ^YWarning^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
+                }
+            });
+            if (issues.length === 0) {
+                tlog.overwrite(' ^G\u2713^: lint');
+            }
+            tlog.info();
+            postProcessed = true;
         }
     }
 
-    // run LESS
-    if (data.file.endsWith('.less')) {
-        tlog.info(' ^r*^: less');
-        less.render(data.content, lessConfig, function(error, output) {
-            const baseName = data.dest.substring(0, data.dest.length - 5);
-            fs.writeFileSync(baseName+'.css', output.css);
-            // TODO: source map generation disabled
-            //fs.writeFileSync(baseName+'.css.map', output.map);
-            tlog.overwrite(' ^G\u2713^: less');
-        });
+    if (zuixConfig.build.less) {
+        // run LESS
+        if (data.file.endsWith('.less')) {
+            tlog.info(' ^r*^: less');
+            less.render(data.content, lessConfig, function(error, output) {
+                const baseName = data.dest.substring(0, data.dest.length - 5);
+                fs.writeFileSync(baseName + '.css', output.css);
+                // TODO: source map generation disabled
+                //fs.writeFileSync(baseName+'.css.map', output.map);
+                tlog.overwrite(' ^G\u2713^: less');
+            });
+            tlog.info();
+            postProcessed = true;
+        }
     }
 
     cb(null, data.content);
-    tlog.info(' ^G\u2713^: done');
+    if (!postProcessed) {
+        tlog.info();
+    }
+    tlog.overwrite(' ^G\u2713^: done');
 };
-
-
-/* BEGIN 'static-site' default engine code */
-
-const Promise = require('es6-promise').Promise;
-const swig = require('swig-templates');
-const isMarkdown = require(process.cwd()+'/node_modules/static-site/lib/utils/is-markdown');
-const markdownTag = require(process.cwd()+'/node_modules/static-site/lib/utils/markdown-tag');
-//const MarkdownIt = require('markdown-it');
-//const hljs = require('highlight.js');
-const extras = require('swig-extras');
-
-/*
-const markdown = MarkdownIt({
-    html: true,
-    langPrefix: '',
-    highlight: function(code, lang) {
-        const highlighted = lang ? hljs.highlight(lang, code) : hljs.highlightAuto(code);
-        return highlighted.value;
-    }
-});
-*/
-
-const filters = ['batch', 'groupby', 'nl2br', 'pluck', 'split', 'trim', 'truncate'];
-filters.forEach(function(filter) {
-    extras.useFilter(swig, filter);
-});
-
-function render(content) {
-    return markdown.makeHtml(content);
-    //return markdown.render(content);
-}
-
-swig.setTag('markdown', markdownTag.parse, markdownTag.compile, true, false);
-swig.setExtension('markdown', render);
-swig.setDefaults({cache: false});
-
-extras.useTag(swig, 'switch');
-extras.useTag(swig, 'case');
-
-function swigTemplate(page) {
-    let template = isMarkdown(page.file) ? markdown.render(page.content) : page.content;
-
-    if (page.template) {
-        const templatePath = path.join(this.sourcePath, page.template);
-        const block = page.block || 'content';
-        const wrapped = '{% block ' + block + '%}' + template + '{% endblock %}';
-        template = '{% extends "' + templatePath + '" %}' + wrapped;
-    }
-
-    const html = swig.render(template, {
-        filename: page.file,
-        locals: page
-    });
-
-    return Promise.resolve({
-        dest: page.dest,
-        contents: html
-    });
-}
-
-/* END 'static-site' default engine code */

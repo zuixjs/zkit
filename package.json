@@ -35,6 +35,7 @@
     "swig-templates": "latest",
     "sync-request": "^6.0.0",
     "terminal-kit": "^1.17.12",
+    "workbox-build": "^3.4.1",
     "zuix-dist": "^0.4.9-47"
   }
 }
