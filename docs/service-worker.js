@@ -128,6 +128,10 @@ self.__precacheManifest = [
     "revision": "16dc3d04b8ece08bb97cce05a479d29e"
   },
   {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/components/media_browser/article.html",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
@@ -165,7 +169,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
