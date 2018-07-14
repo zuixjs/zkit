@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "bf799d7bac3bbc4d4411edd0947cc710"
+    "revision": "f45cc7d65ecc86f66129a7074f302887"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "bf3e1e78ac1ff62960604f0bc8f14a5b"
+    "revision": "a0c4674fc44a5191710d50e04174f2a3"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -126,34 +126,6 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "16dc3d04b8ece08bb97cce05a479d29e"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.css",
