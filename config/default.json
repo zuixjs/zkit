@@ -31,7 +31,7 @@
       "esLint": true,
       "bundle": {
         "js": true,
-        "css": false,
+        "css": true,
         "zuix": true
       }
     },
