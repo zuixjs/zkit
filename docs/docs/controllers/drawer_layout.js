@@ -1,18 +1,4 @@
-window.menuButtonOptions = {
-    on: {
-        'menu:open': function() {
-            zuix.context('drawer_panel', function() {
-                this.open();
-            });
-        },
-        'menu:close': function() {
-            zuix.context('drawer_panel', function() {
-                this.close();
-            });
-        }
-    }
-};
-
+let menuDrawer;
 window.drawer_opts = {
     on: {
         'drawer:open': function() {
@@ -24,6 +10,19 @@ window.drawer_opts = {
             zuix.context('menu_hamburger', function() {
                 this.close();
             });
+        }
+    },
+    ready: function() {
+        menuDrawer = this;
+    }
+};
+window.menuButtonOptions = {
+    on: {
+        'menu:open': function() {
+            menuDrawer.open();
+        },
+        'menu:close': function() {
+            menuDrawer.close();
         }
     }
 };
@@ -55,6 +54,7 @@ window.scroll_opts = {
     }
 };
 
+zuix.ZxQuery.prototype.animateCss = function(a, c) { };
 let headerVisible = true;
 function showHeader() {
     if (!headerVisible) {

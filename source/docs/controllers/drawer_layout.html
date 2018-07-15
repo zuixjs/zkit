@@ -42,6 +42,11 @@ description: 'zKit, a collection of framework-agnostic components for modern web
             It is hidden when not in use, but appears when the user swipes a finger from the left edge of the screen or,
             when at the top level of the app, the user touches the drawer icon in the app bar.
         </blockquote>
+        <p class="responsive-notice">
+            The drawer is currently displaying as fixed since page is
+            wider than 960 pixels. Reduce the window size to switch to
+            auto-hide mode and try gesture control.
+        </p>
 
     </div>
 
@@ -82,7 +87,7 @@ description: 'zKit, a collection of framework-agnostic components for modern web
         <h2>Option attributes</h2>
         <ul>
             <li>
-                <code class="option">data-ui-load="@lib/controllers/drawer_layout"</code>
+                <code class="option">data-ui-load= "@lib/controllers/drawer_layout"</code>
                 <small>constructor</small><br>
                 load the <code>drawer_layout</code> controller on the element.
             </li>
@@ -104,12 +109,13 @@ description: 'zKit, a collection of framework-agnostic components for modern web
             </li>
         </ul>
 
+        <br clear="all">
 
 
         <h2>Scripting</h2>
         <h3>Event listeners</h3>
 
-        <pre><code class="js">var menuDrawer;
+<pre><code class="js">var menuDrawer;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
 zuix.context('menu-drawer', function() {
@@ -125,15 +131,16 @@ zuix.context('menu-drawer', function() {
 
         <h3>Methods</h3>
 
-        <pre><code class="js">// open the drawer
+<pre><code class="js">// open the drawer
 menuDrawer.open();
 // close the drawer
 menuDrawer.close();
 // toggle open/close drawer
 menuDrawer.toggle();
-// show as fixed
+// enable/disable control by gesture
 menuDrawer.lock(true);</code></pre>
 
+        <p>You can try these command in the console now.</p>
 
 
         <h2>Source code</h2>
@@ -152,10 +159,10 @@ menuDrawer.lock(true);</code></pre>
 
 <!-- Navigation Drawer -->
 <div data-ui-load="@lib/controllers/drawer_layout"
-     data-ui-context="drawer_panel"
+     data-ui-context="menu-drawer"
+     data-ui-options="drawer_opts"
      class="drawer-layout no-select"
-     layout="column top-stretch"
-     data-ui-options="drawer_opts">
+     layout="column top-stretch">
     <!-- Navigation Drawer content -->
 
     <!-- Header -->

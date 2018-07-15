@@ -37,27 +37,27 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "f46cc66634dae5947f62b207321232a9"
+    "revision": "5239d9e2acd05f8e39741138ecb129ab"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "890ee94e3811fcb4e505271ea1c1b4e8"
+    "revision": "10bb7b150bf0eb290000b5c5b55fe1eb"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
-    "revision": "9ef3f4f6078e1dfaf0bbdb1b97416fb5"
+    "revision": "147e310d796cf1a5006ba9288500905e"
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "a0c4674fc44a5191710d50e04174f2a3"
+    "revision": "839920098aa99c1c42c1d5bf9532121b"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
-    "revision": "e82662df6135db6189306d63ca77edee"
+    "revision": "a578d8f06f4fe61d4d8767b119702395"
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "2f4bbe3ae7281a6ee7296129c8ec7767"
+    "revision": "31a50869dcee776967317fd4e137cfdc"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "4f906da1e07c9c9a2bba9ef18e432f9b"
+    "revision": "3fd1e61b42141e5ce55c7fabd3741cee"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "28631f72440445c785c6161fc8a4f30d"
+    "revision": "0a436dc482911776ed32e5a9cb25405c"
   },
   {
     "url": "index.css",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "8eb6deb6f8e69ab633bf6b24d79dfecd"
+    "revision": "3430d3282c673ee7dd559116e1bdcc57"
   },
   {
     "url": "index.js",
@@ -128,36 +128,8 @@ self.__precacheManifest = [
     "revision": "16dc3d04b8ece08bb97cce05a479d29e"
   },
   {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "lib/components/menu_overlay.css",
-    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.html",
@@ -181,7 +153,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/drawer_layout.js",
-    "revision": "6de38c75171edf7699618a24763b562f"
+    "revision": "5b75da73c82d635756894dd17467b730"
   },
   {
     "url": "lib/controllers/gesture_helper.js",

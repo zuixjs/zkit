@@ -52,7 +52,9 @@ zuix.controller(function(cp) {
             'z-index': 100,
             'background-color': 'rgba(0, 0, 0, 0.5)'
         }).on('click', function() {
-            closeDrawer();
+            if (!isDrawerLocked) {
+                closeDrawer();
+            }
         }).hide();
         drawerLayout.parent().append(overlay.get());
 
