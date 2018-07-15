@@ -6,8 +6,8 @@
         "resourcePath": "",
         "libraryPath": "/lib",
         "genielabs.github.io": {
-                "resourcePath": "/zkit",
-                "libraryPath": "/zkit/lib"
+                "resourcePath": "",
+                "libraryPath": "/lib"
         }
 });
 
