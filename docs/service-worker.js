@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "f45cc7d65ecc86f66129a7074f302887"
+    "revision": "81e78629c666bfd481cb1f05a380720a"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -89,19 +89,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "836bfd290636d351913dc8628a21adfc"
+    "revision": "35c84557c6e69dd617f2b53c257f87c8"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "1eb03638ed7f9eb2006103ab47b70d01"
+    "revision": "4a6cd94ba1dd8e686761885c919b08a5"
   },
   {
     "url": "js/zuix.js",
-    "revision": "5c15148358189e3c82f526d3846055ec"
+    "revision": "8058fa8162770a99fb4423f8496b0b07"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "ddcf816a989c24f0450d3e2947fe95f5"
+    "revision": "a55a3c2ce36dda552321378be47a6a10"
   },
   {
     "url": "lib/components/hamburger_icon.css",
@@ -126,6 +126,34 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "16dc3d04b8ece08bb97cce05a479d29e"
+  },
+  {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.css",

@@ -163,20 +163,22 @@ staticSite({
 });
 
 function copyAppConfig() {
-    let cfg = 'zuix.store("config", ';
-    cfg += JSON.stringify(config.get('zuix.app'), null, 4);
+    let cfg = `/* eslint-disable quotes */
+(function() {
+    zuix.store("config", `;
+    cfg += JSON.stringify(config.get('zuix.app'), null, 8);
     cfg += ');\n';
     // WorkBox / Service Worker
     // TODO: fix service-worker path
     cfg += `
-// Check that service workers are registered
-if ('serviceWorker' in navigator) {
-    // Use the window load event to keep the page load performant
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
-    });
-}
-    `;
+    // Check that service workers are registered
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js');
+        });
+    }
+})();\n`;
     fs.writeFileSync(buildFolder+'/config.js', cfg);
 }
 
