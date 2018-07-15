@@ -6,8 +6,8 @@
         "resourcePath": "",
         "libraryPath": "/lib",
         "genielabs.github.io": {
-                "resourcePath": "/zkit",
-                "libraryPath": "/lib"
+                "resourcePath": "",
+                "libraryPath": "/zkit/lib"
         }
 });
 
@@ -15,7 +15,11 @@
     if ('serviceWorker' in navigator) {
         // Use the window load event to keep the page load performant
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js');
+            if (location.host === 'genielabs.github.io') {
+                navigator.serviceWorker.register('/zkit/service-worker.js');
+            } else {
+                navigator.serviceWorker.register('/service-worker.js');
+            }
         });
     }
 })();
