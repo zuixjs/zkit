@@ -37,11 +37,11 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "f46cc66634dae5947f62b207321232a9"
+    "revision": "c7e12f90d4850d09c9d052a3a6ad22e9"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "890ee94e3811fcb4e505271ea1c1b4e8"
+    "revision": "ad5d86a4ad076b61abd623acb2fc4e91"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "60c7c0305df56373c4dfe39aa3925d42"
+    "revision": "c3280d2132f86a93620691ad7eb01830"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "2f4bbe3ae7281a6ee7296129c8ec7767"
+    "revision": "bb9fd68a0e3a4b9375bb3739f37ca277"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "4f906da1e07c9c9a2bba9ef18e432f9b"
+    "revision": "71a0ac94db0eaeb88cca075e2b9e0047"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "28631f72440445c785c6161fc8a4f30d"
+    "revision": "33f393684a04762f4c6b8990765c4fa5"
   },
   {
     "url": "index.css",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "8eb6deb6f8e69ab633bf6b24d79dfecd"
+    "revision": "8501c4bbb74243fa22fb3b3a4d6dbe36"
   },
   {
     "url": "index.js",
@@ -161,19 +161,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -185,19 +185,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "2846e86c684308549013364d9c966fff"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e800637eef4771966052e3ab4d5c2820"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0392b29ea7e606f7239c9c5c8461714e"
   },
   {
     "url": "lib/extensions/animate_css.js",

@@ -47,6 +47,8 @@ const zuixConfig = config.get('zuix');
 // zuix-bundler cli
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
+// minifier
+const minify = require('html-minifier').minify;
 
 const LIBRARY_PATH_DEFAULT = 'https://genielabs.github.io/zkit/lib';
 
@@ -416,6 +418,11 @@ module.exports = function(options, template, data, cb) {
             postProcessed = true;
         } else {
             tlog.overwrite();
+        }
+        if (zuixConfig.build.minify != null && zuixConfig.build.minify !== false) {
+            tlog.overwrite(' ^r*^: minify');
+            data.content = minify(data.content, zuixConfig.build.minify);
+            tlog.overwrite(' ^G\u2713^: minify');
         }
     } else {
         tlog.overwrite();
