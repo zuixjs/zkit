@@ -60,7 +60,8 @@ let stats;
 let hasErrors;
 
 function createBundle(sourceFolder, data) {
-    const dom = new JSDOM(data.content);
+    const virtualConsole = new jsdom.VirtualConsole();
+    const dom = new JSDOM(data.content, { virtualConsole });
 
     // JavaScript resources
     if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {

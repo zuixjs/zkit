@@ -37,11 +37,11 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "5239d9e2acd05f8e39741138ecb129ab"
+    "revision": "f46cc66634dae5947f62b207321232a9"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "10bb7b150bf0eb290000b5c5b55fe1eb"
+    "revision": "890ee94e3811fcb4e505271ea1c1b4e8"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "839920098aa99c1c42c1d5bf9532121b"
+    "revision": "60c7c0305df56373c4dfe39aa3925d42"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "31a50869dcee776967317fd4e137cfdc"
+    "revision": "2f4bbe3ae7281a6ee7296129c8ec7767"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "3fd1e61b42141e5ce55c7fabd3741cee"
+    "revision": "4f906da1e07c9c9a2bba9ef18e432f9b"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "0a436dc482911776ed32e5a9cb25405c"
+    "revision": "28631f72440445c785c6161fc8a4f30d"
   },
   {
     "url": "index.css",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "3430d3282c673ee7dd559116e1bdcc57"
+    "revision": "8eb6deb6f8e69ab633bf6b24d79dfecd"
   },
   {
     "url": "index.js",
@@ -125,55 +125,55 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.js",
+    "revision": "16dc3d04b8ece08bb97cce05a479d29e"
+  },
+  {
+    "url": "lib/components/media_browser/article.css",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/article.html",
-    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.css",
-    "revision": "cf5a4704af21281f5440307cd16c154f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.html",
-    "revision": "f14af3ebc29559117372c9af37a0f313"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.js",
-    "revision": "2436897f418899f6566ffaba5f794f97"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/video.css",
-    "revision": "02f6d109360ce0c2cbd108542282656d"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/video.html",
-    "revision": "84bf58f509119a6b118bc541175ac346"
-  },
-  {
-    "url": "lib/components/media_browser/video.js",
-    "revision": "b541920f85e18da91d209c62374536b1"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -185,19 +185,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "2846e86c684308549013364d9c966fff"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "e800637eef4771966052e3ab4d5c2820"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "0392b29ea7e606f7239c9c5c8461714e"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -205,27 +205,31 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/templates/spinkit/circle.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e605150d128455248875cf8b704e4cd7"
   },
   {
     "url": "lib/templates/spinkit/circle.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "286f7cfd97f5260c25b035a756da4e78"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "83427891b4e22468af0c577e87907349"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "124ee683f2a29ec4cd040bbd74c96746"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "3f231b39520b1138b1a1ad80d88f49a9"
+  },
+  {
+    "url": "lib/templates/spinkit/folding_cube.css",
+    "revision": "22353c2d6e4a7998baaad1d824041652"
   },
   {
     "url": "lib/templates/spinkit/folding_cube.html",
@@ -269,11 +273,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/widgets/timeclock.html",
-    "revision": "8f5943313caee3320da9705791a067b5"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/widgets/timeclock.js",
-    "revision": "8de5faabc05a1d8b534e334dd3ac74a7"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

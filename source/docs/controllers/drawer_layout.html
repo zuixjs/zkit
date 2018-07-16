@@ -72,7 +72,8 @@ description: 'zKit, a collection of framework-agnostic components for modern web
     'drawer:close': function(e) {
       // things to do when drawer is closed
     },
-    'layout:change': function(e, data) {
+    'layout:change': function(e) {
+        const data = e.detail;
         // where `data` object has two fields
         // {
         //    smallScreen, (boolean)
