@@ -33,19 +33,6 @@
         "js": true,
         "css": true,
         "zuix": true
-      },
-      "minify": {
-        "collapseWhitespace": true,
-        "removeOptionalTags": true,
-        "removeRedundantAttributes": true,
-        "removeScriptTypeAttributes": true,
-        "removeTagWhitespace": true,
-        "useShortDoctype": true,
-        "collapseBooleanAttributes": true,
-        "removeAttributeQuotes": true,
-        "removeEmptyAttributes": true,
-        "minifyCSS": true,
-        "minifyJS": true
       }
     },
     "app": {

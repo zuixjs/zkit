@@ -37,11 +37,11 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "c7e12f90d4850d09c9d052a3a6ad22e9"
+    "revision": "f46cc66634dae5947f62b207321232a9"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "ad5d86a4ad076b61abd623acb2fc4e91"
+    "revision": "890ee94e3811fcb4e505271ea1c1b4e8"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "c3280d2132f86a93620691ad7eb01830"
+    "revision": "60c7c0305df56373c4dfe39aa3925d42"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "bb9fd68a0e3a4b9375bb3739f37ca277"
+    "revision": "2f4bbe3ae7281a6ee7296129c8ec7767"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "71a0ac94db0eaeb88cca075e2b9e0047"
+    "revision": "4f906da1e07c9c9a2bba9ef18e432f9b"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "33f393684a04762f4c6b8990765c4fa5"
+    "revision": "28631f72440445c785c6161fc8a4f30d"
   },
   {
     "url": "index.css",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "8501c4bbb74243fa22fb3b3a4d6dbe36"
+    "revision": "8eb6deb6f8e69ab633bf6b24d79dfecd"
   },
   {
     "url": "index.js",
@@ -128,52 +128,24 @@ self.__precacheManifest = [
     "revision": "16dc3d04b8ece08bb97cce05a479d29e"
   },
   {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "lib/components/menu_overlay.css",
     "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -185,19 +157,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "2846e86c684308549013364d9c966fff"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "e800637eef4771966052e3ab4d5c2820"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "0392b29ea7e606f7239c9c5c8461714e"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
