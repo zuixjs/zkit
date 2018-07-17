@@ -37,8 +37,8 @@ const markdownTag = require(process.cwd()+'/node_modules/static-site/lib/utils/m
 const extras = require('swig-extras');
 
 module.exports = {
-    swig: function(page) {
-        return swigTemplate(page);
+    swig: function(page, locals) {
+        return swigTemplate(page, locals);
     },
     markdown: function(content) {
         return render(content);
@@ -75,7 +75,7 @@ swig.setDefaults({cache: false});
 extras.useTag(swig, 'switch');
 extras.useTag(swig, 'case');
 
-function swigTemplate(page) {
+function swigTemplate(page, locals) {
     let template = isMarkdown(page.file) ? render(page.content) : page.content;
 
     if (page.template) {
@@ -87,7 +87,7 @@ function swigTemplate(page) {
 
     const html = swig.render(template, {
         filename: page.file,
-        locals: page
+        locals: locals
     });
 
     return Promise.resolve({

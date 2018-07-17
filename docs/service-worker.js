@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "2a518ee6e9bf9a7f97ed764fe49c73bc"
+    "revision": "63b736757c12a9324b14a6224fc8782c"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -89,19 +89,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "35c84557c6e69dd617f2b53c257f87c8"
+    "revision": "cd4d2491f787cab75e871ce3c7c2a1fd"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "4a6cd94ba1dd8e686761885c919b08a5"
+    "revision": "f0869de8aea2e54e9dea19fc6bf15edd"
   },
   {
     "url": "js/zuix.js",
-    "revision": "8058fa8162770a99fb4423f8496b0b07"
+    "revision": "212883fdac0b3dc43377c546db1806c5"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "a55a3c2ce36dda552321378be47a6a10"
+    "revision": "c41a4bbdc3dc4c0fdb4df45988b1990f"
   },
   {
     "url": "lib/components/hamburger_icon.css",
@@ -125,7 +125,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
     "url": "lib/components/media_browser/article.html",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
@@ -269,11 +269,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/widgets/timeclock.html",
-    "revision": "8f5943313caee3320da9705791a067b5"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/widgets/timeclock.js",
-    "revision": "8de5faabc05a1d8b534e334dd3ac74a7"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

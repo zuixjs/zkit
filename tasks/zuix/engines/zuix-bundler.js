@@ -60,10 +60,11 @@ const zuixBundle = {
 };
 let stats;
 let hasErrors;
+let localVars;
 
-function createBundle(sourceFolder, data) {
+function createBundle(sourceFolder, page) {
     const virtualConsole = new jsdom.VirtualConsole();
-    const dom = new JSDOM(data.content, { virtualConsole });
+    const dom = new JSDOM(page.content, { virtualConsole });
 
     // JavaScript resources
     if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {
@@ -75,7 +76,7 @@ function createBundle(sourceFolder, data) {
                     return;
                 }
                 const resourcePath = el.getAttribute('src');
-                let scriptText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
+                let scriptText = fetchResource(resolveResourcePath(page.file, resourcePath), null, false);
                 if (scriptText != null) {
                     scriptText = '//{% raw %}\n' + scriptText + '\n//{% endraw %}';
                     el.innerHTML = scriptText;
@@ -93,7 +94,7 @@ function createBundle(sourceFolder, data) {
         if (styleList != null) {
             styleList.forEach(function(el) {
                 const resourcePath = el.getAttribute('href');
-                let cssText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
+                let cssText = fetchResource(resolveResourcePath(page.file, resourcePath), null, false);
                 if (cssText != null) {
                     el.outerHTML = '<style>\n/*{% raw %}*/\n'+cssText+'\n/*{% endraw %}*/\n</style>';
                     zuixBundle.assetList.push({path: resourcePath, content: cssText, type: 'style'});
@@ -150,7 +151,7 @@ function createBundle(sourceFolder, data) {
                 content = fetchResource(resourcePath + '.html', sourceFolder, !hasJsFile);
                 if (content != null) {
                     // Run static-site processing
-                    content = staticSite.swig({file: resourcePath + '.html', content: content, data: data.data, app: data.app})._result.contents;
+                    content = staticSite.swig({file: resourcePath + '.html', content: content}, localVars)._result.contents;
                     // check markdown option
                     const md = el.getAttribute('data-o-markdown');
                     if (md != null && md.trim() === 'true') {
@@ -309,13 +310,13 @@ function getBundleItem(bundle, path) {
     return item;
 }
 
-function generateApp(sourceFolder, data) {
+function generateApp(sourceFolder, page) {
     // reset bundle
     zuixBundle.viewList.length = 0;
     zuixBundle.styleList.length = 0;
     zuixBundle.controllerList.length = 0;
     zuixBundle.assetList.length = 0;
-    const dom = createBundle(sourceFolder, data);
+    const dom = createBundle(sourceFolder, page);
     if (dom != null) {
         if (zuixConfig.build.bundle.zuix !== false) {
             let bundleViews = '<!-- zUIx inline resource resourceBundle -->';
@@ -375,29 +376,30 @@ function generateApp(sourceFolder, data) {
             });
         }
 
-        data.content = dom.serialize();
+        page.content = dom.serialize();
     }
 }
 
-module.exports = function(options, template, data, cb) {
+module.exports = function(options, template, page, cb) {
+    localVars = page;
     // reset globals for every page
     stats = {};
     hasErrors = false;
     // zUIx bundle
-    tlog.br().info('^w%s^:', data.file);
+    tlog.br().info('^w%s^:', page.file);
     let postProcessed = false;
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
-    let html = staticSite.swig(data)._result.contents;
-    let isStaticSite = (html != data.content);
+    let html = staticSite.swig(page, localVars)._result.contents;
+    let isStaticSite = (html != page.content);
     if (isStaticSite) {
-        data.content = html;
+        page.content = html;
     }
 
-    if (data.file.endsWith('.html')) {
+    if (page.file.endsWith('.html')) {
         // Generate resources bundle
         tlog.overwrite(' ^r*^: resource bundle');
-        generateApp(options.source, data);
+        generateApp(options.source, page);
         if (Object.keys(stats).length > 0) {
             if (!hasErrors) {
                 tlog.overwrite(' ^G\u2713^: resource bundle');
@@ -421,7 +423,7 @@ module.exports = function(options, template, data, cb) {
         }
         if (zuixConfig.build.minify != null && zuixConfig.build.minify !== false) {
             tlog.overwrite(' ^r*^: minify');
-            data.content = minify(data.content, zuixConfig.build.minify);
+            page.content = minify(page.content, zuixConfig.build.minify);
             tlog.overwrite(' ^G\u2713^: minify');
         }
     } else {
@@ -435,9 +437,9 @@ module.exports = function(options, template, data, cb) {
 
     if (zuixConfig.build.esLint) {
         // run ESlint
-        if (data.file.endsWith('.js')) {
+        if (page.file.endsWith('.js')) {
             tlog.info(' ^r*^: lint');
-            const issues = linter.verify(data.content, lintConfig, data.file);
+            const issues = linter.verify(page.content, lintConfig, page.file);
             issues.forEach(function(m) {
                 if (m.fatal || m.severity > 1) {
                     tlog.error('   ^RError^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
@@ -455,10 +457,10 @@ module.exports = function(options, template, data, cb) {
 
     if (zuixConfig.build.less) {
         // run LESS
-        if (data.file.endsWith('.less')) {
+        if (page.file.endsWith('.less')) {
             tlog.info(' ^r*^: less');
-            less.render(data.content, lessConfig, function(error, output) {
-                const baseName = data.dest.substring(0, data.dest.length - 5);
+            less.render(page.content, lessConfig, function(error, output) {
+                const baseName = page.dest.substring(0, page.dest.length - 5);
                 fs.writeFileSync(baseName + '.css', output.css);
                 // TODO: source map generation disabled
                 //fs.writeFileSync(baseName+'.css.map', output.map);
@@ -469,7 +471,7 @@ module.exports = function(options, template, data, cb) {
         }
     }
 
-    cb(null, data.content);
+    cb(null, page.content);
     if (!postProcessed) {
         tlog.info();
     }

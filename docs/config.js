@@ -4,10 +4,10 @@
         "title": "zKit, components for modern web.",
         "googleSiteId": "UA-123-456",
         "resourcePath": "",
-        "libraryPath": "/lib",
+        "libraryPath": "/lib/",
         "genielabs.github.io": {
-                "resourcePath": "/zkit",
-                "libraryPath": "/lib"
+                "resourcePath": "/zkit/",
+                "libraryPath": "/lib/"
         }
 });
 
