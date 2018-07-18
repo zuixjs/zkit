@@ -64,7 +64,7 @@ let localVars;
 
 function createBundle(sourceFolder, page) {
     const virtualConsole = new jsdom.VirtualConsole();
-    const dom = new JSDOM(page.content, { virtualConsole });
+    const dom = new JSDOM(page.content, {virtualConsole});
 
     // JavaScript resources
     if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {
@@ -168,17 +168,7 @@ function createBundle(sourceFolder, page) {
                         // TODO: add HTML comment with file info
                         el.outerHTML = content;
                     } else {
-                        // Lazy-loaded elements and components (data-ui-load) can't be defined inline
-                        let inline = false;
-                        // TODO: improve lazy-load check (inherit flag from parents)
-                        if (el.getAttribute('data-ui-lazyload') != 'true' && el.getAttribute('data-ui-load') == null) {
-                            inline = true;
-                            el.innerHTML = '\n' + content + '\n';
-                            let p = resolveAppPath(sourceFolder, resourcePath);
-                            p = p.lib ? p.path : resourcePath;
-                            el.setAttribute('data-ui-view', p);
-                        }
-                        zuixBundle.viewList.push({path: resourcePath, content: content, element: el, bundle: !inline});
+                        zuixBundle.viewList.push({path: resourcePath, content: content, element: el});
                     }
                 }
                 // CSS
@@ -321,12 +311,10 @@ function generateApp(sourceFolder, page) {
         if (zuixConfig.build.bundle.zuix !== false) {
             let bundleViews = '<!-- zUIx inline resource resourceBundle -->';
             zuixBundle.viewList.forEach(function(v) {
-                if (v.bundle) {
-                    let resourcePath = resolveAppPath('/', v.path);
-                    resourcePath = resourcePath.lib ? resourcePath.path : v.path;
-                    const content = util.format('<div data-ui-view="%s">\n%s\n</div>', resourcePath, v.content);
-                    bundleViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
-                }
+                let resourcePath = resolveAppPath('/', v.path);
+                resourcePath = resourcePath.lib ? resourcePath.path : v.path;
+                const content = util.format('<div data-ui-view="%s">\n%s\n</div>', resourcePath, v.content);
+                bundleViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
                 stats[v.path] = stats[v.path] || {};
                 stats[v.path].view = true;
             });
