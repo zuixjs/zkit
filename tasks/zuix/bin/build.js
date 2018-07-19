@@ -150,11 +150,48 @@ staticSite({
     const buildSW = () => {
         // This will return a Promise
         return workBox.generateSW({
+
             globDirectory: buildFolder,
             globPatterns: [
                 '**\/*.{html,json,js,css}',
+                '**\/*.{png,jpg,jpeg,svg,gif}'
             ],
+
             swDest: path.join(buildFolder, 'service-worker.js'),
+
+            // Define runtime caching rules.
+            runtimeCaching: [{
+                // Match any request ends with .png, .jpg, .jpeg or .svg.
+                urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+
+                // Apply a cache-first strategy.
+                handler: 'cacheFirst',
+
+                options: {
+                    // Use a custom cache name.
+                    cacheName: 'images',
+                    // Cache up to 50 images.
+                    expiration: {
+                        maxEntries: 50,
+                    }
+                }
+            },{
+                // Match any request ends with .html, .json, .js or .css.
+                urlPattern: /\.(?:html|json|js|css)$/,
+
+                // Apply a cache-first strategy.
+                handler: 'cacheFirst',
+
+                options: {
+                    // Use a custom cache name.
+                    cacheName: 'default',
+                    // Cache up to 50 items.
+                    expiration: {
+                        maxEntries: 50,
+                    }
+                }
+            }]
+
         });
     };
     buildSW().then(function () {

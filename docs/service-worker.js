@@ -128,24 +128,52 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/components/menu_overlay.css",
     "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -157,19 +185,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "2846e86c684308549013364d9c966fff"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e800637eef4771966052e3ab4d5c2820"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0392b29ea7e606f7239c9c5c8461714e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -250,7 +278,50 @@ self.__precacheManifest = [
   {
     "url": "lib/widgets/timeclock.js",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/capguy-walk.png",
+    "revision": "e70e7d41a4a2af947f551aa49b1236d2"
+  },
+  {
+    "url": "images/github-octocat.svg",
+    "revision": "5903a1df2f4b6dc96e4db491de5fbea7"
+  },
+  {
+    "url": "images/parallax/layer01_Ground.png",
+    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+  },
+  {
+    "url": "images/parallax/layer02_Trees_rocks.png",
+    "revision": "a582a3cab2cf46f701967e18eeda7f4e"
+  },
+  {
+    "url": "images/parallax/layer03_Hills_Castle.png",
+    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+  },
+  {
+    "url": "images/parallax/layer04_Clouds.png",
+    "revision": "cf317535775c65a0ade09ddbdc724434"
+  },
+  {
+    "url": "images/parallax/layer05_Hills.png",
+    "revision": "c0a27bdedd23577f0184b3346c8c7ff5"
+  },
+  {
+    "url": "images/parallax/layer06_Rocks.png",
+    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+  },
+  {
+    "url": "images/parallax/layer07_Sky.png",
+    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+  },
+  {
+    "url": "images/profile-icon.png",
+    "revision": "56f0c7de57fdae6d0a9ddc43448b6dff"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg)$/, workbox.strategies.cacheFirst({ cacheName: "images", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/\.(?:html|json|js|css)$/, workbox.strategies.cacheFirst({ cacheName: "default", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
