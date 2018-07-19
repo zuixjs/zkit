@@ -111,7 +111,7 @@ function createBundle(sourceFolder, page) {
                 let skipElement = false;
                 let parent = el.parentNode;
                 while (parent != null) {
-                    if (parent.tagName == 'PRE') {
+                    if (parent.tagName === 'PRE') {
                         skipElement = true;
                         break;
                     }
@@ -227,15 +227,6 @@ function resolveResourcePath(file, resourcePath) {
     return resourcePath;
 }
 
-function isBundled(list, path) {
-    list.forEach(function(b) {
-        if (b.path === path) {
-            return b;
-        }
-    });
-    return false;
-}
-
 function isUrl(path) {
     return path.indexOf('://') > 0 || path.startsWith('//');
 }
@@ -276,6 +267,15 @@ function fetchResource(path, sourceFolder, reportError) {
         }
     }
     return content;
+}
+
+function isBundled(list, path) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].path === path) {
+            return list[i];
+        }
+    }
+    return false;
 }
 
 function getBundleItem(bundle, path) {
