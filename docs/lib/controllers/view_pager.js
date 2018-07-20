@@ -173,6 +173,19 @@ zuix.controller(function(cp) {
         // measure
         const viewSize = getSize(cp.view().get());
         if (viewSize.width === 0 || viewSize.height === 0) {
+            if (viewSize.height === 0 && cp.view().position().visible) {
+                let maxHeight = 0;
+                // guess and set view_pager height
+                pageList.each(function (i, el) {
+                    let size = getSize(el);
+                    if (size.height > maxHeight) {
+                        maxHeight = size.height;
+                    }
+                });
+                if (viewSize.height < maxHeight) {
+                    cp.view().css('height', maxHeight + 'px');
+                }
+            }
             // cannot measure view, try again later
             updateLayout();
             return;
@@ -182,12 +195,14 @@ zuix.controller(function(cp) {
         pageList.each(function(i, el) {
             let size = getSize(el);
             if (layoutType === LAYOUT_HORIZONTAL) {
+                let centerY = (viewSize.height-size.height)/2;
                 transition(this, DEFAULT_PAGE_TRANSITION);
-                position(this, offset, 0);
+                position(this, offset, centerY);
                 offset += size.width;
             } else {
+                let centerX = (viewSize.width-size.width)/2;
                 transition(this, DEFAULT_PAGE_TRANSITION);
-                position(this, 0, offset);
+                position(this, centerX, offset);
                 offset += size.height;
             }
         });

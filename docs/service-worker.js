@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "a89c95a22f0551dda9afcf449c04c658"
+    "revision": "5d6155bdc920701625c5b55034bcc8f3"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "28631f72440445c785c6161fc8a4f30d"
+    "revision": "6d261dded5e16024e49e343f8ff37abc"
   },
   {
     "url": "index.css",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "8eb6deb6f8e69ab633bf6b24d79dfecd"
+    "revision": "c4ae7401f1007f8e164186827160d71c"
   },
   {
     "url": "index.js",
@@ -113,11 +113,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/hamburger_icon.js",
-    "revision": "865e2f27fde623833202655facea2ef2"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "cf10ef2e886fe09767bf05cf83d5cc03"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.html",
@@ -128,52 +128,24 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "lib/components/menu_overlay.css",
     "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -185,19 +157,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "2846e86c684308549013364d9c966fff"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "e800637eef4771966052e3ab4d5c2820"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "0392b29ea7e606f7239c9c5c8461714e"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -289,7 +261,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -297,7 +269,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
@@ -309,7 +281,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+    "revision": "ab380e350e6def2b0203a692d0cbba5d"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
