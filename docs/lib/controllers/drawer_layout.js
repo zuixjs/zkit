@@ -208,7 +208,7 @@ zuix.controller(function(cp) {
 
     function sizeCheck() {
         const width = document.body.clientWidth;
-        if (width < autoHideWidth) {
+        if (width < autoHideWidth || autoHideWidth === -1) {
             if (!isSmallScreen || firstCheck) {
                 isSmallScreen = true;
                 isDrawerLocked = false;

@@ -11,7 +11,7 @@
     }],
     "valid-jsdoc": 0,
     "comma-dangle": ["error", "never"],
-    "require-jsdoc": [1, {
+    "require-jsdoc": [0, {
       "require": {
         "FunctionDeclaration": true,
         "MethodDefinition": false,
