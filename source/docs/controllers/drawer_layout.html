@@ -67,14 +67,13 @@ description: 'zKit, a collection of framework-agnostic components for modern web
 <pre><code class="js">var drawer_options = {
   on: {
     'drawer:open': function(e) {
-      // things to do when drawer os open
+      // things to do when drawer is open
     },
     'drawer:close': function(e) {
       // things to do when drawer is closed
     },
-    'layout:change': function(e) {
-        const data = e.detail;
-        // where `data` object has two fields
+    'layout:change': function(e, status) {
+        // where `status` object has two fields
         // {
         //    smallScreen, (boolean)
         //    drawerLocked (boolean)
@@ -106,7 +105,7 @@ description: 'zKit, a collection of framework-agnostic components for modern web
                 <code class="option">data-o-hide-width</code>
                 <small>optional</small><br>
                 auto-hide panel if available width is less than specified value, otherwise show as fixed.
-                Default value is <code>960</code> pixels.
+                Set to `-1` to always auto-hide. Default value is <code>960</code> pixels.
             </li>
         </ul>
 

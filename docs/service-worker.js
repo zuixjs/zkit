@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "0078e890937bd3e7a823ca916186b6ab"
+    "revision": "0def73f8bf2eef446bcc1aac8f2edc82"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "4f906da1e07c9c9a2bba9ef18e432f9b"
+    "revision": "4ed2cda812953c217ec5925711ff4e57"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -128,8 +128,12 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
-    "url": "lib/components/media_browser/video.js",
-    "revision": "b541920f85e18da91d209c62374536b1"
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.css",
@@ -141,11 +145,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
@@ -265,7 +269,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
