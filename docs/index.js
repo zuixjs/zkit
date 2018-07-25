@@ -4,6 +4,7 @@ zuix.using('component', '@lib/extensions/animate_css');
 
 let mainPager;
 let viewPager1;
+let viewPager2;
 
 // use 'var' or 'window.' for options (global object)
 var options = {
@@ -15,16 +16,27 @@ var options = {
         autoSlide: true,
         ready: function() {
             viewPager1 = this;
-            const indicator = zuix.$.find('.pager-indicator');
-            this.on('page:change', function(e, page) {
-                indicator.find('a').eq(parseInt(page.in))
-                    .addClass('page-active');
-                indicator.find('a').eq(parseInt(page.out))
-                    .removeClass('page-active');
-            });
+            setupWithIndicator(viewPager1, zuix.field('indicator_1'));
+        }
+    },
+    view_pager_2: {
+        enablePaging: true,
+        autoSlide: true,
+        ready: function() {
+            viewPager2 = this;
+            setupWithIndicator(viewPager2, zuix.field('indicator_2'));
         }
     }
 };
+
+function setupWithIndicator(viewPager, indicator) {
+    viewPager.on('page:change', function(e, page) {
+        indicator.find('a').eq(parseInt(page.in))
+            .addClass('page-active');
+        indicator.find('a').eq(parseInt(page.out))
+            .removeClass('page-active');
+    });
+}
 
 function init() {
     // load the view-pager controller on this document layout
@@ -55,6 +67,8 @@ function init() {
             case 37: // left
                 if (mainPager.page() === 1 && viewPager1.prev()) {
                     break;
+                } else if (mainPager.page() === 2 && viewPager2.prev()) {
+                    break;
                 }
                 mainPager.prev();
                 break;
@@ -63,6 +77,8 @@ function init() {
                 break;
             case 39: // right
                 if (mainPager.page() === 1 && viewPager1.next()) {
+                    break;
+                } else if (mainPager.page() === 2 && viewPager2.next()) {
                     break;
                 }
                 mainPager.next();
@@ -92,5 +108,9 @@ function pageChangeListener(e, page) {
         viewPager1.first();
     } else if (page.in === 1) {
         viewPager1.last();
+    } else if (page.in === 2 && page.out < 2) {
+        viewPager2.first();
+    } else if (page.in === 2) {
+        viewPager2.last();
     }
 }

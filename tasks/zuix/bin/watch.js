@@ -25,6 +25,7 @@
  */
 
 const delay = require('delay');
+const fs = require('fs');
 const chokidar = require('chokidar');
 const config = require('config');
 const zuixConfig = config.get('zuix');
@@ -36,6 +37,10 @@ const BuildingState = {
     PENDING: 2
 };
 let status = BuildingState.IDLE;
+
+if (!fs.existsSync(zuixConfig.get('build.output'))) {
+    build();
+}
 
 startWatch();
 

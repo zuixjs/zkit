@@ -25,6 +25,10 @@ li {
     line-height: 160%;
     margin-bottom: 8px;
 }
+li pre {
+    font-size: 80%;
+    line-height: 100%;
+}
 h1,h2 {
     margin-top: 24px;
     margin-bottom: 24px;

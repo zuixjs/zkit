@@ -29,15 +29,15 @@
         </a>
     </div>
     <div class="wh100" layout="column center-center">
-        <h1>Scroll Helper</h1>
-        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">all_out</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
         <h1>DrawerLayout</h1>
         <a href="docs/controllers/drawer_layout" class="exit-link animated fadeInUp">
             <i class="material-icons">chrome_reader_mode</i>
+        </a>
+    </div>
+    <div class="wh100" layout="column center-center">
+        <h1>Scroll Helper</h1>
+        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
+            <i class="material-icons">all_out</i>
         </a>
     </div>
     <!--
@@ -54,10 +54,10 @@
 {% endblock %}
 
 {% block footer %}
-<div class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
+<div data-ui-field="indicator_1" class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
     <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
-    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
-    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
+    {% for i in Array(3) %}
+    <a href="javascript:viewPager1.page({{ loop.index }})" class="circle-button"></a>
+    {% endfor %}
 </div>
 {% endblock %}

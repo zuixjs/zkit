@@ -148,3 +148,14 @@ a.exit-link i {
 .circle-button.page-active {
     background: lime;
 }
+
+.section-title {
+    position: absolute;
+    margin: 26px 18px 18px 10px;
+    padding: 3px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: solid 1px rgba(255,255,0,0.5);
+    border-radius: 4px;
+}

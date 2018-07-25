@@ -80,6 +80,7 @@ tlog.br('     ^Ginput^ %s', sourceFolder)
     .br(' ^GprettyUrl^ %s', prettyUrl)
     .br('   ^Ghelpers^ %s', JSON.stringify(helperList))
     .br('    ^Gbundle^ %s', JSON.stringify(bundle))
+    .br('    ^Gminify^ %s', zuixConfig.build.minify != null && zuixConfig.build.minify !== false && zuixConfig.build.minify.disable !== true)
     .br('      ^Gless^ %s', less)
     .br('    ^GesLint^ %s', esLint)
     .br();

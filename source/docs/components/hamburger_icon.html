@@ -1,0 +1,224 @@
+---
+title: 'Hamburger Icon'
+head:
+  title: 'zKit: Hamburger Icon (lib/components)'
+  description: 'zKit, a collection of framework-agnostic components for modern web.'
+---
+{% include "../../_inc/head_open.html" %}
+<style>{% include "hamburger_icon.css" %}</style>
+<script>
+    // use 'var' or 'window.' for options (global object)
+    window.options = {
+        menu_button: {
+            type: 'spin-r',
+            color: 'yellow',
+            on: {
+                'menu:open': function() {
+                    showMenu();
+                },
+                'menu:close': function() {
+                    hideMenu();
+                }
+            }
+        }
+    };
+</script>
+{% include "../../_inc/head_close.html" %}
+
+<body layout="column top-center" data-ui-load="@lib/controllers/header_auto_hide" data-o-target="header" data-ui-priority="100">
+
+<header data-ui-field="header" class="header-cover animated fadeIn">
+    <div><h1 data-ui-field="page_title" class="animated fadeInLeft">{{title}}</h1></div>
+    <div data-ui-load="@lib/components/hamburger_icon"
+         data-ui-context="menu-button"
+         data-ui-options="options.menu_button"></div>
+</header>
+
+<main self="size-x1 stretch" class="main-content animated fadeIn" layout="columns top-stretch">
+
+    <div self="size-large center">
+        <p>
+            This is an <strong>Hamburger Icon</strong> component created out of <em>Jonathan Suh</em>'s
+            <a href="https://github.com/jonsuh/hamburgers">Tasty CSS Hamburgers</a>.
+        </p>
+        <p>
+            To see an example touch the hamburger icon in the upper right corner or these ones below.
+        </p>
+        <div class="example-box" layout="row center-spread">
+
+            <div data-ui-load="@lib/components/hamburger_icon"
+                 data-o-type="arrowturn"
+                 data-o-color="brown"></div>
+
+            <div data-ui-load="@lib/components/hamburger_icon"
+                 data-o-type="collapse"
+                 data-o-color="pink"></div>
+
+            <div data-ui-load="@lib/components/hamburger_icon"
+                 data-o-type="elastic"
+                 data-o-color="purple"></div>
+
+        </div>
+    </div>
+
+    <div self="size-large center" layout="columns top-stretch">
+
+        {% include '../_inc/zkit_basic_usage.html' %}
+
+        <h3>2. Add the menu markup</h3>
+        <p>Put inside the field <code>items</code> the code for your menu items.</p>
+
+        <pre><code class="html">&lt;div data-ui-load="@lib/components/hamburger_icon"
+     data-ui-context="hamburger-icon"&gt;&lt;/div&gt;</code></pre>
+
+        <h2>Option attributes</h2>
+        <ul>
+            <li>
+                <code class="option">data-ui-load="@lib/components/menu_overlay"</code>
+                <small>constructor</small><br>
+                load the <code>menu_overlay</code> component on the element.
+            </li>
+            <li>
+                <code class="option">data-ui-context</code>
+                <small>optional</small><br>
+                identifier name to be used to reference this component from JavaScript.
+            </li>
+            <li>
+                <code class="option">data-o-type</code>
+                <small>optional</small><br>
+                set the type of icon animation to show. Default value is <code>spin</code>.
+                See the list below for all possible values.
+                <pre>  3dx
+  3dy
+  3dxy
+  arrow
+  arrowalt
+  arrowturn
+  boring
+  collapse
+  elastic
+  emphatic
+  minus
+  slider
+  spring
+  stand
+  spin
+  squeeze
+  vortex</pre>
+                Add <code>-r</code> suffix to reverse the direction of the animation (eg. <code>spin-r</code>).
+
+            </li>
+            <li>
+                <code class="option">data-o-color</code>
+                <small>optional</small><br>
+                set the color. Default value is <code>#000</code> (black).
+            </li>
+        </ul>
+
+
+
+        <h2>Scripting</h2>
+        <h3>Event listeners</h3>
+
+        <pre><code class="js">var hamburgerIcon;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('hamburger-icon', function() {
+  // add event listeners
+  this.on('menu:open', function() {
+    // things to do when the hamburger is open
+  }).on('menu:close', function() {
+    // things to do when the hamburger is closed
+  });
+  // store a global reference of
+  // the component for later use
+  hamburgerIcon = this;
+});</code></pre>
+
+        <h3>Programmatically open/close</h3>
+
+        <pre><code class="js">// open
+hamburgerIcon.open();
+// close
+hamburgerIcon.close();</code></pre>
+
+
+        <h2>Source code</h2>
+        <p>
+            Source code is available in the <code>lib/components</code> folder of <a href="//github.com/genielabs/zkit">zKit</a> repository.
+        </p>
+        <div self="size-large">
+            <ul class="list">
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/hamburger_icon.js">hamburger_icon.js</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/hamburger_icon.html">hamburger_icon.html</a></li>
+                <li><a href="//github.com/genielabs/zkit/blob/master/source/lib/components/hamburger_icon.css">hamburger_icon.css</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Menu Overlay -->
+<div data-ui-field="menu" class="menu-overlay" layout="row center-center">
+
+    <div data-ui-field="circle" class="menu-circle"></div>
+
+    <div data-ui-field="button" onclick="goHome()" self="size-xsmall" layout="row center-center" class="option-button animated">
+        <img src="{{root}}images/zkit-logo.svg" width="72" height="72" hspace="16">
+        <a>zKit Home</a>
+    </div>
+
+</div>
+
+{% include "../_inc/footer.html" %}
+
+{% include "../../_inc/body_end.html" %}
+
+<link rel="stylesheet" href="{{root}}/css/docs.css">
+
+<!-- Common JS scripts -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/styles/androidstudio.min.css">
+<script>
+    // Escape HTML in 'code' blocks
+    document.querySelectorAll("code").forEach(function(element) {
+        element.innerHTML = element.innerHTML/*.replace(/&/g, "&amp;")*/.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    });
+
+    // AnimateCSS
+    zuix.using('component', '@lib/extensions/animate_css');
+
+    // Code highlighting
+    zuix.using('script', '//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.12.0/build/highlight.min.js', function () {
+        zuix.$('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+
+    // hide menu overlay
+    zuix.field('menu').on('click', function() {
+        zuix.context('menu-button').close();
+    }).hide();
+
+    function showMenu() {
+        zuix.field('menu').show()
+            .field('button').removeClass('fadeOutRight').addClass('fadeInRight');
+        setTimeout(function () {
+            zuix.field('menu').field('circle').addClass('open');
+        }, 100);
+    }
+    function hideMenu() {
+        const m = zuix.field('menu');
+        m.field('circle').removeClass('open').one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function() {
+            zuix.field('menu').hide();
+        });
+        m.field('button').removeClass('fadeInRight')
+            .addClass('fadeOutRight');
+    }
+    function goHome() {
+        document.location.replace('{{root}}');
+    }
+</script>
+
+</body>
+</html>

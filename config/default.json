@@ -9,7 +9,6 @@
         "lib",
         ".nojekyll",
         "manifest.json",
-        "manifest.webapp",
         "humans.txt",
         "favicon.ico",
         "robots.txt"
@@ -33,6 +32,20 @@
         "js": true,
         "css": true,
         "zuix": true
+      },
+      "minify": {
+        "disable": false,
+        "collapseWhitespace": true,
+        "removeOptionalTags": true,
+        "removeRedundantAttributes": true,
+        "removeScriptTypeAttributes": true,
+        "removeTagWhitespace": true,
+        "useShortDoctype": true,
+        "collapseBooleanAttributes": true,
+        "removeAttributeQuotes": true,
+        "removeEmptyAttributes": true,
+        "minifyCSS": true,
+        "minifyJS": true
       }
     },
     "app": {

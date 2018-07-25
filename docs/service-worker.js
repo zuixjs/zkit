@@ -29,19 +29,27 @@ self.__precacheManifest = [
   },
   {
     "url": "css/docs.css",
-    "revision": "a3c2ac97b1c4ec91081dce50a6ab72cc"
+    "revision": "bd93f973196531a2bc9a2ebe7cd3b083"
   },
   {
     "url": "css/flex-layout-attribute.min.css",
     "revision": "c55488315343d9afb4d13ebf9cc8f97b"
   },
   {
+    "url": "docs/components/hamburger_icon.css",
+    "revision": "b198267c8cb47e6a0917b9b27be74c47"
+  },
+  {
+    "url": "docs/components/hamburger_icon.html",
+    "revision": "ecfda33b2b2a12a213955aa9d5d5796c"
+  },
+  {
     "url": "docs/components/media_browser.html",
-    "revision": "5d6155bdc920701625c5b55034bcc8f3"
+    "revision": "b94c4e0fee9d0760f1f0bd206f97c3da"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "890ee94e3811fcb4e505271ea1c1b4e8"
+    "revision": "d5776651fd003d0b85e3c8fb686c468a"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -49,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "0def73f8bf2eef446bcc1aac8f2edc82"
+    "revision": "74301f72f8b8f38fd24851784238d9bf"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -57,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "2f4bbe3ae7281a6ee7296129c8ec7767"
+    "revision": "5d17bf68feabbfeaaa93b0e7828c2f3d"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -65,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "4ed2cda812953c217ec5925711ff4e57"
+    "revision": "71a0ac94db0eaeb88cca075e2b9e0047"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -73,19 +81,31 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "6d261dded5e16024e49e343f8ff37abc"
+    "revision": "b25e8bad4e28f3e2b9e9219096fcbf7e"
+  },
+  {
+    "url": "docs/templates/spin_kit.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "docs/templates/spin_kit.html",
+    "revision": "e7749e93635655fdbfd91b654213d472"
+  },
+  {
+    "url": "docs/templates/spin_kit.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "index.css",
-    "revision": "d3cb522dfcaa034c131977bb91b148b5"
+    "revision": "940ff7550327315ade279719b0510ea1"
   },
   {
     "url": "index.html",
-    "revision": "c4ae7401f1007f8e164186827160d71c"
+    "revision": "9c11fdefeece2bc35656f4e0a6e3f23f"
   },
   {
     "url": "index.js",
-    "revision": "f5e8e8ba58c8ade7e63729360589902e"
+    "revision": "993606116de0d88a966c72c1cfe3c018"
   },
   {
     "url": "js/zuix-bundler.js",
@@ -105,15 +125,15 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/hamburger_icon.css",
-    "revision": "9cc71a87e4fee0d1e5625664dabae125"
+    "revision": "dd81a60d1bfa7bd4463bb551eae81e35"
   },
   {
     "url": "lib/components/hamburger_icon.html",
-    "revision": "1fba4a8c858b8cae60fbe8e8f269657c"
+    "revision": "14b9b9c25ea92bd9660a2e6ea53c1b0d"
   },
   {
     "url": "lib/components/hamburger_icon.js",
-    "revision": "865e2f27fde623833202655facea2ef2"
+    "revision": "dea51abdfabfd08c5ac0b1bf4e337eb8"
   },
   {
     "url": "lib/components/media_browser.css",
@@ -128,32 +148,28 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "url": "lib/components/media_browser/video.js",
+    "revision": "b541920f85e18da91d209c62374536b1"
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -165,19 +181,23 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "2846e86c684308549013364d9c966fff"
+  },
+  {
+    "url": "lib/controllers/header_auto_hide.js",
+    "revision": "24ba9d0eb8777bed3cef9df6536a92e1"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e800637eef4771966052e3ab4d5c2820"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "d49c79573ac632bfbcdbdd0d3410c11f"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -260,12 +280,60 @@ self.__precacheManifest = [
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
+    "url": "manifest.json",
+    "revision": "6893030a18010fabd7d4d1aa2f13b2cf"
+  },
+  {
     "url": "images/capguy-walk.png",
     "revision": "e70e7d41a4a2af947f551aa49b1236d2"
   },
   {
     "url": "images/github-octocat.svg",
     "revision": "5903a1df2f4b6dc96e4db491de5fbea7"
+  },
+  {
+    "url": "images/icons/android-chrome-192x192.png",
+    "revision": "c65b3b163be074f54b235260b653ed99"
+  },
+  {
+    "url": "images/icons/android-chrome-512x512.png",
+    "revision": "05440a8503a635aef00d7a6501786ec1"
+  },
+  {
+    "url": "images/icons/apple-touch-icon.png",
+    "revision": "9b893ba884f0172ab34bfc213aa5543b"
+  },
+  {
+    "url": "images/icons/favicon-16x16.png",
+    "revision": "1a695a2fe6901c092aa7c26fe01769f8"
+  },
+  {
+    "url": "images/icons/favicon-32x32.png",
+    "revision": "c5da3e554f9a21da88023af198208916"
+  },
+  {
+    "url": "images/icons/mstile-144x144.png",
+    "revision": "86e19f9747f00ba328222b965121bbd6"
+  },
+  {
+    "url": "images/icons/mstile-150x150.png",
+    "revision": "298eedee4a8be4da5ca65e20d7f08339"
+  },
+  {
+    "url": "images/icons/mstile-310x150.png",
+    "revision": "dbd2bff7b320fa00a834a71c419787a8"
+  },
+  {
+    "url": "images/icons/mstile-310x310.png",
+    "revision": "27370a5ca46851eddd974ccd7543ab6f"
+  },
+  {
+    "url": "images/icons/mstile-70x70.png",
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
+  },
+  {
+    "url": "images/icons/safari-pinned-tab.svg",
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
@@ -289,15 +357,19 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "ab380e350e6def2b0203a692d0cbba5d"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",
     "revision": "56f0c7de57fdae6d0a9ddc43448b6dff"
+  },
+  {
+    "url": "images/zkit-logo.svg",
+    "revision": "82c73da40d4714945d0ebaba36c9eb48"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

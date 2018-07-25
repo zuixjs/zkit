@@ -374,7 +374,7 @@ module.exports = function(options, template, page, cb) {
     stats = {};
     hasErrors = false;
     // zUIx bundle
-    tlog.br().info('^w%s^:', page.file);
+    tlog.br().info('^w%s^:', page.file).br();
     let postProcessed = false;
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
@@ -409,7 +409,7 @@ module.exports = function(options, template, page, cb) {
         } else {
             tlog.overwrite();
         }
-        if (zuixConfig.build.minify != null && zuixConfig.build.minify !== false) {
+        if (zuixConfig.build.minify != null && zuixConfig.build.minify !== false && zuixConfig.build.minify.disable !== true) {
             tlog.overwrite(' ^r*^: minify');
             page.content = minify(page.content, zuixConfig.build.minify);
             tlog.overwrite(' ^G\u2713^: minify');
