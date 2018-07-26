@@ -6,7 +6,7 @@ zuix.controller(function(cp) {
     };
     cp.create = function() {
         headerBar = cp.options().target || cp.view().attr('data-o-target');
-        headerBar = zuix.$(headerBar);
+        headerBar = zuix.field(headerBar);
         const h = headerBar.position().rect.height;
         cp.context.style('\n' +
             '/* Header bar shrink/expand */\n' +
