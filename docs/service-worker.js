@@ -41,7 +41,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "5abfdb80a2025c7107520cccda8d4db9"
+    "revision": "d85d99d29947dcd60bb08aa789573061"
   },
   {
     "url": "docs/components/media_browser.html",
@@ -133,7 +133,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/hamburger_icon.js",
-    "revision": "dea51abdfabfd08c5ac0b1bf4e337eb8"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.css",
@@ -146,30 +146,6 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/video.js",
@@ -209,7 +185,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "d89c9c6b38bb0aba2819c75feae9ba45"
+    "revision": "035ef82d2378b8ae9091d95a8094c736"
   },
   {
     "url": "lib/controllers/list_view.js",
@@ -217,7 +193,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e800637eef4771966052e3ab4d5c2820"
   },
   {
     "url": "lib/controllers/view_pager.js",

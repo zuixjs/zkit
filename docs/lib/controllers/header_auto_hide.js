@@ -1,6 +1,9 @@
 /**
  * zUIx - Header Auto Hide (on scroll =))
  *
+ * @version 1.1.0 (2018-07-27)
+ * @author Gene
+ *
  * @version 1.0.0 (2018-07-25)
  * @author Gene
  *
@@ -10,36 +13,23 @@
 
 zuix.controller(function(cp) {
     let headerBar;
+    let footerBar;
+    let headerHeight = 0;
+    let footerHeight = 0;
     cp.init = function() {
         cp.options().css = false;
         cp.options().html = false;
     };
     cp.create = function() {
-        headerBar = cp.options().target || cp.view().attr('data-o-target');
-        headerBar = zuix.field(headerBar);
-        const h = headerBar.position().rect.height;
-        cp.context.style('\n' +
-            '/* Header bar shrink/expand */\n' +
-            '@keyframes header-collapse-anim {\n' +
-            '  from { top: 0; }\n' +
-            '  to { top: -'+h+'px; }\n' +
-            '}\n' +
-            '@keyframes header-expand-anim {\n' +
-            '  from { top: -'+h+'px; }\n' +
-            '  to { top: 0; }\n' +
-            '}\n' +
-            '.header-collapse {\n' +
-            '  animation-fill-mode: forwards;\n' +
-            '  animation-name: header-collapse-anim;\n' +
-            '  animation-duration: 0.5s;\n' +
-            '  top: -'+h+'px;\n' +
-            '}\n' +
-            '.header-expand {\n' +
-            '  animation-fill-mode: forwards;\n' +
-            '  animation-name: header-expand-anim;\n' +
-            '  animation-duration: 0.5s;\n' +
-            '  top: 0;\n' +
-            '}\n');
+        let header = cp.options().header || cp.view().attr('data-o-header');
+        if (header != null) {
+            headerBar = zuix.field(header);
+        }
+        let footer = cp.options().footer || cp.view().attr('data-o-footer');
+        if (footer != null) {
+            footerBar = zuix.field(footer);
+        }
+        // TODO: this can be optimized (do not replace CSS, skip if already exists)
         const startTime = new Date().getTime();
         zuix.load('@lib/controllers/scroll_helper', {
             view: cp.view(),
@@ -48,26 +38,90 @@ zuix.controller(function(cp) {
                     if (data.event === 'scroll' && (new Date().getTime()-startTime > 1000)) {
                         if (data.info.shift.y < 0) {
                             // scrolling up
-                            hideHeader();
+                            hideBars();
                         } else if (data.info.shift.y > 0) {
                             // scrolling down
-                            showHeader();
+                            showBars();
                         }
                     }
                 }
             }
         });
+        cp.expose('show', showBars)
+            .expose('hide', hideBars);
     };
-    function showHeader() {
-        if (headerBar.hasClass('header-collapse')) {
+    function showBars() {
+        if (headerBar != null && headerBar.hasClass('header-collapse')) {
             headerBar.removeClass('header-collapse')
                 .addClass('header-expand');
         }
+        if (footerBar != null && footerBar.hasClass('footer-collapse')) {
+            footerBar.removeClass('footer-collapse')
+                .addClass('footer-expand');
+        }
     }
-    function hideHeader() {
-        if (!headerBar.hasClass('header-collapse')) {
+    function hideBars() {
+        if (headerBar != null && !headerBar.hasClass('header-collapse')) {
+            if (headerHeight === 0) {
+                headerHeight = headerBar.position().rect.height;
+                if (headerHeight > 0) {
+                    zuix.$.appendCss('\n' +
+                        '/* Header bar shrink/expand */\n' +
+                        '@keyframes header-collapse-anim {\n' +
+                        '  from { top: 0; }\n' +
+                        '  to { top: -'+headerHeight+'px; }\n' +
+                        '}\n' +
+                        '@keyframes header-expand-anim {\n' +
+                        '  from { top: -'+headerHeight+'px; }\n' +
+                        '  to { top: 0; }\n' +
+                        '}\n' +
+                        '.header-collapse {\n' +
+                        '  animation-fill-mode: forwards;\n' +
+                        '  animation-name: header-collapse-anim;\n' +
+                        '  animation-duration: 0.5s;\n' +
+                        '  top: -'+headerHeight+'px;\n' +
+                        '}\n' +
+                        '.header-expand {\n' +
+                        '  animation-fill-mode: forwards;\n' +
+                        '  animation-name: header-expand-anim;\n' +
+                        '  animation-duration: 0.5s;\n' +
+                        '  top: 0px;\n' +
+                        '}\n', null, 'onscroll_header_hide_show');
+                }
+            }
             headerBar.removeClass('header-expand')
                 .addClass('header-collapse');
+        }
+        if (footerBar != null && !footerBar.hasClass('footer-collapse')) {
+            if (footerHeight === 0) {
+                footerHeight = footerBar.position().rect.height;
+                if (headerHeight > 0) {
+                    zuix.$.appendCss('\n' +
+                        '/* Footer bar shrink/expand */\n' +
+                        '@keyframes footer-collapse-anim {\n' +
+                        '  from { bottom: 0; }\n' +
+                        '  to { bottom: -'+footerHeight+'px; }\n' +
+                        '}\n' +
+                        '@keyframes footer-expand-anim {\n' +
+                        '  from { bottom: -'+footerHeight+'px; }\n' +
+                        '  to { bottom: 0; }\n' +
+                        '}\n' +
+                        '.footer-collapse {\n' +
+                        '  animation-fill-mode: forwards;\n' +
+                        '  animation-name: footer-collapse-anim;\n' +
+                        '  animation-duration: 0.5s;\n' +
+                        '  bottom: -'+footerHeight+'px;\n' +
+                        '}\n' +
+                        '.footer-expand {\n' +
+                        '  animation-fill-mode: forwards;\n' +
+                        '  animation-name: footer-expand-anim;\n' +
+                        '  animation-duration: 0.5s;\n' +
+                        '  bottom: 0;\n' +
+                        '}\n', null, 'zkit_onscroll_hide_show');
+                }
+            }
+            footerBar.removeClass('footer-expand')
+                .addClass('footer-collapse');
         }
     }
 });
