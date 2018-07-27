@@ -81,9 +81,9 @@ zuix.controller(function(cp) {
             this.one('load', updateLayout);
         });
         // re-arrange view on layout changes
-        zuix.$(window).on('orientationchange', function() {
-            updateLayout();
-        });
+        zuix.$(window)
+            .on('resize', updateLayout)
+            .on('orientationchange', updateLayout);
         // Options for the observer (which mutations to observe)
         const config = {attributes: false, childList: true, subtree: false};
         // Register DOM mutation observer callback
@@ -196,11 +196,13 @@ zuix.controller(function(cp) {
             let size = getSize(el);
             if (layoutType === LAYOUT_HORIZONTAL) {
                 let centerY = (viewSize.height-size.height)/2;
+                if (centerY < 0) centerY = 0; // TODO: centering with negative offset was not working
                 transition(this, DEFAULT_PAGE_TRANSITION);
                 position(this, offset, centerY);
                 offset += size.width;
             } else {
                 let centerX = (viewSize.width-size.width)/2;
+                if (centerX < 0) centerX = 0; // TODO: centering with negative offset was not working
                 transition(this, DEFAULT_PAGE_TRANSITION);
                 position(this, centerX, offset);
                 offset += size.height;
