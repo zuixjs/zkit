@@ -1,3 +1,13 @@
+/**
+ * zUIx - Header Auto Hide (on scroll =))
+ *
+ * @version 1.0.0 (2018-07-25)
+ * @author Gene
+ *
+ */
+
+'use strict';
+
 zuix.controller(function(cp) {
     let headerBar;
     cp.init = function() {

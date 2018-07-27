@@ -26,5 +26,5 @@ The `source/docs` folder contains documentation of each component in the `lib` f
 
 ###### Resources and Docs
 
-- zUIx http://zuix.it
-- Static Site https://github.com/paulcpederson/static-site
+- [zUIx](https://genielabs.github.io/zuix)
+- [Static Site](https://github.com/paulcpederson/static-site)

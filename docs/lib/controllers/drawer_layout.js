@@ -1,6 +1,9 @@
 /**
  * zUIx - Drawer Layout
  *
+ * @version 1.0.1 (2018-07-27)
+ * @author Gene
+ *
  * @version 1.0.0 (2018-07-09)
  * @author Gene
  *
@@ -20,6 +23,8 @@ zuix.controller(function(cp) {
 
     let drawerWidth = 280;
     let autoHideWidth = 960;
+
+    let initialOffset = 0;
 
     cp.init = function() {
         let view = cp.view();
@@ -77,6 +82,9 @@ zuix.controller(function(cp) {
                 'gesture:touch': function(e, tp) {
                     if (isDrawerLocked) return;
                     transitionOn();
+                    if (isDrawerOpen && tp.startX < drawerWidth) {
+                        initialOffset = drawerWidth-tp.startX;
+                    } else initialOffset = 0;
                 },
                 'gesture:release': function(e, tp) {
                     if (isDrawerLocked) return;
@@ -98,7 +106,7 @@ zuix.controller(function(cp) {
                             isDragging = true;
                         }
                         transitionOn();
-                        dragTo(tp.x);
+                        dragTo(tp);
                         transitionOff();
                     }
                 }
@@ -192,9 +200,10 @@ zuix.controller(function(cp) {
         return isDrawerOpen;
     }
 
-    function dragTo(x) {
-        if (x > 0 && x < drawerWidth) {
-            x = -drawerWidth+x;
+    function dragTo(tp) {
+        let x = tp.x;
+        if (x > 0 && x <= drawerWidth-initialOffset) {
+            x = -drawerWidth+x+initialOffset;
             if (drawerLayout.visibility() === 'hidden') {
                 drawerLayout.visibility('initial');
             }

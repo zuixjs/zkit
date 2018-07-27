@@ -29,12 +29,12 @@
       "less": true,
       "esLint": true,
       "bundle": {
-        "js": false,
-        "css": false,
-        "zuix": false
+        "js": true,
+        "css": true,
+        "zuix": true
       },
       "minify": {
-        "disable": true,
+        "disable": false,
         "collapseWhitespace": true,
         "removeOptionalTags": true,
         "removeRedundantAttributes": true,
