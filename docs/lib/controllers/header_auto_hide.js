@@ -50,6 +50,7 @@ zuix.controller(function(cp) {
                             showBars();
                         }
                     }
+                    cp.trigger('page:scroll', data);
                 }
             }
         });
