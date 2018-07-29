@@ -259,6 +259,11 @@ data-o-passive="false"
                         <small>optional</small><br>
                         prevent touch events from being propagated to other elements off the view. The default value is <code>false</code>.
                     </li>
+                    <li>
+                        <code class="option">data-o-hide</code> (experimental)
+                        <small>optional</small><br>
+                        set page visibility to 'hidden' when off view. The default value is <code>false</code>.
+                    </li>
                 </ul>
 
             </main>
@@ -327,10 +332,13 @@ vp_options = {
 
 <pre self="center"><code class="html"><script>
 var vp_options = {
-  autoSlide: true,     // default `false`
-  enablePaging: true,  // default `false`
-  slideInterval: 500,  // default `750`
-  verticalLayout: true // default `false`
+  autoSlide: true,      // default `false`
+  enablePaging: true,   // default `false`
+  slideInterval: 500,   // default `750`
+  verticalLayout: true, // default `false`
+  holdTouch: true,      // default `false`
+  passive: false,       // default `true`
+  autoHide: true        // default `false`
 }
 </script></code></pre>
 

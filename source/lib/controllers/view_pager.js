@@ -1,6 +1,9 @@
 /**
  * zUIx - ViewPager Component
  *
+ * @version 1.0.4 (2018-06-29)
+ * @author Gene
+ *
  * @version 1.0.3 (2018-06-26)
  * @author Gene
  *
@@ -31,6 +34,7 @@ zuix.controller(function(cp) {
     let enablePaging = false;
     let holdTouch = false;
     let passiveMode = true;
+    let hideOffViewElements = false;
     // status
     let isDragging = false;
     let wasVisible = false;
@@ -66,6 +70,7 @@ zuix.controller(function(cp) {
         } else if (view.attr('data-o-slide-interval') != null) {
             slideIntervalMs = parseInt(view.attr('data-o-slide-interval'));
         }
+        hideOffViewElements = (options.autohide === true || (view.attr('data-o-autohide') === 'true'));
     };
 
     cp.create = function() {
@@ -407,28 +412,30 @@ zuix.controller(function(cp) {
                 clearInterval(componentizeInterval);
             }
             componentizeInterval = setInterval(function() {
-                const viewSize = getSize(cp.view().get());
-                pageList.each(function(i, el) {
-                    // hide elements if not inside the view_pager
-                    const computed = window.getComputedStyle(el, null);
-                    const size = {
-                        width: parseFloat(computed.width.replace('px', '')),
-                        height: parseFloat(computed.height.replace('px', ''))
-                    };
-                    const x = parseFloat(computed.left.replace('px', ''));
-                    const y = parseFloat(computed.top.replace('px', ''));
-                    if (size.width > 0 && size.height > 0) {
-                        el = zuix.$(el);
-                        // check if element is inside the view_pager
-                        if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
-                            if (el.visibility() !== 'hidden') {
-                                el.visibility('hidden');
+                if (hideOffViewElements) {
+                    const viewSize = getSize(cp.view().get());
+                    pageList.each(function (i, el) {
+                        // hide elements if not inside the view_pager
+                        const computed = window.getComputedStyle(el, null);
+                        const size = {
+                            width: parseFloat(computed.width.replace('px', '')),
+                            height: parseFloat(computed.height.replace('px', ''))
+                        };
+                        const x = parseFloat(computed.left.replace('px', ''));
+                        const y = parseFloat(computed.top.replace('px', ''));
+                        if (size.width > 0 && size.height > 0) {
+                            el = zuix.$(el);
+                            // check if element is inside the view_pager
+                            if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
+                                if (el.visibility() !== 'hidden') {
+                                    el.visibility('hidden');
+                                }
+                            } else if (el.visibility() !== 'visible') {
+                                el.visibility('visible');
                             }
-                        } else if (el.visibility() !== 'visible') {
-                            el.visibility('visible');
                         }
-                    }
-                });
+                    });
+                }
                 zuix.componentize(cp.view());
             }, 10);
         }
