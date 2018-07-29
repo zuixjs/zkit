@@ -82,8 +82,11 @@ zuix.controller(function(cp) {
         });
         // re-arrange view on layout changes
         zuix.$(window)
-            .on('resize', updateLayout)
-            .on('orientationchange', updateLayout);
+            .on('resize', function() {
+                layoutElements(true);
+            }).on('orientationchange', function() {
+                layoutElements(true);
+            });
         // Options for the observer (which mutations to observe)
         const config = {attributes: false, childList: true, subtree: false};
         // Register DOM mutation observer callback
@@ -157,8 +160,8 @@ zuix.controller(function(cp) {
         }
         updateLayoutTimeout = setTimeout(layoutElements, 250);
     }
-    function layoutElements() {
-        if (isDragging || componentizeInterval != null) {
+    function layoutElements(force) {
+        if (!force && (isDragging || componentizeInterval != null)) {
             updateLayout();
             return;
         }
