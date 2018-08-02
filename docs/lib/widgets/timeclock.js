@@ -1,21 +1,33 @@
-zuix.controller(function (cp) {
-    var updateTimeout = null;
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+/* globals zuix */
+zuix.controller(function(cp) {
+    // Private fields
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let updateTimeout = null;
 
-    cp.create = function () {
+    // This is called once the
+    // component is loaded and ready
+    cp.create = function() {
         refresh();
     };
 
-    cp.destroy = function () {
-        if (updateTimeout != null)
+    // This is called when eventually
+    // the component is disposed
+    cp.destroy = function() {
+        if (updateTimeout != null) {
             clearTimeout(updateTimeout);
+        }
     };
 
+    // the 'cp' object is the instance
+    // of this component and that implements
+    // the {ContextController} class
+
+    // this is a "private" method
     function refresh() {
-        var now = new Date();
-        var day = days[ now.getDay() ];
-        var month = months[ now.getMonth() ];
+        const now = new Date();
+        const day = days[now.getDay()];
+        const month = months[now.getMonth()];
         cp.field('info').html(day);
         cp.field('date').html(month+' '+now.getDate()+', '+now.getFullYear());
         cp.field('time').html(now.toLocaleTimeString());
