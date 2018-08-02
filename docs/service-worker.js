@@ -41,15 +41,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "34d0fa31bd3fd07c54775a1803dccf92"
+    "revision": "eed8af576a01be780bb48647c26b4291"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "fbf1555908695a2864851d86a846b602"
+    "revision": "6a9c82b77b2d5e243ebf0c0dd28a01c6"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "5c19cc541caf327c20f859f86a067fa9"
+    "revision": "32ff1071cc4d862201810ef46b8d1445"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "bdc54a09bda92c388cbbcdfad3e6d621"
+    "revision": "2dc03d76a88eb5c9787696f7c41eddac"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "507241d407f644eb6419e4f8971f406d"
+    "revision": "c83811b1a563ce13077516c5e5ef4d31"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "086dcbbc3dc507de6ada6333df980f1e"
+    "revision": "5bc2db573212d4ecfc28b90332450d48"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "064734b3a1cad1ba09999fd62cf3bbd4"
+    "revision": "e618bbca316110d5f1c3ecf83acee322"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -89,7 +89,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "6fa3bf568cd08bc864f165ef47b18c80"
+    "revision": "0e8e9daca4205a95c8ca972c3cf0721e"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "00a6062c643469593207b9b42b0a3344"
+    "revision": "3a30cf6ede7ed3a18a9d9bb38141001f"
   },
   {
     "url": "index.js",
@@ -153,15 +153,27 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
   },
   {
     "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "cf5a4704af21281f5440307cd16c154f"
   },
   {
     "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "f14af3ebc29559117372c9af37a0f313"
+  },
+  {
+    "url": "lib/components/media_browser/image.js",
+    "revision": "2436897f418899f6566ffaba5f794f97"
+  },
+  {
+    "url": "lib/components/media_browser/video.css",
+    "revision": "02f6d109360ce0c2cbd108542282656d"
+  },
+  {
+    "url": "lib/components/media_browser/video.html",
+    "revision": "84bf58f509119a6b118bc541175ac346"
   },
   {
     "url": "lib/components/media_browser/video.js",
@@ -221,27 +233,23 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/templates/spinkit/circle.css",
-    "revision": "e605150d128455248875cf8b704e4cd7"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/circle.html",
-    "revision": "286f7cfd97f5260c25b035a756da4e78"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "83427891b4e22468af0c577e87907349"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.html",
-    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
-    "revision": "124ee683f2a29ec4cd040bbd74c96746"
-  },
-  {
-    "url": "lib/templates/spinkit/fading_circle.html",
-    "revision": "3f231b39520b1138b1a1ad80d88f49a9"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/folding_cube.css",
