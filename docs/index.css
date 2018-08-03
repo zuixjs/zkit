@@ -1,6 +1,6 @@
 body {
     font-family: Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 main {
@@ -27,7 +27,7 @@ a,a:visited,a:hover {
     border-radius: 16px;
     background: rgba(255,255,255,0.1);
     text-decoration: none;
-    color: yellow;
+    color: yellow !important;
     font-weight: 700;
 }
 a:hover {
@@ -50,16 +50,16 @@ article h1, article h2 {
 }
 
 article h1 {
-    font-size: 225%;
+    font-size: 280%;
 }
 article h1 i.material-icons {
-    font-size: 110%;
+    font-size: 150%;
     vertical-align: text-top;
     margin-right: 6px;
 }
 
 article h2 {
-    font-size: 120%;
+    font-size: 150%;
 }
 
 article p {

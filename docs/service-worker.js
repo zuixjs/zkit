@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "a4d69ca3902782447209cbabd58971a0"
+    "revision": "63b736757c12a9324b14a6224fc8782c"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -97,11 +97,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.css",
-    "revision": "940ff7550327315ade279719b0510ea1"
+    "revision": "62ab8af06383656ce437439759bcfb3b"
   },
   {
     "url": "index.html",
-    "revision": "e8cfee80036b97779ee504e453d7205f"
+    "revision": "ef262ce7d49862eafef6ab2bad13231f"
   },
   {
     "url": "index.js",
@@ -148,28 +148,56 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/video.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/components/media_browser/video.js",
     "revision": "b541920f85e18da91d209c62374536b1"
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -181,23 +209,23 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "2846e86c684308549013364d9c966fff"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e800637eef4771966052e3ab4d5c2820"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "511611be6bd8e7300e845eb78494d94f"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -337,7 +365,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
+    "revision": "7f2ac62888191b5c5aa9b69f07968613"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -345,7 +373,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "949c06b5ed426ef0c24f415057fac4dc"
+    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
