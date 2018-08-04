@@ -1,8 +1,8 @@
 div[data-ui-context="menu-button"] {
     position: absolute !important;
     z-index: 1;
-    top: 8px;
-    right: 8px;
+    top: 2px;
+    right: 2px;
 }
 .header-cover {
     position: fixed;

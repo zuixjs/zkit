@@ -29,7 +29,7 @@ self.__precacheManifest = [
   },
   {
     "url": "css/docs.css",
-    "revision": "bd93f973196531a2bc9a2ebe7cd3b083"
+    "revision": "ffa290d2196a0f034822760266d7b091"
   },
   {
     "url": "css/flex-layout-attribute.min.css",
@@ -37,19 +37,19 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.css",
-    "revision": "b198267c8cb47e6a0917b9b27be74c47"
+    "revision": "583a6f5565b6caf8d5266da0ae8c175a"
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "e36038c3179250a230de2267854b8c53"
+    "revision": "83c5da62e08e1c6ed06fb15a72b120ef"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "610832c27b6425e21f9f0bc60832b2b0"
+    "revision": "8e3a973cc7f21690a55581770723c954"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "f8a670df0b61de633b68576db3920508"
+    "revision": "a02c267e2907f74ac51cff0aa182438a"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "51e42fb43949aac015cdfc4e517a3f25"
+    "revision": "7e85c02263f79e1c92ea7d001e4c1804"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "2a4e00c03e4335f691a714c858b1291c"
+    "revision": "2b7b860f3a3ebb084e346b8d9a34262c"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "f59c3e888adc213726affdf722e9e357"
+    "revision": "dc3bc71b6f7865d9ffac9a0639d06432"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "275eed7cb028edc74a06d8da6a287f76"
+    "revision": "add04511961bd1f98ef4660c7a6f7ba7"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -89,7 +89,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "358eb434a81f2ebfb06eb9776161b739"
+    "revision": "a7de483a5c106ed9f7cde8b44eff62b6"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "ef262ce7d49862eafef6ab2bad13231f"
+    "revision": "7f6aae393382baaeeb9a936b60e1927a"
   },
   {
     "url": "index.js",
@@ -146,34 +146,6 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/video.js",
@@ -309,7 +281,7 @@ self.__precacheManifest = [
   },
   {
     "url": "manifest.json",
-    "revision": "6893030a18010fabd7d4d1aa2f13b2cf"
+    "revision": "cc675e0c8dac4d18f4d768ebc2fc5357"
   },
   {
     "url": "images/capguy-walk.png",
@@ -365,7 +337,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -373,7 +345,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
