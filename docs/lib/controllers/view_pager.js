@@ -104,6 +104,7 @@ zuix.controller(function(cp) {
         zuix.load('@lib/controllers/gesture_helper', {
             view: view,
             passive: passiveMode,
+            startGap: 36,
             on: {
                 'gesture:touch': function(e, tp) {
                     inputCaptured = false;
@@ -146,7 +147,7 @@ zuix.controller(function(cp) {
             } else layoutType = LAYOUT_HORIZONTAL;
             updateLayout();
         }).expose('refresh', function() {
-            updateLayout();
+            layoutElements(true);
         }).expose('next', next)
             .expose('prev', prev)
             .expose('last', last)

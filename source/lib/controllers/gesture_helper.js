@@ -18,6 +18,7 @@ zuix.controller(function(cp) {
     let touchPointer = null;
     let ignoreSession = false;
     let passiveMode = true;
+    let startGap = -1;
     let currentGesture = null;
     let swipeDirection = null;
     let mouseButtonDown = false;
@@ -34,6 +35,7 @@ zuix.controller(function(cp) {
         options.html = false;
         options.css = false;
         passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
+        startGap = (options.startGap || view.attr('data-o-startGap'));
     };
 
     cp.create = function() {
@@ -48,7 +50,7 @@ zuix.controller(function(cp) {
         }).on('mousedown', {
             handler: function(e) {
                 const targetElement = zuix.$(e.target);
-                if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                if (e.which === 1 && targetElement.parent('[class*="no-gesture"]').length() === 0 && e.x > startGap) {
                     mouseButtonDown = true;
                     ignoreSession = false;
                     // targetElement.css('touch-action', 'none');
@@ -73,7 +75,7 @@ zuix.controller(function(cp) {
         }).on('touchstart', {
             handler: function(e) {
                 const targetElement = zuix.$(e.target);
-                if (targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                if (targetElement.parent('[class*="no-gesture"]').length() === 0 && e.touches[0].clientX > startGap) {
                     ignoreSession = false;
                     // targetElement.css('touch-action', 'none');
                     targetElement.get().draggable = false;
