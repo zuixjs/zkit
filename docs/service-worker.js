@@ -41,15 +41,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "83c5da62e08e1c6ed06fb15a72b120ef"
+    "revision": "47156480b91344452ac686529da63d91"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "8e3a973cc7f21690a55581770723c954"
+    "revision": "8d43850cae2068d75908dd450d777eb9"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "a02c267e2907f74ac51cff0aa182438a"
+    "revision": "1d64a559d282b0691fd661901855bbab"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "7e85c02263f79e1c92ea7d001e4c1804"
+    "revision": "43338c685b694c31d7b0849a543a2a03"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "2b7b860f3a3ebb084e346b8d9a34262c"
+    "revision": "d07c710748c6187b253a532ef2b407f1"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "dc3bc71b6f7865d9ffac9a0639d06432"
+    "revision": "5326fae564a574dbe3524b1e33db1d7e"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "add04511961bd1f98ef4660c7a6f7ba7"
+    "revision": "c60b040a87dbe0473aeb48eda5c72099"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -89,7 +89,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "a7de483a5c106ed9f7cde8b44eff62b6"
+    "revision": "049c1a1b236a7efaebb4f6e1a9406063"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "7f6aae393382baaeeb9a936b60e1927a"
+    "revision": "fa3f4d2f3753df62b029527f880880df"
   },
   {
     "url": "index.js",
@@ -122,6 +122,18 @@ self.__precacheManifest = [
   {
     "url": "js/zuix.min.js",
     "revision": "c41a4bbdc3dc4c0fdb4df45988b1990f"
+  },
+  {
+    "url": "lib/components/context_menu.css",
+    "revision": "312c1afcc03a291f20a3aad99722ddd9"
+  },
+  {
+    "url": "lib/components/context_menu.html",
+    "revision": "c994a0f9cfb0cfe61b3def6053fabf0e"
+  },
+  {
+    "url": "lib/components/context_menu.js",
+    "revision": "c944bebf09a9ba8a6f65e5c70f00584b"
   },
   {
     "url": "lib/components/hamburger_icon.css",
@@ -148,28 +160,36 @@ self.__precacheManifest = [
     "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
   },
   {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/components/media_browser/video.js",
     "revision": "b541920f85e18da91d209c62374536b1"
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "506d71122dfc55d9d6306c7bcfd772b6"
   },
   {
     "url": "lib/components/social_sharing.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "0b0a47fa081f1c12f590a9faaa2a8449"
   },
   {
     "url": "lib/components/social_sharing.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c430e8b7c7de35a8e1745c7fef67e781"
   },
   {
     "url": "lib/components/social_sharing.js",
@@ -181,23 +201,23 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "2846e86c684308549013364d9c966fff"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "e800637eef4771966052e3ab4d5c2820"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "511611be6bd8e7300e845eb78494d94f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -329,7 +349,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
