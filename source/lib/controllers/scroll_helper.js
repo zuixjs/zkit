@@ -173,7 +173,17 @@ zuix.controller(function(cp) {
 
     function updateScrollInfo() {
         const scrollable = cp.view().get();
-        const vp = scrollable.getBoundingClientRect();
+        const rect = scrollable.getBoundingClientRect();
+        const vp = {
+            top: rect.top,
+            right: rect.right,
+            bottom: rect.bottom,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            x: rect.x,
+            y: rect.y
+        };
         vp.y = -cp.view().get().scrollTop || vp.y;
         vp.height = cp.view().get().scrollHeight || vp.height;
         scrollInfo.size.width = vp.width;
