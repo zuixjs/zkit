@@ -90,8 +90,8 @@ zuix.controller(function(cp) {
             .on('resize', function() {
                 layoutElements(true);
             }).on('orientationchange', function() {
-            layoutElements(true);
-        });
+                layoutElements(true);
+            });
         // Options for the observer (which mutations to observe)
         const config = {attributes: false, childList: true, subtree: false};
         // Register DOM mutation observer callback

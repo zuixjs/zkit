@@ -17,7 +17,12 @@ zuix.controller(function(cp) {
 
     let youtubeApiCallbacks = [];
     let youtubeApiReady = false;
-    zuix.ZxQuery.prototype.animateCss = function() {return this;};
+
+    if (zuix.ZxQuery.prototype.animateCss == null) {
+        zuix.ZxQuery.prototype.animateCss = function() {
+            return this;
+        };
+    }
 
     cp.create = function() {
         // export public component methods

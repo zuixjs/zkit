@@ -41,15 +41,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "47156480b91344452ac686529da63d91"
+    "revision": "8db429237b947f3326b2516fcbdd4780"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "8d43850cae2068d75908dd450d777eb9"
+    "revision": "7f58b0a063e4e436d99bcbcc6f5379df"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "1d64a559d282b0691fd661901855bbab"
+    "revision": "a6baad2dabaef0c74a23b52b7ed7127c"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "43338c685b694c31d7b0849a543a2a03"
+    "revision": "c444759adadefed20a30f62847abad5f"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "d07c710748c6187b253a532ef2b407f1"
+    "revision": "6fb8a252ac94d8ef70da6478b1d77af8"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "5326fae564a574dbe3524b1e33db1d7e"
+    "revision": "8cee8b619cbe1b962c2f2587b3746751"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -81,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "c60b040a87dbe0473aeb48eda5c72099"
+    "revision": "d5f10c3244e9290b638a9f185c96da91"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -89,7 +89,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "049c1a1b236a7efaebb4f6e1a9406063"
+    "revision": "41cc436eac573b1fa4fd71944e9bed0a"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "fa3f4d2f3753df62b029527f880880df"
+    "revision": "825f5bb08fd3d58a22dc15bfdcdcc1bb"
   },
   {
     "url": "index.js",
@@ -149,7 +149,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "cf10ef2e886fe09767bf05cf83d5cc03"
+    "revision": "442b0edde1d0d983246313de1ca2384f"
   },
   {
     "url": "lib/components/media_browser.html",
@@ -157,15 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "88f15ecbcbb83c9b1d6c49b2b2cfc899"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
     "url": "lib/components/media_browser/video.js",
@@ -349,7 +341,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",

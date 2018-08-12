@@ -34,7 +34,6 @@ svg {
 }
 
 [data-ui-field="media"] article {
-    visibility: hidden;
     width: 100vw;
     height: 100vh;
 }
