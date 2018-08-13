@@ -15,7 +15,7 @@
   "repository": "https://github.com/genielabs/zkit",
   "devDependencies": {
     "chokidar": "^2.0.4",
-    "config": "^1.30.0",
+    "config": "^1.31.0",
     "delay": "^2.0.0",
     "es6-promise": "latest",
     "eslint": "^4.19.1",
@@ -24,9 +24,9 @@
     "highlight.js": "latest",
     "html-minifier": "^3.5.19",
     "http-server": "^0.11.1",
-    "jsdom": "^11.10.0",
+    "jsdom": "^11.12.0",
     "json-stringify": "^1.0.0",
-    "less": "^3.7.1",
+    "less": "^3.8.1",
     "measure-time": "^3.1.1",
     "ncp": "^2.0.0",
     "npmlog": "^4.1.2",
@@ -35,8 +35,8 @@
     "swig-extras": "latest",
     "swig-templates": "latest",
     "sync-request": "^6.0.0",
-    "terminal-kit": "^1.17.12",
+    "terminal-kit": "^1.26.1",
     "workbox-build": "^3.4.1",
-    "zuix-dist": "^0.4.9-49"
+    "zuix-dist": "^0.4.9-55"
   }
 }

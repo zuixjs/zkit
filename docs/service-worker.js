@@ -109,19 +109,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "cd4d2491f787cab75e871ce3c7c2a1fd"
+    "revision": "11c768a25a24f0742c768c492ec8ea0b"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "f0869de8aea2e54e9dea19fc6bf15edd"
+    "revision": "f0e06db1a193147f2edb10ab9bd7fefa"
   },
   {
     "url": "js/zuix.js",
-    "revision": "212883fdac0b3dc43377c546db1806c5"
+    "revision": "0d13a5b85331ad5ae00b6d62a45a362d"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "c41a4bbdc3dc4c0fdb4df45988b1990f"
+    "revision": "b498cc4ae5ee9815e661a11e9d5b6931"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -149,18 +149,14 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "442b0edde1d0d983246313de1ca2384f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "bc33395ec9cbf86c9afbd712ea193137"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
@@ -252,16 +248,16 @@ self.__precacheManifest = [
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
-    "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "lib/templates/spinkit/cube_grid.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "124ee683f2a29ec4cd040bbd74c96746"
+  },
+  {
+    "url": "lib/templates/spinkit/fading_circle.html",
+    "revision": "3f231b39520b1138b1a1ad80d88f49a9"
   },
   {
     "url": "lib/templates/spinkit/folding_cube.css",
@@ -365,11 +361,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
@@ -393,11 +389,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",

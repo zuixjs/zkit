@@ -1,4 +1,4 @@
-/* zUIx v0.4.9-49 18.07.17 22:01:01 */
+/* zUIx v0.4.9-55 18.08.13 12:53:05 */
 
 /** @typedef {Zuix} window.zuix */!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.zuix=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /*
@@ -1333,7 +1333,7 @@ z$.wrapElement = function(containerTag, element) {
     return container;
 };
 z$.wrapCss = function(wrapperRule, css) {
-    const wrapReX = /((.*){([^{}]|((.*){([^}]+)[}]))*})/g;
+    const wrapReX = /(([a-zA-Z0-9\240-\377=:-_\n,.@]+.*){([^{}]|((.*){([^}]+)[}]))*})/g;
     let wrappedCss = '';
     let ruleMatch;
     // remove comments
@@ -1341,8 +1341,9 @@ z$.wrapCss = function(wrapperRule, css) {
     do {
         ruleMatch = wrapReX.exec(css);
         if (ruleMatch && ruleMatch.length > 1) {
-            const ruleParts = ruleMatch[2];
+            let ruleParts = ruleMatch[2];
             if (ruleParts != null && ruleParts.length > 0) {
+                ruleParts = ruleParts.replace(/\n/g, '');
                 const classes = ruleParts.split(',');
                 let isMediaQuery = false;
                 z$.each(classes, function(k, v) {
@@ -2013,14 +2014,14 @@ ComponentContext.prototype.style = function(css) {
         // store original unparsed css (might be useful for debugging)
         this._css = css;
 
-        // nest the CSS inside [data-ui-component='<componentId>']
-        // so that the style is only applied to this component type
-        css = z$.wrapCss('['+_optionAttributes.dataUiComponent+'="' + this.componentId + '"]:not(.zuix-css-ignore)', css);
-
         // trigger `css:parse` hook before assigning content to the view
         const hookData = {content: css};
         this.trigger(this, 'css:parse', hookData);
         css = hookData.content;
+
+        // nest the CSS inside [data-ui-component='<componentId>']
+        // so that the style is only applied to this component type
+        css = z$.wrapCss('['+_optionAttributes.dataUiComponent+'="' + this.componentId + '"]:not(.zuix-css-ignore)', css);
 
         // output css
         this._style = z$.appendCss(css, this._style, this.componentId);
@@ -2810,7 +2811,7 @@ function loadInline(element) {
 
 function resolvePath(path) {
     let config = zuix.store('config');
-    if (config[location.host] != null) {
+    if (config != null && config[location.host] != null) {
         config = config[location.host];
     }
     const libraryPath = config != null && config.libraryPath != null ? config.libraryPath : LIBRARY_PATH_DEFAULT;
@@ -3709,7 +3710,7 @@ function load(componentId, options) {
 
 function getResourcePath(path) {
     let config = zuix.store('config');
-    if (config[location.host] != null) {
+    if (config != null && config[location.host] != null) {
         config = config[location.host];
     }
     path = _componentizer.resolvePath(path);
@@ -4061,7 +4062,10 @@ function createComponent(context, task) {
                 initController(context._c);
             });
         }
-        z$(context.view()).attr(_optionAttributes.dataUiContext, context.contextId);
+        const v = z$(context.view());
+        if (v.attr(_optionAttributes.dataUiContext) == null) {
+            v.attr(_optionAttributes.dataUiContext, context.contextId);
+        }
 
         _log.d(context.componentId, 'component:initializing');
         if (util.isFunction(context.controller())) {
