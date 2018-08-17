@@ -55,6 +55,8 @@ zuix.controller(function(cp) {
             'bottom': 0,
             'right': 0,
             'z-index': 100,
+            '-ms-touch-action': 'none',
+            'touch-action': 'none',
             'background-color': 'rgba(0, 0, 0, 0.5)'
         }).on('click', function() {
             if (!isDrawerLocked) {
@@ -69,6 +71,8 @@ zuix.controller(function(cp) {
             'overflow-y': 'auto',
             'left': 0, 'width': drawerWidth+'px', 'top': 0, 'bottom': 0,
             'z-index': 101,
+            '-ms-touch-action': 'none',
+            'touch-action': 'none',
             '-webkit-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',
             '-moz-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',
             'box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)'

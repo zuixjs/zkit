@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "cb14050863344eb24c1d6df4432ce318"
+    "revision": "c8056a671c42f11d2c09d87f226e0477"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "fda75d18bcb944ff12567ef8fa2244fb"
+    "revision": "53a0de21a9981869ccd6e92aea4f7634"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -129,7 +129,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/context_menu.css",
-    "revision": "6eea914310ebdcba515aa4bde11fe82c"
+    "revision": "1ab97b7c8b80820314713f9fb0ec566b"
   },
   {
     "url": "lib/components/context_menu.html",
@@ -149,19 +149,35 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/hamburger_icon.js",
-    "revision": "dea51abdfabfd08c5ac0b1bf4e337eb8"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "442b0edde1d0d983246313de1ca2384f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "bc33395ec9cbf86c9afbd712ea193137"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "922f392e98cd6812dc59d1b007d96e16"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "cf5a4704af21281f5440307cd16c154f"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "f14af3ebc29559117372c9af37a0f313"
   },
   {
     "url": "lib/components/media_browser/image.js",
@@ -181,14 +197,18 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/social_sharing.css",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
@@ -201,47 +221,31 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/drawer_layout.js",
-    "revision": "b905cfd04e3a36c4f989091ae067d680"
+    "revision": "6cd924a4108c126bfcbc1654b34c449b"
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "6a7410b8974bf4cd4cce3ea025bc7704"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "26c7281bb3319db61e0269fc0f39e8da"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e0845c18735463b24a178f2625c64850"
   },
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.css",
-    "revision": "e605150d128455248875cf8b704e4cd7"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.html",
-    "revision": "286f7cfd97f5260c25b035a756da4e78"
-  },
-  {
-    "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "83427891b4e22468af0c577e87907349"
-  },
-  {
-    "url": "lib/templates/spinkit/cube_grid.html",
-    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
@@ -297,11 +301,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/widgets/timeclock.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "4c687f8a0d9d08f7fdf1118610df1a27"
   },
   {
     "url": "lib/widgets/timeclock.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "41e4d5fdaaa451e63d07ae10d4dc173a"
   },
   {
     "url": "manifest.json",
@@ -378,10 +382,6 @@ self.__precacheManifest = [
   {
     "url": "images/parallax/layer05_Hills.png",
     "revision": "c0a27bdedd23577f0184b3346c8c7ff5"
-  },
-  {
-    "url": "images/parallax/layer06_Rocks.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",

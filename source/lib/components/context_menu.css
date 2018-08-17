@@ -4,6 +4,8 @@
     left:0;
     right: 0;
     top: 0;
+    -ms-touch-action: none;
+    touch-action: none;
     background: rgba(0,0,0,0.5);
     z-index: 200;
     -webkit-transition: opacity 0.25s ease-in-out;
