@@ -59,6 +59,20 @@ function init() {
                     }
                 });
             });
+            // mouse wheel control
+            let lastWheelAction = Date.now();
+            window.addEventListener('wheel', function(e) {
+                if (Date.now() - lastWheelAction < 750) {
+                    return;
+                }
+                if (e.deltaY < -2) {
+                    mainPager.prev();
+                    lastWheelAction = Date.now();
+                } else if (e.deltaY > 2) {
+                    mainPager.next();
+                    lastWheelAction = Date.now();
+                }
+            });
         }
     });
     // keyboard navigation

@@ -1,6 +1,6 @@
 body {
     font-family: Helvetica, sans-serif;
-    font-size: 28px;
+    font-size: 26px;
 }
 
 main {
@@ -158,4 +158,50 @@ a.exit-link i {
     text-transform: uppercase;
     border: solid 1px rgba(255,255,0,0.5);
     border-radius: 4px;
+}
+
+.gradient-1 {
+    background: linear-gradient(to bottom right, #880e4f, rgba(255,255,255,0.5));
+}
+
+
+.gradient-2 {
+    background: linear-gradient(to top left, #4a148c, rgba(255,255,255,0.5));
+}
+
+.gradient-3 {
+    background: linear-gradient(to bottom right, #1b5e20, rgba(255,255,255,0.5));
+}
+
+.gradient-4 {
+    background: linear-gradient(to top left, #880e4f, rgba(255,255,255,0.5));
+}
+
+.gradient-anim {
+    background-size: 400% 400%;
+    -webkit-animation: gradient-anim 60s ease infinite;
+    -moz-animation: gradient-anim 60s ease infinite;
+    -o-animation: gradient-anim 60s ease infinite;
+    animation: gradient-anim 60s ease infinite;
+}
+
+@-webkit-keyframes gradient-anim {
+    0%{background-position:0 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0 50%}
+}
+@-moz-keyframes gradient-anim {
+    0%{background-position:0 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0 50%}
+}
+@-o-keyframes gradient-anim {
+    0%{background-position:0 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0 50%}
+}
+@keyframes gradient-anim {
+    0%{background-position:0 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0 50%}
 }

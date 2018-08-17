@@ -13,8 +13,11 @@ zuix.controller(function(cp){
             .on('click', function() {
                 hideMenu();
             })
-            .on('keypress', function() {
-
+            .on('keydown', function(evt) {
+                evt = evt || window.event;
+                if (evt.keyCode === 27) {
+                    hideMenu();
+                }
             });
         zuix.load('@lib/controllers/gesture_helper', {
             view: view,
@@ -46,8 +49,10 @@ zuix.controller(function(cp){
         // animation will not work without this delay =/
         setTimeout(function() {
             view.css('opacity', 1);
-            menu.css('bottom', 0);
+            menu.css('bottom', 0)
+                .get().focus();
         }, 100);
+        cp.trigger('open');
     }
 
     function hideMenu() {
@@ -56,5 +61,6 @@ zuix.controller(function(cp){
             })
             .css('opacity', 0);
         menu.css('bottom', -(menu.position().rect.height)+'px');
+        cp.trigger('close');
     }
 });

@@ -16,6 +16,12 @@
         </a>
     </div>
     <div class="wh100" layout="column center-center">
+        <h1>Context Menu</h1>
+        <a href="docs/components/context_menu" class="exit-link animated fadeInUp">
+            <i class="material-icons">list_alt</i>
+        </a>
+    </div>
+    <div class="wh100" layout="column center-center">
         <h1>Hamburger Icon</h1>
         <a href="docs/components/hamburger_icon" class="exit-link animated fadeInUp">
             <i class="material-icons">menu</i>
@@ -43,7 +49,7 @@
 {% block footer %}
 <div data-ui-field="indicator_2" class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
     <a href="javascript:viewPager2.page(0)" class="circle-button page-active"></a>
-    {% for i in Array(2) %}
+    {% for i in Array(3) %}
     <a href="javascript:viewPager2.page({{ loop.index }})" class="circle-button"></a>
     {% endfor %}
 </div>
