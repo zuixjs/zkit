@@ -184,8 +184,8 @@ zuix.controller(function(cp) {
             x: rect.x,
             y: rect.y
         };
-        vp.y = -cp.view().get().scrollTop || vp.y;
-        vp.height = cp.view().get().scrollHeight || vp.height;
+        vp.y = -cp.view().get().scrollTop || (vp.y ? vp.y : 0);
+        vp.height = cp.view().get().scrollHeight || (vp.height ? vp.height : 0);
         scrollInfo.size.width = vp.width;
         scrollInfo.size.height = vp.height;
         if (scrollable === document.body) {
