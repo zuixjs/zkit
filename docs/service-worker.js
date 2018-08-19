@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "c4ece3bdba7367d464d861841691de77"
+    "revision": "d414777c47f856402ad6700470b1dcae"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "391307f38568a185f006d01a58423316"
+    "revision": "ecc662a222f307be6133977c6e4f4aa9"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "50c11bd467a6338110db29d271e94862"
+    "revision": "9669c51ce3c28d3354f318ed05930fb5"
   },
   {
     "url": "index.js",
@@ -113,19 +113,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "11c768a25a24f0742c768c492ec8ea0b"
+    "revision": "049ef0a061acdc17668974f93a68c01f"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "f0e06db1a193147f2edb10ab9bd7fefa"
+    "revision": "c4e4d35ef0ae605ed92ab28c1665656c"
   },
   {
     "url": "js/zuix.js",
-    "revision": "0d13a5b85331ad5ae00b6d62a45a362d"
+    "revision": "766ae560e206b6dc001bd769796fe39c"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "b498cc4ae5ee9815e661a11e9d5b6931"
+    "revision": "91d25db55cab906cb04eb37aa8e6f4be"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -241,7 +241,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "e0845c18735463b24a178f2625c64850"
+    "revision": "8693bdc27c361567176195c851971790"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -369,7 +369,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -377,7 +377,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",

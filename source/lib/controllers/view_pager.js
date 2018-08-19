@@ -38,6 +38,7 @@ zuix.controller(function(cp) {
     // status
     let isDragging = false;
     let wasVisible = false;
+    let isLazyContainer = false;
     // timers
     let componentizeInterval = null;
     let componentizeTimeout = null;
@@ -90,8 +91,8 @@ zuix.controller(function(cp) {
             .on('resize', function() {
                 layoutElements(true);
             }).on('orientationchange', function() {
-                layoutElements(true);
-            });
+            layoutElements(true);
+        });
         // Options for the observer (which mutations to observe)
         const config = {attributes: false, childList: true, subtree: false};
         // Register DOM mutation observer callback
@@ -126,6 +127,9 @@ zuix.controller(function(cp) {
                 },
                 'gesture:pan': handlePan,
                 'gesture:swipe': handleSwipe
+            },
+            ready: function() {
+                layoutElements(true);
             }
         });
         // public component methods
@@ -201,6 +205,7 @@ zuix.controller(function(cp) {
         }
         // position elements
         let offset = 0;
+        let isLazy = false;
         pageList.each(function(i, el) {
             let size = getSize(el);
             if (layoutType === LAYOUT_HORIZONTAL) {
@@ -216,7 +221,10 @@ zuix.controller(function(cp) {
                 position(this, centerX, offset);
                 offset += size.height;
             }
+            if (this.find('[data-ui-lazyload="true"]').length() > 0) isLazy = true;
         });
+        isLazyContainer = isLazy;
+
         // focus to current page
         setPage(currentPage);
         // start automatic slide
@@ -404,7 +412,7 @@ zuix.controller(function(cp) {
     }
 
     function componentizeStart() {
-        if (isLazyContainer()) {
+        if (isLazyContainer) {
             componentizeStop();
             if (componentizeTimeout != null) {
                 clearTimeout(componentizeTimeout);
@@ -443,7 +451,7 @@ zuix.controller(function(cp) {
     }
 
     function componentizeStop() {
-        if (isLazyContainer() && componentizeTimeout == null) {
+        if (isLazyContainer && componentizeTimeout == null) {
             clearInterval(componentizeInterval);
         }
     }
@@ -492,7 +500,7 @@ zuix.controller(function(cp) {
                 componentizeStop();
             }, tr.duration*1000);
             tr = tr.duration+'s '+tr.easing;
-        } else if (isLazyContainer()) {
+        } else if (isLazyContainer) {
             zuix.componentize(cp.view());
         }
         pageList.each(function(i, el) {
@@ -511,11 +519,6 @@ zuix.controller(function(cp) {
         if (tp != null) tp.done = true;
         componentizeStop();
         isDragging = false;
-    }
-
-    function isLazyContainer() {
-        const lazy = cp.view().find('[data-ui-lazyload="true"]').length() > 0;
-        return lazy;
     }
 
     // Gesture handling
