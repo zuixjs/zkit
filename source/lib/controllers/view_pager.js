@@ -94,7 +94,7 @@ zuix.controller(function(cp) {
             layoutElements(true);
         });
         // Options for the observer (which mutations to observe)
-        const config = {attributes: false, childList: true, subtree: false};
+        const config = {attributes: false, childList: true, subtree: true, characterData: false};
         // Register DOM mutation observer callback
         domObserver.observe(view.get(), config);
         updateLayout();
@@ -221,7 +221,10 @@ zuix.controller(function(cp) {
                 position(this, centerX, offset);
                 offset += size.height;
             }
-            if (this.find('[data-ui-lazyload="true"]').length() > 0) isLazy = true;
+            if (this.attr('data-ui-lazyload') === 'true'
+                || this.find('[data-ui-lazyload="true"]').length() > 0) {
+                isLazy = true;
+            }
         });
         isLazyContainer = isLazy;
 

@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "d414777c47f856402ad6700470b1dcae"
+    "revision": "248439f8b15a8dadc8a41b635bc63070"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "ecc662a222f307be6133977c6e4f4aa9"
+    "revision": "5ac34779b614acce5c21dc7cb500a698"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "9669c51ce3c28d3354f318ed05930fb5"
+    "revision": "fe272dd74bbaa3074efc0fc235b6edd7"
   },
   {
     "url": "index.js",
@@ -162,10 +162,6 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "922f392e98cd6812dc59d1b007d96e16"
   },
   {
     "url": "lib/components/media_browser/article.html",
@@ -241,7 +237,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "8693bdc27c361567176195c851971790"
+    "revision": "f9e1320cab1b4d64a034cffb2430018d"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -361,11 +357,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
@@ -389,11 +385,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "ab380e350e6def2b0203a692d0cbba5d"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",
