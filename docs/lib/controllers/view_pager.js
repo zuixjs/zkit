@@ -1,6 +1,9 @@
 /**
  * zUIx - ViewPager Component
  *
+ * @version 1.0.5 (2018-08-21)
+ * @author Gene
+ *
  * @version 1.0.4 (2018-06-29)
  * @author Gene
  *
@@ -16,6 +19,8 @@
 
 zuix.controller(function(cp) {
     const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};
+    const BOUNDARY_HIT_EASING = 'cubic-bezier(0.1,0.45,0.35,1.1)';
+    const DECELERATE_SCROLL_EASING = 'cubic-bezier(0.1,0.45,0.35,1.0)';
     const LAYOUT_HORIZONTAL = 'horizontal';
     const LAYOUT_VERTICAL = 'vertical';
     const SLIDE_DIRECTION_FORWARD = 1;
@@ -94,9 +99,13 @@ zuix.controller(function(cp) {
             layoutElements(true);
         });
         // Options for the observer (which mutations to observe)
-        const config = {attributes: false, childList: true, subtree: true, characterData: false};
         // Register DOM mutation observer callback
-        domObserver.observe(view.get(), config);
+        domObserver.observe(view.get(), {
+            attributes: false,
+            childList: true,
+            subtree: true,
+            characterData: false
+        });
         updateLayout();
         // Set starting page
         setPage(0);
@@ -116,6 +125,7 @@ zuix.controller(function(cp) {
                 'gesture:release': function(e, tp) {
                     dragStop(tp);
                     resetAutoSlide();
+                    decelerate(e, tp);
                 },
                 'gesture:tap': function(e, tp) {
                     if (tapTimeout != null) {
@@ -189,7 +199,7 @@ zuix.controller(function(cp) {
             if (viewSize.height === 0 && cp.view().position().visible) {
                 let maxHeight = 0;
                 // guess and set view_pager height
-                pageList.each(function (i, el) {
+                pageList.each(function(i, el) {
                     let size = getSize(el);
                     if (size.height > maxHeight) {
                         maxHeight = size.height;
@@ -371,13 +381,15 @@ zuix.controller(function(cp) {
                     x = -spec.marginLeft*2 + viewSize.width - (lastData.position.x + lastPage.get().offsetWidth);
                 }
             }
+            // check if boundary was adjusted and adjust flying duration accordingly
             if (targetPoint.x-x !== 0 && transition != null) {
                 transition = {
-                    duration: transition.duration,
-                    easing: transition.easing
+                    duration: transition.duration * (x / targetPoint.x),
+                    easing: BOUNDARY_HIT_EASING
                 };
-                transition.duration *= (x / targetPoint.x);
-                if (transition.duration < 0) transition.duration = 0.15;
+                if (!isFinite(transition.duration) || transition.duration < 0) {
+                    transition.duration = 0.2;
+                }
             }
             dragShift(x, 0, transition);
         } else {
@@ -389,13 +401,15 @@ zuix.controller(function(cp) {
                     y = -spec.marginTop*2 + viewSize.height - (lastData.position.y + lastPage.get().offsetHeight);
                 }
             }
+            // check if boundary was adjusted and adjust flying duration accordingly
             if (targetPoint.y-y !== 0 && transition != null) {
                 transition = {
-                    duration: transition.duration,
-                    easing: transition.easing
+                    duration: transition.duration * (y / targetPoint.y),
+                    easing: BOUNDARY_HIT_EASING
                 };
-                transition.duration *= (y / targetPoint.y);
-                if (transition.duration < 0) transition.duration = 0.15;
+                if (!isFinite(transition.duration) || transition.duration < 0) {
+                    transition.duration = 0.2;
+                }
             }
             dragShift(0, y, transition);
         }
@@ -426,7 +440,7 @@ zuix.controller(function(cp) {
             componentizeInterval = setInterval(function() {
                 if (hideOffViewElements) {
                     const viewSize = getSize(cp.view().get());
-                    pageList.each(function (i, el) {
+                    pageList.each(function(i, el) {
                         // hide elements if not inside the view_pager
                         const computed = window.getComputedStyle(el, null);
                         const size = {
@@ -564,13 +578,19 @@ zuix.controller(function(cp) {
         if (enablePaging) focusPageAt(tp);
     }
 
-    function handleSwipe(e, tp) {
+    function decelerate(e, tp) {
+        // TODO: should the following 3 const be placed in the parent scope?
+        const minStepSpeed = 0.3;
+        const minSpeed = 0.01;
+        const friction = 0.998;
+        const duration = Math.log(minSpeed / Math.abs(tp.velocity)) / Math.log(friction);
         const decelerateEasing = {
-            duration: (1+(1/Math.abs(tp.velocity))),
-            easing: 'cubic-bezier(0.1,0.45,0.35,1.1)'
+            duration: duration / 1000, // ms to s
+            easing: DECELERATE_SCROLL_EASING
         };
         const fly = function(destination, shift) {
             if (enablePaging) {
+                decelerateEasing.duration *= 0.5;
                 if (layoutType === LAYOUT_HORIZONTAL) {
                     focusPageAt({
                         x: destination.x - shift.x,
@@ -586,35 +606,32 @@ zuix.controller(function(cp) {
                 flyTo(shift, decelerateEasing);
             }
         };
-        const fastSwipe = (!enablePaging && Math.abs(tp.velocity) > 0.35) || (Math.abs(tp.velocity) > 1.25);
+        const flyingDistance = tp.stepSpeed < minStepSpeed ? 0 : 2 * tp.velocity * (1 - Math.pow(friction, duration + 1)) / (1 - friction);
         const ap = {
-            x: (tp.velocity * 1000),
-            y: (tp.velocity * 1000)
+            x: flyingDistance,
+            y: flyingDistance
         };
+        if (!enablePaging || Math.abs(tp.velocity) > 1.25) {
+            fly(tp, ap);
+        }
+    }
+
+    function handleSwipe(e, tp) {
+        if (!enablePaging || Math.abs(tp.velocity) > 1.25) {
+            return;
+        }
         switch (tp.direction) {
             case 'right':
-                if (layoutType === LAYOUT_HORIZONTAL) {
-                    if (fastSwipe) fly(tp, ap);
-                    else if (enablePaging) prev();
-                }
+                if (layoutType === LAYOUT_HORIZONTAL) prev();
                 break;
             case 'left':
-                if (layoutType === LAYOUT_HORIZONTAL) {
-                    if (fastSwipe) fly(tp, ap);
-                    else if (enablePaging) next();
-                }
+                if (layoutType === LAYOUT_HORIZONTAL) next();
                 break;
             case 'down':
-                if (layoutType === LAYOUT_VERTICAL) {
-                    if (fastSwipe) fly(tp, ap);
-                    else if (enablePaging) prev();
-                }
+                if (layoutType === LAYOUT_VERTICAL) prev();
                 break;
             case 'up':
-                if (layoutType === LAYOUT_VERTICAL) {
-                    if (fastSwipe) fly(tp, ap);
-                    else if (enablePaging) next();
-                }
+                if (layoutType === LAYOUT_VERTICAL) next();
                 break;
         }
     }

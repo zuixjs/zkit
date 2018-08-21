@@ -1,6 +1,9 @@
 /**
  * zUIx - Gesture Controller
  *
+ * @version 1.0.1 (2018-08-21)
+ * @author Gene
+ *
  * @version 1.0.0 (2018-03-11)
  * @author Gene
  *
@@ -15,12 +18,13 @@ zuix.controller(function(cp) {
     const GESTURE_TAP_TIMEOUT = 750;
 
     let scrollMode = SCROLL_MODE_NONE;
-    let touchPointer = null;
+    let touchPointer;
     let ignoreSession = false;
     let passiveMode = true;
     let startGap = -1;
-    let currentGesture = null;
-    let swipeDirection = null;
+    let currentGesture;
+    let swipeDirection;
+    let speedMeter;
     let mouseButtonDown = false;
     let lastTapTime = new Date().getTime();
 
@@ -134,6 +138,7 @@ zuix.controller(function(cp) {
                 return false;
             }
         };
+        speedMeter = speedObserver(touchPointer);
         cp.trigger('gesture:touch', touchPointer);
     }
     function touchMove(e, x, y) {
@@ -150,7 +155,7 @@ zuix.controller(function(cp) {
                 if (swipeDirection != null && swipeDirection !== touchPointer.direction) {
                     // stop gesture detection if not coherent
                     currentGesture = false;
-                    swipeDirection = touchPointer.direction = 'cancel';
+                    swipeDirection = 'cancel';
                 } else {
                     currentGesture = gesture;
                     swipeDirection = touchPointer.direction;
@@ -162,6 +167,7 @@ zuix.controller(function(cp) {
 
     function touchStop(e) {
         if (touchPointer != null) {
+            speedMeter.update();
             touchPointer.event = e;
             if (currentGesture == null) {
                 currentGesture = detectGesture();
@@ -179,49 +185,97 @@ zuix.controller(function(cp) {
 
     function detectGesture() {
         let gesture = null;
-        const elapsedTime = touchPointer.endTime-touchPointer.stepTime;
-        const l = {x: (touchPointer.shiftX-touchPointer.stepX), y: (touchPointer.shiftY-touchPointer.stepY)};
-        const d = Math.sqrt(l.x*l.x+l.y*l.y);
-        touchPointer.velocity = (d/elapsedTime);
-        const minDistance = 3;
+        // update touchPointer.velocity data
+        speedMeter.update();
+        // update tap gesture and swipe direction
+        const minStepDistance = 3;
         const angle = Math.atan2(touchPointer.shiftY-touchPointer.stepY, touchPointer.shiftX-touchPointer.stepX) * 180 / Math.PI;
-        if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && elapsedTime < GESTURE_TAP_TIMEOUT) {
+        if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && touchPointer.stepTime < GESTURE_TAP_TIMEOUT) {
             // gesture TAP
             lastTapTime = new Date().getTime();
             gesture = 'gesture:tap';
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)
-            && d > minDistance && ((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135))) {
+            && touchPointer.stepDistance > minStepDistance && ((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135))) {
             // gesture swipe RIGHT
             touchPointer.direction = 'left';
-            touchPointer.velocity *= -1;
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_HORIZONTAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_HORIZONTAL)
-            && d > minDistance && ((angle >= 0 && angle <= 45) || (angle >= -45 && angle < 0))) {
+            && touchPointer.stepDistance > minStepDistance && ((angle >= 0 && angle <= 45) || (angle >= -45 && angle < 0))) {
             // gesture swipe LEFT
             touchPointer.direction = 'right';
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_HORIZONTAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)
-            && d > minDistance && (angle > 45 && angle < 135)) {
+            && touchPointer.stepDistance > minStepDistance && (angle > 45 && angle < 135)) {
             // gesture swipe UP
             touchPointer.direction = 'down';
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_VERTICAL;
         } else if ((scrollMode === SCROLL_MODE_NONE || scrollMode === SCROLL_MODE_VERTICAL)
-            && d > minDistance && (angle > -135 && angle < -45)) {
+            && touchPointer.stepDistance > minStepDistance && (angle > -135 && angle < -45)) {
             // gesture swipe DOWN
             touchPointer.direction = 'up';
-            touchPointer.velocity *= -1;
             gesture = 'gesture:swipe';
             scrollMode = SCROLL_MODE_VERTICAL;
         }
         // reset touch step data
-        if (d > minDistance) {
-            touchPointer.stepTime = touchPointer.endTime;
-            touchPointer.stepX = touchPointer.shiftX;
-            touchPointer.stepY = touchPointer.shiftY;
+        if (touchPointer.stepDistance > minStepDistance) {
+            speedMeter.step();
         }
         return gesture;
+    }
+
+    function speedObserver(tp) {
+        let direction = '';
+        let startData = {
+            time: 0,
+            x: 0, y: 0
+        };
+        let stopData = {
+            time: 0,
+            x: 0, y: 0
+        };
+        return {
+            update: function() {
+                stopData.time = new Date().getTime();
+                stopData.x = tp.x;
+                stopData.y = tp.y;
+                if (direction !== tp.direction) {
+                    this.reset();
+                    return;
+                }
+                const elapsedTime = stopData.time - startData.time;
+                let l = {x: (stopData.x - startData.x), y: (stopData.y - startData.y)};
+                const d = Math.sqrt(l.x*l.x + l.y*l.y);
+                tp.distance = d;
+                // movement speed in px/ms
+                let speed = (d / elapsedTime);
+                // add the direction info
+                tp.velocity = (tp.direction === 'left' || tp.direction === 'up') ? -speed : speed;
+                // update "step" speed data
+                tp.stepTime = (tp.endTime-tp.stepTime);
+                l = {x: (tp.shiftX-tp.stepX), y: (tp.shiftY-tp.stepY)};
+                tp.stepDistance = Math.sqrt(l.x*l.x+l.y*l.y);
+                tp.stepSpeed = (tp.stepDistance / tp.stepTime);
+            },
+            reset: function() {
+                // direction changed: reset
+                direction = tp.direction;
+                startData.time = new Date().getTime();
+                startData.x = tp.x;
+                startData.y = tp.y;
+                tp.velocity = 0;
+                tp.distance = 0;
+                this.step();
+            },
+            step: function() {
+                tp.stepTime = tp.endTime;
+                tp.stepX = tp.shiftX;
+                tp.stepY = tp.shiftY;
+                tp.stepSpeed = 0;
+                tp.stepDistance = 0;
+            }
+        };
     }
 });
