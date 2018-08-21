@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "825a3901fb04f6b5f4b772bb950c5af8"
+    "revision": "78fc2ca718f808c6361de7218d27a4ea"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "657a7e64bf0d362a155d6742f0530270"
+    "revision": "436a917470180b02db840675f28b611b"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "867413a04a8ca0814ef1424c5e5d3529"
+    "revision": "3c881469bbdd8a088768e751bae363b2"
   },
   {
     "url": "index.js",
@@ -153,19 +153,15 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "442b0edde1d0d983246313de1ca2384f"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "922f392e98cd6812dc59d1b007d96e16"
+    "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
     "url": "lib/components/media_browser/article.html",
@@ -197,11 +193,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -225,27 +221,31 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "9b87fd8c10121aff015bcb8f985fec03"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "68a8af206c909efc6da050de5cfd6ad8"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "16bac6cb2fe308dcad3abff38225c998"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
+  },
+  {
+    "url": "lib/templates/spinkit/cube_grid.html",
+    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
@@ -360,12 +360,8 @@ self.__precacheManifest = [
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
-    "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -373,7 +369,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
@@ -385,7 +381,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+    "revision": "ab380e350e6def2b0203a692d0cbba5d"
   },
   {
     "url": "images/parallax/layer07_Sky.png",

@@ -125,7 +125,6 @@ zuix.controller(function(cp) {
                 'gesture:release': function(e, tp) {
                     dragStop(tp);
                     resetAutoSlide();
-                    decelerate(e, tp);
                 },
                 'gesture:tap': function(e, tp) {
                     if (tapTimeout != null) {
@@ -528,10 +527,9 @@ zuix.controller(function(cp) {
     }
 
     function dragStop(tp) {
-        if (enablePaging && componentizeTimeout == null) {
-            setTimeout(function() {
-                setPage(currentPage, DEFAULT_PAGE_TRANSITION);
-            }, 10);
+        // decelerate
+        if ((layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') || (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical')) {
+            decelerate(null, tp);
         }
         if (tp != null) tp.done = true;
         componentizeStop();
