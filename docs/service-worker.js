@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "78fc2ca718f808c6361de7218d27a4ea"
+    "revision": "64d263220829ff4e35b9721d8e9c3aa5"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "436a917470180b02db840675f28b611b"
+    "revision": "a31586407a0e0dd17e9039cd782bc49d"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "3c881469bbdd8a088768e751bae363b2"
+    "revision": "92329bd425e80d2a201555dc1cf8350b"
   },
   {
     "url": "index.js",
@@ -164,16 +164,16 @@ self.__precacheManifest = [
     "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/components/media_browser/article.html",
-    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.css",
-    "revision": "cf5a4704af21281f5440307cd16c154f"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "f14af3ebc29559117372c9af37a0f313"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.js",
@@ -242,6 +242,18 @@ self.__precacheManifest = [
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
+  },
+  {
+    "url": "lib/templates/spinkit/circle.css",
+    "revision": "e605150d128455248875cf8b704e4cd7"
+  },
+  {
+    "url": "lib/templates/spinkit/circle.html",
+    "revision": "286f7cfd97f5260c25b035a756da4e78"
+  },
+  {
+    "url": "lib/templates/spinkit/cube_grid.css",
+    "revision": "83427891b4e22468af0c577e87907349"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.html",
@@ -357,7 +369,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
+  },
+  {
+    "url": "images/icons/safari-pinned-tab.svg",
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
@@ -381,11 +397,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "ab380e350e6def2b0203a692d0cbba5d"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",

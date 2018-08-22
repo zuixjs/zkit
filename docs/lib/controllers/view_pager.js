@@ -39,6 +39,7 @@ zuix.controller(function(cp) {
     let enablePaging = false;
     let holdTouch = false;
     let passiveMode = true;
+    let startGap = 0;
     let hideOffViewElements = false;
     // status
     let isDragging = false;
@@ -68,6 +69,7 @@ zuix.controller(function(cp) {
         enableAutoSlide = (options.autoSlide === true || (view.attr('data-o-slide') === 'true'));
         passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
         holdTouch = (options.holdTouch === true || (view.attr('data-o-hold') === 'true'));
+        startGap = (options.startGap === true || (view.attr('data-o-startgap') != null));
         if (options.verticalLayout === true || (view.attr('data-o-layout') === LAYOUT_VERTICAL)) {
             layoutType = LAYOUT_VERTICAL;
         }
@@ -114,7 +116,7 @@ zuix.controller(function(cp) {
         zuix.load('@lib/controllers/gesture_helper', {
             view: view,
             passive: passiveMode,
-            startGap: 36,
+            startGap: startGap,
             on: {
                 'gesture:touch': function(e, tp) {
                     inputCaptured = false;
@@ -578,9 +580,9 @@ zuix.controller(function(cp) {
 
     function decelerate(e, tp) {
         // TODO: should the following 3 const be placed in the parent scope?
-        const minStepSpeed = 0.3;
         const minSpeed = 0.01;
         const friction = 0.998;
+        const minStepSpeed = 1.25;
         const duration = Math.log(minSpeed / Math.abs(tp.velocity)) / Math.log(friction);
         const decelerateEasing = {
             duration: duration / 1000, // ms to s
@@ -609,13 +611,15 @@ zuix.controller(function(cp) {
             x: flyingDistance,
             y: flyingDistance
         };
-        if (!enablePaging || Math.abs(tp.velocity) > 1.25) {
-            fly(tp, ap);
-        }
+        if (willFly(tp)) fly(tp, ap);
+    }
+
+    function willFly(tp) {
+        return (!enablePaging || Math.abs(tp.velocity) > 1.25);
     }
 
     function handleSwipe(e, tp) {
-        if (!enablePaging || Math.abs(tp.velocity) > 1.25) {
+        if (willFly(tp)) {
             return;
         }
         switch (tp.direction) {
