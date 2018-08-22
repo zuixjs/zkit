@@ -69,7 +69,7 @@ zuix.controller(function(cp) {
         enableAutoSlide = (options.autoSlide === true || (view.attr('data-o-slide') === 'true'));
         passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
         holdTouch = (options.holdTouch === true || (view.attr('data-o-hold') === 'true'));
-        startGap = (options.startGap === true || (view.attr('data-o-startgap') != null));
+        startGap = (options.startGap || view.attr('data-o-startgap'));
         if (options.verticalLayout === true || (view.attr('data-o-layout') === LAYOUT_VERTICAL)) {
             layoutType = LAYOUT_VERTICAL;
         }

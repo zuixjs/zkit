@@ -39,7 +39,7 @@ zuix.controller(function(cp) {
         options.html = false;
         options.css = false;
         passiveMode = (options.passive !== false && (view.attr('data-o-passive') !== 'false'));
-        startGap = (options.startGap || view.attr('data-o-startGap'));
+        startGap = (options.startGap || view.attr('data-o-startgap'));
     };
 
     cp.create = function() {
