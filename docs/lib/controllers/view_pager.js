@@ -1,6 +1,9 @@
 /**
  * zUIx - ViewPager Component
  *
+ * @version 1.0.6 (2018-08-24)
+ * @author Gene
+ *
  * @version 1.0.5 (2018-08-21)
  * @author Gene
  *
@@ -50,13 +53,10 @@ zuix.controller(function(cp) {
     let componentizeTimeout = null;
     /** @typedef {ZxQuery} */
     let pageList = null;
-    // Create an observer instance to watch for child add/remove
+    // Create a mutation observer instance to watch for child add/remove
     const domObserver = new MutationObserver(function(a, b) {
         // update child list and re-layout
         pageList = cp.view().children();
-        // force update layout by canceling any pending 'componentize' request
-        clearInterval(componentizeInterval);
-        componentizeInterval = null;
         updateLayout();
     });
 
