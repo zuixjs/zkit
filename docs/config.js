@@ -5,7 +5,7 @@
         "googleSiteId": "UA-123-456",
         "resourcePath": "",
         "libraryPath": "/lib/",
-        "genielabs.github.io": {
+        "zuixjs.github.io": {
                 "resourcePath": "/zkit/",
                 "libraryPath": "/lib/"
         }

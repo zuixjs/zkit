@@ -4,12 +4,12 @@ A collection of framework-agnostic web components made with zUIx.
 
 http://kit.zuix.it
 
-https://genielabs.github.io/zkit
+https://zuixjs.github.io/zkit
 
 
 #### Development
 
-This website is based on [zUIx Web Starter](https://github.com/genemars/zuix-web-starter).
+This website is based on [zUIx Web Starter](https://github.com/zuixjs/zuix-web-starter).
 
 1. `npm install` to install development dependencies
 2. `npm start` to start local web server
@@ -26,5 +26,5 @@ The `source/docs` folder contains documentation of each component in the `lib` f
 
 ###### Resources and Docs
 
-- [zUIx](https://genielabs.github.io/zuix)
+- [zUIx](https://zuixjs.github.io/zuix)
 - [Static Site](https://github.com/paulcpederson/static-site)

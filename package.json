@@ -2,7 +2,7 @@
   "name": "zuix-kit",
   "version": "1.0.1",
   "description": "zKit is a collection of framework-agnostic web components made with zUIx.",
-  "homepage": "https://genielabs.github.io/zkit",
+  "homepage": "https://zuixjs.github.io/zkit",
   "private": true,
   "scripts": {
     "info": "echo 'zKit, a collection of framework-agnostic web components made with zUIx.'",
@@ -12,7 +12,7 @@
   },
   "author": "G-Labs",
   "license": "Apache 2.0",
-  "repository": "https://github.com/genielabs/zkit",
+  "repository": "https://github.com/zuixjs/zkit",
   "devDependencies": {
     "chokidar": "^2.0.4",
     "config": "^1.31.0",
