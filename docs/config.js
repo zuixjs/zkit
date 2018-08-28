@@ -7,7 +7,7 @@
         "libraryPath": "/lib/",
         "zuixjs.github.io": {
                 "resourcePath": "/zkit/",
-                "libraryPath": "/zkit/lib/"
+                "libraryPath": "lib/"
         }
 });
 
