@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "9c1d2abd8cad432d5ad66c465d69370d"
+    "revision": "b4103969aa15d9ee91c82fdca64c9dbb"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "57ce7fc7ea2dea2746e2fff70e9464b5"
+    "revision": "214fa12b95abb2e0777a60ed3ca7ffcd"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "423f443883ba1ce4b57843ef4509860e"
+    "revision": "46418e2f68d9c202262f6672c41c5916"
   },
   {
     "url": "index.js",
@@ -241,15 +241,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "071de0f3520bd5ef66fc8157e4d8d3ab"
+    "revision": "0d806c3f3dcd6b10499c6cc4b1d62571"
   },
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
   },
   {
-    "url": "lib/templates/spinkit/cube_grid.html",
-    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
+    "url": "lib/templates/spinkit/circle.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/templates/spinkit/circle.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",

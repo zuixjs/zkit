@@ -48,6 +48,7 @@ zuix.controller(function(cp) {
     let isDragging = false;
     let wasVisible = false;
     let isLazyContainer = false;
+    let isFlying = false;
     let actualViewSize = {
         width: 0,
         height: 0
@@ -133,7 +134,6 @@ zuix.controller(function(cp) {
                     resetAutoSlide();
                 },
                 'gesture:tap': function(e, tp) {
-console.log("TAP")
                     if (tapTimeout != null) {
                         clearTimeout(tapTimeout);
                     }
@@ -418,6 +418,7 @@ console.log("TAP")
             }
             dragShift(0, y, transition);
         }
+        isFlying = true;
     }
 
     function getSize(el) {
@@ -479,6 +480,7 @@ console.log("TAP")
 
     function dragStart() {
         isDragging = true;
+        isFlying = false;
         pageList.each(function(i, el) {
             const data = getData(this);
             const frameSpec = getFrameSpec();
@@ -533,7 +535,7 @@ console.log("TAP")
         if (tp != null) {
             tp.done = true;
             // decelerate
-            if ((layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') || (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical')) {
+            if (!isFlying && ((layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') || (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical'))) {
                 decelerate(null, tp);
             }
         }
