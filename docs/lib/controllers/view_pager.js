@@ -22,8 +22,8 @@
 
 zuix.controller(function(cp) {
     const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};
-    const BOUNDARY_HIT_EASING = 'cubic-bezier(0.1,0.45,0.35,1.1)';
-    const DECELERATE_SCROLL_EASING = 'cubic-bezier(0.1,0.45,0.35,1.0)';
+    const BOUNDARY_HIT_EASING = 'cubic-bezier(0.0,0.1,0.25,1.1)';
+    const DECELERATE_SCROLL_EASING = 'cubic-bezier(0.0,0.1,0.25,1.0)';
     const LAYOUT_HORIZONTAL = 'horizontal';
     const LAYOUT_VERTICAL = 'vertical';
     const SLIDE_DIRECTION_FORWARD = 1;
@@ -48,6 +48,10 @@ zuix.controller(function(cp) {
     let isDragging = false;
     let wasVisible = false;
     let isLazyContainer = false;
+    let actualViewSize = {
+        width: 0,
+        height: 0
+    };
     // timers
     let componentizeInterval = null;
     let componentizeTimeout = null;
@@ -129,6 +133,7 @@ zuix.controller(function(cp) {
                     resetAutoSlide();
                 },
                 'gesture:tap': function(e, tp) {
+console.log("TAP")
                     if (tapTimeout != null) {
                         clearTimeout(tapTimeout);
                     }
@@ -214,6 +219,7 @@ zuix.controller(function(cp) {
             updateLayout();
             return;
         }
+        actualViewSize = viewSize;
         // position elements
         let offset = 0;
         let isLazy = false;
@@ -348,17 +354,15 @@ zuix.controller(function(cp) {
         const el = pageList.eq(n);
         const data = getData(el);
         const elSize = getSize(el.get());
-        const viewSize = getSize(cp.view().get());
         const focusPoint = {
-            x: (viewSize.width - elSize.width) / 2 - data.position.x,
-            y: (viewSize.height - elSize.height) / 2 - data.position.y
+            x: (actualViewSize.width - elSize.width) / 2 - data.position.x,
+            y: (actualViewSize.height - elSize.height) / 2 - data.position.y
         };
         flyTo(focusPoint, transition);
         resetAutoSlide();
     }
 
     function flyTo(targetPoint, transition) {
-        const viewSize = getSize(cp.view().get());
         const spec = getFrameSpec();
         const firstData = getData(pageList.eq(0));
         const lastPage = pageList.eq(pageList.length() - 1);
@@ -378,8 +382,8 @@ zuix.controller(function(cp) {
             if (firstData.position.x + targetPoint.x > 0) {
                 x = -firstData.position.x;
             } else {
-                if (lastData.position.x + lastPage.get().offsetWidth + targetPoint.x < viewSize.width) {
-                    x = -spec.marginLeft*2 + viewSize.width - (lastData.position.x + lastPage.get().offsetWidth);
+                if (lastData.position.x + lastPage.get().offsetWidth + targetPoint.x < actualViewSize.width) {
+                    x = -spec.marginLeft*2 + actualViewSize.width - (lastData.position.x + lastPage.get().offsetWidth);
                 }
             }
             // check if boundary was adjusted and adjust flying duration accordingly
@@ -398,8 +402,8 @@ zuix.controller(function(cp) {
             if (firstData.position.y + targetPoint.y > 0) {
                 y = -firstData.position.y;
             } else {
-                if (lastData.position.y + lastPage.get().offsetHeight + targetPoint.y < viewSize.height) {
-                    y = -spec.marginTop*2 + viewSize.height - (lastData.position.y + lastPage.get().offsetHeight);
+                if (lastData.position.y + lastPage.get().offsetHeight + targetPoint.y < actualViewSize.height) {
+                    y = -spec.marginTop*2 + actualViewSize.height - (lastData.position.y + lastPage.get().offsetHeight);
                 }
             }
             // check if boundary was adjusted and adjust flying duration accordingly
@@ -440,7 +444,6 @@ zuix.controller(function(cp) {
             }
             componentizeInterval = setInterval(function() {
                 if (hideOffViewElements) {
-                    const viewSize = getSize(cp.view().get());
                     pageList.each(function(i, el) {
                         // hide elements if not inside the view_pager
                         const computed = window.getComputedStyle(el, null);
@@ -453,7 +456,7 @@ zuix.controller(function(cp) {
                         if (size.width > 0 && size.height > 0) {
                             el = zuix.$(el);
                             // check if element is inside the view_pager
-                            if (x + size.width < 0 || y + size.height < 0 || x > viewSize.width || y > viewSize.height) {
+                            if (x + size.width < 0 || y + size.height < 0 || x > actualViewSize.width || y > actualViewSize.height) {
                                 if (el.visibility() !== 'hidden') {
                                     el.visibility('hidden');
                                 }
@@ -476,7 +479,6 @@ zuix.controller(function(cp) {
 
     function dragStart() {
         isDragging = true;
-        componentizeStart();
         pageList.each(function(i, el) {
             const data = getData(this);
             const frameSpec = getFrameSpec();
@@ -496,16 +498,15 @@ zuix.controller(function(cp) {
             marginLeft: 0,
             marginTop: 0
         };
-        const viewSize = getSize(cp.view().get());
         pageList.each(function(i, el) {
             const size = getSize(el);
             spec.w += size.width;
             spec.h += size.height;
         });
-        if (layoutType === LAYOUT_HORIZONTAL && spec.w < viewSize.width) {
-            spec.marginLeft = (viewSize.width - spec.w) / 2;
-        } else if (layoutType === LAYOUT_VERTICAL && spec.h < viewSize.height) {
-            spec.marginTop = (viewSize.height - spec.h) / 2;
+        if (layoutType === LAYOUT_HORIZONTAL && spec.w < actualViewSize.width) {
+            spec.marginLeft = (actualViewSize.width - spec.w) / 2;
+        } else if (layoutType === LAYOUT_VERTICAL && spec.h < actualViewSize.height) {
+            spec.marginTop = (actualViewSize.height - spec.h) / 2;
         }
         return spec;
     }
@@ -529,11 +530,13 @@ zuix.controller(function(cp) {
     }
 
     function dragStop(tp) {
-        // decelerate
-        if ((layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') || (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical')) {
-            decelerate(null, tp);
+        if (tp != null) {
+            tp.done = true;
+            // decelerate
+            if ((layoutType === LAYOUT_HORIZONTAL && tp.scrollIntent() === 'horizontal') || (layoutType === LAYOUT_VERTICAL && tp.scrollIntent() === 'vertical')) {
+                decelerate(null, tp);
+            }
         }
-        if (tp != null) tp.done = true;
         componentizeStop();
         isDragging = false;
     }
@@ -581,7 +584,7 @@ zuix.controller(function(cp) {
     function decelerate(e, tp) {
         // TODO: should the following 3 const be placed in the parent scope?
         const minSpeed = 0.01;
-        const friction = 0.998;
+        const friction = 0.995;
         const minStepSpeed = 1.25;
         const duration = Math.log(minSpeed / Math.abs(tp.velocity)) / Math.log(friction);
         const decelerateEasing = {
@@ -611,7 +614,7 @@ zuix.controller(function(cp) {
             x: flyingDistance,
             y: flyingDistance
         };
-        if (willFly(tp)) fly(tp, ap);
+        if (willFly(tp) || e == null) fly(tp, ap);
     }
 
     function willFly(tp) {

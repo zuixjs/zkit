@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "312b1b4466680a884fea22a097d3121b"
+    "revision": "27997d9cdce1acb7980bf5426d4e5df6"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "77f7ed621e1be999dcfa1b7399915347"
+    "revision": "9c1d2abd8cad432d5ad66c465d69370d"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "65b84722287496d2987b90c3dbbf4ba5"
+    "revision": "57ce7fc7ea2dea2746e2fff70e9464b5"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "e3aa579cf48881ea5f160d2d247fe204"
+    "revision": "423f443883ba1ce4b57843ef4509860e"
   },
   {
     "url": "index.js",
@@ -113,19 +113,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "049ef0a061acdc17668974f93a68c01f"
+    "revision": "67966e8a0391d6aaaf82bf4457b4cb6d"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "c4e4d35ef0ae605ed92ab28c1665656c"
+    "revision": "5608ee77b079dd94db01ecd2f26afb10"
   },
   {
     "url": "js/zuix.js",
-    "revision": "766ae560e206b6dc001bd769796fe39c"
+    "revision": "9754a5685a04cab4e889b33cd54577dd"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "91d25db55cab906cb04eb37aa8e6f4be"
+    "revision": "d25fa195aff036fef82da66c37082100"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -153,15 +153,31 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "442b0edde1d0d983246313de1ca2384f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "bc33395ec9cbf86c9afbd712ea193137"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.css",
+    "revision": "922f392e98cd6812dc59d1b007d96e16"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "cf5a4704af21281f5440307cd16c154f"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "f14af3ebc29559117372c9af37a0f313"
   },
   {
     "url": "lib/components/media_browser/image.js",
@@ -181,11 +197,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -209,39 +225,27 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "4229c04853fd9fa043c4915a960b4c76"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "535eba11165949fd636e144a9e6d3435"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "68a8af206c909efc6da050de5cfd6ad8"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "071de0f3520bd5ef66fc8157e4d8d3ab"
   },
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.css",
-    "revision": "e605150d128455248875cf8b704e4cd7"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.html",
-    "revision": "286f7cfd97f5260c25b035a756da4e78"
-  },
-  {
-    "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "83427891b4e22468af0c577e87907349"
   },
   {
     "url": "lib/templates/spinkit/cube_grid.html",
