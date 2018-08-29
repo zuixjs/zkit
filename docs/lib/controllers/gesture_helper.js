@@ -188,7 +188,7 @@ zuix.controller(function(cp) {
         // update touchPointer.velocity data
         speedMeter.update();
         // update tap gesture and swipe direction
-        const minStepDistance = 3;
+        const minStepDistance = 2; // <--- !!! this should not be greater than 2 for best performance
         const angle = Math.atan2(touchPointer.shiftY-touchPointer.stepY, touchPointer.shiftX-touchPointer.stepX) * 180 / Math.PI;
         if ((touchPointer.shiftX) === 0 && (touchPointer.shiftY) === 0 && touchPointer.startTime > lastTapTime+100 && touchPointer.stepTime < GESTURE_TAP_TIMEOUT) {
             // gesture TAP
@@ -227,7 +227,7 @@ zuix.controller(function(cp) {
     }
 
     function speedObserver(tp) {
-        let direction = '';
+        let direction;
         let startData = {
             time: 0,
             x: 0, y: 0
@@ -236,14 +236,34 @@ zuix.controller(function(cp) {
             time: 0,
             x: 0, y: 0
         };
+        let step = function() {
+            tp.stepTime = tp.endTime;
+            tp.stepX = tp.shiftX;
+            tp.stepY = tp.shiftY;
+            tp.stepSpeed = 0;
+            tp.stepDistance = 0;
+        };
+        let reset = function() {
+            // direction changed: reset
+            direction = tp.direction;
+            startData.time = new Date().getTime();
+            startData.x = tp.x;
+            startData.y = tp.y;
+            tp.velocity = 0;
+            tp.distance = 0;
+            step();
+        };
+        reset();
         return {
             update: function() {
                 stopData.time = new Date().getTime();
                 stopData.x = tp.x;
                 stopData.y = tp.y;
-                if (direction !== tp.direction) {
-                    this.reset();
+                if (direction != null && direction !== tp.direction) {
+                    reset();
                     return;
+                } else if (direction == null && tp.direction !== direction) {
+                    direction = tp.direction;
                 }
                 const elapsedTime = stopData.time - startData.time;
                 let l = {x: (stopData.x - startData.x), y: (stopData.y - startData.y)};
@@ -259,23 +279,7 @@ zuix.controller(function(cp) {
                 tp.stepDistance = Math.sqrt(l.x*l.x+l.y*l.y);
                 tp.stepSpeed = (tp.stepDistance / tp.stepTime);
             },
-            reset: function() {
-                // direction changed: reset
-                direction = tp.direction;
-                startData.time = new Date().getTime();
-                startData.x = tp.x;
-                startData.y = tp.y;
-                tp.velocity = 0;
-                tp.distance = 0;
-                this.step();
-            },
-            step: function() {
-                tp.stepTime = tp.endTime;
-                tp.stepX = tp.shiftX;
-                tp.stepY = tp.shiftY;
-                tp.stepSpeed = 0;
-                tp.stepDistance = 0;
-            }
+            step: step
         };
     }
 });

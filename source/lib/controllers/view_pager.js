@@ -22,8 +22,8 @@
 
 zuix.controller(function(cp) {
     const DEFAULT_PAGE_TRANSITION = {duration: 0.3, easing: 'ease'};
-    const BOUNDARY_HIT_EASING = 'cubic-bezier(0.0,0.1,0.25,1.1)';
-    const DECELERATE_SCROLL_EASING = 'cubic-bezier(0.0,0.1,0.25,1.0)';
+    const BOUNDARY_HIT_EASING = 'cubic-bezier(0.0,0.1,0.35,1.1)';
+    const DECELERATE_SCROLL_EASING = 'cubic-bezier(0.0,0.1,0.35,1.0)';
     const LAYOUT_HORIZONTAL = 'horizontal';
     const LAYOUT_VERTICAL = 'vertical';
     const SLIDE_DIRECTION_FORWARD = 1;
@@ -584,10 +584,13 @@ zuix.controller(function(cp) {
     }
 
     function decelerate(e, tp) {
-        // TODO: should the following 3 const be placed in the parent scope?
         const minSpeed = 0.01;
-        const friction = 0.995;
         const minStepSpeed = 1.25;
+        const accelerationFactor = Math.exp(Math.abs(tp.velocity / (Math.abs(tp.velocity) <= minStepSpeed ? 5 : 2))+1);
+        let friction = 0.990 + (accelerationFactor / 1000);
+        if (friction > 0.999) {
+            friction = 0.999;
+        }
         const duration = Math.log(minSpeed / Math.abs(tp.velocity)) / Math.log(friction);
         const decelerateEasing = {
             duration: duration / 1000, // ms to s
@@ -611,7 +614,7 @@ zuix.controller(function(cp) {
                 flyTo(shift, decelerateEasing);
             }
         };
-        const flyingDistance = tp.stepSpeed < minStepSpeed ? 0 : 2 * tp.velocity * (1 - Math.pow(friction, duration + 1)) / (1 - friction);
+        const flyingDistance = tp.stepSpeed < minStepSpeed ? 0 : accelerationFactor * tp.velocity * (1 - Math.pow(friction, duration + 1)) / (1 - friction);
         const ap = {
             x: flyingDistance,
             y: flyingDistance

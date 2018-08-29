@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "config.js",
-    "revision": "27997d9cdce1acb7980bf5426d4e5df6"
+    "revision": "de42a24117823cc837000f93669c883b"
   },
   {
     "url": "css/docs-view-pager.css",
@@ -49,7 +49,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "b4103969aa15d9ee91c82fdca64c9dbb"
+    "revision": "fbfdeab8c25f0a8a176d14c7fae95639"
   },
   {
     "url": "docs/components/menu_overlay.html",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "495122954567898c69219077ea68d2be"
+    "revision": "64264f837ef18dbb7c1b7a21d880474b"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "214fa12b95abb2e0777a60ed3ca7ffcd"
+    "revision": "72fa791b3d56231d2447fc1735ea7b7d"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "46418e2f68d9c202262f6672c41c5916"
+    "revision": "cd74fdf2d3e35070175fbb52c2c47681"
   },
   {
     "url": "index.js",
@@ -153,31 +153,15 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "442b0edde1d0d983246313de1ca2384f"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "922f392e98cd6812dc59d1b007d96e16"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "cf5a4704af21281f5440307cd16c154f"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "f14af3ebc29559117372c9af37a0f313"
+    "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
     "url": "lib/components/media_browser/image.js",
@@ -197,11 +181,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -225,23 +209,23 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "4229c04853fd9fa043c4915a960b4c76"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "68a8af206c909efc6da050de5cfd6ad8"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "0d806c3f3dcd6b10499c6cc4b1d62571"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -249,11 +233,19 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/templates/spinkit/circle.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e605150d128455248875cf8b704e4cd7"
   },
   {
     "url": "lib/templates/spinkit/circle.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "286f7cfd97f5260c25b035a756da4e78"
+  },
+  {
+    "url": "lib/templates/spinkit/cube_grid.css",
+    "revision": "83427891b4e22468af0c577e87907349"
+  },
+  {
+    "url": "lib/templates/spinkit/cube_grid.html",
+    "revision": "cc51572a5290f77a59cdd0c6ccd65cb4"
   },
   {
     "url": "lib/templates/spinkit/fading_circle.css",
@@ -309,10 +301,6 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/widgets/timeclock.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/widgets/timeclock.js",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
