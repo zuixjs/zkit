@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "420febec86667ce9ef0defedf7356e6d"
+    "revision": "7a1f6b3a3b40c1100301cb69e08e9061"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -45,15 +45,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "53443b89379042eb6e5b7b41a0c9f312"
+    "revision": "6fb8f0a3cd596926287d1d9d3b612593"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "fa6ba04330d45465ef84523bf94eb810"
+    "revision": "aeecda43b355a7a75474cffdc074e24c"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "ed133f6d7501c7163f95ae71d2ab0732"
+    "revision": "f08a6276a082bdf4442027d0c903e999"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "7bb3366fbf135fcc1869fcf5cbb9ae10"
+    "revision": "948f880e3f1c1af7e56b77e5fa8c9dce"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "039f422aa4b8dc14ea2ac4f1082637bd"
+    "revision": "61040e42d39250b13a027b6890272ed1"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "9f3f7bed2544013e3955144f3f79db13"
+    "revision": "31e271a1d710710484d506224d5723ee"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "15c52d15d7247bd7418473c6149ca109"
+    "revision": "d2c59f6d29c12179b5b2cb8e1a962509"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -93,7 +93,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "9f533d611a31abf030f528eddcad6b9f"
+    "revision": "16c3c679120f831286e9cf92d2cf555b"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b1e63195f14343746bb8ab2737fcf063"
+    "revision": "8e833840ddfc01361a4d71a40882d23f"
   },
   {
     "url": "index.js",
@@ -164,8 +164,20 @@ self.__precacheManifest = [
     "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "2436897f418899f6566ffaba5f794f97"
+    "url": "lib/components/media_browser/article.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/article.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.css",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/media_browser/image.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/video.css",
@@ -185,7 +197,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -196,8 +208,36 @@ self.__precacheManifest = [
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
+    "url": "lib/components/social_sharing.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/components/social_sharing.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "lib/controllers/drawer_layout.js",
     "revision": "6cd924a4108c126bfcbc1654b34c449b"
+  },
+  {
+    "url": "lib/controllers/gesture_helper.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/controllers/header_auto_hide.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/controllers/list_view.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/controllers/scroll_helper.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/controllers/view_pager.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
@@ -272,6 +312,14 @@ self.__precacheManifest = [
     "revision": "d6acbfd22af28ce13562b8693c9d13b9"
   },
   {
+    "url": "lib/widgets/timeclock.html",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "lib/widgets/timeclock.js",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
     "url": "manifest.json",
     "revision": "cc675e0c8dac4d18f4d768ebc2fc5357"
   },
@@ -321,15 +369,15 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "1cd53a71ad5a209b60149caec1fa4784"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
+    "revision": "7f2ac62888191b5c5aa9b69f07968613"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -337,7 +385,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "949c06b5ed426ef0c24f415057fac4dc"
+    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
@@ -349,11 +397,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "f63414c53a8a7db37709f031d5b67b5f"
   },
   {
     "url": "images/profile-icon.png",
