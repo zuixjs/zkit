@@ -39,10 +39,10 @@
         "removeOptionalTags": true,
         "removeRedundantAttributes": true,
         "removeScriptTypeAttributes": true,
-        "removeTagWhitespace": true,
-        "useShortDoctype": true,
+        "removeTagWhitespace": false,
+        "useShortDoctype": false,
         "collapseBooleanAttributes": true,
-        "removeAttributeQuotes": true,
+        "removeAttributeQuotes": false,
         "removeEmptyAttributes": true,
         "minifyCSS": true,
         "minifyJS": true
