@@ -301,12 +301,12 @@ data-o-passive="false"
   data-ui-load="@lib/controllers/view_pager">
   <!-- ... -->
 &lt;/div&gt;
-<script>
+&lt;script&gt;
 var viewPager;
 zuix.context('my-view-pager', function(){
   viewPager = this;
 });
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
                 <p>
                     Another way getting a safe reference to a component is by using the
@@ -317,21 +317,20 @@ zuix.context('my-view-pager', function(){
   data-ui-load="@lib/controllers/view_pager">
   <!-- ... -->
 &lt;/div&gt;
-<script>
+&lt;script&gt;
 var viewPager;
 vp_options = {
   ready: function(ctx) {
     viewPager = this;
   }
 }
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
                 <p>
                     Other option fields
                 </p>
 
-<pre self="center"><code class="html"><script>
-var vp_options = {
+<pre self="center"><code class="js">var vp_options = {
   autoSlide: true,      // default `false`
   enablePaging: true,   // default `false`
   slideInterval: 500,   // default `750`
@@ -339,8 +338,7 @@ var vp_options = {
   holdTouch: true,      // default `false`
   passive: false,       // default `true`
   autoHide: true        // default `false`
-}
-</script></code></pre>
+}</code></pre>
 
 
                 <h4>Methods</h4>
@@ -385,7 +383,7 @@ viewPager.on('page:change', function(e, pageInfo) {
   data-ui-load="@lib/controllers/view_pager">
     <!-- ... -->
 &lt;/div&gt;
-<script>
+&lt;script&gt;
 var vp_options = {
   on: {
     'page:change': function (e, pageInfo) {
@@ -396,7 +394,7 @@ var vp_options = {
     }
   }
 }
-</script></code></pre>
+&lt;/script&gt;</code></pre>
 
                 <p>
                     Try yourself the ViewPager controller live on

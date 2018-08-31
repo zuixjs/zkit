@@ -37,6 +37,6 @@
     "sync-request": "^6.0.0",
     "terminal-kit": "^1.26.2",
     "workbox-build": "^3.4.1",
-    "zuix-dist": "latest"
+    "zuix-dist": "^1.0.0"
   }
 }
