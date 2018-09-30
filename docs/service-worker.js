@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "7a1f6b3a3b40c1100301cb69e08e9061"
+    "revision": "fac5c76e28005bc094ef7d01ffbe9973"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -45,15 +45,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "6fb8f0a3cd596926287d1d9d3b612593"
+    "revision": "30fcccd0191129a6076927cf9eaa4517"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "aeecda43b355a7a75474cffdc074e24c"
+    "revision": "f492ad3670c588ee86106b5ddcf2ea26"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "f08a6276a082bdf4442027d0c903e999"
+    "revision": "c71d65a71d47d505828164a0f553ecd1"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "948f880e3f1c1af7e56b77e5fa8c9dce"
+    "revision": "3fdc1f7946bfc354ec3552237e66dcc5"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -69,15 +69,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "61040e42d39250b13a027b6890272ed1"
+    "revision": "49642d6f95027883ab9aede4122b81d9"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
-    "revision": "ad3e5363d07bcf42f28e20cf310f8f4e"
+    "revision": "f84884f7fd6247c6fdef96c0f6c34aaf"
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "31e271a1d710710484d506224d5723ee"
+    "revision": "7bf4a67b08852276f09b9127a3e8ce7a"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "d2c59f6d29c12179b5b2cb8e1a962509"
+    "revision": "0209dbc55e758484528c318665eb21b8"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -93,11 +93,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "16c3c679120f831286e9cf92d2cf555b"
+    "revision": "cdda79635ba20ee71fa57d5c6a17b7b5"
   },
   {
     "url": "docs/templates/spin_kit.js",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "google7f8debac56a66e22.html",
+    "revision": "43143827ae7408a75d16c0e383aa849a"
   },
   {
     "url": "index.css",
@@ -105,7 +109,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "8e833840ddfc01361a4d71a40882d23f"
+    "revision": "64b0e35d0707dc71cd5897234e041884"
   },
   {
     "url": "index.js",
@@ -129,7 +133,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/context_menu.css",
-    "revision": "1ab97b7c8b80820314713f9fb0ec566b"
+    "revision": "8ca90565ab7071c6062a44400aeeef26"
   },
   {
     "url": "lib/components/context_menu.html",
@@ -164,20 +168,8 @@ self.__precacheManifest = [
     "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "url": "lib/components/media_browser/image.js",
+    "revision": "2436897f418899f6566ffaba5f794f97"
   },
   {
     "url": "lib/components/media_browser/video.css",
@@ -197,7 +189,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "e6951bef43b9af00e484f7cc506a3323"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -218,10 +210,6 @@ self.__precacheManifest = [
   {
     "url": "lib/controllers/drawer_layout.js",
     "revision": "6cd924a4108c126bfcbc1654b34c449b"
-  },
-  {
-    "url": "lib/controllers/gesture_helper.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
@@ -365,19 +353,19 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-310x310.png",
-    "revision": "27370a5ca46851eddd974ccd7543ab6f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -385,7 +373,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",
@@ -397,11 +385,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",
