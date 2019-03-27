@@ -80,6 +80,9 @@ zuix.controller(function(cp) {
         cp.expose('toggleButton', toggleButton);
         cp.expose('showButton', showButton);
         cp.expose('hideButton', hideButton);
+        cp.expose('showing', function() {
+            return menuButtonShowing;
+        });
     };
 
     function toggleButton() {
