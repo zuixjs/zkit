@@ -11,7 +11,7 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "82866671e35bd57799f1c4f2936b9237"
+    "revision": "3933156aae1fc87515c90610ecdc6a4c"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -45,15 +45,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "15f4bb90903914ee0d7785b1235bab41"
+    "revision": "e86c872f8f599947f76637523110c998"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "929d7a0d53de99cd1cbcfa87943dfbb2"
+    "revision": "4c164a62855f57fca546db5919323f78"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "86470f189dc5ed52039d13444c167390"
+    "revision": "918c2fcb3365f9795336229e7ce5a3eb"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "6c7fda8d70f22a43ce9de9b2c4405743"
+    "revision": "c4f03ee15f2b10ae694c1deddb84855c"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "77da00e6db083e2258550d77b68c5d1b"
+    "revision": "522c71c8c1c669925e078b07831dfe20"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "54b16e132daeb58e282d2f867ef4f4c0"
+    "revision": "9af9cf02a7cfb5224461135352cd8413"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "d8a1c6a27151a4cab04be90637431a47"
+    "revision": "60e2ed634ec428ea2024a380ee42eecf"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -93,7 +93,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "30f60297202595b2b17e37a1448ab6a6"
+    "revision": "8f487d62e9f30882981f76a14ec7f394"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -109,7 +109,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "46ac23d8594151cadeb29a2e5b0d7a89"
+    "revision": "d19042e7d9db28b12198009ee65fe53e"
   },
   {
     "url": "index.js",
@@ -117,19 +117,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "396148535ac82a888cd2cd7a6708d942"
+    "revision": "8b00aac205b038970fafeb3e429fa388"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "853a0a1ea6ed171d2ffa91bd2780ef47"
+    "revision": "b2b1f6b259eb52ac69d3e488aeed3320"
   },
   {
     "url": "js/zuix.js",
-    "revision": "e70c4ad6d2cb75076ffad1e4f3504204"
+    "revision": "3202373641c577975e90463ad06274b4"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "6d62703319ca5dc92ec65ebf772a075c"
+    "revision": "f472d9cd35c4867242d8a79f5ed4382d"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -261,10 +261,6 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/templates/spinkit/cube_grid.html",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
@@ -405,7 +401,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "ab380e350e6def2b0203a692d0cbba5d"
+    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
@@ -423,5 +419,5 @@ self.__precacheManifest = [
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg)$/, workbox.strategies.cacheFirst({ cacheName: "images", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
-workbox.routing.registerRoute(/\.(?:html|json|js|css)$/, workbox.strategies.cacheFirst({ cacheName: "default", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg)$/, workbox.strategies.cacheFirst({ "cacheName":"images", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/\.(?:html|json|js|css)$/, workbox.strategies.cacheFirst({ "cacheName":"default", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');

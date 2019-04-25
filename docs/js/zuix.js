@@ -1,9 +1,9 @@
-/* zUIx v1.0.1 18.08.30 21:48:09 */
+/* zUIx v1.0.3 19.04.22 10:08:31 */
 
 /** @typedef {Zuix} window.zuix */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.zuix = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -127,7 +127,7 @@ module.exports = function(callback) {
 
 },{}],2:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -281,7 +281,7 @@ module.exports = function(ctx) {
 
 },{}],3:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -402,7 +402,7 @@ module.exports = TaskQueue;
 
 },{"./Logger":2}],4:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -549,7 +549,7 @@ module.exports = {
 
 },{}],5:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1151,6 +1151,9 @@ ZxQuery.prototype.detach = function() {
  */
 ZxQuery.prototype.attach = function() {
     const el = this._selection[0];
+    if (el.parentNode != null && el.__zuix_oldParent != null) {
+        el.parentNode.removeChild(el);
+    }
     if (el.parentNode == null && el.__zuix_oldParent != null) {
         z$(el.__zuix_oldParent).insert(el.__zuix_oldIndex, el);
         el.__zuix_oldParent = null;
@@ -1266,16 +1269,26 @@ z$.ajax = function(opt) {
         url = opt;
     }
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
     xhr.onload = function() {
         if (xhr.status === 200) {
             if (util.isFunction(opt.success)) opt.success(xhr.responseText);
         } else {
-            if (util.isFunction(opt.error)) opt.error(xhr);
+            if (util.isFunction(opt.error)) opt.error(xhr, xhr.statusText, xhr.status);
         }
         if (util.isFunction(opt.then)) opt.then(xhr);
     };
-    xhr.send();
+    xhr.onerror = function(xhr, textStatus, errorThrown) {
+        if (util.isFunction(opt.error)) opt.error(xhr, textStatus, errorThrown);
+    };
+    if (typeof opt.beforeSend == 'function') {
+        opt.beforeSend(xhr);
+    }
+    try {
+        xhr.open('GET', url);
+        xhr.send();
+    } catch (e) {
+        if (util.isFunction(opt.error)) opt.error(xhr, xhr.statusText, xhr.status, e);
+    }
     return this;
 };
 z$.hasClass = function(el, className) {
@@ -1624,7 +1637,7 @@ module.exports = z$;
 /* eslint-disable */
 /*!
  * @license
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1670,7 +1683,7 @@ module.exports = z$;
 
 },{"./zuix/Zuix.js":12}],7:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -1723,7 +1736,7 @@ module.exports = function(root) {
 
 },{}],8:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -2373,7 +2386,7 @@ module.exports = ComponentContext;
 
 },{"../helpers/Logger":2,"../helpers/Util":4,"../helpers/ZxQuery":5,"./OptionAttributes":11}],9:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -2793,13 +2806,29 @@ function loadInline(element) {
 }
 
 function resolvePath(path) {
-    let config = zuix.store('config');
-    if (config != null && config[location.host] != null) {
-        config = config[location.host];
-    }
-    const libraryPath = config != null && config.libraryPath != null ? config.libraryPath : LIBRARY_PATH_DEFAULT;
-    if (path.startsWith('@lib/')) {
-        path = libraryPath+path.substring(5);
+    if (path[0] === '@') {
+        let config = zuix.store('config');
+        let libraryPath = LIBRARY_PATH_DEFAULT;
+        if (config != null && config[location.host] != null) {
+            config = config[location.host];
+        }
+        if (config != null) {
+            switch (typeof config.libraryPath) {
+                case 'object':
+                    z$.each(config.libraryPath, function(k, v) {
+                        if (path.startsWith(k + '/')) {
+                            libraryPath = v;
+                            return false;
+                        }
+                        return true;
+                    });
+                    break;
+                case 'string':
+                    libraryPath = config.libraryPath;
+                    break;
+            }
+        }
+        path = libraryPath + path.substring(path.indexOf('/') + 1);
     }
     return path;
 }
@@ -2905,7 +2934,7 @@ function lazyElementCheck(element) {
 
 },{"../helpers/Logger":2,"../helpers/Util":4,"../helpers/ZxQuery":5,"./../helpers/AsynChain":1,"./OptionAttributes":11}],10:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -3350,7 +3379,7 @@ module.exports = ContextController;
 
 },{"../helpers/ZxQuery":5}],11:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -3414,7 +3443,7 @@ module.exports = function(root) {
 
 },{}],12:[function(_dereq_,module,exports){
 /*
- * Copyright 2015-2018 G-Labs. All Rights Reserved.
+ * Copyright 2015-2019 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -3605,9 +3634,8 @@ function field(fieldName, container, context) {
             context._fieldCache[fieldName] = el;
             // extend the returned `ZxQuery` object adding the `field` method
             if (el.length() === 1 && util.isNoU(el.field)) {
-                const that = this;
                 el.field = function(name) {
-                    return that.field(name, el, el);
+                    return field(name, el, el);
                 };
             }
         }
@@ -3867,7 +3895,7 @@ function context(contextId, callback) {
         }
     });
     if (typeof callback === 'function' && (contextId instanceof Element || contextId instanceof z$.ZxQuery)) {
-        if (context == null) {
+        if (context == null || !context.isReady) {
             z$(contextId).one('component:ready', function() {
                 context = zuix.context(this);
                 callback.call(context, context);
@@ -4194,6 +4222,7 @@ function initController(c) {
     }
 
     c.trigger('component:ready', c.view(), true);
+    c.context.isReady = true;
 
     _log.t(c.context.componentId, 'controller:init', 'timer:init:stop');
     _log.i(c.context.componentId, 'component:loaded', c.context.contextId);
@@ -4606,7 +4635,7 @@ Zuix.prototype.using = function(resourceType, resourcePath, callback) {
             }
         } else {
             // TODO: add logging
-            console.log('Resource already added ' + hashId + '(' + resourcePath + ')');
+            // console.log('Resource already added ' + hashId + '(' + resourcePath + ')');
             if (callback) {
                 callback(resourcePath, hashId);
             }
