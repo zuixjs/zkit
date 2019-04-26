@@ -148,7 +148,6 @@ function createBundle(sourceFolder, page) {
                 }
 
                 const filePath = resolveAppPath(sourceFolder, resourcePath).path;
-console.log('\n\n\n'+filePath+'\n');
                 let content;
                 if (hasJsFile) {
                     if (isBundled(zuixBundle.controllerList, resourcePath)) {
