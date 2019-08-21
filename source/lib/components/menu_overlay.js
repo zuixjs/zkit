@@ -25,7 +25,7 @@ zuix.controller(function(cp) {
             const wrapperDiv = zuix.$(document.createElement('div'))
                 .addClass('menu-item')
                 .attr('data-ui-transition-delay', (.3/(items.length()-i))+'s')
-                .append(el);
+                .append(el.observableTarget || el);
             itemsWrapper.append(wrapperDiv.get());
         });
         menuItems = itemsWrapper.find('div[class*="menu-item"]');
