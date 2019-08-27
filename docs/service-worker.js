@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "3933156aae1fc87515c90610ecdc6a4c"
+    "revision": "2e9fc46f93c4a33b6d8b49a61586ac67"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -45,15 +45,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "e86c872f8f599947f76637523110c998"
+    "revision": "edabaa518e435c9c3acea2bd8f95b736"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "4c164a62855f57fca546db5919323f78"
+    "revision": "9fa5e813f9eea6b1032a4c1c62dc0167"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "918c2fcb3365f9795336229e7ce5a3eb"
+    "revision": "c812be05df18a0a87a8dd395e2878f3a"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "c4f03ee15f2b10ae694c1deddb84855c"
+    "revision": "1a8a9197aec39403dd54ce5addb1ab23"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "522c71c8c1c669925e078b07831dfe20"
+    "revision": "a23e947a2c8f6bcd02ea389dd81b028a"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "9af9cf02a7cfb5224461135352cd8413"
+    "revision": "e2314c73e362bdf90b899e956f3fa358"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "60e2ed634ec428ea2024a380ee42eecf"
+    "revision": "15c6e574704d8b4ebe7add36894bcd27"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -93,7 +93,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "8f487d62e9f30882981f76a14ec7f394"
+    "revision": "b4c9e0d18b06d7cae8fed469cf5cede1"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -109,7 +109,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d19042e7d9db28b12198009ee65fe53e"
+    "revision": "0c9c1f8df4e1cadcc6719a3a83de226c"
   },
   {
     "url": "index.js",
@@ -117,19 +117,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "8b00aac205b038970fafeb3e429fa388"
+    "revision": "69e39b41cfb231bb473effd095dea19f"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "b2b1f6b259eb52ac69d3e488aeed3320"
+    "revision": "523f47f0aad2c5c31743ed32474e8c6f"
   },
   {
     "url": "js/zuix.js",
-    "revision": "3202373641c577975e90463ad06274b4"
+    "revision": "d7d2e0d58b00800d1dec563eacd4e5c0"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "f472d9cd35c4867242d8a79f5ed4382d"
+    "revision": "085e4af98d5a676849725a5869aa7678"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -153,59 +153,43 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/hamburger_icon.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "dea51abdfabfd08c5ac0b1bf4e337eb8"
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "442b0edde1d0d983246313de1ca2384f"
   },
   {
     "url": "lib/components/media_browser.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "27b42f4a8cecbb5da1fe28034bc7ec47"
   },
   {
     "url": "lib/components/media_browser.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "bc33395ec9cbf86c9afbd712ea193137"
   },
   {
     "url": "lib/components/media_browser/article.css",
-    "revision": "922f392e98cd6812dc59d1b007d96e16"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/article.html",
-    "revision": "dc712c282458aa1ac6bed32ff2a31d8a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.css",
-    "revision": "cf5a4704af21281f5440307cd16c154f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.html",
-    "revision": "f14af3ebc29559117372c9af37a0f313"
-  },
-  {
-    "url": "lib/components/media_browser/image.js",
-    "revision": "2436897f418899f6566ffaba5f794f97"
-  },
-  {
-    "url": "lib/components/media_browser/video.css",
-    "revision": "02f6d109360ce0c2cbd108542282656d"
-  },
-  {
-    "url": "lib/components/media_browser/video.html",
-    "revision": "84bf58f509119a6b118bc541175ac346"
-  },
-  {
-    "url": "lib/components/media_browser/video.js",
-    "revision": "b541920f85e18da91d209c62374536b1"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/menu_overlay.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "da22f627f1ad0eac48a8309dc7e81c57"
   },
   {
     "url": "lib/components/menu_overlay.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "e6951bef43b9af00e484f7cc506a3323"
   },
   {
     "url": "lib/components/menu_overlay.js",
@@ -229,51 +213,27 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/controllers/gesture_helper.js",
-    "revision": "facddacc3be733d97d6a915ac8c7f617"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/header_auto_hide.js",
-    "revision": "c9d2b589da08a8f0de4266bae14a3ca9"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/list_view.js",
-    "revision": "535eba11165949fd636e144a9e6d3435"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/scroll_helper.js",
-    "revision": "68a8af206c909efc6da050de5cfd6ad8"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/controllers/view_pager.js",
-    "revision": "f6271f0767f80a2e936cd8b610d6ac79"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/extensions/animate_css.js",
     "revision": "9958c9d78193bad8bb6f8956c66f4dd9"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/templates/spinkit/circle.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/templates/spinkit/cube_grid.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/templates/spinkit/fading_circle.css",
-    "revision": "124ee683f2a29ec4cd040bbd74c96746"
-  },
-  {
-    "url": "lib/templates/spinkit/fading_circle.html",
-    "revision": "3f231b39520b1138b1a1ad80d88f49a9"
-  },
-  {
-    "url": "lib/templates/spinkit/folding_cube.css",
-    "revision": "22353c2d6e4a7998baaad1d824041652"
   },
   {
     "url": "lib/templates/spinkit/folding_cube.html",
@@ -317,11 +277,11 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/widgets/timeclock.html",
-    "revision": "4c687f8a0d9d08f7fdf1118610df1a27"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/widgets/timeclock.js",
-    "revision": "41e4d5fdaaa451e63d07ae10d4dc173a"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "manifest.json",
@@ -373,11 +333,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/mstile-70x70.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "8c35bf6732e9888e974ea045dcc26c9a"
   },
   {
     "url": "images/icons/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "1cd53a71ad5a209b60149caec1fa4784"
   },
   {
     "url": "images/parallax/layer01_Ground.png",
@@ -401,11 +361,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer06_Rocks.png",
-    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/parallax/layer07_Sky.png",
-    "revision": "f63414c53a8a7db37709f031d5b67b5f"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/profile-icon.png",
