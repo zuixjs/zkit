@@ -49,6 +49,8 @@ const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 // minifier
 const minify = require('html-minifier').minify;
+const mkdirp = require('mkdirp');
+const getDirName = require('path').dirname;
 
 const LIBRARY_PATH_DEFAULT = 'https://zuixjs.github.io/zkit/lib';
 
@@ -120,7 +122,7 @@ function createBundle(sourceFolder, page) {
 
     // zUIx resources
     if (zuixConfig.build.bundle.zuix !== false) {
-        const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load]');
+        const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load],[z-include],[z-load]');
         if (nodeList != null) {
             nodeList.forEach(function(el) {
                 let skipElement = false;
@@ -137,13 +139,13 @@ function createBundle(sourceFolder, page) {
                 }
 
                 let hasJsFile = false;
-                let resourcePath = el.getAttribute('data-ui-include');
+                let resourcePath = el.getAttribute('data-ui-include') || el.getAttribute('z-include');
                 if (resourcePath == null || resourcePath === '') {
                     hasJsFile = true;
-                    resourcePath = el.getAttribute('data-ui-load');
+                    resourcePath = el.getAttribute('data-ui-load') || el.getAttribute('z-load');
                 }
                 // do not process inline views
-                if (dom.window.document.querySelectorAll('[data-ui-view="' + resourcePath + '"]').length > 0) {
+                if (dom.window.document.querySelectorAll('[data-ui-view="' + resourcePath + '"],[z-view="' + resourcePath + '"]').length > 0) {
                     return;
                 }
 
@@ -181,7 +183,7 @@ function createBundle(sourceFolder, page) {
                     };
                     const dm = createBundle(sourceFolder, d);
                     content = dm.window.document.body.innerHTML;
-                    if (el.getAttribute('data-ui-mode') === 'unwrap') {
+                    if (el.getAttribute('data-ui-mode') === 'unwrap' || el.getAttribute('z-mode') === 'unwrap') {
                         // TODO: add HTML comment with file info
                         el.outerHTML = content;
                     } else {
@@ -192,7 +194,7 @@ function createBundle(sourceFolder, page) {
                 content = fetchResource(filePath + '.css');
                 if (content != null) {
                     content = staticSite.swig({file: filePath + '.css', content: content}, localVars)._result.contents;
-                    if (el.getAttribute('data-ui-mode') === 'unwrap') {
+                    if (el.getAttribute('data-ui-mode') === 'unwrap' || el.getAttribute('z-mode') === 'unwrap') {
                         // TODO: add // comment with file info
                         content = util.format('\n<style id="%s">\n%s\n</style>\n', resourcePath, content);
                         dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', resourcePath, content);
@@ -344,7 +346,7 @@ function generateApp(sourceFolder, page) {
             zuixBundle.viewList.forEach(function(v) {
                 let resourcePath = resolveAppPath('/', v.path);
                 resourcePath = resourcePath.lib ? resourcePath.path : v.path;
-                const content = util.format('<div data-ui-view="%s">\n%s\n</div>', resourcePath, v.content);
+                const content = util.format('<div z-view="%s">\n%s\n</div>', resourcePath, v.content);
                 bundleViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
                 stats[v.path] = stats[v.path] || {};
                 stats[v.path].view = true;
@@ -368,7 +370,7 @@ function generateApp(sourceFolder, page) {
 
             // add style to hide inline views
             const head = dom.window.document.querySelector('head');
-            head.innerHTML += '    <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>\n';
+            head.innerHTML += '    <style>[z-view]:not([z-include]):not([z-load]) { display: none; }</style>\n';
 
             // add inline views
             dom.window.document.body.innerHTML += bundleViews;
@@ -480,9 +482,12 @@ module.exports = function(options, template, page, cb) {
             tlog.info(' ^r*^: less');
             less.render(page.content, lessConfig, function(error, output) {
                 const baseName = page.dest.substring(0, page.dest.length - 5);
-                fs.writeFileSync(baseName + '.css', output.css);
-                // TODO: source map generation disabled
-                //fs.writeFileSync(baseName+'.css.map', output.map);
+                mkdirp(getDirName(baseName + '.css'), function(err) {
+                    if (err) return cb(err);
+                    fs.writeFileSync(baseName + '.css', output.css);
+                    // TODO: source map generation disabled
+                    //fs.writeFileSync(baseName+'.css.map', output.map);
+                });
                 tlog.overwrite(' ^G\u2713^: less');
             });
             tlog.info();

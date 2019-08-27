@@ -106,10 +106,8 @@ for (let i = 0; i < copyFiles.length; i++) {
 
 // Copy zuix-dist files and 'config.json'
 tlog.overwrite('   | "%s" -> "%s"', 'zuix-dist', 'js');
-// - last zUIx release
-copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js', buildFolder));
-// - last zUIx build (if 'dist' folder is found in parent folder)
-//copyFolder(util.format('%s/../dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
+// - copy last zUIx release
+copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
 // - auto-generated config.js
 copyAppConfig();
 tlog.overwrite(' ^G\u2713^: done').br();
