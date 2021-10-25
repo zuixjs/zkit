@@ -37,12 +37,12 @@ const markdownTag = require(process.cwd()+'/node_modules/static-site/lib/utils/m
 const extras = require('swig-extras');
 
 module.exports = {
-    swig: function(page, locals) {
-        return swigTemplate(page, locals);
-    },
-    markdown: function(content) {
-        return render(content);
-    }
+  swig: function(page, locals) {
+    return swigTemplate(page, locals);
+  },
+  markdown: function(content) {
+    return render(content);
+  }
 };
 
 
@@ -61,11 +61,11 @@ const markdown = MarkdownIt({
 
 const filters = ['batch', 'groupby', 'nl2br', 'pluck', 'split', 'trim', 'truncate'];
 filters.forEach(function(filter) {
-    extras.useFilter(swig, filter);
+  extras.useFilter(swig, filter);
 });
 
 function render(content) {
-    return markdown.makeHtml(content);
+  return markdown.makeHtml(content);
 }
 
 swig.setTag('markdown', markdownTag.parse, markdownTag.compile, true, false);
@@ -76,24 +76,24 @@ extras.useTag(swig, 'switch');
 extras.useTag(swig, 'case');
 
 function swigTemplate(page, locals) {
-    let template = isMarkdown(page.file) ? render(page.content) : page.content;
+  let template = isMarkdown(page.file) ? render(page.content) : page.content;
 
-    if (page.template) {
-        const templatePath = path.join(this.sourcePath, page.template);
-        const block = page.block || 'content';
-        const wrapped = '{% block ' + block + '%}' + template + '{% endblock %}';
-        template = '{% extends "' + templatePath + '" %}' + wrapped;
-    }
+  if (page.template) {
+    const templatePath = path.join(this.sourcePath, page.template);
+    const block = page.block || 'content';
+    const wrapped = '{% block ' + block + '%}' + template + '{% endblock %}';
+    template = '{% extends "' + templatePath + '" %}' + wrapped;
+  }
 
-    const html = swig.render(template, {
-        filename: page.file,
-        locals: locals
-    });
+  const html = swig.render(template, {
+    filename: page.file,
+    locals: locals
+  });
 
-    return Promise.resolve({
-        dest: page.dest,
-        contents: html
-    });
+  return Promise.resolve({
+    dest: page.dest,
+    contents: html
+  });
 }
 
 /* END 'static-site' default engine code */

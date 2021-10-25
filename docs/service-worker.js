@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/context_menu.html",
-    "revision": "dff999e26d81c129edc4c9e73cb42d46"
+    "revision": "fac5c76e28005bc094ef7d01ffbe9973"
   },
   {
     "url": "docs/components/hamburger_icon.css",
@@ -45,15 +45,15 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/components/hamburger_icon.html",
-    "revision": "31d3c5f7e68203965bf9fab9fcb0fd2b"
+    "revision": "30fcccd0191129a6076927cf9eaa4517"
   },
   {
     "url": "docs/components/media_browser.html",
-    "revision": "9482b8708b809a2ddd377d31450e3fcb"
+    "revision": "e043a657cbb82ab2f98861ac1af0b6d8"
   },
   {
     "url": "docs/components/menu_overlay.html",
-    "revision": "c3a7f78791573c9c18e691011da4b2e7"
+    "revision": "9b2e98c25c59e1b8149d0ee3f84be2bc"
   },
   {
     "url": "docs/controllers/drawer_layout.css",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/drawer_layout.html",
-    "revision": "037053a3a50110660c6bd61d9c9e4d37"
+    "revision": "3fdc1f7946bfc354ec3552237e66dcc5"
   },
   {
     "url": "docs/controllers/drawer_layout.js",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/gesture_helper.html",
-    "revision": "143a9252fd689e9e8bf31ceb77ab0792"
+    "revision": "49642d6f95027883ab9aede4122b81d9"
   },
   {
     "url": "docs/controllers/scroll_helper.css",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/scroll_helper.html",
-    "revision": "119b12a4e0c5bef29aea05c198c3af51"
+    "revision": "7bf4a67b08852276f09b9127a3e8ce7a"
   },
   {
     "url": "docs/controllers/scroll_helper.js",
@@ -85,7 +85,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/controllers/view_pager.html",
-    "revision": "a792a4a67fbdff45f25ac06ff72c7ed4"
+    "revision": "0209dbc55e758484528c318665eb21b8"
   },
   {
     "url": "docs/templates/spin_kit.css",
@@ -93,7 +93,7 @@ self.__precacheManifest = [
   },
   {
     "url": "docs/templates/spin_kit.html",
-    "revision": "53bbe10d0eff922a2b46c7d8344937bd"
+    "revision": "cdda79635ba20ee71fa57d5c6a17b7b5"
   },
   {
     "url": "docs/templates/spin_kit.js",
@@ -109,7 +109,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "eb5f9fa3f5519cdebd69daa90499934f"
+    "revision": "64b0e35d0707dc71cd5897234e041884"
   },
   {
     "url": "index.js",
@@ -117,35 +117,19 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix-bundler.js",
-    "revision": "69e39b41cfb231bb473effd095dea19f"
+    "revision": "1ec993ec1717b285ca3b85a23bbc4d87"
   },
   {
     "url": "js/zuix-bundler.min.js",
-    "revision": "523f47f0aad2c5c31743ed32474e8c6f"
+    "revision": "302c94fc3bf4b4796e43f6cc20d0c645"
   },
   {
     "url": "js/zuix.js",
-    "revision": "d7d2e0d58b00800d1dec563eacd4e5c0"
+    "revision": "9f4b609999482c8a89380716c1e9261c"
   },
   {
     "url": "js/zuix.min.js",
-    "revision": "085e4af98d5a676849725a5869aa7678"
-  },
-  {
-    "url": "js/zuix/zuix-bundler.js",
-    "revision": "69e39b41cfb231bb473effd095dea19f"
-  },
-  {
-    "url": "js/zuix/zuix-bundler.min.js",
-    "revision": "523f47f0aad2c5c31743ed32474e8c6f"
-  },
-  {
-    "url": "js/zuix/zuix.js",
-    "revision": "d7d2e0d58b00800d1dec563eacd4e5c0"
-  },
-  {
-    "url": "js/zuix/zuix.min.js",
-    "revision": "085e4af98d5a676849725a5869aa7678"
+    "revision": "4852641971a72292cea23a3dfd2b6101"
   },
   {
     "url": "lib/components/context_menu.css",
@@ -173,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "lib/components/media_browser.css",
-    "revision": "442b0edde1d0d983246313de1ca2384f"
+    "revision": "02bf1a706d945a836e3ba43e4521345d"
   },
   {
     "url": "lib/components/media_browser.html",
@@ -182,22 +166,6 @@ self.__precacheManifest = [
   {
     "url": "lib/components/media_browser.js",
     "revision": "bc33395ec9cbf86c9afbd712ea193137"
-  },
-  {
-    "url": "lib/components/media_browser/article.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/article.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "lib/components/media_browser/image.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "lib/components/media_browser/image.js",
@@ -401,7 +369,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer01_Ground.png",
-    "revision": "7f2ac62888191b5c5aa9b69f07968613"
+    "revision": "a56113d75d34e13a3e62d1ec86390fbb"
   },
   {
     "url": "images/parallax/layer02_Trees_rocks.png",
@@ -409,7 +377,7 @@ self.__precacheManifest = [
   },
   {
     "url": "images/parallax/layer03_Hills_Castle.png",
-    "revision": "2a20bd6756c0d8dbd7b8b7dd147a274a"
+    "revision": "949c06b5ed426ef0c24f415057fac4dc"
   },
   {
     "url": "images/parallax/layer04_Clouds.png",

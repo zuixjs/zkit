@@ -38,7 +38,7 @@ svg {
     height: 100vh;
 }
 
-[data-ui-field="media"] article:not([data-ui-loaded]) > * {
+[data-ui-field="media"] article:not([z-loaded]) > * {
     display: none;
 }
 

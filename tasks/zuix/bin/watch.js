@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 G-Labs. All Rights Reserved.
+ * Copyright 2015-2021 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,59 +32,59 @@ const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 
 const BuildingState = {
-    IDLE: 0,
-    RUNNING: 1,
-    PENDING: 2
+  IDLE: 0,
+  RUNNING: 1,
+  PENDING: 2
 };
 let status = BuildingState.IDLE;
 
 if (!fs.existsSync(zuixConfig.get('build.output'))) {
-    build();
+  build();
 }
 
 startWatch();
 
 function build() {
-    status = BuildingState.RUNNING;
-    const childProcess = require('child_process');
-    try {
-        childProcess.execFileSync('npm', ['run', 'build'], {stdio: [0, 1, 2]});
-    } catch (e) {
-        // TODO: report exception?
-    }
-    delay(1000).then(function() {
-        if (status === BuildingState.PENDING) {
-            build();
-        } else status = BuildingState.IDLE;
-    });
+  status = BuildingState.RUNNING;
+  const childProcess = require('child_process');
+  try {
+    childProcess.execFileSync('npm', ['run', 'build'], {stdio: [0, 1, 2]});
+  } catch (e) {
+    // TODO: report exception?
+  }
+  delay(1000).then(function() {
+    if (status === BuildingState.PENDING) {
+      build();
+    } else status = BuildingState.IDLE;
+  });
 }
 function buildSite(path, stats) {
-    // TODO: IMPORTANT! :)
-    // TODO: optmize by using the actual changed file ('path' and 'stats')
-    // TODO: and avoid run compile over all files every single time
-    if (status === BuildingState.IDLE) {
-        build();
-    } else status = BuildingState.PENDING;
+  // TODO: IMPORTANT! :)
+  // TODO: optmize by using the actual changed file ('path' and 'stats')
+  // TODO: and avoid run compile over all files every single time
+  if (status === BuildingState.IDLE) {
+    build();
+  } else status = BuildingState.PENDING;
 }
 
 function fileChanged(path, stats) {
-    buildSite(path, stats);
+  buildSite(path, stats);
 }
 
 function startWatch() {
-    // 'add', 'addDir' and 'change' events also receive stat() results as second
-    // argument when available: http://nodejs.org/api/fs.html#fs_class_fs_stats
-    const watcher = chokidar.watch(['config', sourceFolder], {
-        ignored: /[\/\\]\./, persistent: true
-    });
-    setTimeout(()=>{
-        watcher
-            .on('add', fileChanged)
-            .on('change', fileChanged)
-            //.on('unlink', fileChanged)
-            .on('unlinkDir', fileChanged);
-    }, 1000);
-    /*
+  // 'add', 'addDir' and 'change' events also receive stat() results as second
+  // argument when available: http://nodejs.org/api/fs.html#fs_class_fs_stats
+  const watcher = chokidar.watch(['config', sourceFolder], {
+    ignored: /[\/\\]\./, persistent: true
+  });
+  setTimeout(()=>{
+    watcher
+        .on('add', fileChanged)
+        .on('change', fileChanged)
+    // .on('unlink', fileChanged)
+        .on('unlinkDir', fileChanged);
+  }, 1000);
+  /*
     watcher
         .on('add', function(path) { log('File', path, 'has been added'); })
         .on('addDir', function(path) { log('Directory', path, 'has been added'); })

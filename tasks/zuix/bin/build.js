@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 G-Labs. All Rights Reserved.
+ * Copyright 2015-2021 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,7 +107,7 @@ for (let i = 0; i < copyFiles.length; i++) {
 // Copy zuix-dist files and 'config.json'
 tlog.overwrite('   | "%s" -> "%s"', 'zuix-dist', 'js');
 // - copy last zUIx release
-copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
+copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js', buildFolder));
 // - auto-generated config.js
 copyAppConfig();
 tlog.overwrite(' ^G\u2713^: done').br();

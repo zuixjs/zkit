@@ -28,15 +28,16 @@
 const config = require('config');
 const zuixConfig = config.get('zuix');
 // static-site module helper
-module.exports = function (site, cb) {
-    site = site.map(function(page) {
-        // Add app config to page data
-        page.app = zuixConfig.app;
-        // Adjust {{root} to relative path
-        page.root = page.root.substring(3);
-        if (page.root.length > 0)
-            page.root += '/';
-        return page;
-    });
-    cb(null, site);
+module.exports = function(site, cb) {
+  site = site.map(function(page) {
+    // Add app config to page data
+    page.app = zuixConfig.app;
+    // Adjust {{root} to relative path
+    page.root = page.root.substring(3);
+    if (page.root.length > 0) {
+      page.root += '/';
+    }
+    return page;
+  });
+  cb(null, site);
 };
