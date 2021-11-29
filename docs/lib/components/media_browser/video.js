@@ -64,7 +64,7 @@ zuix.controller(function(cp) {
         player = new YT.Player(cp.field('player').get(), {
             height: '100%',
             width: '100%',
-            playerVars: {controls: 1, disablekb: 1, fs: 0, modestbranding: 0, rel: 0, showinfo: 0},
+            playerVars: {controls: 1, disablekb: 1, fs: 0, modestbranding: 0, rel: 0, showinfo: 0, ecver: 2},
             videoId: cp.field('video').html(),
             events: {
                 'onReady': onPlayerReady,

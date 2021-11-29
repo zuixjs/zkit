@@ -32,35 +32,35 @@ head:
 
 </div>
 <script>
-    var gesture_opts = {
-        passive: false,
-        ready: function() {
-            let gh = this;
-            let view = zuix.$(gh.view());
-            let infoXy = zuix.field('gesture-xy');
-            let infoShift = zuix.field('gesture-shift');
-            let info = zuix.field('gesture');
-            view.css('opacity', 1.0);
-            // register event callbacks
-            gh.on('gesture:touch', function(e, tp) {
-                view.addClass('active');
-                info.html('touch').animateCss('flash');
-                tp.cancel();
-            }).on('gesture:pan', function(e, tp) {
-                infoXy.show().html(Math.round(tp.x)+' ; '+Math.round(tp.y));
-                infoShift.show().html(Math.round(tp.shiftX)+' ;'+Math.round(tp.shiftY));
-                info.html('pan').animateCss('fadeIn');
-            }).on('gesture:release', function(e, tp) {
-                view.removeClass('active');
-                infoXy.hide();
-                infoShift.hide();
-            }).on('gesture:tap', function(e, tp) {
-                info.html('tap').animateCss('tada');
-            }).on('gesture:swipe', function(e, tp) {
-                info.html('swipe <i class="material-icons animated tada">keyboard_arrow_'+tp.direction+'</i> '+tp.direction);
-            });
-        }
-    };
+gesture_opts = {
+    passive: false,
+    ready: function() {
+        let gh = this;
+        let view = zuix.$(gh.view());
+        let infoXy = zuix.field('gesture-xy');
+        let infoShift = zuix.field('gesture-shift');
+        let info = zuix.field('gesture');
+        view.css('opacity', 1.0);
+        // register event callbacks
+        gh.on('gesture:touch', function(e, tp) {
+            view.addClass('active');
+            info.html('touch').animateCss('flash');
+            tp.cancel();
+        }).on('gesture:pan', function(e, tp) {
+            infoXy.show().html(Math.round(tp.x) + ' ; ' + Math.round(tp.y));
+            infoShift.show().html(Math.round(tp.shiftX) + ' ;' + Math.round(tp.shiftY));
+            info.html('pan').animateCss('fadeIn');
+        }).on('gesture:release', function(e, tp) {
+            view.removeClass('active');
+            infoXy.hide();
+            infoShift.hide();
+        }).on('gesture:tap', function(e, tp) {
+            info.html('tap').animateCss('tada');
+        }).on('gesture:swipe', function(e, tp) {
+            info.html('swipe <i class="material-icons animated tada">keyboard_arrow_' + tp.direction + '</i> ' + tp.direction);
+        });
+    }
+};
 </script>
 <style>
     .gesture-box {
@@ -121,18 +121,21 @@ head:
     <!-- gesture detection area -->
 &lt;/div&gt;
 &lt;script&gt;
-var gesture_options = {
-  ready: function() {
-    // register event callbacks
-    this.on('gesture:touch', function(e, tp) {
+gesture_options = {
+  on: {
+    'gesture:touch': function(e, tp) {
       // TODO: handle touch
-    }).on('gesture:pan', function(e, tp) {
+    },
+    'gesture:pan': function(e, tp) {
       // TODO: handle pan
-    }).on('gesture:release', function(e, tp) {
+    },
+    'gesture:release': function(e, tp) {
       // TODO: handle release
-    }).on('gesture:tap', function(e, tp) {
+    },
+    'gesture:tap': function(e, tp) {
       // TODO: handle tap
-    }).on('gesture:swipe', function(e, tp) {
+    },
+    'gesture:swipe': function(e, tp) {
       // TODO: handle swipe
       switch(tp.direction) {
         case 'up':
@@ -144,7 +147,7 @@ var gesture_options = {
         case 'right':
           break;
       }
-    });
+    }
   }
 }
 &lt;/script&gt;</code></pre>
