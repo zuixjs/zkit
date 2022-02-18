@@ -1,0 +1,29 @@
+:host {
+    width: 100vw;
+    height: 100vh;
+}
+[z-field="overlay"] {
+    background: rgba(255,255,255,0);
+    left: 0; right: 0;
+    bottom: 56px; top: 0;
+    position: absolute;
+}
+[z-field="player-controls"] {
+    opacity: 0.5;
+}
+iframe {
+    position: absolute;
+    left:0;
+    right: 0;
+    top:0;
+    bottom: 0;
+}
+.capture-touch {
+    padding: 16px;
+}
+
+@media only screen and (max-width: 820px) {
+    .capture-touch {
+        padding: 8px;
+    }
+}

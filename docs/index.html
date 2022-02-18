@@ -1,323 +1,125 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta name="google-site-verification" content="nkLa1C34WpSqkoDdFA0-rdb_tz412T9bAMZK7Uzu4y4">
-    <title>zKit, components for modern web</title>
 
-    <meta content="text/html; charset=utf-8" http-equiv="content-type">
-    <meta http-equiv="Content-Language" content="en-us">
-
-    <meta name="description" content="zKit, a collection of framework-agnostic components for modern web.">
-    <meta name="keywords" lang="en-us" content="web components,polymer,react,react.js,angular,angular.js,ember,ember.js,vue,vue.js,meteor,meteor.js,web app,pwa,progressive,web application,modern web,framework,javascript,library,content manager,component manager,web app,content authoring,web master,static site,spa,single page application,content loader,content include,material,material design lite,mdl">
-    <meta name="author" content="G-Labs">
-
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#275e20">
+    <meta name="description" content="A brand new *zuix.js* project!">
+    <meta name="keywords" content="home,welcome,landing page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
 
-    <link rel="manifest" href="manifest.json">
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Progressive Web App -->
+    <meta name="theme-color" content="white">
+    <link rel="manifest" href="/zkit/manifest.json">
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="/zkit/images/icons/desktop/android-chrome-192x192.png">
+    <link rel="icon" sizes="512x512" href="/zkit/images/icons/desktop/android-chrome-512x512.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <meta name="apple-mobile-web-app-title" content="A zUIx website">
+    <link rel="apple-touch-icon-precomposed" href="/zkit/images/icons/desktop/apple-touch-icon.png">
+    <link rel="mask-icon" href="/zkit/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
+    <!-- Tile color for Windows -->
+    <meta name="msapplication-TileImage" content="/zkit/images/icons/desktop/mstile-150x150.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/zkit/images/icons/desktop/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/zkit/images/icons/desktop/favicon-16x16.png">
 
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="css/flex-layout-attribute.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- zUIx library  -->
-    <script src="js/zuix.min.js"></script>
-    <script src="config.js"></script>
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- page style and script -->
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-</head>
 
-<body class="mdl-color--black animated fadeIn" onload="init()">
 
-    <main>
 
-        <article class="mdl-color--pink-900 page-active mdl-color-text--white first gradient-1 -gradient-anim" layout="column center-center">
-            <div self="size-x1" layout="column center-center" class="box-active">
-    <h1 class="animated fadeInDown logo" layout="row center-center">
-        <i class="material-icons animated bounce">extension</i>zKit
-    </h1>
-    <h2 class="animated fadeInDown">components for modern web</h2>
-    <p class="animated fadeInDown" align="center">
-        made with <a href="//zuixjs.github.io/zuix">zUIx</a>
-    </p>
-</div>
 
-<footer self="bottom" layout="column bottom-center">
-    <div class="box-active animated fadeInUp"></div>
-    <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_upward</i>
-    </div>
-</footer>
 
-        </article>
+    <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <script src="/zkit/js/zuix/zuix.js"></script>
+    <script src="/zkit/config.js"></script>
+    <script src="/zkit/js/zuix/animate-css.js"></script>
 
-        <article class="mdl-color--purple-900 mdl-color-text--white zuix-css-ignore gradient-2 -gradient-anim">
-            <div class="section-title">controllers</div>
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
 <style>
-.horizontal_pager {
-    display: table-row;
-    width: 100%;
-    margin: auto;
+body {
+    margin:0; padding: 0;
+    font-size: 14px;
 }
+main {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+a {
+    color: forestgreen;
+    text-decoration: none!important;
+}
+
 </style>
 
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.view_pager_1" self="size-x1" class="horizontal_pager">
-
-    <div class="wh100" layout="column center-center">
-        <h1>ViewPager</h1>
-        <a href="docs/controllers/view_pager" class="exit-link animated fadeInUp">
-            <i class="material-icons">view_carousel</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>DrawerLayout</h1>
-        <a href="docs/controllers/drawer_layout" class="exit-link animated fadeInUp">
-            <i class="material-icons">chrome_reader_mode</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Gesture Helper</h1>
-        <a href="docs/controllers/gesture_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">gesture</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Scroll Helper</h1>
-        <a href="docs/controllers/scroll_helper" class="exit-link animated fadeInUp">
-            <i class="material-icons">all_out</i>
-        </a>
-    </div>
-    <!--
-    <div class="wh100" layout="column center-center">
-        <h1>ListView</h1>
-        <a -href="docs/controllers/list_view" class="exit-link animated fadeInUp">
-            <i class="material-icons wip">view_list</i>
-        </a>
-        <em>...coming soon...</em>
-    </div>
-    -->
-
-</div>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-<div data-ui-field="indicator_1" class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
-    <a href="javascript:viewPager1.page(0)" class="circle-button page-active"></a>
-    
-    <a href="javascript:viewPager1.page(1)" class="circle-button"></a>
-    
-    <a href="javascript:viewPager1.page(2)" class="circle-button"></a>
-    
-    <a href="javascript:viewPager1.page(3)" class="circle-button"></a>
-    
-</div>
-
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-
-        <article class="mdl-color--green-900 mdl-color-text--white gradient-3 -gradient-anim">
-            <div class="section-title">components</div>
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-
-<div data-ui-load="@lib/controllers/view_pager" data-ui-options="options.view_pager_2" self="size-x1" class="horizontal_pager">
-
-    <div class="wh100" layout="column center-center">
-        <h1>Menu Overlay</h1>
-        <a href="docs/components/menu_overlay" class="exit-link animated fadeInUp">
-            <i class="material-icons">restaurant_menu</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Context Menu</h1>
-        <a href="docs/components/context_menu" class="exit-link animated fadeInUp">
-            <i class="material-icons">list_alt</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Hamburger Icon</h1>
-        <a href="docs/components/hamburger_icon" class="exit-link animated fadeInUp">
-            <i class="material-icons">menu</i>
-        </a>
-    </div>
-    <div class="wh100" layout="column center-center">
-        <h1>Media Browser</h1>
-        <a href="docs/components/media_browser" class="exit-link animated fadeInUp">
-            <i class="material-icons">video_library</i>
-        </a>
-    </div>
-    <!--
-    <div class="wh100" layout="column center-center">
-        <h1>Spinners</h1>
-        <a href="docs/components/media_browser" class="exit-link animated fadeInUp">
-            <i class="material-icons">video_library</i>
-        </a>
-    </div>
-    -->
-
-</div>
+</head>
 
 
-    </div>
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body data-theme="">
 
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-<div data-ui-field="indicator_2" class="animated fadeIn pager-indicator delay-750" self="center" layout="row center-center">
-    <a href="javascript:viewPager2.page(0)" class="circle-button page-active"></a>
-    
-    <a href="javascript:viewPager2.page(1)" class="circle-button"></a>
-    
-    <a href="javascript:viewPager2.page(2)" class="circle-button"></a>
-    
-    <a href="javascript:viewPager2.page(3)" class="circle-button"></a>
-    
-</div>
+<main layout="column stretch-stretch">
 
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
+<div layout="column center-center" class="animate__animated animate__fadeIn animate__slower">
 
-</div>
-
-        </article>
-        <!--
-        <article class="mdl-color--green-600 mdl-color-text--white">
-            <div class="section-title">templates</div>
-            <div layout="column spread-center" class="article-body">
-
-    <header self="top" layout="column top-stretch">
-        <div class="black-band"></div>
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_downward</i>
-        </div>
-    </header>
-
-    <div self="size-x1" layout="column center-center" class="box-active animated fadeInUp">
-        
-<h1>Spin Kit</h1>
-<a href="docs/templates/spin_kit" class="exit-link animated fadeInUp">
-    <i class="material-icons">autorenew</i>
-</a>
-
-    </div>
-
-    <footer self="bottom" layout="row bottom-center">
-        <div self="center" class="box-active animated fadeIn">
-            
-        </div>
-        <div class="box-hidden border-tab animated fadeInDown" layout="row center-center">
-            <i class="material-icons animated rotateIn">arrow_upward</i>
-        </div>
-    </footer>
-
-</div>
-
-        </article>
-        -->
-        <article class="mdl-color--pink-900 mdl-color-text--white last gradient-4 -gradient-anim" layout="column center-center">
-            <header self="top" layout="column top-center">
-    <div class="black-band"></div>
-    <div class="box-active animated fadeInDown"></div>
-    <div class="box-hidden border-tab animated fadeInUp" layout="row center-center">
-        <i class="material-icons animated rotateIn">arrow_downward</i>
-    </div>
-</header>
-
-<div self="size-x1 center" layout="column center-center" class="box-active">
-
-    <div class="animated fadeInDown">
-        <a href="//github.com/zuixjs/zkit" layout="column center-center" class="animated bounceInUp">
-            <img src="images/github-octocat.svg" width="56" hspace="12">
-            <h2>View on GitHub</h2>
-        </a>
+    <div self="size-x1" layout="column center-center" style="margin: 56px; width:auto!important">
+        <h1 class="animate__animated animate__fadeInDown animate__fast" style="margin: 0!important; padding: 0!important;">
+            <a href="pages/home" layout="row center-center">
+                <strong>Z</strong>
+                <i style="font-size: 150%; margin-bottom: 6px; color: mediumseagreen; margin-right: 4px; margin-left: 4px" class="material-icons animate__animated animate__bounce">
+                    extension
+                </i>
+                <strong>KIT</strong>
+            </a>
+        </h1>
+        <small class="animate__animated animate__fadeIn animate__slower">web enhancing bits</small>
+        <code class="animate__animated animate__fadeInUp animate__slower" style="margin-top: 12px; padding: 0">
+            made with <a href="https://zuixjs.org">zUIx.js</a>
+        </code>
     </div>
 
 </div>
 
-        </article>
 
-    </main>
+</main>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async="" src="//www.googletagmanager.com/gtag/js?id=UA-116384214-1"></script>
+
+<!-- Built with love using zUIx Web Starter -->
+
+
+
+</body>
+
+<!-- page script -->
 <script>
-    // Google Analytics
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-116384214-1');
+zuix.$.find('main div').eq(0).on('animationend', () => {
+  location.href = 'pages/home';
+});
+
 </script>
 
-<!-- MDL -->
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script defer="" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+</html>
 
-
-
-</body></html>

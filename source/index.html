@@ -1,46 +1,34 @@
 ---
-title: 'zKit'
-description: ''
-head:
-    title: 'zKit, components for modern web'
-    description: 'zKit, a collection of framework-agnostic components for modern web.'
+layout: landing_page.html
+redirect: pages/home
+order: 1
+title: Landing Page
+description: A brand new *zuix.js* project!
+keywords:
+- home
+- welcome
+- landing page
 ---
-{% include "_inc/head_open.html" %}
-    <!-- page style and script -->
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
-{% include "_inc/head_close.html" %}
+<div layout="column center-center" class="animate__animated animate__fadeIn animate__slower">
 
-<body class="mdl-color--black animated fadeIn" onload="init()">
+    {% unpre %}
+    ```html
+    <div self="size-x1" layout="column center-center" style="margin: 56px; width:auto!important">
+        <h1 class="animate__animated animate__fadeInDown animate__fast" style="margin: 0!important; padding: 0!important;">
+            <a href="{{ redirect | url }}" layout="row center-center">
+                <strong>Z</strong>
+                <i style="font-size: 150%; margin-bottom: 6px; color: mediumseagreen; margin-right: 4px; margin-left: 4px" class="material-icons animate__animated animate__bounce">
+                    extension
+                </i>
+                <strong>KIT</strong>
+            </a>
+        </h1>
+        <small class="animate__animated animate__fadeIn animate__slower">web enhancing bits</small>
+        <code class="animate__animated animate__fadeInUp animate__slower" style="margin-top: 12px; padding: 0">
+            made with <a href="https://zuixjs.org">zUIx.js</a>
+        </code>
+    </div>
+    ```
+    {% endunpre %}
 
-    <main>
-
-        <article class="mdl-color--pink-900 page-active mdl-color-text--white first gradient-1 -gradient-anim" layout="column center-center">
-            {% include "_inc/index/cover.html" %}
-        </article>
-
-        <article class="mdl-color--purple-900 mdl-color-text--white zuix-css-ignore gradient-2 -gradient-anim">
-            <div class="section-title">controllers</div>
-            {% include "_inc/index/controllers.html" %}
-        </article>
-
-        <article class="mdl-color--green-900 mdl-color-text--white gradient-3 -gradient-anim">
-            <div class="section-title">components</div>
-            {% include "_inc/index/components.html" %}
-        </article>
-        <!--
-        <article class="mdl-color--green-600 mdl-color-text--white">
-            <div class="section-title">templates</div>
-            {% include "_inc/index/templates.html" %}
-        </article>
-        -->
-        <article class="mdl-color--pink-900 mdl-color-text--white last gradient-4 -gradient-anim" layout="column center-center">
-            {% include "_inc/index/about.html" %}
-        </article>
-
-    </main>
-
-{% include "_inc/body_end.html" %}
-
-</body>
-</html>
+</div>

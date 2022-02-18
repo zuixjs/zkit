@@ -1,0 +1,8 @@
+## Usage
+### 1. Include `zuix.js` library
+
+If not already included, add the following line right before the end of the `head` section in the `HTML` document:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/zuix-dist"></script>
+```

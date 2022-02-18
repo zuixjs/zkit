@@ -1,30 +1,11 @@
 ### zKit
 
-A collection of framework-agnostic web components made with zUIx.
-
-http://kit.zuix.it
+A collection of framework-agnostic web components made with `zuix.js`.
 
 https://zuixjs.github.io/zkit
 
 
-#### Development
+###### Related resources and docs
 
-This website is based on [zUIx Web Starter](https://github.com/zuixjs/zuix-web-starter).
-
-1. `npm install` to install development dependencies
-2. `npm start` to start local web server
-3. `npm run watch` to watch file tree for changes and auto-rebuild
-4. `npm run build` to manually build the files
-
-website source files are located in the `./source` folder and are
-generated in the `./docs` folder.
-This setting can be changed by modifying the `./config/default.json` file.
-
-The `source/lib` folder is where zKit components are located.
-The `source/docs` folder contains documentation of each component in the `lib` folder.
-
-
-###### Resources and Docs
-
-- [zUIx](https://zuixjs.github.io/zuix)
-- [Static Site](https://github.com/paulcpederson/static-site)
+- [zuix.js](https://github.com/zuixjs/zuix)
+- [zuix.js Web Starter](https://github.com/zuixjs/zuix-web-starter)

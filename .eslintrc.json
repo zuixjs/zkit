@@ -20,13 +20,14 @@
         "FunctionExpression": false
       }
     }],
-    "no-var": 1,
+    "no-var": 0,
     "no-unused-vars": 1,
     "camelcase": 1,
     "no-extend-native": 1,
     "prefer-spread": 1,
     "prefer-rest-params": 1,
-    "no-invalid-this": 0
+    "no-invalid-this": 0,
+    "no-const-assign": 2
   },
   "parserOptions": {
     "ecmaVersion": 6

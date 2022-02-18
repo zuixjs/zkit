@@ -1,8 +1,8 @@
 {
-  "name": "zKit",
-  "short_name": "zKit",
-  "description": "Components for modern web, made with zUIx.js",
-  "theme_color": "#275e20",
+  "name": "zUIx Web Starter",
+  "short_name": "Web Starter",
+  "description": "A very cool web app powered by zUIx.js",
+  "theme_color": "#178038",
   "background_color": "#dafee4",
   "display": "standalone",
   "Scope": "./",

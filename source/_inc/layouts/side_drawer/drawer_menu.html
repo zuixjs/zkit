@@ -1,0 +1,41 @@
+<ul>
+    <li {% if page.url == '/pages/home/' %} aria-current="page"{% endif %}>
+    <a href="{{ '/pages/home' | url }}">
+        <div layout="row center-left">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+    </a>
+    </li>
+</ul>
+
+<label>Controllers</label>
+<ul>
+    {%- for post in collections.posts_controllers -%}
+    {% assign match = page.url | split:post.url %}
+    <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+        <a href="{{ post.url | url }}">
+            <div layout="row center-lett">
+                <i class="material-icons">{{ post.data.icon }}</i>
+                <span>{{ post.data.title }}</span>
+            </div>
+        </a>
+    </li>
+    {%- endfor -%}
+</ul>
+
+
+<label>Components</label>
+<ul>
+    {%- for post in collections.posts_components -%}
+    {% assign match = page.url | split:post.url %}
+    <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+        <a href="{{ post.url | url }}">
+            <div layout="row center-lett">
+                <i class="material-icons">{{ post.data.icon }}</i>
+                <span>{{ post.data.title }}</span>
+            </div>
+        </a>
+    </li>
+    {%- endfor -%}
+</ul>

@@ -1,0 +1,200 @@
+:root {
+    --primary-color: rgb(63,81,181);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    position: relative;
+    min-height: 100vh;
+    background: var(--background-color); /* this is also set by Pico.CSS for theming */
+}
+
+a {
+    text-decoration: none;
+}
+h1 {
+    font-size: 230% !important;
+    font-weight: 500;
+}
+h2 {
+    font-size: 220% !important;
+}
+h3 {
+    font-size: 190% !important;
+    opacity: 0.9;
+}
+h4 {
+    font-size: 160% !important;
+    opacity: 0.8;
+}
+h5 {
+    font-size: 150% !important;
+    opacity: 0.7;
+}
+h6 {
+    font-size: 130% !important;
+    opacity: 0.6;
+}
+
+li {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    font-size: 120%;
+}
+li small {
+    font-family: Helvetica, sans-serif;
+    font-size: 70%;
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+blockquote {
+    font-size: 140%;
+    opacity: 0.6;
+}
+
+p {
+    font-size: 130%;
+    line-height: 160%;
+    margin-bottom: 24px;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+[data-theme="dark"] hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+pre {
+    margin-top: 32px!important;
+    margin-bottom: 32px!important;
+}
+code {
+    color: #0b4d2c;
+    overflow-wrap: break-word; /* for old browsers */
+    overflow-wrap: anywhere;
+}
+
+/* prevents links dragging */
+a, a::after, a::before {
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+}
+
+main {
+    width: 100% !important;
+    padding: 0 !important;
+}
+main div.content {
+    width: 100% !important;
+    max-width: 960px !important;
+    padding-top: 24px;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+main h1 {
+    margin-top: 10px!important;
+}
+
+[z-field="header"] {
+    position: fixed;
+    z-index: 1;
+    top:0; left: 0; right: 0; bottom: 0;
+    height: 64px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background: #f1f1f1;
+    box-shadow: 0 1px rgba(100, 100, 100, 30%);
+}
+[data-theme="dark"] [z-field="header"] {
+    background: black;
+}
+h1[z-field="alt_header"] {
+    text-align: center;
+    display: block;
+}
+
+.header-menu-button {
+    cursor: pointer;
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+}
+[data-theme="dark"] .header-menu-button {
+    filter: invert(1);
+}
+[data-theme="dark"] .header-logo {
+    background: #24333e;
+}
+
+[z-load][z-ready=true].visible-on-ready,
+[z-include][z-ready=true].visible-on-ready
+{
+    opacity: 1;
+    transition-delay: 150ms;
+    transition-property: opacity;
+}
+[z-load]:not([z-ready=true]).visible-on-ready,
+[z-include]:not([z-ready=true]).visible-on-ready
+{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+@media screen and (min-width: 1280px) {
+    main {
+        padding-top: 0 !important;
+        padding-left: 304px !important;
+        padding-right: 24px !important;
+    }
+    [z-field="header"] {
+        padding-left: 316px;
+        display: none;
+    }
+    h1[z-field="alt_header"] {
+        margin-top: 32px;
+        margin-bottom: 48px;
+        margin-left: -28px;
+        visibility: visible;
+    }
+    .header-menu-button {
+        display: none;
+    }
+}
+
+/* UI state classes */
+.not-ready {
+    opacity: 0.5;
+    -webkit-animation: pulse .5s infinite ease-in-out;
+    -o-animation: pulse .5s infinite ease-in-out;
+    -ms-animation: pulse .5s infinite ease-in-out;
+    -moz-animation: pulse .5s infinite ease-in-out;
+    animation: pulse .5s infinite ease-in-out;
+}
+@-webkit-keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+@keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+{% include 'layouts/side_drawer/drawer.css' %}

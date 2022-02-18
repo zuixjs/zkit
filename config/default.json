@@ -1,38 +1,32 @@
 {
   "zuix": {
     "build": {
-      "input": "./source",
-      "output": "./docs",
+      "input": "source",
+      "output": "docs",
       "copy": [
+        "1.0",
         "css",
         "images",
-        "lib",
         ".nojekyll",
+        "browserconfig.xml",
         "manifest.json",
         "humans.txt",
         "favicon.ico",
         "robots.txt"
       ],
       "ignore": [
-        "_inc",
-        "docs/_inc"
+        "1.0",
+        "_filters",
+        "app"
       ],
-      "compile": [
-        "html",
-        "less",
-        "css",
-        "js",
-        "md",
-        "svg"
-      ],
-      "prettyUrl": true,
-      "less": true,
-      "esLint": true,
+      "dataFolder": "_data",
+      "includesFolder": "_inc",
       "bundle": {
         "js": false,
         "css": false,
         "zuix": false
       },
+      "serviceWorker": false,
       "minify": {
         "disable": true,
         "collapseWhitespace": true,
@@ -49,13 +43,23 @@
       }
     },
     "app": {
-      "title": "zKit, components for modern web.",
+      "title": "<code>zKit</code> components v1.1",
+      "subtitle": "web enhancing bits",
       "googleSiteId": "UA-123-456",
-      "resourcePath": "",
-      "libraryPath": "/lib/",
+      "baseUrl": "/",
+      "resourcePath": "/app/",
+      "libraryPath": {
+        "@lib": "",
+        "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+        "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+      },
       "zuixjs.github.io": {
-        "resourcePath": "/zkit/",
-        "libraryPath": "lib/"
+        "resourcePath": "/zkit/app",
+        "libraryPath": {
+          "@lib": "https://zuixjs.github.io/zkit/lib/",
+          "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+          "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+        }
       }
     }
   }

@@ -1,0 +1,855 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="zKit, a collection of framework-agnostic components for modern web.">
+    <meta name="keywords" content="Scroll,Smooth,Control,Watch,Elements" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Helper</title>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Progressive Web App -->
+    <meta name="theme-color" content="white">
+    <link rel="manifest" href="/zkit/manifest.json">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/zkit/images/icons/desktop/android-chrome-192x192.png">
+    <link rel="icon" sizes="512x512" href="/zkit/images/icons/desktop/android-chrome-512x512.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="A zUIx website">
+    <link rel="apple-touch-icon-precomposed" href="/zkit/images/icons/desktop/apple-touch-icon.png">
+    <link rel="mask-icon" href="/zkit/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5">
+
+    <!-- Tile color for Windows -->
+    <meta name="msapplication-TileImage" content="/zkit/images/icons/desktop/mstile-150x150.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/zkit/images/icons/desktop/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/zkit/images/icons/desktop/favicon-16x16.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
+
+
+
+    <script src="/zkit/js/prism/prism.js"></script>
+    <link rel="stylesheet" href="/zkit/js/prism/prism.css" />
+
+
+
+    <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <script src="/zkit/js/zuix/zuix.js"></script>
+    <script src="/zkit/config.js"></script>
+    <script src="/zkit/js/zuix/animate-css.js"></script>
+
+<style>
+:root {
+    --primary-color: rgb(63,81,181);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    position: relative;
+    min-height: 100vh;
+    background: var(--background-color); /* this is also set by Pico.CSS for theming */
+}
+
+a {
+    text-decoration: none;
+}
+h1 {
+    font-size: 230% !important;
+    font-weight: 500;
+}
+h2 {
+    font-size: 220% !important;
+}
+h3 {
+    font-size: 190% !important;
+    opacity: 0.9;
+}
+h4 {
+    font-size: 160% !important;
+    opacity: 0.8;
+}
+h5 {
+    font-size: 150% !important;
+    opacity: 0.7;
+}
+h6 {
+    font-size: 130% !important;
+    opacity: 0.6;
+}
+
+li {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    font-size: 120%;
+}
+li small {
+    font-family: Helvetica, sans-serif;
+    font-size: 70%;
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+blockquote {
+    font-size: 140%;
+    opacity: 0.6;
+}
+
+p {
+    font-size: 130%;
+    line-height: 160%;
+    margin-bottom: 24px;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+[data-theme="dark"] hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+pre {
+    margin-top: 32px!important;
+    margin-bottom: 32px!important;
+}
+code {
+    color: #0b4d2c;
+    overflow-wrap: break-word; /* for old browsers */
+    overflow-wrap: anywhere;
+}
+
+/* prevents links dragging */
+a, a::after, a::before {
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+}
+
+main {
+    width: 100% !important;
+    padding: 0 !important;
+}
+main div.content {
+    width: 100% !important;
+    max-width: 960px !important;
+    padding-top: 24px;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+main h1 {
+    margin-top: 10px!important;
+}
+
+[z-field="header"] {
+    position: fixed;
+    z-index: 1;
+    top:0; left: 0; right: 0; bottom: 0;
+    height: 64px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background: #f1f1f1;
+    box-shadow: 0 1px rgba(100, 100, 100, 30%);
+}
+[data-theme="dark"] [z-field="header"] {
+    background: black;
+}
+h1[z-field="alt_header"] {
+    text-align: center;
+    display: block;
+}
+
+.header-menu-button {
+    cursor: pointer;
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+}
+[data-theme="dark"] .header-menu-button {
+    filter: invert(1);
+}
+[data-theme="dark"] .header-logo {
+    background: #24333e;
+}
+
+[z-load][z-ready=true].visible-on-ready,
+[z-include][z-ready=true].visible-on-ready
+{
+    opacity: 1;
+    transition-delay: 150ms;
+    transition-property: opacity;
+}
+[z-load]:not([z-ready=true]).visible-on-ready,
+[z-include]:not([z-ready=true]).visible-on-ready
+{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+@media screen and (min-width: 1280px) {
+    main {
+        padding-top: 0 !important;
+        padding-left: 304px !important;
+        padding-right: 24px !important;
+    }
+    [z-field="header"] {
+        padding-left: 316px;
+        display: none;
+    }
+    h1[z-field="alt_header"] {
+        margin-top: 32px;
+        margin-bottom: 48px;
+        margin-left: -28px;
+        visibility: visible;
+    }
+    .header-menu-button {
+        display: none;
+    }
+}
+
+/* UI state classes */
+.not-ready {
+    opacity: 0.5;
+    -webkit-animation: pulse .5s infinite ease-in-out;
+    -o-animation: pulse .5s infinite ease-in-out;
+    -ms-animation: pulse .5s infinite ease-in-out;
+    -moz-animation: pulse .5s infinite ease-in-out;
+    animation: pulse .5s infinite ease-in-out;
+}
+@-webkit-keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+@keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+.drawer-header {
+    color:white;
+    height: 164px;
+    padding: 12px;
+    background: #5f7555;  /* fallback for old browsers */
+}
+.drawer-header img.logo {
+    width: 84px;
+    height: 84px;
+    border: none;
+    border-radius: 56px;
+    background: transparent;
+}
+[data-theme="dark"] .drawer-header img.logo {
+    background: #000;
+}
+
+.drawer-header .text-logo {
+    font-size: 180%;
+    font-weight: 400;
+    margin-right: 48px;
+}
+.drawer-header .title {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 120%;
+    font-weight: 300;
+}
+.drawer-header .title code {
+    font-weight: bold;
+}
+.drawer-header .subtitle {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 100%;
+    opacity: 0.75;
+}
+.drawer-header code {
+    color: yellow;
+}
+
+.drawer-content {
+    background: white;
+}
+[data-theme="dark"] .drawer-content {
+    background: #24333e;
+}
+
+.drawer-content ul {
+    padding: 0;
+    margin-top: 8px;
+    /*font-size: 120%;*/
+}
+.drawer-content li:hover a {
+    /*box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background: rgba(160,160,160,0.1);*/
+    color: var(--primary-color);
+}
+.drawer-content li {
+    margin: 0;
+    margin-right: 10px;
+    border-radius: 0 24px 24px 0;
+    height: 48px;
+    vertical-align: center;
+    align-content: center;
+    align-items: center;
+    list-style: none;
+}
+.drawer-content ul li[aria-current=page] {
+    border: solid 1px rgba(0, 255, 0, 3%);
+    box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background-color: rgba(127, 127, 127, 5%);
+}
+.drawer-content ul li[aria-current=page] i, .drawer-content ul li[aria-current=page] a {
+    color: var(--primary-color);
+}
+.drawer-content li a {
+    font-weight: 400;
+    font-size: 100%;
+    position: relative;
+    display: block;
+    padding: 11px 16px;
+    text-decoration: none;
+}
+.drawer-content li a i {
+    width: 40px;
+    opacity: 0.65;
+}
+.drawer-content li a span {
+    padding-top: 2px;
+}
+.drawer-content ul li[aria-current=page] a {
+    /*pointer-events: none;*/
+    font-weight: bold;
+}
+.drawer-content ul li a div.summary {
+    font-size: 95%;
+    line-height: 150%;
+    margin-top: 4px;
+    margin-right: 32px;
+    font-style: italic;
+    font-weight: 400!important;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    color: lightslategray;
+}
+.drawer-content label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 12px;
+    font-weight: bold;
+    color: rgba(127,127,127,1);
+}
+.drawer-content a {
+
+color: #24333e;
+
+}
+[z-context="menu-drawer"]:focus {
+    outline: none;
+}
+
+
+</style>
+
+</head>
+
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink"
+      z-context="scroll-helper"
+      z-options="scroll_opts"
+      layout="column stretch-stretch">
+
+    <nav #header layout="row center-start">
+        <div self="stretch" layout="row center-start">
+            <div>
+                <img src="/zkit/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
+            </div>
+            <div self="size-x1" layout="row center-center">
+                <h1 style="margin:0;margin-left: -48px">Scroll Helper</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!--
+    <div z-load="@lib/components/hamburger-icon"
+         z-context="menu_hamburger"
+         z-options="menuButtonOptions"
+         style="position:fixed;right:0;top:6px;z-index:1001"></div>
+         -->
+
+
+    <main class="animate__animated animate__fadeIn animate__faster">
+        <div layout="column top-center">
+
+            
+            <h1 #alt_header>Scroll Helper</h1>
+            
+            <div class="content">
+<h2>Usage</h2>
+<h3>1. Include <code>zuix.js</code> library</h3>
+<p>If not already included, add the following line right before the end of the <code>head</code> section in the <code>HTML</code> document:</p>
+<pre><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/zuix-dist&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h2>2. Load the scroll helper</h2>
+<p>Add the <code>ctrl z-load</code> attributes to the host element implementing the scrollbar (usually the main <code>body</code> or a <code>div</code> element):</p>
+<pre><code class="language-html">&lt;html&gt;
+&lt;!-- ... --&gt;
+&lt;body ctrl z-load=&quot;@lib/controllers/scroll-helper&quot;
+      z-context=&quot;scroll-helper&quot;
+      z-options=&quot;scroll_options&quot;&gt;
+&lt;!-- ... --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2>Option attributes</h2>
+<ul>
+<li><code>ctrl z-load=&quot;@lib/controllers/scroll-helper&quot;</code> <small>constructor</small><br>
+load the <code>scroll-helper</code> controller on the element.</li>
+<li><code>z-context</code> <small>optional</small><br>
+identifier name to be used to access this component from JavaScript.</li>
+</ul>
+<h2>Scripting</h2>
+<h3>Get a reference to the scroll helper object</h3>
+<p>Before component is loaded</p>
+<pre><code class="language-js">var scrollHelper; // it will be == null until component is loaded
+zuix.context('scroll-helper', function() {
+  // component loaded
+  scrollHelper = this;
+});
+</code></pre>
+<p>or at any time after component is loaded</p>
+<pre><code class="language-js">var scrollHelper = zuix.context('scroll-helper');
+</code></pre>
+<h3>Listen to events</h3>
+<pre><code class="language-js">scrollHelper.on('scroll:change', function(e, data) {
+  switch (data.event) {
+
+    case 'hit-top':
+      // reached top of page
+      break;
+
+    case 'scroll':
+      if (data.info.shift.y &lt; 0) {
+        // scrolling up
+      } else if (data.info.shift.y &gt; 0) {
+        // scrolling down
+      }
+      // for all fields of the data.info
+      // object see next paragraph
+      break;
+
+    case 'hit-bottom':
+      // reached end of page
+      break;
+
+  }
+});
+</code></pre>
+<h3>Get scroll information</h3>
+<pre><code class="language-js">// get the scroll info object
+const info = scrollHelper.info();
+
+info -&gt; {
+
+  // last event timestamp
+  timestamp: 1524263175438,
+
+  // movement since previous event
+  shift: {
+    x: 0,
+    y: -3
+  },
+
+  // total scroll area size
+  size: {
+    width: 1280,
+    height: 5281
+  },
+
+  // visible area size and position
+  viewport: {
+    x: 0,
+    y: -3313,
+    width: 1280,
+    height: 720
+  }
+
+}
+</code></pre>
+<h2>Watching DOM elements</h2>
+<p>The <code>watch</code> method takes one argument that can be either an element object or a valid  DOM query selector expression.</p>
+<pre><code class="language-js">// watch elements having the 'watchable' class
+scrollHelper.watch('.watchable', function(el, data) {
+  switch (data.event) {
+
+    case 'enter':
+      // element entered the visible area
+      break;
+
+    case 'exit':
+      // element out of the visible area
+      break;
+
+    case 'scroll':
+      // element is being scrolled in the visible area
+      break;
+
+    case 'off-scroll':
+      // element is being scrolled out of the visible area
+      break;
+
+  }
+});
+</code></pre>
+<p>The <code>data</code> object passed to the watch callback is described below</p>
+<pre><code class="language-js">data = {
+
+    // event: 'enter' | 'exit' | 'scroll' | 'off-scroll'
+    event,
+
+    // element position, status, rect and frame
+    x,       // float
+    y,       // float
+
+    visible, // boolean
+
+    rect: {  // DOMRect
+        x,
+        y,
+        height,
+        width,
+        left,
+        right,
+        top,
+        bottom
+    },
+
+    frame: { // relative center position
+        dx,
+        dy,
+    }
+
+}
+</code></pre>
+<p>The <code>frame</code> object represents the position of the center of the element relative to the viewport size. Specifically, <code>dx</code>
+and <code>dy</code> are float numbers that have values between <code>0</code> and <code>1</code> when the element is inside the viewport. So when the
+element is at the center of the viewport, <code>dx</code> and <code>dy</code> will have a value of <code>0.5</code>.<br>
+Otherwise, it will be less than <code>0</code> if the element is above the viewport top or lastly greater than <code>1</code> when the element
+is below the viewport bottom.</p>
+<p>This value can be used to create responsive and synchronized scroll animations based on current viewport
+offset and elements position.</p>
+<h3>Other methods</h3>
+<pre><code class="language-js">// scroll to the start of page
+scrollHelper.scrollStart( [duration_ms] );
+
+// scroll to the end of page
+scrollHelper.scrollEnd( [duration_ms] );
+
+// scroll to element or offset
+scrollHelper.scrollTo( element | offset_px );
+</code></pre>
+<h2>Demos</h2>
+<ul>
+<li><a href="../../../1.0/docs/controllers/scroll_helper">Demo page</a> from older <code>zKit</code> release</li>
+</ul>
+
+            </div>
+
+            
+            <footer layout="colums center-center" style="height: 320px">
+
+                <div class="subtitle" layout="row center-left" style="padding: 12px; gap: 8px; opacity: 0.75">
+                    with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
+                    and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+                    for you
+                </div>
+
+            </footer>
+            
+
+
+
+
+
+        </div>
+    </main>
+
+
+    <!-- Navigation Drawer -->
+    <div ctrl z-load="@lib/controllers/drawer-layout"
+         z-context="menu-drawer" z-lazy="false"
+         z-options="drawer_opts"
+         class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
+         layout="column top-stretch">
+        <!-- Navigation Drawer content -->
+
+        <!-- Header -->
+        <div class="drawer-header" layout="column justify-stretch">
+            <div layout="row center-justify">
+                <a href="/zkit/">
+                    <i style="font-size: 600%; color: #b0bbaa; text-shadow: -1px -1px 0 #00000044, 1px -1px 0 #00000044, -1px 1px 0 #00000044, 1px 1px 0 #00000044;" class="material-icons">
+                        extension
+                    </i>
+                </a>
+                <a href="https://github.com/zuixjs/zkit" style="opacity: 0.75">
+                    <img src="/zkit/images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;">
+                </a>
+            </div>
+            <div class="title"><code>zKit</code> components v1.1</div>
+            <div class="subtitle">web enhancing bits</div>
+        </div>
+
+        <!-- Menu items and other content -->
+        <div class="drawer-content" self="size-x1">
+            <ul>
+    <li >
+    <a href="/zkit/pages/home">
+        <div layout="row center-left">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+    </a>
+    </li>
+</ul>
+
+<label>Controllers</label>
+<ul>
+    <li >
+        <a href="/zkit/pages/controllers/drawer-layout/">
+            <div layout="row center-lett">
+                <i class="material-icons">space_dashboard</i>
+                <span>Drawer Layout</span>
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/zkit/pages/controllers/gesture-helper/">
+            <div layout="row center-lett">
+                <i class="material-icons">swipe</i>
+                <span>Gesture Helper</span>
+            </div>
+        </a>
+    </li>
+    <li  aria-current="page">
+        <a href="/zkit/pages/controllers/scroll-helper/">
+            <div layout="row center-lett">
+                <i class="material-icons">swap_vert</i>
+                <span>Scroll Helper</span>
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/zkit/pages/controllers/view-pager/">
+            <div layout="row center-lett">
+                <i class="material-icons">view_carousel</i>
+                <span>View Pager</span>
+            </div>
+        </a>
+    </li></ul>
+
+
+<label>Components</label>
+<ul>
+    <li >
+        <a href="/zkit/pages/components/context-menu/">
+            <div layout="row center-lett">
+                <i class="material-icons">menu</i>
+                <span>Context Menu</span>
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/zkit/pages/components/menu-overlay/">
+            <div layout="row center-lett">
+                <i class="material-icons">menu_open</i>
+                <span>Menu Overlay</span>
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/zkit/pages/components/media-browser/">
+            <div layout="row center-lett">
+                <i class="material-icons">perm_media</i>
+                <span>Media Browser</span>
+            </div>
+        </a>
+    </li></ul>
+
+        </div>
+
+    </div>
+
+
+<!-- Built with love using zUIx Web Starter -->
+
+
+
+</body>
+
+<!-- page script -->
+<script>
+/** type {ComponentContext} */
+let menuDrawer;
+/** type {ComponentContext} */
+let menuButton;
+window.drawer_opts = {
+  autoHideWidth: 1280,
+  on: {
+    'drawer:open': function() {
+      //zuix.context('menu_hamburger', function() {
+      //  this.open();
+      //});
+    },
+    'drawer:close': function() {
+      //zuix.context('menu_hamburger', function() {
+      //  this.close();
+      //});
+    }
+  },
+  ready: function() {
+    menuDrawer = this;
+    menuDrawer.$.animateCss(enterAnimation, {
+      duration: '0.2s'
+    });
+  }
+};
+window.menuButtonOptions = {
+  on: {
+    'menu:open': function() {
+      //headerMenu.open();
+    },
+    'menu:close': function() {
+      //headerMenu.close();
+    }
+  },
+  ready: function() {
+    menuButton = this;
+  }
+};
+
+let scrollHelper;
+window.scroll_opts = {
+  ready: (ctx) => {
+    scrollHelper = ctx;
+    setTimeout(enableScrollHelper, 500);
+  }
+};
+function enableScrollHelper() {
+  scrollHelper.on('scroll:change', function(e, data) {
+    switch (data.event) {
+      case 'hit-top':
+        // reached top of the page
+        showHeader();
+        break;
+      case 'scroll':
+        // show/hide header when scrolling up/down
+        if (data.info.shift.y > 0) {
+          showHeader();
+        } else {
+          hideHeader();
+        }
+        break;
+      case 'hit-bottom':
+        // reached end of the page
+        showHeader();
+        break;
+    }
+  });
+  setTimeout(function() {
+    if (location.hash && scrollbarVisible(document.body)) {
+      hideHeader();
+    }
+  }, 500);
+}
+function scrollbarVisible(element) {
+  const r = element.getBoundingClientRect();
+  return r.bottom !== r.height;
+}
+
+let headerVisible = true;
+function showHeader() {
+  if (!headerVisible) {
+    headerVisible = true;
+    zuix.field('header').animateCss('fadeInDown').show();
+  }
+  ////if (!menuButton.$.hasClass('animate__animated')) {
+  //  menuButton.$.animateCss('fadeInDown').show();
+  ////}
+}
+function hideHeader() {
+  if (headerVisible && !zuix.field('header').hasClass('animate__animated')) {
+    headerVisible = false;
+    zuix.field('header').animateCss('fadeOutUp', function() {
+      this.hide();
+    });
+  }
+  ////if (!menuButton.$.hasClass('animate__animated')) {
+  //  menuButton.$.animateCss('fadeOutUp', function() {
+  //    this.hide();
+  //  });
+  ////}
+}
+
+function processExternalLinks(view) {
+  // Force opening of all non-local links in a new window
+  zuix.$(view).find('a[href*="://"]')
+      .attr('target', '_blank')
+      .attr('rel', 'noreferrer');
+}
+
+zuix.hook('view:process', function(view) {
+  processExternalLinks(view);
+});
+processExternalLinks(document);
+
+// add presentation anim to the drawer
+const referrerLink = document.createElement('a');
+referrerLink.href = document.referrer;
+const enterAnimation =
+  (referrerLink.pathname === '/zkit/') ?
+    'fadeInLeft' : 'fadeIn';
+
+</script>
+
+
+</html>
+
