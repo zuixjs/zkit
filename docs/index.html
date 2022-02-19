@@ -41,10 +41,13 @@
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -53,6 +56,9 @@
 
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <link rel="preload" as="script" href="/zkit/js/zuix/zuix.min.js">
+    <link rel="preload" as="script" href="/zkit/config.js">
+    <link rel="preload" as="script" href="/zkit/js/zuix/animate-css.js">
     <script src="/zkit/js/zuix/zuix.min.js"></script>
     <script src="/zkit/config.js"></script>
     <script src="/zkit/js/zuix/animate-css.js"></script>
