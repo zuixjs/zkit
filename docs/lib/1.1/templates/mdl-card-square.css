@@ -1,0 +1,66 @@
+:host {
+    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.mdl-card {
+    width: 320px;
+    height: 320px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+}
+.mdl-card__title {
+    width: auto !important;
+    height: 172px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.mdl-card__title img {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    height: 176px !important;
+    width: auto !important;
+    -webkit-transform: translate(-50%,-50%) !important;
+    -ms-transform: translate(-50%,-50%) !important;
+    transform: translate(-50%,-50%) !important;
+}
+.mdl-card__title img.portrait {
+    background: linear-gradient(to bottom, #82addb66 0%,#ebb2b166 100%);
+    width: 100% !important;
+    /*height: auto !important;*/
+}
+h1 {
+    padding: 16px !important;
+    font-size: 160% !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    text-shadow:
+            -.5px -.5px 0 #00000055,
+            .5px -.5px 0 #00000055,
+            -.5px .5px 0 #00000055,
+            1px 1px 0 #00000055 !important;
+    z-index: 10 !important;
+}
+.mdl-button {
+    font-weight: bold;
+}
+.mdl-card__supporting-text {
+    color: black !important;
+    font-size: 100% !important;
+    line-height: 130% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 16px !important;
+    display: block; text-overflow: ellipsis;
+    max-lines: 3;
+    display: -webkit-box;
+    max-width: 296px;
+    max-height: 90px;
+    height: 64px;
+    min-height: 64px;
+    overflow: hidden !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

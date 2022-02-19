@@ -1,0 +1,22 @@
+<a #link.url href="#" class="mdl-card mdl-shadow--2dp mdl-js-ripple-effect animate__animated animate__fadeIn">
+    <div class="mdl-card__title mdl-card--expand animate__animated animate__fadeIn animate__slow">
+        <span #text></span>
+    </div>
+    <div class="mdl-card__actions animate__animated animate__fadeInUp animate__slow">
+        <span #title class="title"></span>
+    </div>
+    <span class="mdl-button__ripple-container">
+        <span class="mdl-ripple"></span>
+    </span>
+</a>
+<script type="jscript" using="componentHandler">
+  $.on('mouseover touchstart', () => $.addClass('mdl-shadow--4dp'));
+  $.on('mouseout touchend', () => $.removeClass('mdl-shadow--4dp'));
+  $.css({
+    backgroundImage: 'url(' + model.image.src + '?random=' + Math.random() + ')',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  });
+  // this is required for the MDL ripple effect
+  componentHandler.upgradeElements($.get().firstElementChild);
+</script>
