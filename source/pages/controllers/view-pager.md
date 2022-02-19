@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 4
 icon: view_carousel
 title: View Pager
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: View Pager component for implementing carousel, gallery, tab-views. Gesture enabled, for desktop and mobile.
 keywords:
 - ViewPager
 - Tabs

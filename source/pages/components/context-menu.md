@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 1
 icon: menu
 title: Context Menu
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: A bottom popping context menu, like the one commonly used on mobile devices.
 keywords:
 - Bottom
 - Context

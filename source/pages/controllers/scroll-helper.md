@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 3
 icon: swap_vert
 title: Scroll Helper
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: Scroll helper to improve page scrolling handling, watching elements and get notified when they scroll into view.
 keywords:
 - Scroll
 - Smooth

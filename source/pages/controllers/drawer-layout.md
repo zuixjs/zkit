@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 1
 icon: space_dashboard
 title: Drawer Layout
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: An adaptive drawer layout for both mobile and desktop displays, gestures enabled.
 keywords:
 - Navigation
 - Drawer

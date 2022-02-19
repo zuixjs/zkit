@@ -5,7 +5,7 @@ theme: blue-pink
 order: 2
 icon: menu_open
 title: Menu Overlay
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: A classic floating action button activated menu for page-contextual operations. 
 keywords:
 - Menu
 - Overlay

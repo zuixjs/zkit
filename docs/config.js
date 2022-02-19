@@ -3,7 +3,7 @@
   zuix.store('config', {
     "title": "<code>zKit</code> components v1.1",
     "subtitle": "web enhancing bits",
-    "googleSiteId": "UA-123-456",
+    "googleSiteId": "UA-116384214-1",
     "baseUrl": "/zkit/",
     "resourcePath": "/app/",
     "libraryPath": {

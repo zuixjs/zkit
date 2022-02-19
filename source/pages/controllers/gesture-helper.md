@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 2
 icon: swipe
 title: Gesture Helper
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: Helper class for detecting common touch gestures.
 keywords:
 - Gesture
 - Detection

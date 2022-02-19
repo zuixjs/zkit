@@ -5,7 +5,7 @@ theme: indigo-pink
 order: 3
 icon: perm_media
 title: Media Browser
-description: 'zKit, a collection of framework-agnostic components for modern web.'
+description: A gestures enabled media browser supporting image, videos and text.
 keywords:
 - Media
 - Browser

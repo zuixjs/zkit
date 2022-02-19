@@ -8,8 +8,12 @@ title: Welcome
 description: zKit, a collection of framework-agnostic components for the web
 keywords:
 - zuix
+- zuix.js
 - web starter
 - home
+- components
+- web
+- pwa
 ---
 
 
