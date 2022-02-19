@@ -83,13 +83,13 @@ For instance the example menu in this page is using Material Design Lite FAB (fl
   <!-- custom open/close menu button -->
 
   <div #menu_button>
-    <a ctrl z-load="controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
       <i class="material-icons">message</i>
     </a>
   </div>
 
   <div #menu_button_close>
-    <a ctrl z-load="controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
       <i class="material-icons">close</i>
     </a>
   </div>

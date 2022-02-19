@@ -1,12 +1,12 @@
 const template = `
-<div ctrl z-load="controllers/mdl-menu" z-lazy="false"
+<div ctrl z-load="@lib/controllers/mdl-menu" z-lazy="false"
      z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
 
     <!-- the menu is defined as a simple UL list -->
     {{ content }}
 
     <!-- the menu's FAB button -->
-    <a ctrl z-load="controllers/mdl-button"
+    <a ctrl z-load="@lib/controllers/mdl-button"
        z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }">
         <i class="material-icons">menu</i>
     </a>

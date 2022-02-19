@@ -467,12 +467,12 @@ color of the menu button icon. The default value is <code>white</code>.</li>
 <p>You can customize the appearance of the menu button by overriding the template fields:</p>
 <ul>
 <li>
-<p><a ctrl z-load="controllers/mdl-button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
    href="javascript:void(0)" class="visible-on-ready"><i class="material-icons">add</i>
 </a> <code>#menu_button</code> for the normal state button</p>
 </li>
 <li>
-<p><a ctrl z-load="controllers/mdl-button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
    href="javascript:void(0)" class="visible-on-ready"><i class="material-icons">close</i>
 </a> <code>#menu_button_close</code> for the open state button</p>
 </li>
@@ -489,13 +489,13 @@ color of the menu button icon. The default value is <code>white</code>.</li>
   &lt;!-- custom open/close menu button --&gt;
 
   &lt;div #menu_button&gt;
-    &lt;a ctrl z-load=&quot;controllers/mdl-button&quot; z-options=&quot;toggleButton&quot;&gt;
+    &lt;a ctrl z-load=&quot;@lib/controllers/mdl-button&quot; z-options=&quot;toggleButton&quot;&gt;
       &lt;i class=&quot;material-icons&quot;&gt;message&lt;/i&gt;
     &lt;/a&gt;
   &lt;/div&gt;
 
   &lt;div #menu_button_close&gt;
-    &lt;a ctrl z-load=&quot;controllers/mdl-button&quot; z-options=&quot;toggleButton&quot;&gt;
+    &lt;a ctrl z-load=&quot;@lib/controllers/mdl-button&quot; z-options=&quot;toggleButton&quot;&gt;
       &lt;i class=&quot;material-icons&quot;&gt;close&lt;/i&gt;
     &lt;/a&gt;
   &lt;/div&gt;

@@ -49,7 +49,7 @@
       "baseUrl": "/",
       "resourcePath": "/app/",
       "libraryPath": {
-        "@lib": "",
+        "@lib": "../lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },

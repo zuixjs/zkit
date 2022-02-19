@@ -15,7 +15,7 @@ keywords:
 
 {% unpre %}
 ```html
-<div self="size-x1" layout="column center-center" style="margin: 24px; margin-bottom: 72px; width:auto!important">
+<div self="size-x1" layout="column center-center" style="margin: 24px; margin-bottom: 72px; margin-top: 72px; width:auto!important">
     <div layout="row center-center" class="animate__animated animate__fadeInDown animate__fast" style="font-size: 300%">
         <strong>Z</strong>
         <i style="font-size: 150%; margin-bottom: 6px; color: mediumseagreen; margin-right: 4px; margin-left: 4px" class="material-icons animate__animated animate__bounce">

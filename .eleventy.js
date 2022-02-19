@@ -197,9 +197,12 @@ module.exports = function(eleventyConfig) {
   });
   // Watch zuix.js folders (`./templates` and `./source/app`) not watched by 11ty
   eleventyConfig.addWatchTarget('./templates/tags/');
-  const watchFolder = path.resolve(path.join(sourceFolder, zuixConfig.get('app.resourcePath')));
+  const watchFolders = [
+    path.resolve(path.join(sourceFolder, zuixConfig.get('app.resourcePath'))),
+    path.resolve(path.join(sourceFolder, 'lib'))
+  ];
   const watchEvents = {add: true, change: true, unlink: true};
-  chokidar.watch(watchFolder).on('all', (event, file) => {
+  chokidar.watch(watchFolders).on('all', (event, file) => {
     if (watchEvents[event] && fs.existsSync(file)) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);
