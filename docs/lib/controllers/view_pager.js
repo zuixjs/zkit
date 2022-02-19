@@ -238,8 +238,8 @@ zuix.controller(function(cp) {
         position(this, centerX, offset);
         offset += size.height;
       }
-      if (this.attr('data-ui-lazyload') === 'true' ||
-                this.find('[data-ui-lazyload="true"]').length() > 0) {
+      if (this.attr('data-ui-lazyload,z-lazy') === 'true' ||
+        this.find('[data-ui-lazyload="true"],[z-lazy="true"]').length() > 0) {
         isLazy = true;
       }
     });
