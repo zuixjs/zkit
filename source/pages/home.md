@@ -54,7 +54,7 @@ Add the `z-load` attributes to the host element specifying the component to be l
   A small library (18.5kB gzipped) for component-based web development
 - [zuix.js Web Starter](https://github.com/zuixjs/zuix-web-starter)  
   A web starter with templates and examples, based on *zuix.js* and [Eleventy](https://www.11ty.dev/), a simple static site generator.
-- Older zKit release [v1.0](../../../1.0) (2016)
+- Older zKit release [v1.0]({{ '/1.0' | url }}) (2016)
 
 
 {% layout 'column top-stretch' 'style="margin-top: 48px;margin-bottom: 96px"' %}
