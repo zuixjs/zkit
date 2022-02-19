@@ -1,0 +1,60 @@
+{% layout 'rows start-spread' 'class="components-summary"' %}
+
+<div>
+    <label>Controllers</label>
+    <ul>
+        {%- for post in collections.posts_controllers -%}
+        {% assign match = page.url | split:post.url %}
+        <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+            <a href="{{ post.url | url }}">
+                <div layout="row center-lett">
+                    <i class="material-icons">{{ post.data.icon }}</i>
+                    <span>{{ post.data.title }}</span>
+                </div>
+            </a>
+        </li>
+        {%- endfor -%}
+    </ul>
+</div>
+
+<div>
+    <label>Components</label>
+    <ul>
+        {%- for post in collections.posts_components -%}
+        {% assign match = page.url | split:post.url %}
+        <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+            <a href="{{ post.url | url }}">
+                <div layout="row center-lett">
+                    <i class="material-icons">{{ post.data.icon }}</i>
+                    <span>{{ post.data.title }}</span>
+                </div>
+            </a>
+        </li>
+        {%- endfor -%}
+    </ul>
+</div>
+
+{% endlayout %}
+
+<style>
+    .components-summary {
+        margin-top: 80px;
+    }
+    .components-summary label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    .components-summary ul {
+        margin: 0;
+        padding-left: 0;
+    }
+    .components-summary li {
+        list-style: none;
+    }
+    .components-summary li a {
+        color: darkslategrey;
+    }
+    .components-summary li i {
+        margin-right: 12px;
+    }
+</style>

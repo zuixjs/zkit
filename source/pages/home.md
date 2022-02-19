@@ -46,77 +46,16 @@ Add the `z-load` attributes to the host element specifying the component to be l
 <div z-load="path/to/my/component"></div>
 ```
 
-
-{% layout 'rows start-spread' 'class="components-summary"' %}
-
-<div>
-  <label>Controllers</label>
-  <ul>
-      {%- for post in collections.posts_controllers -%}
-      {% assign match = page.url | split:post.url %}
-      <li {% if match[0] == blank %} aria-current="page"{% endif %}>
-          <a href="{{ post.url | url }}">
-              <div layout="row center-lett">
-                  <i class="material-icons">{{ post.data.icon }}</i>
-                  <span>{{ post.data.title }}</span>
-              </div>
-          </a>
-      </li>
-      {%- endfor -%}
-  </ul>
-</div>
-
-<div>
-<label>Components</label>
-  <ul>
-      {%- for post in collections.posts_components -%}
-      {% assign match = page.url | split:post.url %}
-      <li {% if match[0] == blank %} aria-current="page"{% endif %}>
-          <a href="{{ post.url | url }}">
-              <div layout="row center-lett">
-                  <i class="material-icons">{{ post.data.icon }}</i>
-                  <span>{{ post.data.title }}</span>
-              </div>
-          </a>
-      </li>
-      {%- endfor -%}
-  </ul>
-</div>
-
-{% endlayout %}
-{% unpre %}
-```html
-<style>
-.components-summary {
-  margin-top: 80px;  
-}
-.components-summary label {
-  font-weight: bold;
-  color: var(--primary-color);
-}
-.components-summary ul {
-  margin: 0;
-  padding-left: 0;
-}
-.components-summary li {
-  list-style: none;
-}
-.components-summary li a {
-  color: darkslategrey;
-}
-.components-summary li i {
-  margin-right: 12px;
-}
-</style>
-```
-{% endunpre %}
-
+{% include "common/zkit-components-list.html" %}
 
 
 ## See also
-
 - [zuix.js](https://zuixjs.org)  
-  A small library (18.5kB gzipped) for component-based web development 
+  A small library (18.5kB gzipped) for component-based web development
 - [zuix.js Web Starter](https://github.com/zuixjs/zuix-web-starter)  
   A web starter with templates and examples, based on *zuix.js* and [Eleventy](https://www.11ty.dev/), a simple static site generator.
 - Older zKit release [v1.0](../../../1.0) (2016)
+
+
+{% layout 'column top-stretch' 'style="margin-top: 48px;margin-bottom: 96px"' %}
+{% endlayout %}

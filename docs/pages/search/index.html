@@ -509,15 +509,105 @@ color: #24333e;
             </div>
 
             
-            <footer layout="colums center-center" style="height: 320px">
+            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
-                <div class="subtitle" layout="row center-left" style="padding: 12px; gap: 8px; opacity: 0.75">
-                    with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
-                    and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
-                    for you
+    <div layout="rows start-spread" class="components-summary"><div>
+    <label>Controllers</label>
+    <ul>
+        <li >
+            <a href="/zkit/pages/controllers/drawer-layout/">
+                <div layout="row center-lett">
+                    <i class="material-icons">space_dashboard</i>
+                    <span>Drawer Layout</span>
                 </div>
+            </a>
+        </li>
+        <li >
+            <a href="/zkit/pages/controllers/gesture-helper/">
+                <div layout="row center-lett">
+                    <i class="material-icons">swipe</i>
+                    <span>Gesture Helper</span>
+                </div>
+            </a>
+        </li>
+        <li >
+            <a href="/zkit/pages/controllers/scroll-helper/">
+                <div layout="row center-lett">
+                    <i class="material-icons">swap_vert</i>
+                    <span>Scroll Helper</span>
+                </div>
+            </a>
+        </li>
+        <li >
+            <a href="/zkit/pages/controllers/view-pager/">
+                <div layout="row center-lett">
+                    <i class="material-icons">view_carousel</i>
+                    <span>View Pager</span>
+                </div>
+            </a>
+        </li></ul>
+</div>
+<div>
+    <label>Components</label>
+    <ul>
+        <li >
+            <a href="/zkit/pages/components/context-menu/">
+                <div layout="row center-lett">
+                    <i class="material-icons">menu</i>
+                    <span>Context Menu</span>
+                </div>
+            </a>
+        </li>
+        <li >
+            <a href="/zkit/pages/components/menu-overlay/">
+                <div layout="row center-lett">
+                    <i class="material-icons">menu_open</i>
+                    <span>Menu Overlay</span>
+                </div>
+            </a>
+        </li>
+        <li >
+            <a href="/zkit/pages/components/media-browser/">
+                <div layout="row center-lett">
+                    <i class="material-icons">perm_media</i>
+                    <span>Media Browser</span>
+                </div>
+            </a>
+        </li></ul>
+</div></div>
 
-            </footer>
+<style>
+    .components-summary {
+        margin-top: 80px;
+    }
+    .components-summary label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    .components-summary ul {
+        margin: 0;
+        padding-left: 0;
+    }
+    .components-summary li {
+        list-style: none;
+    }
+    .components-summary li a {
+        color: darkslategrey;
+    }
+    .components-summary li i {
+        margin-right: 12px;
+    }
+</style>
+
+
+    <div class="subtitle" layout="row center-center" style="padding: 48px; gap: 8px; opacity: 0.75">
+        with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
+        and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+        for you
+    </div>
+
+</footer>
+
             
 
 

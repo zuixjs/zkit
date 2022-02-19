@@ -43,15 +43,7 @@ date: Last Modified
             </div>
 
             {% unless options contains 'hide-footer' %}
-            <footer layout="colums center-center" style="height: 320px">
-
-                <div class="subtitle" layout="row center-left" style="padding: 12px; gap: 8px; opacity: 0.75">
-                    with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
-                    and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
-                    for you
-                </div>
-
-            </footer>
+            {% include "footer.html" %}
             {% endunless %}
 
 {% include "page_navigation.html" %}
