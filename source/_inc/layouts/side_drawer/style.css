@@ -101,6 +101,16 @@ main div.content {
 main h1 {
     margin-top: 10px!important;
 }
+main h2:first-child  {
+    margin-top: 0!important;
+}
+main h2:not(:first-child)  {
+    margin-top: 64px;
+}
+main h3 {
+    margin-top: 56px;
+    margin-bottom: 16px;
+}
 
 [z-field="header"] {
     position: fixed;

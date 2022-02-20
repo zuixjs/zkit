@@ -1,6 +1,6 @@
 ---
 layout: side_drawer.html
-options: mdl highlight hide-title hide-footer
+options: mdl highlight no-title no-footer
 theme: green-pink
 order: 0
 icon: home

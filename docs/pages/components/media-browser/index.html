@@ -178,6 +178,16 @@ main div.content {
 main h1 {
     margin-top: 10px!important;
 }
+main h2:first-child  {
+    margin-top: 0!important;
+}
+main h2:not(:first-child)  {
+    margin-top: 64px;
+}
+main h3 {
+    margin-top: 56px;
+    margin-bottom: 16px;
+}
 
 [z-field="header"] {
     position: fixed;
@@ -430,9 +440,9 @@ color: #24333e;
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            
+
             <h1 #alt_header>Media Browser</h1>
-            
+
             <div class="content">
 <p>An image/video gallery component configurable with a minimal HTML code.</p>
 <p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'raised', class: 'colored' }"
@@ -645,8 +655,8 @@ function mediaBrowserExampleReady(ctx) {
 
             </div>
 
-            
-            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
+
+<footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
     <div layout="rows start-spread" class="components-summary"><div>
     <label>Controllers</label>
@@ -745,7 +755,7 @@ function mediaBrowserExampleReady(ctx) {
 
 </footer>
 
-            
+
 
 
 

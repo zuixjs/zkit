@@ -35,16 +35,16 @@ date: Last Modified
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            {% unless options contains 'hide-title' %}
+{% unless options contains 'no-title' %}
             <h1 #alt_header>{{ title }}</h1>
-            {% endunless %}
+{% endunless %}
             <div class="content">
 {{ content }}
             </div>
 
-            {% unless options contains 'hide-footer' %}
-            {% include "footer.html" %}
-            {% endunless %}
+{% unless options contains 'no-footer' %}
+{% include "footer.html" %}
+{% endunless %}
 
 {% include "page_navigation.html" %}
 
