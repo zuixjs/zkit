@@ -21,6 +21,7 @@ const dataFolder = zuixConfig.get('build.dataFolder');
 const includesFolder = zuixConfig.get('build.includesFolder');
 const copyFiles = zuixConfig.get('build.copy');
 const ignoreFiles = zuixConfig.get('build.ignore');
+const componentsFolders = zuixConfig.get('build.componentsFolders');
 
 // LESS CSS compiler
 const less = require('less');
@@ -53,7 +54,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(EleventyRenderPlugin);
 
   // Add ignores
-  ignoreFiles.forEach((f) => {
+  [...ignoreFiles, ...componentsFolders].forEach((f) => {
     f = path.join(sourceFolder, f);
     eleventyConfig.ignores.add(f);
     console.log('Adding ignore "%s"', f);
@@ -111,9 +112,7 @@ module.exports = function(eleventyConfig) {
   // Add any BrowserSync config option here
   eleventyConfig.setBrowserSyncConfig({
     //reloadDelay: 2000,
-    files: [
-      path.resolve(path.join(buildFolder, zuixConfig.get('app.resourcePath')))
-    ],
+    files: [ ...componentsFolders ],
     notify: false,
     cors: true,
     middleware: [compress()],
@@ -197,12 +196,8 @@ module.exports = function(eleventyConfig) {
   });
   // Watch zuix.js folders (`./templates` and `./source/app`) not watched by 11ty
   eleventyConfig.addWatchTarget('./templates/tags/');
-  const watchFolders = [
-    path.resolve(path.join(sourceFolder, zuixConfig.get('app.resourcePath'))),
-    path.resolve(path.join(sourceFolder, 'lib'))
-  ];
   const watchEvents = {add: true, change: true, unlink: true};
-  chokidar.watch(watchFolders).on('all', (event, file) => {
+  chokidar.watch(componentsFolders.map(p =>  path.resolve(path.join(sourceFolder, p)))).on('all', (event, file) => {
     if (watchEvents[event] && fs.existsSync(file)) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);

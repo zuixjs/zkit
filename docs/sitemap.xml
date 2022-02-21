@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/search/</loc>
+    <lastmod>2022-02-18</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/view-pager/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/drawer-layout/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/gesture-helper/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/menu-overlay/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/scroll-helper/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
+    <lastmod>2022-02-19</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/home/</loc>
+    <lastmod>2022-02-20</lastmod>
+  </url>
+
+</urlset>

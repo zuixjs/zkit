@@ -4,6 +4,7 @@
     "title": "<code>zKit</code> components v1.1",
     "subtitle": "web enhancing bits",
     "googleSiteId": "UA-116384214-1",
+    "siteMapUrl": "https://zuixjs.github.io/zkit",
     "baseUrl": "/zkit/",
     "resourcePath": "/app/",
     "libraryPath": {

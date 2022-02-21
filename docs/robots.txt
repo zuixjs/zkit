@@ -3,3 +3,4 @@
 # Allow crawling of all content
 User-agent: *
 Disallow:
+Sitemap: https://zuixjs.github.io/zkit/sitemap.xml
