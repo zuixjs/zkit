@@ -1,6 +1,6 @@
 ---
 layout: side_drawer.html
-options: mdl highlight no-title
+options: mdl highlight no-title no-footer
 theme: green-pink
 order: 0
 icon: home
@@ -62,4 +62,15 @@ Add the `z-load` attributes to the host element specifying the component to be l
 
 
 {% layout 'column top-stretch' 'style="margin-top: 48px;margin-bottom: 96px"' %}
+
+<div class="subtitle" self="size-large" layout="row center-justify" style="padding: 48px; gap: 8px; opacity: 0.75">
+  <a href="https://pagespeed.web.dev/report?url={{ app.siteMapUrl }}{{ page.url }}">
+    <img width="24" height="24" src="{{ '/images/page-speed-insight-icon.png' | url }}">
+    Test this page on PageInsight
+  </a>
+  <div>
+    powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+  </div>
+</div>
+
 {% endlayout %}
