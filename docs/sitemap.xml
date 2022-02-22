@@ -37,11 +37,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/controllers/scroll-helper/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
     <lastmod>2022-02-19</lastmod>
   </url>
@@ -49,6 +44,11 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/home/</loc>
     <lastmod>2022-02-20</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/scroll-helper/</loc>
+    <lastmod>2022-02-21</lastmod>
   </url>
 
 </urlset>

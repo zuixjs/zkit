@@ -24,8 +24,7 @@ Add the `ctrl z-load` attributes to the host element implementing the scrollbar 
 <html>
 <!-- ... -->
 <body ctrl z-load="@lib/controllers/scroll-helper"
-      z-context="scroll-helper"
-      z-options="scroll_options">
+      z-context="scroll-helper">
 <!-- ... -->
 </body>
 </html>
