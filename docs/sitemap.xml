@@ -12,11 +12,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/controllers/view-pager/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/drawer-layout/</loc>
     <lastmod>2022-02-19</lastmod>
   </url>
@@ -49,6 +44,11 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/home/</loc>
     <lastmod>2022-02-22</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/view-pager/</loc>
+    <lastmod>2022-02-24</lastmod>
   </url>
 
 </urlset>

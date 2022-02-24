@@ -533,7 +533,8 @@ vp_options = {
   verticalLayout: true, // default `false`
   holdTouch: true,      // default `false`
   passive: false,       // default `true`
-  autoHide: true        // default `false`
+  autoHide: true,       // default `false`
+  startGap: 36          // default '0` (ignore touch on the left side to allow swipe gesture to open side drawer)
 }
 </code></pre>
 <h2>Examples</h2>
@@ -592,6 +593,7 @@ vp_options = {
 </div></div>
 <h2>Demos</h2>
 <ul>
+<li><a href="https://zuixjs.github.io/zuix-html-pwa/">News Reader PWA</a> <a href="https://github.com/zuixjs/zuix-html-pwa">source</a> demo</li>
 <li><a href="../../components/media-browser">Media Browser</a> component</li>
 </ul>
 
@@ -689,10 +691,10 @@ vp_options = {
 </style>
 
 
-    <div class="subtitle" self="size-large" layout="row center-justify" style="padding: 48px; gap: 8px; opacity: 0.75">
+    <div class="subtitle" self="size-large" layout="rows center-justify" style="padding: 48px; gap: 8px; opacity: 0.75">
         <a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zkit/pages/controllers/view-pager/">
             <img width="24" height="24" src="/zkit/images/page-speed-insight-icon.png">
-            Test this page on PageInsight
+            Test this page on PageSpeed Insight
         </a>
         <div>
             powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a>

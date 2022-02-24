@@ -122,7 +122,8 @@ vp_options = {
   verticalLayout: true, // default `false`
   holdTouch: true,      // default `false`
   passive: false,       // default `true`
-  autoHide: true        // default `false`
+  autoHide: true,       // default `false`
+  startGap: 36          // default '0` (ignore touch on the left side to allow swipe gesture to open side drawer)
 }
 ```
 
@@ -139,4 +140,5 @@ vp_options = {
 
 ## Demos
 
+- [News Reader PWA](https://zuixjs.github.io/zuix-html-pwa/) [source](https://github.com/zuixjs/zuix-html-pwa) demo
 - [Media Browser](../../components/media-browser) component
