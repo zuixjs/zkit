@@ -45,6 +45,6 @@
     "moment": "^2.29.1",
     "template-file": "^6.0.0",
     "zuix-cli": "^0.2.0-beta.1",
-    "zuix-dist": "^1.0.20"
+    "zuix-dist": "^1.0.21"
   }
 }
