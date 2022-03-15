@@ -1,0 +1,15 @@
+---
+layout: side_drawer.liquid
+tags: sections
+group: components
+options: mdl
+theme: indigo-pink
+order: 10
+icon: extension
+title: Components
+description: zKit Components
+keywords:
+- Documentation
+---
+{% assign itemsList = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
+{% include "layouts/side_drawer/items-list.liquid" %}

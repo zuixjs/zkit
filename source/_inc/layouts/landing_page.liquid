@@ -1,0 +1,28 @@
+---
+date: Last Modified
+---
+{% include "head_open.liquid" %}
+<style>
+{% include "./landing_page/style.css" %}
+</style>
+{% include "head_close.html" %}
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body data-theme="{{ theme }}">
+
+<main layout="column stretch-stretch">
+
+{{ content | safe }}
+
+</main>
+
+{% include "body_end.liquid" %}
+
+</body>
+
+<!-- page script -->
+<script>
+{% include "./landing_page/script.js" %}
+</script>
+
+{% include "html_close.html" %}

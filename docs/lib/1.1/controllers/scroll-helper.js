@@ -71,7 +71,7 @@ function ScrollHelper() {
       return cp.context;
     }).expose('info', function() {
       return scrollInfo;
-    });
+    }).expose('check', scrollCheck);
     // TODO: that's a temp hack to force measure at start
     //scrollTo(5, -1);
     //scrollTo(0, 200);

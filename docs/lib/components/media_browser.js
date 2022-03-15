@@ -48,6 +48,16 @@ zuix.controller(function(cp) {
       'z-index': 20
     }).hide();
 
+    // prevent default dragging on image elements
+    cp.view().on('dragstart', {
+      handler: function(e) {
+        if (e.target.nodeName.toUpperCase() === 'IMG') {
+          e.preventDefault();
+        }
+      },
+      passive: false
+    });
+
     // load Animate CSS extension
     zuix.using('component', '@lib/extensions/animate_css', function() {
       showControls();

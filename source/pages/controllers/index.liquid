@@ -1,0 +1,15 @@
+---
+layout: side_drawer.liquid
+tags: sections
+group: controllers
+options: mdl
+theme: indigo-pink
+order: 10
+icon: psychology
+title: Controllers
+description: zKit Controllers
+keywords:
+- Documentation
+---
+{% assign itemsList = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
+{% include "layouts/side_drawer/items-list.liquid" %}

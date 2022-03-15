@@ -1,0 +1,30 @@
+---
+layout: landing_page.liquid
+redirect: home/
+order: 1
+title: Landing Page
+description: A brand new *zuix.js* project!
+keywords:
+- home
+- welcome
+- landing page
+---
+<div layout="column center-center" class="animate__animated animate__fadeIn animate__slower">
+
+    <div self="size-x1" layout="column center-center" style="margin: 56px; width:auto!important">
+        <h1 class="animate__animated animate__fadeInDown animate__fast" style="margin: 0!important; padding: 0!important;">
+            <a href="{{ redirect | url }}" layout="row center-center">
+                <strong>Z</strong>
+                <i style="font-size: 150%; margin-bottom: 6px; color: mediumseagreen; margin-right: 4px; margin-left: 4px" class="material-icons animate__animated animate__bounce">
+                    extension
+                </i>
+                <strong>KIT</strong>
+            </a>
+        </h1>
+        <small class="animate__animated animate__fadeIn animate__slower">web enhancing bits</small>
+        <code class="animate__animated animate__fadeInUp animate__slower" style="margin-top: 12px; padding: 0">
+            made with <a href="https://zuixjs.org">zUIx.js</a>
+        </code>
+    </div>
+
+</div>

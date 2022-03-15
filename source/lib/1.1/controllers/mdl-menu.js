@@ -45,7 +45,7 @@ function MdlMenu() {
           cp.trigger('menu:select', {action: $el.attr('action'), $el});
         });
     let a = this.view('a');
-    if (a.length() > 1) {
+    if (a.length() >= 1) {
       a = a.eq(a.length() - 1);
       a.attr('id', menuId)
           .addClass('mdl-button mdl-js-button mdl-js-ripple-effect')

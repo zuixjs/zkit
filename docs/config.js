@@ -22,11 +22,10 @@
     }
   });
   // Check that service workers are registered
-  const app = zuix.store('config');
   if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register(app.baseUrl + 'service-worker.js');
+      navigator.serviceWorker.register('/zkit/service-worker.js');
     });
   }
 })();

@@ -1,0 +1,46 @@
+<ul>
+    <li {% if page.url == '/home/' %} aria-current="page"{% endif %}>
+        <a href="{{ '/home' | url }}" class="mdl-js-ripple-effect">
+            <div layout="row center-left">
+                <i class="material-icons">home</i>
+                <span>Home</span>
+            </div>
+            <span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span>
+        </a>
+    </li>
+    <!--
+    <li {% if page.url == '/search/' %} aria-current="page"{% endif %}>
+        <a href="{{ '/search' | url }}" class="mdl-js-ripple-effect">
+            <div layout="row center-left">
+                <i class="material-icons">search</i>
+                <span>Search</span>
+            </div>
+            <span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span>
+        </a>
+    </li>
+    -->
+</ul>
+
+{% assign sections = collections.sections | sort: 'data.pubDate' | reverse | sort: 'data.order' %}
+{%- for section in sections -%}
+    {% if collections[section.data.group] %}
+
+        <label>{{ section.data.title }}</label>
+        <ul>
+            {% assign posts = collections[section.data.group] | sort: 'data.pubDate' | reverse | sort: 'data.order' %}
+            {%- for post in posts -%}
+                {% assign match = page.url | split:post.url %}
+                <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+                    <a href="{{ post.url | url }}" class="mdl-js-ripple-effect">
+                        <div layout="row center-left">
+                            <i class="material-icons">{{ post.data.icon }}</i>
+                            <span class="title">{{ post.data.title }}</span>
+                        </div>
+                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
+                    </a>
+                </li>
+            {%- endfor -%}
+        </ul>
+
+    {% endif %}
+{% endfor %}

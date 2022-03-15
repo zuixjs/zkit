@@ -1,0 +1,51 @@
+{% unless options contains 'no-pagenav' %}
+{% if group and collections[group] %}
+
+    {% assign prevPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getPreviousCollectionItem: page %}
+    {% assign nextPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getNextCollectionItem: page %}
+
+    <div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+
+        {% if prevPost %}
+        <a href="{{ prevPost.url |  url }}" style="text-align: center">
+            <div layout="row center-center">
+                <i class="material-icons">arrow_left</i>&nbsp;
+                <span style="padding-right: 24px">Previous</span>
+            </div>
+            <div class="navigation-title">{{ prevPost.data.title }}</div>
+        </a>
+        {% else %}
+            <div>&nbsp;</div>
+        {% endif %}
+
+        {% if nextPost %}
+        <a href="{{ nextPost.url |  url }}" style="text-align: center">
+            <div layout="row center-center">
+                <span style="padding-left: 24px">Next</span>
+                <i class="material-icons">arrow_right</i>&nbsp;
+            </div>
+            <div class="navigation-title">{{ nextPost.data.title }}</div>
+        </a>
+        {% else %}
+        <div>&nbsp;</div>
+        {% endif %}
+
+    </div>
+    <style>
+        .navigation-image {
+            border-radius: 32px;
+            border-color: rgba(100,200,200,0.5);
+        }
+        .navigation-title {
+            color: var(--primary-color);
+            margin: 8px;
+            font-size: 80%;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+
+{% endif %}
+{% endunless %}

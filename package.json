@@ -1,8 +1,8 @@
 {
-  "name": "zuix-web-starter",
+  "name": "zkit",
   "version": "1.0.0",
   "private": true,
-  "description": "Starter project for component oriented web development with zuixjs and Eleventy.",
+  "description": "Collection of components built with zuix.js.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx @11ty/eleventy --serve",
@@ -12,6 +12,7 @@
   "keywords": [
     "zuix",
     "zuixjs",
+    "zkit",
     "web-starter",
     "component oriented web",
     "static-site",
@@ -20,31 +21,34 @@
     "eleventy",
     "javascript"
   ],
-  "license": "APACHE-2.0",
+  "license": "MIT",
   "author": {
     "name": "G-Labs",
     "email": "info@glabs.it",
     "url": "https://glabs.it/"
   },
-  "homepage": "https://github.com/zuixjs",
+  "homepage": "https://zuixjs.github.io/zkit/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/zuixjs/zuix-web-starter.git"
+    "url": "git://github.com/zuixjs/zkit.git"
   },
-  "bugs": "https://github.com/zuixjs/zuix-web-starter/issues",
-  "devDependencies": {
-    "@11ty/eleventy": "^1.0.0",
+  "bugs": "https://github.com/zuixjs/zkit/issues",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0-canary.3",
+    "@11ty/eleventy-server-browsersync": "^1.0.0",
     "chokidar": "^3.5.3",
     "compression": "^1.7.4",
     "config": "^3.3.7",
     "elasticlunr": "^0.9.5",
     "eslint": "^8.4.1",
     "eslint-config-google": "^0.14.0",
+    "jsdom": "^19.0.0",
     "less": "^4.1.2",
     "markdown-it": "^12.3.2",
     "moment": "^2.29.1",
     "template-file": "^6.0.0",
-    "zuix-cli": "^0.2.0-beta.1",
-    "zuix-dist": "^1.0.21"
+    "yesno": "^0.3.1",
+    "zuix-cli": "^0.2.0-beta.10",
+    "zuix-dist": "^1.0.24"
   }
 }

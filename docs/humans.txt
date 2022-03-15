@@ -1,14 +1,18 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
+    ███████╗██╗  ██╗██╗████████╗
+    ╚══███╔╝██║ ██╔╝██║╚══██╔══╝
+      ███╔╝ █████╔╝ ██║   ██║  demo
+     ███╔╝  ██╔═██╗ ██║   ██║  components
+    ███████╗██║  ██╗██║   ██║  built with
+    ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝  zuix.js
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
-
-# THANKS
-
-  <name>
+  zuix.js - https://github.com/zuixjs
+  g-labs  - https://github.com/genielabs
 
 # TECHNOLOGY COLOPHON
 
-  HTML5, CSS3
+  HTML5, CSS3, JavaScript
+  zuix.js  - https://zuixjs.org
+  Eleventy - https://11ty.dev
+  Node.js  - https://nodejs.org

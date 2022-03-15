@@ -1,0 +1,20 @@
+{% unless options contains 'no-footer' %}
+<footer self="size-large" layout="columns bottom-center" style="min-height: 200px">
+
+    <div self="size-large" layout="rows center-justify" style="padding: 24px;">
+
+        <a href="https://pagespeed.web.dev/report?url={{ app.siteMapUrl }}{{ page.url }}">
+            <div layout="row center-center" style="gap: 8px">
+                <img width="24" height="24" alt="PageSpeed Insight logo" src="{{ '/images/page-speed-insight-icon.png' | url }}">
+                <span>PageSpeed Insight</span>
+            </div>
+        </a>
+
+        <div>
+            powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+        </div>
+
+    </div>
+
+</footer>
+{% endunless %}

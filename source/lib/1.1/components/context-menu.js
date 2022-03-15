@@ -12,6 +12,7 @@
 function ContextMenu() {
   let menuOpenTimeout;
   let menu;
+  let container;
   let view;
   const cp = this;
 
@@ -19,8 +20,7 @@ function ContextMenu() {
     menu = cp.field('menu');
     menu.css('bottom', -(menu.position().rect.height)+'px');
     view = cp.view();
-    view.css('opacity', 0)
-        .hide()
+    container = view.hide().find('.container').css('opacity', 0)
         .on('click', function() {
           hideMenu();
         })
@@ -60,20 +60,22 @@ function ContextMenu() {
     // animation will not work without this delay =/
     clearTimeout(menuOpenTimeout);
     menuOpenTimeout = setTimeout(function() {
-      view.css('opacity', 1);
+      container.css('opacity', 1);
       menu.css('bottom', 0)
           .get().focus();
       cp.trigger('open');
-    }, 100);
+    }, 10);
   }
 
   function hideMenu() {
-    view.one('transitionend', function() {
-      this.hide();
-    })
-        .css('opacity', 0);
+    menu.one('transitionend', function() {
+      container.one('transitionend', function() {
+        view.hide();
+        cp.trigger('close');
+      });
+    });
+    container.css('opacity', 0);
     menu.css('bottom', -(menu.position().rect.height)+'px');
-    cp.trigger('close');
   }
 }
 

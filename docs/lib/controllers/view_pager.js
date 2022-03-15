@@ -456,8 +456,14 @@ zuix.controller(function(cp) {
             const y = parseFloat(computed.top.replace('px', ''));
             if (size.width > 0 && size.height > 0) {
               el = zuix.$(el);
-              // check if element is inside the view_pager
-              if (x + size.width < 0 || y + size.height < 0 || x > actualViewSize.width || y > actualViewSize.height) {
+              // check if element is inside the view-pager
+              const visibleArea = {
+                left: -actualViewSize.width / 2,
+                right: actualViewSize.width * 1.5,
+                top: (-actualViewSize.height / 2),
+                bottom: actualViewSize.height * 1.5
+              };
+              if (x + size.width < visibleArea.left || y + size.height < visibleArea.top || x > visibleArea.right || y > visibleArea.bottom) {
                 if (el.visibility() !== 'hidden') {
                   el.visibility('hidden');
                 }

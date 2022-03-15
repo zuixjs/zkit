@@ -6,7 +6,7 @@ const template = `
     {{ content }}
 
     <!-- the menu's FAB button -->
-    <a ctrl z-load="@lib/controllers/mdl-button"
+    <a ctrl z-load="@lib/controllers/mdl-button" title="Open menu" href="javascript:;"
        z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }">
         <i class="material-icons">menu</i>
     </a>

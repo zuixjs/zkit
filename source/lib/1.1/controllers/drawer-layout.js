@@ -21,6 +21,7 @@ function DrawerLayout() {
 
   let overlay = null;
   let drawerLayout = null;
+  let mainContent = null;
 
   let drawerWidth = 280;
   let autoHideWidth = 960;
@@ -52,6 +53,7 @@ function DrawerLayout() {
 
   function onCreate() {
     drawerLayout = cp.view();
+    mainContent = cp.options().mainContent;
     // add overlay for small screens when menu is open
     overlay = zuix.$(document.createElement('div'));
     overlay.css({
@@ -263,6 +265,14 @@ function DrawerLayout() {
     if (!firstCheck) {
       transitionOn();
     }
+    if (mainContent) {
+      const leftPadding = parseFloat(getComputedStyle(mainContent.get(), null).getPropertyValue('padding-left'));
+      if (!isSmallScreen) {
+        mainContent.css({paddingLeft: (drawerWidth + leftPadding) + 'px'});
+      } else {
+        mainContent.css({paddingLeft: (leftPadding - drawerWidth) + 'px'});
+      }
+    }
     cp.trigger('layout:change', {
       smallScreen: isSmallScreen,
       drawerLocked: isDrawerLocked
@@ -275,18 +285,10 @@ function DrawerLayout() {
       const transition = 'ease .15s';
       drawerLayout.css({
         'transition-property': 'left',
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
       overlay.css({
         'transition-property': 'opacity',
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
     }
@@ -297,17 +299,9 @@ function DrawerLayout() {
       isTransitionOn = false;
       const transition = 'none';
       drawerLayout.css({
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
       overlay.css({
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
     }

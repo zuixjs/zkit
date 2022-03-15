@@ -458,7 +458,13 @@ function ViewPager() {
             if (size.width > 0 && size.height > 0) {
               el = zuix.$(el);
               // check if element is inside the view-pager
-              if (x + size.width < 0 || y + size.height < 0 || x > actualViewSize.width || y > actualViewSize.height) {
+              const visibleArea = {
+                left: -actualViewSize.width / 2,
+                right: actualViewSize.width * 1.5,
+                top: (-actualViewSize.height / 2),
+                bottom: actualViewSize.height * 1.5
+              };
+              if (x + size.width < visibleArea.left || y + size.height < visibleArea.top || x > visibleArea.right || y > visibleArea.bottom) {
                 if (el.visibility() !== 'hidden') {
                   el.visibility('hidden');
                 }
@@ -661,10 +667,6 @@ function ViewPager() {
       transition = 'none';
     }
     el.css({
-      '-webkit-transition': transition,
-      '-moz-transition': transition,
-      '-ms-transition': transition,
-      '-o-transition': transition,
       'transition': transition
     });
   }

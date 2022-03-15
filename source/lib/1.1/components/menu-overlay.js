@@ -11,7 +11,7 @@
  */
 function MenuOverlay() {
   let menuOverlayShowing = false;
-  let menuButtonShowing = true;
+  let menuButtonShowing = false;
   let menuButton;
   let menuButtonClose;
   let menuOverlay;
@@ -78,8 +78,10 @@ function MenuOverlay() {
     zuix.using('component', '@lib/extensions/animate-css', function(res, ctx) {
       // show floating action button
       setTimeout(function() {
-        menuButton.animateCss('slideInUp').show();
-      }, 200);
+        if (!menuButtonShowing) {
+          showButton();
+        }
+      }, 1000);
     });
 
     cp.expose('show', function() {
@@ -87,6 +89,18 @@ function MenuOverlay() {
     });
     cp.expose('hide', function() {
       $view.hide();
+    });
+    document.body.addEventListener('keyup', function(evt) {
+      if (evt.key === 'Escape' && menuButtonShowing) {
+        evt.cancelBubble = true;
+        evt.preventDefault();
+        setTimeout(function() {
+          hideButton();
+          if (menuOverlayShowing) {
+            toggleMenu();
+          }
+        }, 100);
+      }
     });
     cp.expose('toggleButton', toggleButton);
     cp.expose('showButton', showButton);
@@ -108,8 +122,8 @@ function MenuOverlay() {
     menuButtonShowing = false;
     menuButton.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
       this.hide();
+      cp.trigger('hide');
     });
-    cp.trigger('hide');
   }
 
   function showButton() {
@@ -132,7 +146,8 @@ function MenuOverlay() {
         if (this.attr('data-ui-transition-delay') != null) {
           transitionDelay = this.attr('data-ui-transition-delay');
         }
-        this.animateCss('bounceInRight', {duration: '0.5s', delay: transitionDelay});
+        this.animateCss('bounceInRight', {duration: '0.5s', delay: transitionDelay})
+            .show();
       });
     } else if (menuOverlayShowing) {
       menuOverlayShowing = false;
@@ -155,7 +170,9 @@ function MenuOverlay() {
         if (this.attr('data-ui-transition-delay') != null) {
           transitionDelay = this.attr('data-ui-transition-delay');
         }
-        this.animateCss('fadeOutRight', {duration: '0.5s', delay: transitionDelay});
+        this.animateCss('fadeOutRight', {duration: '0.5s', delay: transitionDelay}, function() {
+          this.hide();
+        });
       });
       menuButton.show();
     }

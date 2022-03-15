@@ -2,53 +2,63 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/search/</loc>
-    <lastmod>2022-02-18</lastmod>
+    <loc>https://zuixjs.github.io/zkit/search/</loc>
+    <lastmod>2022-03-15</lastmod>
   </url>
 
   <url>
     <loc>https://zuixjs.github.io/zkit/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zkit/pages/controllers/drawer-layout/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zkit/pages/controllers/gesture-helper/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zkit/pages/components/menu-overlay/</loc>
-    <lastmod>2022-02-19</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
-    <lastmod>2022-02-19</lastmod>
+    <lastmod>2022-03-15</lastmod>
   </url>
 
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/scroll-helper/</loc>
-    <lastmod>2022-02-21</lastmod>
+    <lastmod>2022-03-15</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/home/</loc>
-    <lastmod>2022-02-22</lastmod>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/gesture-helper/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/drawer-layout/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/menu-overlay/</loc>
+    <lastmod>2022-03-15</lastmod>
   </url>
 
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/view-pager/</loc>
-    <lastmod>2022-02-24</lastmod>
+    <lastmod>2022-03-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/home/</loc>
+    <lastmod>2022-03-15</lastmod>
   </url>
 
 </urlset>

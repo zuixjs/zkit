@@ -1,0 +1,12 @@
+<div layout="rows top-spread">
+    {%- for post in itemsList -%}
+
+        {% assign postUrl = post.url | url %}
+        {% assign imageUrl = post.data.imagePreviewMini | url %}
+
+        {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
+        {{ post.data.description }}
+        {% endzx %}
+
+    {%- endfor -%}
+</div>
