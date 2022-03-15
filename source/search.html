@@ -1,7 +1,7 @@
 ---
 layout: side_drawer.liquid
 options: mdl
-theme: indigo-pink
+theme: indigo-deep_purple
 title: Search
 description: Brief document description
 ---
@@ -48,6 +48,9 @@ description: Brief document description
           bool: 'OR',
           expand: true
         }).map((r) => {
+          if (!r.doc) {
+            r.doc = searchIndex.documentStore.docs[r.ref];
+          }
           r.ref = '{{ app.baseUrl }}' + r.ref.substring(1);
           return r;
         });
@@ -87,5 +90,5 @@ description: Brief document description
     div { margin-bottom: 48px; }
 </style>
 
-<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<!--elasticlunr JS -->
+<script src="{{ '/js/elasticlunr/elasticlunr.min.js' | url }}" defer async></script>

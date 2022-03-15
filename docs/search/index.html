@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Brief document description">
+    <meta name="description" content="brief-document-description">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
+    <link rel="author" href="humans.txt" />
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -42,22 +43,22 @@
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="preload" as="style" href="/zkit/css/fla/flex-layout-attribute.min.css" />
+    <link rel="stylesheet" href="/zkit/css/fla/flex-layout-attribute.min.css" />
+    <link rel="preload" as="style" href="/zkit/css/animate.min.css" />
+    <link rel="stylesheet" href="/zkit/css/animate.min.css" />
 
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
 
 
-    
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
-    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
-
+  
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css">
+  
+    <link rel="preload" as="script" href="/zkit/js/mdl/material.min.js">
+    <script src="/zkit/js/mdl/material.min.js"></script>
 
 
 
@@ -409,7 +410,7 @@ color: #24333e;
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink"
+<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-deep_purple"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -483,6 +484,9 @@ color: #24333e;
           bool: 'OR',
           expand: true
         }).map((r) => {
+          if (!r.doc) {
+            r.doc = searchIndex.documentStore.docs[r.ref];
+          }
           r.ref = '/zkit/' + r.ref.substring(1);
           return r;
         });
@@ -522,8 +526,8 @@ color: #24333e;
     div { margin-bottom: 48px; }
 </style>
 
-<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<!--elasticlunr JS -->
+<script src="/zkit/js/elasticlunr/elasticlunr.min.js" defer async></script>
 
             </div>
 
@@ -618,8 +622,6 @@ color: #24333e;
         margin-right: 12px;
     }
 </style>
-
-
 
 
 

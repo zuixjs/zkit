@@ -7,10 +7,13 @@
     <meta http-equiv="refresh" content="500; url={{ redirect | url }}">
     {%- endif %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{description}}">
-    {% if keywords != null %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+    <meta name="description" content="{{description | slugify}}">
+    {% if keywords != null -%}
+    <meta name="keywords" content="{{ keywords }}" />
+    {%- endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+    <link rel="author" href="humans.txt" />
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -44,37 +47,35 @@
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="preload" as="style" href="{{ '/css/fla/flex-layout-attribute.min.css' | url }}" />
+    <link rel="stylesheet" href="{{ '/css/fla/flex-layout-attribute.min.css' | url }}" />
+    <link rel="preload" as="style" href="{{ '/css/animate.min.css' | url }}" />
+    <link rel="stylesheet" href="{{ '/css/animate.min.css' | url }}" />
 
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
 
 {% if options contains 'mdl' %}
-    {% if theme == null %}{% assign theme = 'indigo-pink' %}{% endif %}
+  {% if theme == null or theme == 'indigo-pink' %}
+    <link rel="preload" as="style" href="{{ '/js/mdl/material.min.css' | url }}">
+    <link rel="stylesheet" href="{{ '/js/mdl/material.min.css' | url }}">
+  {% elsif theme == 'green-pink' %}
+    <link rel="preload" as="style" href="{{ '/js/mdl/material.green-pink.min.css' | url }}">
+    <link rel="stylesheet" href="{{ '/js/mdl/material.green-pink.min.css' | url }}">
+  {% else %}
     <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.{{ theme }}.min.css">
-    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.{{ theme }}.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
+  {% endif %}
+    <link rel="preload" as="script" href="{{ '/js/mdl/material.min.js' | url }}">
+    <script src="{{ '/js/mdl/material.min.js' | url }}"></script>
 {% endif %}
-{% if options contains 'pico-css' %}
-    <link rel="preload" as="style" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
-{% endif %}
+
 {% if options contains 'highlight' %}
     <link rel="preload" as="script" href="{{ '/js/prism/prism.js' | url }}">
     <link rel="preload" as="style" href="{{ '/js/prism/prism.css' | url }}" />
     <script src="{{ '/js/prism/prism.js' | url }}"></script>
     <link rel="stylesheet" href="{{ '/js/prism/prism.css' | url }}" />
-{% endif %}
-{% if options contains 'bootstrap' %}
-    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
 {% endif %}
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->

@@ -34,12 +34,17 @@
   },
   "bugs": "https://github.com/zuixjs/zkit/issues",
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "flex-layout-attribute": "^1.0.3",
+    "elasticlunr": "^0.9.5",
+    "zuix-dist": "^1.0.24"
+  },
+  "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.3",
     "@11ty/eleventy-server-browsersync": "^1.0.0",
     "chokidar": "^3.5.3",
     "compression": "^1.7.4",
     "config": "^3.3.7",
-    "elasticlunr": "^0.9.5",
     "eslint": "^8.4.1",
     "eslint-config-google": "^0.14.0",
     "jsdom": "^19.0.0",
@@ -48,7 +53,6 @@
     "moment": "^2.29.1",
     "template-file": "^6.0.0",
     "yesno": "^0.3.1",
-    "zuix-cli": "^0.2.0-beta.10",
-    "zuix-dist": "^1.0.24"
+    "zuix-cli": "^0.2.0-beta.10"
   }
 }

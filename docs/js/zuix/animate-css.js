@@ -6,7 +6,6 @@ let module = {};
  * @author Gene
  *
  */
-
 /**
  * ZuixAnimateCss class.
  *
@@ -94,7 +93,5 @@ function ZuixAnimateCss() {
     return this;
   };
 }
-
 module.exports = ZuixAnimateCss;
-
 ZuixAnimateCss();
