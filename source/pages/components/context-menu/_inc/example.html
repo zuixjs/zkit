@@ -1,0 +1,36 @@
+<div z-load="@lib/components/context-menu" z-lazy="false"
+     z-context="my-menu">
+    <div #menu>
+        <button layout="row center-left">
+            <i class="material-icons">bookmark_border</i>
+            <span>Save for later</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">share</i>
+            <span>Share</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">open_in_new</i>
+            <span>Open link</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">not_interested</i>
+            <span>Hide items from this source</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">thumb_up</i>
+            <span>More like this</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">thumb_down</i>
+            <span>Less like this</span>
+        </button>
+    </div>
+</div>
+<script>
+zuix.context('my-menu', (ctx) => {
+  // re-attach as direct body child
+  const menu = ctx.$.detach().get();
+  document.body.appendChild(menu);
+});
+</script>
