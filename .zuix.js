@@ -107,27 +107,6 @@ function addPage(args) {
   }
 }
 
-async function wipeDocs() {
-  const docsFolder = path.join(contentSourceFolder, 'docs');
-  const confirm = await yesno({
-    question: `All content in "${docsFolder}" will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?`
-  });
-  if (confirm) {
-    if (fs.existsSync(docsFolder)) {
-      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsFolder));
-      fs.rmSync(docsFolder, {recursive: true});
-    }
-    const docsBuildFolder = path.join(contentBuildFolder, 'docs');
-    if (fs.existsSync(docsBuildFolder)) {
-      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsBuildFolder));
-      fs.rmSync(docsBuildFolder, {recursive: true});
-    }
-    // "touch" index file to force reload
-    const filename = path.join(sourceFolder, 'index.liquid');
-    touch(filename);
-  }
-}
-
 async function wipeContent() {
   const confirm = await yesno({
     question: `All content in "${contentSourceFolder}" will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?`
@@ -185,9 +164,4 @@ module.exports = (program) => {
       .alias('wc')
       .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
       .action(wipeContent);
-  program
-    .command('wipe-docs')
-    .alias('wc')
-    .description(`Delete all content in "${contentSourceFolder}/docs" and "${contentBuildFolder}/docs" folders.`)
-    .action(wipeDocs);
 };
