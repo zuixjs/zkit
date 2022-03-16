@@ -28,7 +28,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const {classNameFromHyphens} = require('zuix-cli/common/utils');
+const {classNameFromHyphens} = require('zuix/common/utils');
 const mkdirp = require("mkdirp");
 const chalk = require('chalk');
 const nunjucks = require('nunjucks');

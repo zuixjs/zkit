@@ -41,7 +41,7 @@ const {
   copyFolder,
   generateServiceWorker,
   generateAppConfig
-} = require('zuix-cli');
+} = require('zuix');
 
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
