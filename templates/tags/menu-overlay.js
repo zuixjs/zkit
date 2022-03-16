@@ -3,7 +3,7 @@ const {JSDOM} = require('jsdom');
 const template = `
 <div z-load="@lib/components/menu-overlay" z-context="{{ contextId }}" z-lazy="false" class="visible-on-ready">
 
-{{ content }}
+{{ content | safe  }}
 
   <!-- custom open/close menu button -->
   <div #menu_button>

@@ -21,14 +21,18 @@
  *  zUIx, Javascript library for component-based development.
  *        https://zuixjs.github.io/zuix
  *
- * @author Generoso Martello <generoso@martello.com>
+ * @author Generoso Martello - G-Labs https://github.com/genielabs
  * @version 1.0
  *
  */
 
 const fs = require('fs');
 const path = require('path');
-const {chalk, render, mkdirp, highlight, classNameFromHyphens} = require('zuix-cli/common/utils');
+const {classNameFromHyphens} = require('zuix-cli/common/utils');
+const mkdirp = require("mkdirp");
+const chalk = require('chalk');
+const nunjucks = require('nunjucks');
+
 const config = require('config');
 const moment = require('moment');
 const yesno = require('yesno');
@@ -67,10 +71,20 @@ function addPage(args) {
       args.section = args.section.toLowerCase();
       sectionFolder = path.join(sectionFolder, args.section);
     }
-    const frontMatter = args.frontMatter && args.frontMatter.join('\n') + '\n';
+    const frontMatter = args.frontMatter && '\n' + args.frontMatter.join('\n') + '\n';
     const date = new moment().format('yyyy-MM-DD hh:mm:ss');
     let pageTemplate = fs.readFileSync(componentTemplate).toString('utf8');
-    pageTemplate = render(pageTemplate, {
+    nunjucks.configure({
+      tags: {
+        blockStart: '<%',
+        blockEnd: '%>',
+        variableStart: '<$',
+        variableEnd: '$>',
+        commentStart: '<#',
+        commentEnd: '#>'
+      }
+    });
+    pageTemplate = nunjucks.renderString(pageTemplate, {
       title: pageTitle,
       name: pageName,
       section: args.section,
@@ -104,6 +118,28 @@ function addPage(args) {
     console.error(
       chalk.red.bold('Invalid page template:', componentTemplate)
     );
+  }
+}
+
+async function wipeDocs() {
+  const target = 'docs';
+  const docsFolder = path.join(contentSourceFolder, target);
+  const confirm = await yesno({
+    question: `All content in "${docsFolder}" will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?`
+  });
+  if (confirm) {
+    if (fs.existsSync(docsFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsFolder));
+      fs.rmSync(docsFolder, {recursive: true});
+    }
+    const docsBuildFolder = path.join(contentBuildFolder, target);
+    if (fs.existsSync(docsBuildFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsBuildFolder));
+      fs.rmSync(docsBuildFolder, {recursive: true});
+    }
+    // "touch" index file to force reload
+    const filename = path.join(sourceFolder, 'index.liquid');
+    touch(filename);
   }
 }
 

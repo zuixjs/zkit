@@ -11,10 +11,17 @@
         "manifest.json",
         "humans.txt",
         "favicon.ico",
-        "robots.txt"
+        "robots.txt",
+        "pages/**/*.jpg",
+        "pages/**/*.png",
+        "pages/**/*.webp",
+        "pages/**/*.gif",
+        "pages/**/*.svg",
+        "pages/**/*.json"
       ],
       "ignore": [
-        "_filters"
+        "_filters",
+        "pages/**/_inc/*"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
@@ -26,7 +33,7 @@
       },
       "serviceWorker": true,
       "minify": {
-        "disable": true,
+        "disable": false,
         "collapseWhitespace": true,
         "removeOptionalTags": true,
         "removeRedundantAttributes": true,
@@ -36,7 +43,7 @@
         "collapseBooleanAttributes": true,
         "removeAttributeQuotes": false,
         "removeEmptyAttributes": true,
-        "minifyCSS": true,
+        "minifyCSS": false,
         "minifyJS": true
       }
     },

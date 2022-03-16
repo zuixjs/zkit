@@ -21,7 +21,7 @@
  *  zUIx, Javascript library for component-based development.
  *        https://zuixjs.github.io/zuix
  *
- * @author Generoso Martello <generoso@martello.com>
+ * @author Generoso Martello - G-Labs https://github.com/genielabs
  * @version 1.0
  *
  */

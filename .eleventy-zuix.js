@@ -21,7 +21,7 @@
  *  zUIx, Javascript library for component-based development.
  *        https://zuixjs.github.io/zuix
  *
- * @author Generoso Martello <generoso@martello.com>
+ * @author Generoso Martello - https://github.com/genielabs
  * @version 1.0
  *
  */
@@ -33,12 +33,15 @@ const path = require('path');
 const config = require('config');
 const fs = require('fs');
 const chokidar = require('chokidar');
-const render = require('template-file').render;
 const moment = require('moment');
+const nunjucks = require('nunjucks');
 
-const zuixCompile = require('zuix-cli/commands/compile-page');
-const zuixUtils = require('zuix-cli/common/utils');
-const util = require('util');
+const {
+  compilePage,
+  copyFolder,
+  generateServiceWorker,
+  generateAppConfig
+} = require('zuix-cli');
 
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
@@ -55,7 +58,7 @@ const includesFolder = zuixConfig.get('build.includesFolder');
 const triggerFile = path.join(sourceFolder, '.zuix.build.md');
 const triggerFileOut = path.join(buildFolder, '.zuix.build.tmp');
 // replace {{variables}} eventually employed in the config
-zuixConfig = JSON.parse(render(JSON.stringify(zuixConfig), zuixConfig));
+zuixConfig = JSON.parse(nunjucks.renderString(JSON.stringify(zuixConfig), zuixConfig));
 
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
@@ -158,7 +161,7 @@ function initEleventyZuix(eleventyConfig) {
   eleventyConfig.on('afterBuild', async function(args) {
     console.log();
     postProcessFiles.forEach((pf) => {
-      const result = zuixCompile(pf.file, pf.file, {
+      const result = compilePage(pf.file, pf.file, {
         baseFolder: pf.baseFolder,
         ...zuixConfig
       });
@@ -167,7 +170,7 @@ function initEleventyZuix(eleventyConfig) {
     postProcessFiles.length = 0;
     if (zuixConfig.build.serviceWorker) {
       console.log('\nUpdating Service Worker... ');
-      await zuixUtils.generateServiceWorker().then(function () {
+      await generateServiceWorker().then(function () {
         console.log('... Service Worker updated.');
       });
     } else {
@@ -199,18 +202,18 @@ function initEleventyZuix(eleventyConfig) {
 
 function copyDependencies() {
   // Copy last zUIx release
-  zuixUtils.copyFolder(`${process.cwd()}/node_modules/zuix-dist/js`, `${buildFolder}/js/zuix`, (err) => {
+  copyFolder(`${process.cwd()}/node_modules/zuix-dist/js`, `${buildFolder}/js/zuix`, (err) => {
     if (err) console.log(err);
   });
   // Auto-generated config.js
-  zuixUtils.generateAppConfig(zuixConfig);
+  generateAppConfig(zuixConfig);
   // Copy other dependencies
   // - elasticlurn search engine
-  zuixUtils.copyFolder(`${process.cwd()}/node_modules/elasticlunr/release`, `${buildFolder}/js/elasticlunr`, (err) => {
+  copyFolder(`${process.cwd()}/node_modules/elasticlunr/release`, `${buildFolder}/js/elasticlunr`, (err) => {
     if (err) console.log(err);
   });
   // - Flex Layout Attribute
-  zuixUtils.copyFolder(`${process.cwd()}/node_modules/flex-layout-attribute/css`, `${buildFolder}/css/fla`, (err) => {
+  copyFolder(`${process.cwd()}/node_modules/flex-layout-attribute/css`, `${buildFolder}/css/fla`, (err) => {
     if (err) console.log(err);
   });
   // - Animate.CSS
@@ -283,7 +286,7 @@ function configure(eleventyConfig) {
     const p = `./templates/tags/${template}.js`;
     if (fs.existsSync(p)) {
       delete require.cache[require.resolve(p)];
-      return normalizeMarkup(require(p)(render, content, ...args));
+      return normalizeMarkup(require(p)(nunjucks.renderString, content, ...args));
     }
     return ''; // 'Not implemented! (' + content + ') [' + args + ']';
   });

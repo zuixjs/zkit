@@ -35,13 +35,14 @@
   "bugs": "https://github.com/zuixjs/zkit/issues",
   "dependencies": {
     "animate.css": "^4.1.1",
-    "flex-layout-attribute": "^1.0.3",
     "elasticlunr": "^0.9.5",
+    "flex-layout-attribute": "^1.0.3",
     "zuix-dist": "^1.0.24"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.3",
     "@11ty/eleventy-server-browsersync": "^1.0.0",
+    "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
     "compression": "^1.7.4",
     "config": "^3.3.7",
@@ -50,9 +51,10 @@
     "jsdom": "^19.0.0",
     "less": "^4.1.2",
     "markdown-it": "^12.3.2",
+    "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
-    "template-file": "^6.0.0",
+    "nunjucks": "^3.2.3",
     "yesno": "^0.3.1",
-    "zuix-cli": "^0.2.0-beta.10"
+    "zuix-cli": "^0.3.0-beta.1"
   }
 }

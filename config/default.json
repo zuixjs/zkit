@@ -12,10 +12,17 @@
         "manifest.json",
         "humans.txt",
         "favicon.ico",
-        "robots.txt"
+        "robots.txt",
+        "pages/**/*.jpg",
+        "pages/**/*.png",
+        "pages/**/*.webp",
+        "pages/**/*.gif",
+        "pages/**/*.svg",
+        "pages/**/*.json"
       ],
       "ignore": [
-        "_filters"
+        "_filters",
+        "pages/**/_inc/*"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",

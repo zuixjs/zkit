@@ -3,7 +3,7 @@ const template = `
      z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
 
     <!-- the menu is defined as a simple UL list -->
-    {{ content }}
+    {{ content | safe  }}
 
     <!-- the menu's FAB button -->
     <a ctrl z-load="@lib/controllers/mdl-button" title="Open menu" href="javascript:;"

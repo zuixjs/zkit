@@ -1,83 +1,6 @@
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="view-pager-component-for-implementing-carousel-gallery-tab-views-gesture-enabled-for-desktop-and-mobile">
-    <meta name="keywords" content="ViewPagerTabsHorizontal scrollVertical scrollSwipeCarouselGallery" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Pager</title>
-    <link rel="author" href="humans.txt" />
-
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-
-    <!-- Progressive Web App -->
-    <meta name="theme-color" content="white">
-    <link rel="manifest" href="/zkit/manifest.json">
-
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="/zkit/images/icons/desktop/android-chrome-192x192.png">
-    <link rel="icon" sizes="512x512" href="/zkit/images/icons/desktop/android-chrome-512x512.png">
-
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="A zUIx website">
-    <link rel="apple-touch-icon-precomposed" href="/zkit/images/icons/desktop/apple-touch-icon.png">
-    <link rel="mask-icon" href="/zkit/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5">
-
-    <!-- Tile color for Windows -->
-    <meta name="msapplication-TileImage" content="/zkit/images/icons/desktop/mstile-150x150.png">
-    <meta name="msapplication-TileColor" content="#ffc40d">
-
-    <!-- Place favicon.ico in the root directory -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/zkit/images/icons/desktop/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/zkit/images/icons/desktop/favicon-16x16.png">
-
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
+<!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="view-pager-component-for-implementing-carousel-gallery-tab-views-gesture-enabled-for-desktop-and-mobile"><meta name="keywords" content="ViewPagerTabsHorizontal scrollVertical scrollSwipeCarouselGallery"><meta name="viewport" content="width=device-width,initial-scale=1"><title>View Pager</title><link rel="author" href="humans.txt"><!-- Disable tap highlight on IE --><meta name="msapplication-tap-highlight" content="no"><!-- Progressive Web App --><meta name="theme-color" content="white"><link rel="manifest" href="/zkit/manifest.json"><!-- Add to homescreen for Chrome on Android --><meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/zkit/images/icons/desktop/android-chrome-192x192.png"><link rel="icon" sizes="512x512" href="/zkit/images/icons/desktop/android-chrome-512x512.png"><!-- Add to homescreen for Safari on iOS --><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="A zUIx website"><link rel="apple-touch-icon-precomposed" href="/zkit/images/icons/desktop/apple-touch-icon.png"><link rel="mask-icon" href="/zkit/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5"><!-- Tile color for Windows --><meta name="msapplication-TileImage" content="/zkit/images/icons/desktop/mstile-150x150.png"><meta name="msapplication-TileColor" content="#ffc40d"><!-- Place favicon.ico in the root directory --><link rel="icon" type="image/png" sizes="32x32" href="/zkit/images/icons/desktop/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/zkit/images/icons/desktop/favicon-16x16.png"><!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones --><!--
     <link rel="canonical" href="https://www.example.com/">
-    -->
-
-    <link rel="preload" as="style" href="/zkit/css/fla/flex-layout-attribute.min.css" />
-    <link rel="stylesheet" href="/zkit/css/fla/flex-layout-attribute.min.css" />
-    <link rel="preload" as="style" href="/zkit/css/animate.min.css" />
-    <link rel="stylesheet" href="/zkit/css/animate.min.css" />
-
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
-
-
-  
-    <link rel="preload" as="style" href="/zkit/js/mdl/material.min.css">
-    <link rel="stylesheet" href="/zkit/js/mdl/material.min.css">
-  
-    <link rel="preload" as="script" href="/zkit/js/mdl/material.min.js">
-    <script src="/zkit/js/mdl/material.min.js"></script>
-
-
-
-    <link rel="preload" as="script" href="/zkit/js/prism/prism.js">
-    <link rel="preload" as="style" href="/zkit/js/prism/prism.css" />
-    <script src="/zkit/js/prism/prism.js"></script>
-    <link rel="stylesheet" href="/zkit/js/prism/prism.css" />
-
-
-    <!-- zuix.js https://github.com/zuixjs/zuix -->
-    <link rel="preload" as="script" href="/zkit/js/zuix/zuix.min.js">
-    <link rel="preload" as="script" href="/zkit/config.js">
-    <link rel="preload" as="script" href="/zkit/js/zuix/animate-css.js">
-    <script src="/zkit/js/zuix/zuix.min.js"></script>
-    <script src="/zkit/config.js"></script>
-    <script src="/zkit/js/zuix/animate-css.js"></script>
-
-<style>
-:root {
+    --><link rel="preload" as="style" href="/zkit/css/fla/flex-layout-attribute.min.css"><link rel="stylesheet" href="/zkit/css/fla/flex-layout-attribute.min.css"><link rel="preload" as="style" href="/zkit/css/animate.min.css"><link rel="stylesheet" href="/zkit/css/animate.min.css"><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin=""><link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="preload" as="style" href="/zkit/js/mdl/material.min.css"><link rel="stylesheet" href="/zkit/js/mdl/material.min.css"><link rel="preload" as="script" href="/zkit/js/mdl/material.min.js"><script src="/zkit/js/mdl/material.min.js"></script><link rel="preload" as="script" href="/zkit/js/prism/prism.js"><link rel="preload" as="style" href="/zkit/js/prism/prism.css"><script src="/zkit/js/prism/prism.js"></script><link rel="stylesheet" href="/zkit/js/prism/prism.css"><!-- zuix.js https://github.com/zuixjs/zuix --><link rel="preload" as="script" href="/zkit/js/zuix/zuix.min.js"><link rel="preload" as="script" href="/zkit/config.js"><link rel="preload" as="script" href="/zkit/js/zuix/animate-css.js"><script src="/zkit/js/zuix/zuix.min.js"></script><script src="/zkit/config.js"></script><script src="/zkit/js/zuix/animate-css.js"></script><style>:root {
     --primary-color: rgb(63,81,181);
 }
 
@@ -406,98 +329,19 @@ color: #24333e;
 }
 [z-context="menu-drawer"]:focus {
     outline: none;
-}
-
-
-</style>
-
-</head>
-
-
-<!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink"
-      z-context="scroll-helper"
-      z-options="scroll_opts"
-      layout="column stretch-stretch">
-
-    <nav #header layout="row center-start">
-        <div self="stretch" layout="row center-start">
-            <div>
-                <img src="/zkit/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
-            </div>
-            <div self="size-x1" layout="row center-center">
-                <h1 style="margin:0;margin-left: -48px">View Pager</h1>
-            </div>
-        </div>
-    </nav>
-
-    <!--
+}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink" z-context="scroll-helper" z-options="scroll_opts" layout="column stretch-stretch"><nav #header layout="row center-start"><div self="stretch" layout="row center-start"><div><img src="/zkit/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button"></div><div self="size-x1" layout="row center-center"><h1 style="margin:0;margin-left: -48px">View Pager</h1></div></div></nav><!--
     <div z-load="@lib/components/hamburger-icon"
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
-         -->
-
-
-    <main class="animate__animated animate__fadeIn animate__faster">
-        <div layout="column top-center">
-
-
-            <h1 #alt_header>View Pager</h1>
-
-            <div class="content">
-<p>A versatile ViewPager controller, featuring both horizontal and vertical layout, gestures and automatic sliding.</p>
-<h2>Usage</h2>
-<h3>1. Include <code>zuix.js</code> library</h3>
-<p>If not already included, add the following line right before the end of the <code>head</code> section in the <code>HTML</code> document:</p>
-<pre><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/zuix-dist&quot;&gt;&lt;/script&gt;
-</code></pre>
-<h3>2. Load the scroll helper</h3>
-<p>Add the <code>ctrl z-load</code> attributes to the host element implementing the scrollbar (usually the main <code>body</code> or a <code>div</code> element):</p>
-<pre><code class="language-html">&lt;div ctrl z-load=&quot;@lib/controllers/view-pager&quot;&gt;
+         --><main class="animate__animated animate__fadeIn animate__faster"><div layout="column top-center"><h1 #alt_header>View Pager</h1><div class="content"><p>A versatile ViewPager controller, featuring both horizontal and vertical layout, gestures and automatic sliding.<h2>Usage</h2><h3>1. Include <code>zuix.js</code> library</h3><p>If not already included, add the following line right before the end of the <code>head</code> section in the <code>HTML</code> document:<pre><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/zuix-dist&quot;&gt;&lt;/script&gt;
+</code></pre><h3>2. Load the scroll helper</h3><p>Add the <code>ctrl z-load</code> attributes to the host element implementing the scrollbar (usually the main <code>body</code> or a <code>div</code> element):<pre><code class="language-html">&lt;div ctrl z-load=&quot;@lib/controllers/view-pager&quot;&gt;
     &lt;!-- Content pages of this ViewPager --&gt;
     &lt;div&gt;Page 1&lt;/div&gt;
     &lt;div&gt;Page 2&lt;/div&gt;
     &lt;div&gt;Page 3&lt;/div&gt;
 &lt;/div&gt;
-</code></pre>
-<p>The ViewPager will re-arrange all elements stacked horizontally or vertically accordingly to the chosen layout mode.<br>
-Elements do not necessarily require to be sized full screen, they can have different sizes, in which case the ViewPager
-will center the active element in the view.</p>
-<h2>Options</h2>
-<p>// TODO: ...</p>
-<ul>
-<li><code>ctrl z-load=&quot;@lib/controllers/view-pager&quot;</code> <small>constructor</small><br>
-load the <code>view-pager</code> controller on the element.</li>
-<li><code>z-context</code> <small>optional</small><br>
-identifier name to be used to reference this component from JavaScript.</li>
-<li><code>z-options</code> <small>optional</small><br>
-name of a global variable defining options to use for this component. See next page for details.</li>
-<li><code>data-o-layout</code> <small>optional</small><br>
-layout of elements can be <code>horizontal</code> or <code>vertical</code>. The default value is <code>horizontal</code>.</li>
-<li><code>data-o-paging</code> <small>optional</small><br>
-after scrolling, automatically select and focus the closest element centering it in the view. The default value is <code>false</code>.</li>
-<li><code>data-o-slide</code> <small>optional</small><br>
-slide-show mode (cycle elements). The default value is <code>false</code>.</li>
-<li><code>data-o-slide-interval</code> <small>optional</small><br>
-interval between each slide (milliseconds). The default value is <code>750</code>.</li>
-<li><code>data-o-passive</code> <small>optional</small><br>
-use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener">passive mode</a>
-for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.</li>
-<li><code>data-o-hold</code>  <small>optional</small>
-prevent touch events from being propagated to other elements off the view. The default value is <code>false</code>.</li>
-<li><code>data-o-hide</code>  <small>optional experimental</small><br>
-set page visibility to <code>hidden</code> when off view. The default value is <code>false</code>.</li>
-</ul>
-<h2>Scripting</h2>
-<h3>ViewPager object</h3>
-<p>A reference to a ViewPager instance can be obtained through its context identifier which is assigned by adding the <code>z-context</code>
-attribute to the ViewPager element and finally by using the <code>zuix.context(...)</code> method.</p>
-<p>Since components are loaded asynchronously the <code>zuix.context</code> method might return <code>null</code> if called before the component
-is actually ready.<br>
-So, when not sure if the component is ready, a <code>callback</code> function can be passed as the <code>zuix.context</code> argument and it will be
-called once the component has been loaded, passing a reference to it as argument of the callback function.</p>
-<pre><code class="language-html">&lt;div z-context=&quot;my-view-pager&quot; ctrl
+</code></pre><p>The ViewPager will re-arrange all elements stacked horizontally or vertically accordingly to the chosen layout mode.<br>Elements do not necessarily require to be sized full screen, they can have different sizes, in which case the ViewPager will center the active element in the view.<h2>Options</h2><p>// TODO: ...<ul><li><code>ctrl z-load=&quot;@lib/controllers/view-pager&quot;</code> <small>constructor</small><br>load the <code>view-pager</code> controller on the element.<li><code>z-context</code> <small>optional</small><br>identifier name to be used to reference this component from JavaScript.<li><code>z-options</code> <small>optional</small><br>name of a global variable defining options to use for this component. See next page for details.<li><code>data-o-layout</code> <small>optional</small><br>layout of elements can be <code>horizontal</code> or <code>vertical</code>. The default value is <code>horizontal</code>.<li><code>data-o-paging</code> <small>optional</small><br>after scrolling, automatically select and focus the closest element centering it in the view. The default value is <code>false</code>.<li><code>data-o-slide</code> <small>optional</small><br>slide-show mode (cycle elements). The default value is <code>false</code>.<li><code>data-o-slide-interval</code> <small>optional</small><br>interval between each slide (milliseconds). The default value is <code>750</code>.<li><code>data-o-passive</code> <small>optional</small><br>use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener">passive mode</a> for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.<li><code>data-o-hold</code> <small>optional</small> prevent touch events from being propagated to other elements off the view. The default value is <code>false</code>.<li><code>data-o-hide</code> <small>optional experimental</small><br>set page visibility to <code>hidden</code> when off view. The default value is <code>false</code>.</ul><h2>Scripting</h2><h3>ViewPager object</h3><p>A reference to a ViewPager instance can be obtained through its context identifier which is assigned by adding the <code>z-context</code> attribute to the ViewPager element and finally by using the <code>zuix.context(...)</code> method.<p>Since components are loaded asynchronously the <code>zuix.context</code> method might return <code>null</code> if called before the component is actually ready.<br>So, when not sure if the component is ready, a <code>callback</code> function can be passed as the <code>zuix.context</code> argument and it will be called once the component has been loaded, passing a reference to it as argument of the callback function.<pre><code class="language-html">&lt;div z-context=&quot;my-view-pager&quot; ctrl
      z-load=&quot;@lib/controllers/view-pager&quot;&gt;
 
   &lt;!-- view pager content --&gt;
@@ -512,9 +356,7 @@ zuix.context('my-view-pager', function(ctx) {
 
 });
 &lt;/script&gt;
-</code></pre>
-<p>Alternatively the <code>ready</code> callback function can be passed with the <code>z-options</code> attribute:</p>
-<pre><code class="language-html">&lt;div ctrl z-load=&quot;@lib/controllers/view-pager&quot;
+</code></pre><p>Alternatively the <code>ready</code> callback function can be passed with the <code>z-options</code> attribute:<pre><code class="language-html">&lt;div ctrl z-load=&quot;@lib/controllers/view-pager&quot;
      z-options=&quot;vp_options&quot;&gt;
 
   &lt;!-- ... --&gt;
@@ -526,9 +368,7 @@ vp_options = {
   ready: (ctx) =&gt; viewPager = ctx
 }
 &lt;/script&gt;
-</code></pre>
-<p>Other <code>z-options</code> fields:</p>
-<pre><code class="language-js">vp_options = {
+</code></pre><p>Other <code>z-options</code> fields:<pre><code class="language-js">vp_options = {
   autoSlide: true,      // default `false`
   enablePaging: true,   // default `false`
   slideInterval: 500,   // default `750`
@@ -538,94 +378,7 @@ vp_options = {
   autoHide: true,       // default `false`
   startGap: 36          // default '0` (ignore touch on the left side to allow swipe gesture to open side drawer)
 }
-</code></pre>
-<h2>Examples</h2>
-<div layout="rows center-spread" style="margin-bottom: 56px"><div>
-    <label>Horizontal layout</label>
-    <div ctrl z-load="@lib/controllers/view-pager"
-         data-o-paging="true"
-         data-o-slide="true"
-         class="mdl-shadow--8dp visible-on-ready"
-         style="width:300px; height: 300px;">
-        <!-- ViewPager items list -->
-        <img src="https://picsum.photos/seed/docs-0/300/300">
-        <div class="mdl-color--green-500 size-300-300" layout="row center-center">
-            <h4>Hello World!</h4>
-        </div>
-        <img src="https://picsum.photos/seed/docs-1/300/300">
-        <div class="mdl-color--pink-500 size-300-300" layout="row center-center">
-            <h5 align="center">
-                Versatile, gestures enabled
-                <code>ViewPager</code> controller
-                made with <strong>zUIx</strong>.
-            </h5>
-        </div>
-        <img src="https://picsum.photos/seed/docs-2/300/300">
-        <img src="https://picsum.photos/seed/docs-3/300/300">
-        <img src="https://picsum.photos/seed/docs-4/300/300">
-        <img src="https://picsum.photos/seed/docs-5/300/300">
-        <img src="https://picsum.photos/seed/docs-6/300/300">
-        <img src="https://picsum.photos/seed/docs-7/300/300">
-        <img src="https://picsum.photos/seed/docs-8/300/300">
-        <img src="https://picsum.photos/seed/docs-9/300/300">
-        <img src="https://picsum.photos/seed/docs-10/300/300">
-        <img src="https://picsum.photos/seed/docs-11/300/300">
-    </div>
-</div>
-<div>
-    <label>Vertical layout</label>
-    <div ctrl z-load="@lib/controllers/view-pager"
-         data-o-layout="vertical"
-         data-o-passive="false"
-         class="mdl-shadow--8dp visible-on-ready"
-         style="width:300px;height:300px;">
-        <img src="https://picsum.photos/seed/docs-12/300/200">
-        <img src="https://picsum.photos/seed/docs-13/300/200">
-        <img src="https://picsum.photos/seed/docs-14/300/200">
-        <img src="https://picsum.photos/seed/docs-15/300/200">
-        <img src="https://picsum.photos/seed/docs-16/300/200">
-        <img src="https://picsum.photos/seed/docs-17/300/200">
-        <img src="https://picsum.photos/seed/docs-18/300/200">
-        <img src="https://picsum.photos/seed/docs-19/300/200">
-        <img src="https://picsum.photos/seed/docs-20/300/200">
-        <img src="https://picsum.photos/seed/docs-21/300/200">
-        <img src="https://picsum.photos/seed/docs-22/300/200">
-        <img src="https://picsum.photos/seed/docs-23/300/200">
-    </div>
-</div></div>
-<h2>Demos</h2>
-<ul>
-<li><a href="https://zuixjs.github.io/zuix-html-pwa/">News Reader PWA</a> <a href="https://github.com/zuixjs/zuix-html-pwa">source</a> demo</li>
-<li><a href="../../components/media-browser">Media Browser</a> component</li>
-</ul>
-
-            </div>
-
-
-
-
-    
-    
-
-    <div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%">
-
-        
-        <a href="/zkit/pages/controllers/scroll-helper/" style="text-align: center">
-            <div layout="row center-center">
-                <i class="material-icons">arrow_left</i>&nbsp;
-                <span style="padding-right: 24px">Previous</span>
-            </div>
-            <div class="navigation-title">Scroll Helper</div>
-        </a>
-        
-
-        
-        <div>&nbsp;</div>
-        
-
-    </div>
-    <style>
-        .navigation-image {
+</code></pre><h2>Examples</h2><div layout="rows center-spread" style="margin-bottom: 56px"><div><label>Horizontal layout</label><div ctrl z-load="@lib/controllers/view-pager" data-o-paging="true" data-o-slide="true" class="mdl-shadow--8dp visible-on-ready" style="width:300px; height: 300px;"><!-- ViewPager items list --> <img src="https://picsum.photos/seed/docs-0/300/300"><div class="mdl-color--green-500 size-300-300" layout="row center-center"><h4>Hello World!</h4></div><img src="https://picsum.photos/seed/docs-1/300/300"><div class="mdl-color--pink-500 size-300-300" layout="row center-center"><h5 align="center">Versatile, gestures enabled <code>ViewPager</code> controller made with <strong>zUIx</strong>.</h5></div><img src="https://picsum.photos/seed/docs-2/300/300"> <img src="https://picsum.photos/seed/docs-3/300/300"> <img src="https://picsum.photos/seed/docs-4/300/300"> <img src="https://picsum.photos/seed/docs-5/300/300"> <img src="https://picsum.photos/seed/docs-6/300/300"> <img src="https://picsum.photos/seed/docs-7/300/300"> <img src="https://picsum.photos/seed/docs-8/300/300"> <img src="https://picsum.photos/seed/docs-9/300/300"> <img src="https://picsum.photos/seed/docs-10/300/300"> <img src="https://picsum.photos/seed/docs-11/300/300"></div></div><div><label>Vertical layout</label><div ctrl z-load="@lib/controllers/view-pager" data-o-layout="vertical" data-o-passive="false" class="mdl-shadow--8dp visible-on-ready" style="width:300px;height:300px;"><img src="https://picsum.photos/seed/docs-12/300/200"> <img src="https://picsum.photos/seed/docs-13/300/200"> <img src="https://picsum.photos/seed/docs-14/300/200"> <img src="https://picsum.photos/seed/docs-15/300/200"> <img src="https://picsum.photos/seed/docs-16/300/200"> <img src="https://picsum.photos/seed/docs-17/300/200"> <img src="https://picsum.photos/seed/docs-18/300/200"> <img src="https://picsum.photos/seed/docs-19/300/200"> <img src="https://picsum.photos/seed/docs-20/300/200"> <img src="https://picsum.photos/seed/docs-21/300/200"> <img src="https://picsum.photos/seed/docs-22/300/200"> <img src="https://picsum.photos/seed/docs-23/300/200"></div></div></div><h2>Demos</h2><ul><li><a href="https://zuixjs.github.io/zuix-html-pwa/">News Reader PWA</a> demo<li><a href="../../components/media-browser">Media Browser</a> component</ul></div><div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%"><a href="/zkit/pages/controllers/scroll-helper/" style="text-align: center"><div layout="row center-center"><i class="material-icons">arrow_left</i>&nbsp; <span style="padding-right: 24px">Previous</span></div><div class="navigation-title">Scroll Helper</div></a><div>&nbsp;</div></div><style>.navigation-image {
             border-radius: 32px;
             border-color: rgba(100,200,200,0.5);
         }
@@ -637,79 +390,7 @@ vp_options = {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-    </style>
-
-
-
-
-<div layout="rows start-spread" class="components-summary"><div>
-    <label>Controllers</label>
-    <ul>
-        <li >
-            <a href="/zkit/pages/controllers/drawer-layout/">
-                <div layout="row center-lett">
-                    <i class="material-icons">space_dashboard</i>
-                    <span>Drawer Layout</span>
-                </div>
-            </a>
-        </li>
-        <li >
-            <a href="/zkit/pages/controllers/gesture-helper/">
-                <div layout="row center-lett">
-                    <i class="material-icons">swipe</i>
-                    <span>Gesture Helper</span>
-                </div>
-            </a>
-        </li>
-        <li >
-            <a href="/zkit/pages/controllers/scroll-helper/">
-                <div layout="row center-lett">
-                    <i class="material-icons">swap_vert</i>
-                    <span>Scroll Helper</span>
-                </div>
-            </a>
-        </li>
-        <li  aria-current="page">
-            <a href="/zkit/pages/controllers/view-pager/">
-                <div layout="row center-lett">
-                    <i class="material-icons">view_carousel</i>
-                    <span>View Pager</span>
-                </div>
-            </a>
-        </li></ul>
-</div>
-<div>
-    <label>Components</label>
-    <ul>
-        <li >
-            <a href="/zkit/pages/components/context-menu/">
-                <div layout="row center-lett">
-                    <i class="material-icons">menu</i>
-                    <span>Context Menu</span>
-                </div>
-            </a>
-        </li>
-        <li >
-            <a href="/zkit/pages/components/menu-overlay/">
-                <div layout="row center-lett">
-                    <i class="material-icons">menu_open</i>
-                    <span>Menu Overlay</span>
-                </div>
-            </a>
-        </li>
-        <li >
-            <a href="/zkit/pages/components/media-browser/">
-                <div layout="row center-lett">
-                    <i class="material-icons">perm_media</i>
-                    <span>Media Browser</span>
-                </div>
-            </a>
-        </li></ul>
-</div></div>
-
-<style>
-    .components-summary {
+        }</style><div layout="rows start-spread" class="components-summary"><div><label>Controllers</label><ul><li><a href="/zkit/pages/controllers/drawer-layout/"><div layout="row center-lett"><i class="material-icons">space_dashboard</i> <span>Drawer Layout</span></div></a><li><a href="/zkit/pages/controllers/gesture-helper/"><div layout="row center-lett"><i class="material-icons">swipe</i> <span>Gesture Helper</span></div></a><li><a href="/zkit/pages/controllers/scroll-helper/"><div layout="row center-lett"><i class="material-icons">swap_vert</i> <span>Scroll Helper</span></div></a><li aria-current="page"><a href="/zkit/pages/controllers/view-pager/"><div layout="row center-lett"><i class="material-icons">view_carousel</i> <span>View Pager</span></div></a></ul></div><div><label>Components</label><ul><li><a href="/zkit/pages/components/context-menu/"><div layout="row center-lett"><i class="material-icons">menu</i> <span>Context Menu</span></div></a><li><a href="/zkit/pages/components/menu-overlay/"><div layout="row center-lett"><i class="material-icons">menu_open</i> <span>Menu Overlay</span></div></a><li><a href="/zkit/pages/components/media-browser/"><div layout="row center-lett"><i class="material-icons">perm_media</i> <span>Media Browser</span></div></a></ul></div></div><style>.components-summary {
         margin-top: 80px;
     }
     .components-summary label {
@@ -728,73 +409,7 @@ vp_options = {
     }
     .components-summary li i {
         margin-right: 12px;
-    }
-</style>
-
-
-
-<footer self="size-large" layout="columns bottom-center" style="min-height: 200px">
-
-    <div self="size-large" layout="rows center-justify" style="padding: 24px;">
-
-        <a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zkit/pages/controllers/view-pager/">
-            <div layout="row center-center" style="gap: 8px">
-                <img width="24" height="24" alt="PageSpeed Insight logo" src="/zkit/images/page-speed-insight-icon.png">
-                <span>PageSpeed Insight</span>
-            </div>
-        </a>
-
-        <div>
-            powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
-        </div>
-
-    </div>
-
-</footer>
-
-
-
-        </div>
-    </main>
-
-
-    <!-- Navigation Drawer -->
-    <div ctrl z-load="@lib/controllers/drawer-layout"
-         z-context="menu-drawer" z-lazy="false"
-         z-options="drawer_opts"
-         class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
-         layout="column top-stretch">
-        <!-- Navigation Drawer content -->
-
-        <!-- Header -->
-        <div class="drawer-header" layout="column justify-stretch">
-            <div layout="row center-justify">
-                <a href="/zkit/">
-                    <i style="font-size: 600%; color: #b0bbaa; text-shadow: -1px -1px 0 #00000044, 1px -1px 0 #00000044, -1px 1px 0 #00000044, 1px 1px 0 #00000044;" class="material-icons">
-                        extension
-                    </i>
-                </a>
-                <a href="https://github.com/zuixjs/zkit" style="opacity: 0.75">
-                    <img src="/zkit/images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;">
-                </a>
-            </div>
-            <div class="title"><code>zKit</code> components v1.1</div>
-            <div class="subtitle">web enhancing bits</div>
-        </div>
-
-        <!-- Menu items and other content -->
-        <div class="drawer-content" self="size-x1">
-            <ul>
-    <li >
-        <a href="/zkit/home" class="mdl-js-ripple-effect">
-            <div layout="row center-left">
-                <i class="material-icons">home</i>
-                <span>Home</span>
-            </div>
-            <span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span>
-        </a>
-    </li>
-    <!--
+    }</style><footer self="size-large" layout="columns bottom-center" style="min-height: 200px"><div self="size-large" layout="rows center-justify" style="padding: 24px;"><a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zkit/pages/controllers/view-pager/"><div layout="row center-center" style="gap: 8px"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zkit/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div>powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a></div></div></footer></div></main><!-- Navigation Drawer --><div ctrl z-load="@lib/controllers/drawer-layout" z-context="menu-drawer" z-lazy="false" z-options="drawer_opts" class="drawer-layout no-select visible-on-ready animate__animated animate__faster" layout="column top-stretch"><!-- Navigation Drawer content --><!-- Header --><div class="drawer-header" layout="column justify-stretch"><div layout="row center-justify"><a href="/zkit/"><i style="font-size: 600%; color: #b0bbaa; text-shadow: -1px -1px 0 #00000044, 1px -1px 0 #00000044, -1px 1px 0 #00000044, 1px 1px 0 #00000044;" class="material-icons">extension </i></a><a href="https://github.com/zuixjs/zkit" style="opacity: 0.75"><img src="/zkit/images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;"></a></div><div class="title"><code>zKit</code> components v1.1</div><div class="subtitle">web enhancing bits</div></div><!-- Menu items and other content --><div class="drawer-content" self="size-x1"><ul><li><a href="/zkit/home" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">home</i> <span>Home</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a></li><!--
     <li >
         <a href="/zkit/search" class="mdl-js-ripple-effect">
             <div layout="row center-left">
@@ -804,238 +419,4 @@ vp_options = {
             <span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span>
         </a>
     </li>
-    -->
-</ul>
-
-
-
-        <label>Components</label>
-        <ul>
-            
-                <li >
-                    <a href="/zkit/pages/components/context-menu/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">menu</i>
-                            <span class="title">Context Menu</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li>
-                <li >
-                    <a href="/zkit/pages/components/menu-overlay/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">menu_open</i>
-                            <span class="title">Menu Overlay</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li>
-                <li >
-                    <a href="/zkit/pages/components/media-browser/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">perm_media</i>
-                            <span class="title">Media Browser</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li></ul>
-
-    
-
-
-        <label>Controllers</label>
-        <ul>
-            
-                <li >
-                    <a href="/zkit/pages/controllers/drawer-layout/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">space_dashboard</i>
-                            <span class="title">Drawer Layout</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li>
-                <li >
-                    <a href="/zkit/pages/controllers/gesture-helper/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">swipe</i>
-                            <span class="title">Gesture Helper</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li>
-                <li >
-                    <a href="/zkit/pages/controllers/scroll-helper/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">swap_vert</i>
-                            <span class="title">Scroll Helper</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li>
-                <li  aria-current="page">
-                    <a href="/zkit/pages/controllers/view-pager/" class="mdl-js-ripple-effect">
-                        <div layout="row center-left">
-                            <i class="material-icons">view_carousel</i>
-                            <span class="title">View Pager</span>
-                        </div>
-                        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                    </a>
-                </li></ul>
-
-    
-
-
-        </div>
-
-    </div>
-
-
-<!-- Built with love using zUIx Web Starter -->
-
-<script>
-
-  // Google Analytics: change UA-116384214-1 to be your site's ID
-  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-116384214-1', 'auto');
-    ga('send', 'pageview');
-  }
-
-</script>
-
-
-
-</body>
-
-<!-- page script -->
-<script>
-/** type {ComponentContext} */
-let menuDrawer;
-/** type {ComponentContext} */
-let menuButton;
-window.drawer_opts = {
-  autoHideWidth: 1280,
-  on: {
-    'drawer:open': function() {
-      //zuix.context('menu_hamburger', function() {
-      //  this.open();
-      //});
-    },
-    'drawer:close': function() {
-      //zuix.context('menu_hamburger', function() {
-      //  this.close();
-      //});
-    }
-  },
-  ready: function() {
-    menuDrawer = this;
-    menuDrawer.$.animateCss(enterAnimation, {
-      duration: '0.2s'
-    });
-  }
-};
-window.menuButtonOptions = {
-  on: {
-    'menu:open': function() {
-      //headerMenu.open();
-    },
-    'menu:close': function() {
-      //headerMenu.close();
-    }
-  },
-  ready: function() {
-    menuButton = this;
-  }
-};
-
-let scrollHelper;
-window.scroll_opts = {
-  ready: (ctx) => {
-    scrollHelper = ctx;
-    setTimeout(enableScrollHelper, 500);
-  }
-};
-function enableScrollHelper() {
-  scrollHelper.on('scroll:change', function(e, data) {
-    switch (data.event) {
-      case 'hit-top':
-        // reached top of the page
-        showHeader();
-        break;
-      case 'scroll':
-        // show/hide header when scrolling up/down
-        if (data.info.shift.y > 0) {
-          showHeader();
-        } else {
-          hideHeader();
-        }
-        break;
-      case 'hit-bottom':
-        // reached end of the page
-        showHeader();
-        break;
-    }
-  });
-  setTimeout(function() {
-    if (location.hash && scrollbarVisible(document.body)) {
-      hideHeader();
-    }
-  }, 500);
-}
-function scrollbarVisible(element) {
-  const r = element.getBoundingClientRect();
-  return r.bottom !== r.height;
-}
-
-let headerVisible = true;
-function showHeader() {
-  if (!headerVisible) {
-    headerVisible = true;
-    zuix.field('header').animateCss('fadeInDown').show();
-  }
-  ////if (!menuButton.$.hasClass('animate__animated')) {
-  //  menuButton.$.animateCss('fadeInDown').show();
-  ////}
-}
-function hideHeader() {
-  if (headerVisible && !zuix.field('header').hasClass('animate__animated')) {
-    headerVisible = false;
-    zuix.field('header').animateCss('fadeOutUp', function() {
-      this.hide();
-    });
-  }
-  ////if (!menuButton.$.hasClass('animate__animated')) {
-  //  menuButton.$.animateCss('fadeOutUp', function() {
-  //    this.hide();
-  //  });
-  ////}
-}
-
-function processExternalLinks(view) {
-  // Force opening of all non-local links in a new window
-  zuix.$(view).find('a[href*="://"]')
-      .attr('target', '_blank')
-      .attr('rel', 'noreferrer');
-}
-
-zuix.hook('view:process', function(view) {
-  processExternalLinks(view);
-});
-processExternalLinks(document);
-
-// add presentation anim to the drawer
-const referrerLink = document.createElement('a');
-referrerLink.href = document.referrer;
-const enterAnimation =
-  (referrerLink.pathname === '/zkit/') ?
-    'fadeInLeft' : 'fadeIn';
-
-</script>
-
-
-</html>
-
+    --></ul><label>Components</label><ul><li><a href="/zkit/pages/components/context-menu/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu</i> <span class="title">Context Menu</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/pages/components/menu-overlay/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu_open</i> <span class="title">Menu Overlay</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/pages/components/media-browser/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">perm_media</i> <span class="title">Media Browser</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul><label>Controllers</label><ul><li><a href="/zkit/pages/controllers/drawer-layout/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">space_dashboard</i> <span class="title">Drawer Layout</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/pages/controllers/gesture-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swipe</i> <span class="title">Gesture Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/pages/controllers/scroll-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swap_vert</i> <span class="title">Scroll Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li aria-current="page"><a href="/zkit/pages/controllers/view-pager/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">view_carousel</i> <span class="title">View Pager</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul></div></div><!-- Built with love using zUIx Web Starter --><script>"localhost"!==location.hostname&&"127.0.0.1"!==location.hostname&&(!function(a,e,t,n,o,c){a.GoogleAnalyticsObject=n,a.ga=a.ga||function(){(a.ga.q=a.ga.q||[]).push(arguments)},a.ga.l=+new Date,o=e.createElement(t),c=e.getElementsByTagName(t)[0],o.async=1,o.src="https://www.google-analytics.com/analytics.js",c.parentNode.insertBefore(o,c)}(window,document,"script","ga"),ga("create","UA-116384214-1","auto"),ga("send","pageview"))</script></body><!-- page script --><script>let menuDrawer,menuButton;window.drawer_opts={autoHideWidth:1280,on:{"drawer:open":function(){},"drawer:close":function(){}},ready:function(){menuDrawer=this,menuDrawer.$.animateCss(enterAnimation,{duration:"0.2s"})}},window.menuButtonOptions={on:{"menu:open":function(){},"menu:close":function(){}},ready:function(){menuButton=this}};let scrollHelper;function enableScrollHelper(){scrollHelper.on("scroll:change",function(e,n){switch(n.event){case"hit-top":showHeader();break;case"scroll":(0<n.info.shift.y?showHeader:hideHeader)();break;case"hit-bottom":showHeader()}}),setTimeout(function(){location.hash&&scrollbarVisible(document.body)&&hideHeader()},500)}function scrollbarVisible(e){e=e.getBoundingClientRect();return e.bottom!==e.height}window.scroll_opts={ready:e=>{scrollHelper=e,setTimeout(enableScrollHelper,500)}};let headerVisible=!0;function showHeader(){headerVisible||(headerVisible=!0,zuix.field("header").animateCss("fadeInDown").show())}function hideHeader(){headerVisible&&!zuix.field("header").hasClass("animate__animated")&&(headerVisible=!1,zuix.field("header").animateCss("fadeOutUp",function(){this.hide()}))}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document);const referrerLink=document.createElement("a"),enterAnimation=(referrerLink.href=document.referrer,"/zkit/"===referrerLink.pathname?"fadeInLeft":"fadeIn")</script>

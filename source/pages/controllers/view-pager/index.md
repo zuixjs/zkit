@@ -144,5 +144,5 @@ vp_options = {
 
 ## Demos
 
-- [News Reader PWA](https://zuixjs.github.io/zuix-html-pwa/) [source](https://github.com/zuixjs/zuix-html-pwa) demo
+- [News Reader PWA](https://zuixjs.github.io/zuix-html-pwa/) demo
 - [Media Browser](../../components/media-browser) component
