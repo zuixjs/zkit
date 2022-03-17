@@ -49,7 +49,7 @@ li small {
     font-weight: 600;
     margin-left: 6px;
     text-transform: uppercase;
-    opacity: 0.5;
+    color: dimgray;
 }
 
 blockquote {
@@ -155,6 +155,17 @@ h1[z-field="alt_header"] {
 {
     opacity: 0;
     visibility: hidden;
+}
+
+.header-menu-button {
+    cursor: pointer;
+    height: 48px!important;
+    width: 48px!important;
+}
+.header-menu-button i {
+    color: black;
+    font-size: 32px!important;
+    left: 20px!important;
 }
 
 .no-select {

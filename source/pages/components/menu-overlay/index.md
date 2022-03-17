@@ -66,10 +66,10 @@ Put inside the field `items` the code for your menu items.
 
 You can customize the appearance of the menu button by overriding the template fields:
 
-- {% zx 'button' 'javascript:void(0)' 'fab' 'mini-fab primary' %}add{% endzx %}  
+- {% zx 'button' '#noop' 'fab' 'mini-fab primary' %}add{% endzx %}  
   `#menu_button` for the normal state button
   
-- {% zx 'button' 'javascript:void(0)' 'fab' 'mini-fab primary' %}close{% endzx %}  
+- {% zx 'button' '#noop' 'fab' 'mini-fab primary' %}close{% endzx %}  
   `#menu_button_close` for the open state button
 
 

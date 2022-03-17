@@ -15,9 +15,9 @@ date: Last Modified
 
     <nav #header layout="row center-start">
         <div self="stretch" layout="row center-start">
-            <div>
-                <img src="{{app.baseUrl}}images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
-            </div>
+            <button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon">
+                <i class="material-icons">menu_open</i>
+            </button>
             <div self="size-x1" layout="row center-center">
                 <h1 style="margin:0;margin-left: -48px">{{ title }}</h1>
             </div>
