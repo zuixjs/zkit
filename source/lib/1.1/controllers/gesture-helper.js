@@ -45,7 +45,8 @@ function GestureHelper() {
 
   cp.create = function() {
     // TODO: should use event "capturing" instead of "bubbling"
-    cp.view().on('dragstart', {
+    const target = passiveMode ? zuix.$(window) : cp.view();
+    target.on('dragstart', {
       handler: function(e) {
         if (!ignoreSession && !passiveMode) {
           e.preventDefault();

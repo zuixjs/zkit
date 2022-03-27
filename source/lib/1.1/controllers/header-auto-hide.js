@@ -1,6 +1,9 @@
 /**
  * zUIx - Header Auto Hide (on scroll =))
  *
+ * @version 1.2.0 (2022-03-21)
+ * @author Gene
+ *
  * @version 1.1.0 (2018-07-27)
  * @author Gene
  *
@@ -11,47 +14,64 @@
 
 'use strict';
 
-zuix.controller(function(cp) {
+function HeaderAutoHide(cp) {
   let headerBar;
   let footerBar;
   let headerHeight = 0;
   let footerHeight = 0;
+  let autoHideOffset = 0;
   let scrollHelper;
+
   cp.init = function() {
     cp.options().css = false;
     cp.options().html = false;
   };
+
   cp.create = function() {
-    // options parsing
-    const header = cp.options().header || cp.view().attr('data-o-header');
-    if (header != null) {
-      headerBar = zuix.field(header);
-      headerBar.css({position: 'fixed', zIndex: 1});
+    headerBar = cp.options().header || cp.view().attr('data-o-header');
+    if (headerBar) {
+      headerBar = zuix.field(headerBar);
+    } else {
+      throw new Error('Header element not specified.');
     }
+    if (headerBar.length() === 0) {
+      throw new Error('Header element not found: "' + headerBar + '".');
+    }
+    headerHeight = headerBar.position().rect.height;
+    const hp = getComputedStyle(headerBar.get()).position;
+    if (hp !== 'fixed' && hp !== 'absolute') {
+      autoHideOffset = headerHeight;
+    }
+    const scrollerParent = cp.view();
+    addHeaderStyle();
+    // footer options parsing
     const footer = cp.options().footer || cp.view().attr('data-o-footer');
     if (footer != null) {
       footerBar = zuix.field(footer);
       footerBar.css({position: 'fixed', zIndex: 1});
+      footerHeight = footerBar.position().rect.height;
+      addFooterStyle();
     }
-    const height = cp.options().height || cp.view().attr('data-o-height');
-    if (height != null && !isNaN(height)) {
-      headerHeight = footerHeight = parseInt(height);
-      addHeaderStyle(); addFooterStyle();
-    }
-    // TODO: this can be optimized (do not replace CSS, skip if already exists)
-    const startTime = new Date().getTime();
     zuix.load('@lib/controllers/scroll-helper', {
-      view: cp.view(),
+      view: scrollerParent,
       on: {
         'scroll:change': function(e, data) {
-          if (data.event === 'scroll' && (new Date().getTime()-startTime > 1000)) {
-            if (data.info.shift.y < 0) {
+          if (data.event === 'scroll' && data.info.viewport.y < -autoHideOffset) {
+            if (data.info.shift.y < -4) {
               // scrolling up
+              if (autoHideOffset > 0 && headerBar.css('position') !== 'fixed') {
+                scrollerParent.css({paddingTop: headerHeight + 'px'});
+                headerBar.hide().css({position: 'fixed', zIndex: 1});
+              }
               hideBars();
-            } else if (data.info.shift.y > 0) {
+            } else if (data.info.shift.y > 4) {
               // scrolling down
+              headerBar.show();
               showBars();
             }
+          } else if (autoHideOffset > 0 && data.info.viewport.y === 0) {
+            scrollerParent.css({paddingTop: null});
+            headerBar.show().css({position: null, zIndex: null});
           }
           cp.trigger('page:scroll', data);
         }
@@ -67,6 +87,7 @@ zuix.controller(function(cp) {
     cp.expose('show', showBars);
     cp.expose('hide', hideBars);
   };
+
   function showBars() {
     if (headerBar != null && headerBar.hasClass('header-collapse')) {
       headerBar.removeClass('header-collapse')
@@ -80,24 +101,13 @@ zuix.controller(function(cp) {
       scrollHelper.check();
     }
   }
+
   function hideBars() {
-    if (headerBar != null && !headerBar.hasClass('header-collapse')) {
-      if (headerHeight === 0) {
-        headerHeight = headerBar.position().rect.height;
-        if (headerHeight > 0) {
-          addHeaderStyle();
-        }
-      }
+    if (!headerBar.hasClass('header-collapse')) {
       headerBar.removeClass('header-expand')
           .addClass('header-collapse');
     }
     if (footerBar != null && !footerBar.hasClass('footer-collapse')) {
-      if (footerHeight === 0) {
-        footerHeight = footerBar.position().rect.height;
-        if (headerHeight > 0) {
-          addFooterStyle();
-        }
-      }
       footerBar.removeClass('footer-expand')
           .addClass('footer-collapse');
     }
@@ -151,4 +161,6 @@ zuix.controller(function(cp) {
             '  bottom: 0;\n' +
             '}\n', null, 'zkit_onscroll_hide_show');
   }
-});
+}
+
+module.exports = HeaderAutoHide;

@@ -56,7 +56,7 @@ zuix.controller(function(cp) {
   }
 
   function hideMenu() {
-    view.one('transitionend', function() {
+    view.one('transitionend transitioncancel', function() {
       this.hide();
     })
         .css('opacity', 0);

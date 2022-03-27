@@ -1,5 +1,6 @@
 :root {
     --primary-color: rgb(63,81,181);
+    --accent-color: #d2187f;
 }
 
 body {
@@ -8,11 +9,11 @@ body {
     font-size: 14px;
     position: relative;
     min-height: 100vh;
-    background: var(--background-color); /* this is also set by Pico.CSS for theming */
 }
 
 a {
     text-decoration: none;
+    color: var(--accent-color);
 }
 h1 {
     font-size: 230% !important;

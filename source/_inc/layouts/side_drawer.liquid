@@ -53,7 +53,7 @@ date: Last Modified
 
     <!-- Navigation Drawer -->
     <div ctrl z-load="@lib/controllers/drawer-layout"
-         z-context="menu-drawer" z-lazy="false"
+         #drawer z-context="menu-drawer" z-lazy="false"
          z-options="drawer_opts"
          class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
          layout="column top-stretch">
@@ -71,7 +71,7 @@ date: Last Modified
                     <img src="{{app.baseUrl}}images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;">
                 </a>
             </div>
-            <div class="title">{{ app.title }}</div>
+            <div class="title">{{ app.title }} <small>v{{ pkg.version }}</small></div>
             <div class="subtitle">{{ app.subtitle }}</div>
         </div>
 

@@ -68,8 +68,8 @@ function ContextMenu() {
   }
 
   function hideMenu() {
-    menu.one('transitionend', function() {
-      container.one('transitionend', function() {
+    menu.one('transitionend transitioncancel', function() {
+      container.one('transitionend transitioncancel', function() {
         view.hide();
         cp.trigger('close');
       });

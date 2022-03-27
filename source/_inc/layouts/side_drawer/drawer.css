@@ -2,7 +2,7 @@
     color:white;
     height: 164px;
     padding: 12px;
-    background: #5f7555;  /* fallback for old browsers */
+    background: #4b6440;  /* fallback for old browsers */
 }
 .drawer-header img.logo {
     width: 84px;
@@ -109,7 +109,7 @@
     margin-bottom: 16px;
     margin-left: 12px;
     font-weight: bold;
-    color: rgba(127,127,127,1);
+    color: rgb(100, 100, 100);
 }
 .drawer-content a {
 {% if theme == 'dark' %}

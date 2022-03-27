@@ -72,10 +72,8 @@
 {% endif %}
 
 {% if options contains 'highlight' %}
-    <link rel="preload" as="script" href="{{ '/js/prism/prism.js' | url }}">
-    <link rel="preload" as="style" href="{{ '/js/prism/prism.css' | url }}" />
-    <script src="{{ '/js/prism/prism.js' | url }}"></script>
-    <link rel="stylesheet" href="{{ '/js/prism/prism.css' | url }}" />
+    <link rel="preload" as="style" href="{{ '/css/prism.css' | url }}" />
+    <link rel="stylesheet" href="{{ '/css/prism.css' | url }}" />
 {% endif %}
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->

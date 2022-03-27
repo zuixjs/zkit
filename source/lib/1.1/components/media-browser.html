@@ -2,30 +2,44 @@
 
     <div ctrl z-load="@lib/controllers/view-pager" z-lazy="false"
          data-o-paging="true" data-o-autohide="true"
-         #media class="media-list hidden"></div>
+         #media class="media-list"></div>
 
-    <div #controls>
+    <div #controls fx-show="fadeIn" fx-hide="fadeOutDown">
 
         <div ctrl z-load="@lib/controllers/view-pager"
              z-lazy="false" data-o-autohide="true"
-             #carousel layout="row center-left"></div>
+             #carousel></div>
 
     </div>
 
-    <div #nav-close>
-        <svg fill="#FFFFFF" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div #nav-fullscreen fx-show="fadeIn" fx-hide="fadeOutUp"
+         @hide-if="!context.ui.inlineMode || context.ui.showingFullscreen"
+         @on:click="context.fullScreen(true)">
+        <svg width="48px" height="48px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+    </div>
+    <div #nav-close fx-show="fadeIn" fx-hide="fadeOutUp"
+         @hide-if="!context.ui.showingFullscreen"
+         @on:click="context.close()">
+        <svg width="48" height="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
     </div>
-    <div #nav-prev>
-        <svg fill="white" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div #nav-prev fx-show="fadeIn" fx-hide="fadeOutLeft"
+         @hide-if="context.ui.isFirstPage()"
+         @on:click="context.prev()">
+        <svg width="48" height="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
     </div>
-    <div #nav-next>
-        <svg fill="white" height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div #nav-next fx-show="fadeIn" fx-hide="fadeOutRight"
+         @hide-if="context.ui.isLastPage()"
+         @on:click="context.next()">
+        <svg height="48" width="48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
@@ -34,3 +48,68 @@
 </div>
 <!-- do not remove the following line -->
 <script></script>
+
+<!-- script to handle UI status changes -->
+<script type="jscript">
+  let openButton = $.attr('data-o-button');
+  const scrollParent = $.get().offsetParent || document.body;
+  context.on('controls:show', () => {
+    fxShow([$controls, $navNext, $navPrev, $navClose, $navFullscreen]);
+  });
+  context.on('controls:hide', () => {
+    fxHide([$controls, $navNext, $navPrev, $navClose, $navFullscreen]);
+  });
+  context.on('fullscreen:open', () => {
+    if (!context.ui.inlineMode) {
+      zuix.componentize(false);
+      setTransitionOrigin();
+      zuix.$.playTransition($, 'zoomOut zoomIn', function($el, queue) {
+        if (queue == null) {
+          this.get().focus();
+          zuix.componentize(true);
+          context.refresh();
+        }
+      });
+    }
+    if (scrollParent) {
+      scrollParent.style.overflow = 'hidden';
+    }
+  });
+  context.on('fullscreen:close', () => {
+    if (!context.ui.inlineMode) {
+      zuix.componentize(false);
+      setTransitionOrigin();
+      zuix.$.playTransition($, 'zoomIn zoomOut', function($el, queue) {
+        if (queue == null) {
+          this.hide();
+          zuix.componentize(true);
+        }
+      });
+    }
+    if (scrollParent) {
+      scrollParent.style.overflow = null;
+    }
+  });
+  function fxShow(elements) {
+    elements.forEach($el => {
+      const fxHide = $el.attr('fx-hide');
+      const fxShow = $el.attr('fx-show');
+      zuix.$.playTransition($el, [fxHide, fxShow]);
+    });
+  }
+  function fxHide(elements) {
+    elements.forEach($el => {
+      const fxHide = $el.attr('fx-hide');
+      const fxShow = $el.attr('fx-show');
+      zuix.$.playTransition($el, [fxShow, fxHide]);
+    });
+  }
+  function setTransitionOrigin() {
+    if (openButton) {
+      const p = zuix.field(openButton).position();
+      $.css({
+        'transform-origin': p.x + (p.rect.width/2) + 'px ' + (p.y + (p.rect.height/2)) + 'px'
+      });
+    }
+  }
+</script>

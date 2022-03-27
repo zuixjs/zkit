@@ -38,8 +38,8 @@ button span {
     margin-left: 24px;
 }
 button i {
-    /*color: gray;*/
-    font-size: 140%;
+    color: dimgray;
+    font-size: 24px;
     margin-left: 8px;
 }
 button:hover {

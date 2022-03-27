@@ -9,7 +9,7 @@
  * @constructor
  * @this {ContextController}
  */
-function MenuOverlay() {
+function MenuOverlay(cp) {
   let menuOverlayShowing = false;
   let menuButtonShowing = false;
   let menuButton;
@@ -19,34 +19,40 @@ function MenuOverlay() {
   let menuItems;
   let scroller = null;
   let currentOffset = 0;
-  const cp = this;
+  let menuPosition = 'right';
 
   cp.create = function() {
-    menuButton = cp.field('menu_button').hide()
+    menuPosition = cp.options().position || cp.view().attr('data-o-position') || menuPosition;
+    menuButton = cp.field('menu_button')
+        .addClass(menuPosition).hide()
         .on('click', toggleMenu);
-    menuButtonClose = cp.field('menu_button_close').hide()
+    menuButtonClose = cp.field('menu_button_close')
+        .addClass(menuPosition).hide()
         .on('click', toggleMenu);
-    menuOverlay = cp.field('menu_overlay').visibility('hidden')
+    menuOverlay = cp.field('menu_overlay')
+        .addClass(menuPosition)
+        .visibility('hidden')
         .on('click', toggleMenu);
-    itemsWrapper = cp.field('items_wrapper');
+    itemsWrapper = cp.field('items_wrapper')
+        .addClass(menuPosition);
 
     const items = zuix.$(cp.model().items).children();
     items.each(function(i, el) {
       const wrapperDiv = zuix.$(document.createElement('div'))
           .addClass('menu-item')
-          .attr('data-ui-transition-delay', (.3/(items.length()-i))+'s')
           .append(el.observableTarget || el);
       itemsWrapper.append(wrapperDiv.get());
     });
-    menuItems = itemsWrapper.find('div[class*="menu-item"]');
+    menuItems = itemsWrapper
+        .find('div[class*="menu-item"]');
 
     // apply custom color to menu button
     const $view = cp.view();
     if ($view.attr('data-o-button-color') != null) {
-      $view.find('.circle-button').css('background', $view.attr('data-o-button-color'));
+      $view.css('background', $view.attr('data-o-button-color'));
     }
     if ($view.attr('data-o-icon-color') != null) {
-      $view.find('.circle-button').css('fill', $view.attr('data-o-icon-color'));
+      $view.css('fill', $view.attr('data-o-icon-color'));
     }
 
     const scrollerName = $view.attr('data-o-scroller');
@@ -91,13 +97,20 @@ function MenuOverlay() {
       $view.hide();
     });
     document.body.addEventListener('keyup', function(evt) {
-      if (evt.key === 'Escape' && menuButtonShowing) {
+      if (evt.defaultPrevented) {
+        return;
+      }
+      if (evt.key === 'Escape') {
         evt.cancelBubble = true;
         evt.preventDefault();
         setTimeout(function() {
-          hideButton();
           if (menuOverlayShowing) {
+            hideButton();
             toggleMenu();
+          } else if (!menuButtonShowing) {
+            showButton();
+          } else {
+            hideButton();
           }
         }, 100);
       }
@@ -133,20 +146,35 @@ function MenuOverlay() {
   }
 
   function toggleMenu() {
-    if (!menuOverlayShowing && !menuButton.hasClass('animate__animated') && !menuButtonClose.hasClass('animate__animated')) {
+    if (menuOverlay.hasClass('animate__animated')) {
+      return;
+    }
+    let itemsRevealAnimation = 'fadeInUp';
+    let itemsHideAnimation = 'fadeOutDown';
+    if (menuPosition === 'right') {
+      itemsRevealAnimation = 'bounceInRight';
+      itemsHideAnimation = 'fadeOutRight';
+    } else if (menuPosition === 'left') {
+      itemsRevealAnimation = 'bounceInLeft';
+      itemsHideAnimation = 'fadeOutLeft';
+    }
+    let speedFactor = 300 / menuItems.length();
+    if (!menuOverlayShowing) {
       menuOverlayShowing = true;
       cp.trigger('open');
       menuButton.animateCss('rotateOut', {duration: '0.3s'});
       menuButtonClose.animateCss('rotateIn', {duration: '0.5s'}, function() {
         menuButton.hide();
       }).show();
+      let transitionDelay = 0;
+      if (menuPosition === 'left' || menuPosition === 'right') {
+        transitionDelay = speedFactor * menuItems.length();
+        speedFactor *= -1;
+      }
       menuOverlay.animateCss('fadeIn', {duration: '0.5s'}).visibility('');
-      menuItems.each(function(p, el) {
-        let transitionDelay = '0';
-        if (this.attr('data-ui-transition-delay') != null) {
-          transitionDelay = this.attr('data-ui-transition-delay');
-        }
-        this.animateCss('bounceInRight', {duration: '0.5s', delay: transitionDelay})
+      menuItems.each(function(i, el) {
+        transitionDelay += speedFactor;
+        this.animateCss(itemsRevealAnimation, {duration: '0.5s', delay: transitionDelay + 'ms'})
             .show();
       });
     } else if (menuOverlayShowing) {
@@ -165,12 +193,14 @@ function MenuOverlay() {
       menuOverlay.animateCss('fadeOut', {duration: '0.5s', delay: '0.2s'}, function() {
         this.visibility('hidden');
       });
-      menuItems.each(function(p, el) {
-        let transitionDelay = '0';
-        if (this.attr('data-ui-transition-delay') != null) {
-          transitionDelay = this.attr('data-ui-transition-delay');
-        }
-        this.animateCss('fadeOutRight', {duration: '0.5s', delay: transitionDelay}, function() {
+      let transitionDelay = speedFactor * menuItems.length();
+      if (menuPosition === 'left' || menuPosition === 'right') {
+        transitionDelay = 0;
+        speedFactor *= -1;
+      }
+      menuItems.each(function(i, el) {
+        transitionDelay -= speedFactor;
+        this.animateCss(itemsHideAnimation, {duration: '0.5s', delay: transitionDelay + 'ms'}, function() {
           this.hide();
         });
       });

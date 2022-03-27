@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 (function() {
   zuix.store('config', {
-    "title": "<code>zKit</code> components v1.1",
+    "title": "<code>zKit</code> components",
     "subtitle": "web enhancing bits",
     "googleSiteId": "UA-116384214-1",
     "siteMapUrl": "https://zuixjs.github.io/zkit",

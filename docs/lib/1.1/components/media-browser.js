@@ -4,121 +4,119 @@
  * MenuOverlay class.
  *
  * @author Gene
+ * @version 1.1.0 (2022-03-25)
+ *
+ * @author Gene
  * @version 1.0.0 (2018-02-12)
  *
  * @constructor
  * @this {ContextController}
  */
-function MediaBrowser() {
+function MediaBrowser(cp) {
+  // state vars
   let currentPage = 0;
-  let itemsListVisible = false;
+  let inlineMode = false;
+  let showingControls = false;
+  let showingFullscreen = true;
+
   // view-pager views
   let fullView;
   let listView;
-  /** @typedef {ZxQuery} */
+
+  // UI control buttons
+  /** @type ZxQuery */
   let imageList;
-  /** @typedef {ZxQuery} */
-  let buttonNext;
-  /** @typedef {ZxQuery} */
-  let buttonPrev;
-  /** @typedef {ZxQuery} */
-  let buttonClose;
-
-  let youtubeApiCallbacks = [];
-  let youtubeApiReady = false;
-
-  if (zuix.ZxQuery.prototype.animateCss == null) {
-    zuix.ZxQuery.prototype.animateCss = function() {
-      return this;
-    };
-  }
-
-  const cp = this;
 
   cp.create = function() {
     // export public component methods
-    cp.expose('open', openBrowser)
-        .expose('close', closeBrowser)
-    // .expose('items', setItems)
-        .expose('youtubeApi', function(callback) {
-          if (youtubeApiReady) callback();
-          else youtubeApiCallbacks.push(callback);
-        }).expose('current', setCurrent)
-        .expose('showControls', showControls)
-        .expose('hideControls', hideControls)
-        .expose('toggleControls', toggleControls)
-        .expose('showList', showList)
-        .expose('hideList', hideList);
-
-    cp.view().css({
-      'position': 'fixed',
-      'left': 0,
-      'right': 0,
-      'top': 0,
-      'bottom': 0
-    }).hide();
-
-    // prevent default dragging on image elements
-    cp.view().on('dragstart', {
-      handler: function(e) {
-        if (e.target.nodeName.toUpperCase() === 'IMG') {
-          e.preventDefault();
-        }
+    cp.expose({
+      open: openBrowser,
+      close: closeBrowser,
+      current: setCurrent,
+      showControls,
+      hideControls,
+      toggleControls,
+      refresh: refreshViewPagers,
+      fullScreen: function(fullScreen) {
+        fullScreen ? enterFullscreen() : exitFullscreen();
       },
-      passive: false
-    });
-
-    // load Animate CSS extension
-    zuix.using('component', '@lib/extensions/animate-css', function() {
-      showControls();
-    });
-
-    // add youtube API
-    // This code loads the IFrame Player API code asynchronously.
-    window.onYouTubeIframeAPIReady = function() {
-      zuix.$.each(youtubeApiCallbacks, function() {
-        this();
-      });
-      youtubeApiCallbacks = [];
-      youtubeApiReady = true;
-    };
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = cp.view().find('script').get();
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // Main ViewPager
-    zuix.context(cp.field('media'), function() {
-      fullView = this
-          .on('gesture:tap', toggleControls)
-          .on('page:change', function(e, page) {
-            listView.page(page.in);
-            cp.trigger('page:change', page);
-          });
-      buttonPrev = cp.field('nav-prev').on('click', function() {
-        fullView.prev();
-      });
-      buttonNext = cp.field('nav-next').on('click', function() {
+      next: function() {
         fullView.next();
-      });
-      buttonClose = cp.field('nav-close').on('click', closeBrowser);
-      // setup media list with thumbnails and full screen items with temporary background preview
-      imageList = cp.field('media')
-          .children().each(function(i, el) {
-            const preview = this.find('[z-field="preview"]');
-            if (preview.length() > 0) {
-              this.css({
-                background: 'url("'+preview.find('img').attr('src')+'") scroll no-repeat center/contain'
-              });
-              cp.field('carousel')
-                  .append(preview.detach().get());
-            } else {
-              // TODO: add a button or something if preview thumbnail not specified
-              cp.field('carousel')
-                  .append(document.createElement('div'));
-            }
+      },
+      prev: function() {
+        fullView.prev();
+      }
+    });
+
+    // UI state
+    cp.expose('ui', {get: function() {
+      return {
+        currentPage,
+        isFirstPage: function() {
+          return currentPage === 0;
+        },
+        isLastPage: function() {
+          return !imageList || currentPage === imageList.length() - 1;
+        },
+        inlineMode,
+        showingFullscreen
+      };
+    }});
+
+    // Carousel ViewPager component
+    const carousel = cp.field('carousel');
+    zuix.context(carousel, function() {
+      listView = this;
+      listView
+          .on('page:change', pageChanged)
+          .on('page:tap', function(e, page) {
+            fullView.page(page);
           });
-      cp.field('media').children().each(function(i, el) {
+      // highlight initial page
+      setTimeout(() => {
+        listView.get(0).addClass('page-active');
+      });
+    });
+
+    // Main ViewPager component
+    const mediaList = cp.field('media');
+    zuix.context(mediaList, function() {
+      fullView = this;
+      fullView.on({
+        'page:tap': function() {
+          toggleControls();
+          cp.view().get().focus();
+        },
+        'page:change': function(e, page) {
+          listView.page(page.in);
+          cp.trigger('page:change', page);
+        }
+      });
+      // sets list of media with thumbnails and full size items
+      // with temporary preview background
+      imageList = mediaList.children().each(function(i, el) {
+        let preview = this.find('[z-field="preview"]');
+        // the following 4 lines were added for backward compatibility with 1.0
+        if (preview.get() && preview.get().tagName !== 'IMG') {
+          preview.attr('z-field', null);
+          preview = preview.find('IMG').attr('z-field', 'preview');
+        }
+        // refresh the viewpager when images are loaded
+        preview.on('load error', function() {
+          if (listView) listView.refresh();
+        });
+        if (preview.length() > 0) {
+          this.css({
+            background: 'url("'+preview.attr('src')+'") scroll no-repeat center/contain'
+          });
+          carousel.append(preview.detach().get());
+        } else {
+          // TODO: add a button or something if preview thumbnail not specified
+          carousel.append(document.createElement('div'));
+        }
+      });
+      // creates lazy loaded components to host full sized media
+      mediaList.children().each(function(i, el) {
         let type = this.attr('data-type');
         if (type == null) type = 'image'; // default type
         this.attr('z-load', cp.context.componentId+'/'+type);
@@ -130,58 +128,78 @@ function MediaBrowser() {
           this.host(cp.view());
         });
       });
+      // set auto-slide option
+      const autoSlide = cp.view().attr('data-o-slide') || cp.options().slide;
+      fullView.slide(autoSlide != null ? autoSlide : false);
+      // final initialization steps
+      initializeAnimations();
+      preventImageDrag();
+      // setup complete, open media-browser
+      showControls();
+      if (inlineMode) {
+        openBrowser();
+      }
     });
-    // Carousel ViewPager
-    zuix.context(cp.field('carousel'), function() {
-      listView = this;
-      listView
-          .on('page:change', pageChanged)
-          .on('page:tap', function(e, page) {
-            fullView.page(page);
-          });
-    });
+
     // Keyboard navigation handling
-    cp.view().attr('tabindex', 0)
-        .on('blur', function() {
-          this.get().focus();
-        }).get().focus();
-    document.onkeydown = function(e) {
-      switch (e.keyCode) {
-        case 27: // esc
+    cp.view().attr('tabindex', 0);
+    document.body.addEventListener('keydown', function(e) {
+      if (cp.view().get() !== document.activeElement) {
+        return;
+      }
+      switch (e.code) {
+        case 'Escape':
           closeBrowser();
+          e.preventDefault();
           break;
-        case 32: // space
+        case 'Space':
           toggleControls();
+          e.preventDefault();
           break;
-        case 37: // left
+        case 'ArrowLeft':
           fullView.prev();
+          e.preventDefault();
           break;
-        case 38: // up
+        case 'ArrowUp':
           showControls();
+          e.preventDefault();
           break;
-        case 39: // right
+        case 'ArrowRight':
           fullView.next();
+          e.preventDefault();
           break;
-        case 40: // down
+        case 'ArrowDown':
           hideControls();
+          e.preventDefault();
           break;
       }
-    };
+    });
+
+    // if not inlineMode mode === true, the media-browser will be hidden
+    // and show only fullscreen after the `open()` method is called
+    inlineMode = cp.view().attr('data-o-inline') === 'true' || cp.options().inline;
+    if (!inlineMode) {
+      cp.view().hide();
+      showingFullscreen = false;
+      const buttonName = cp.view().attr('data-o-button') || cp.options().button;
+      const button = zuix.field(buttonName);
+      button.on('click', openBrowser);
+    } else {
+      // without this timeout the component sometimes starts "hidden"
+      setTimeout(exitFullscreen, 100);
+    }
   };
 
   function pageChanged(e, page) {
-    currentPage = page.in;
-    listView.get(currentPage)
-        .attr('z-lazy', false)
-        .children().eq(0).addClass('page-active');
-    if (page.out !== -1) {
-      listView.get(page.out).children().eq(0).removeClass('page-active');
+    currentPage = +page.in;
+    const pageIn = listView.get(currentPage);
+    if (pageIn) {
+      pageIn.addClass('page-active');
     }
-    updateButtons();
-    // TODO: not yet sure why is this timeout required to make it work
-    setTimeout(function() {
-      zuix.componentize(cp.field('media'), listView.get(currentPage));
-    }, 200);
+    const pageOut = listView.get(+page.out);
+    if (pageOut) {
+      pageOut.removeClass('page-active');
+    }
   }
 
   function setCurrent(current) {
@@ -189,121 +207,122 @@ function MediaBrowser() {
   }
 
   function openBrowser() {
-    // hide navigation buttons
-    buttonClose.animateCss('rotateIn', {duration: '0.75s'});
-    buttonNext.hide();
-    buttonPrev.hide();
-    // show the media browser and update buttons
-    cp.field('media').removeClass('hidden');
-    cp.view().animateCss('zoomIn', {duration: '0.5s'}, function() {
-      // refresh ViewPager
-      fullView.refresh();
-      listView.refresh();
-      updateButtons();
-      // TODO: not yet sure why is this timeout required to make it work
-      // force load of current item
-      setTimeout(function() {
-        // make pages visible (this should run once though)
-        cp.field('media').children().each(function() {
-          this.css('visibility', 'visible');
-        });
-        zuix.componentize(cp.field('media'), listView.get(currentPage));
-      }, 200);
-      this.trigger('open');
-    }).show();
-    return cp.context;
+    if (!inlineMode) {
+      enterFullscreen();
+    }
+    cp.view().show();
+    cp.trigger('open');
   }
-
   function closeBrowser() {
-    buttonClose.animateCss('rotateOut', {duration: '0.5s'});
-    cp.view().animateCss('zoomOut', {duration: '0.5s', delay: '0.15s'}, function() {
-      this.hide();
-    }).trigger('close');
-    return cp.context;
+    exitFullscreen();
+    if (!inlineMode) {
+      cp.trigger('close');
+    }
   }
 
-  function updateButtons() {
-    if (imageList == null) return;
-    // show navigation buttons as needed
-    if (currentPage < imageList.length() - 1) {
-      if (buttonNext.display() === 'none') {
-        buttonNext.animateCss('fadeInRight').show();
-      }
-    } else {
-      if (buttonNext.display() !== 'none') {
-        buttonNext.animateCss('fadeOutRight', function() {
-          this.hide();
-        });
-      }
+  function enterFullscreen() {
+    if (!showingFullscreen) {
+      showingFullscreen = true;
+      cp.view().addClass('fullscreen').css({
+        height: null
+      });
+      refreshViewPagers();
+      cp.trigger('fullscreen:open');
     }
-    if (currentPage > 0 && imageList.length() > 1) {
-      if (buttonPrev.display() === 'none') {
-        buttonPrev.animateCss('fadeInLeft').show();
+  }
+  function exitFullscreen() {
+    if (showingFullscreen) {
+      showingFullscreen = false;
+      if (inlineMode) {
+        cp.view().removeClass('fullscreen');
+        const style = getComputedStyle(cp.view().get());
+        const actualWidth = parseInt(style.width);
+        const actualHeight = parseInt(style.height);
+        if (actualHeight === 0) {
+          const computedHeight = (actualWidth / 16 * 9 );
+          cp.view().css({height: computedHeight +'px'});
+        }
+        refreshViewPagers();
       }
-    } else {
-      if (buttonPrev.display() !== 'none') {
-        buttonPrev.animateCss('fadeOutLeft', function() {
-          this.hide();
-        });
-      }
-    }
-    if (buttonClose.display() === 'none') {
-      buttonClose.animateCss('fadeInDown', {duration: '0.35s', delay: '0.5s'}).show();
+      cp.trigger('fullscreen:close');
     }
   }
 
   function toggleControls(e, tp) {
-    if (tp == null || !zuix.$(tp.event.target).hasClass('capture-touch')) {
-      if (cp.field('controls').display() !== 'none') {
-        hideControls();
-      } else {
-        showControls();
-      }
-      if (tp != null) tp.cancel();
+    if (showingControls) {
+      hideControls();
+    } else {
+      showControls();
     }
   }
-
-  function showList() {
-    if (!itemsListVisible) {
-      itemsListVisible = true;
-      cp.field('controls').animateCss('fadeInUp').show();
-      if (listView != null && fullView != null) {
-        listView.page(fullView.page());
-      }
-      cp.trigger('controls:show');
-    }
-  }
-  function hideList() {
-    if (itemsListVisible) {
-      itemsListVisible = false;
-      cp.field('controls').animateCss('fadeOutDown', function() {
-        this.hide();
-      });
-    }
-  }
-
   function hideControls() {
-    hideList();
-    if (buttonPrev.display() !== 'none') {
-      buttonPrev.animateCss('fadeOutLeft', function() {
-        this.hide();
-      });
-    }
-    if (buttonNext.display() !== 'none') {
-      buttonNext.animateCss('fadeOutRight', function() {
-        this.hide();
-      });
-    }
-    if (buttonClose.display() !== 'none') {
-      buttonClose.animateCss('fadeOutUp', {duration: '0.35s'}, function() {
-        this.hide();
-      });
-    }
+    showingControls = false;
     cp.trigger('controls:hide');
   }
   function showControls() {
-    showList();
-    updateButtons();
+    showingControls = true;
+    if (listView != null && fullView != null) {
+      listView.page(fullView.page());
+    }
+    cp.trigger('controls:show');
+  }
+
+  function refreshViewPagers() {
+    setTimeout(function() {
+      if (listView) listView.refresh();
+      if (fullView) fullView.refresh();
+    }, 10);
+  }
+
+  function preventImageDrag() {
+    // prevent default dragging on image elements
+    cp.view().on('dragstart', {
+      handler: function(e) {
+        if (e.target.nodeName.toUpperCase() === 'IMG') {
+          e.preventDefault();
+        }
+      },
+      passive: false
+    });
+  }
+
+  function initializeAnimations() {
+    const commonOptions = {
+      duration: '0.5s',
+      timingFunction: 'ease-in-out'
+    };
+    cp.addTransition( 'fadeIn', {
+      transform: 'translateXY(0,0)',
+      opacity: '1'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutUp', {
+      transform: 'translateY(-200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutDown', {
+      transform: 'translateY(200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition('fadeOutLeft', {
+      transform: 'translateX(-100px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('fadeOutRight', {
+      transform: 'translateX(100px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('zoomIn', {
+      transform: 'scale(1)'
+    }, {
+      duration: '250ms',
+      timingFunction: 'ease-in-out'
+    });
+    cp.addTransition('zoomOut', {
+      transform: 'scale(0)'
+    }, {
+      duration: '250ms',
+      timingFunction: 'ease-in-out'
+    });
   }
 }
 

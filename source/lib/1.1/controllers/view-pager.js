@@ -115,16 +115,15 @@ function ViewPager() {
       characterData: false
     });
     updateLayout();
-    // Set starting page
-    setPage(0);
     let tapTimeout = null;
     // gestures handling - load gesture-helper controller
     zuix.load('@lib/controllers/gesture-helper', {
-      view: view,
+      view,
       passive: passiveMode,
       startGap: startGap,
       on: {
         'gesture:touch': function(e, tp) {
+          if (!insideViewPager(tp)) return;
           inputCaptured = false;
           stopAutoSlide();
           dragStart();
@@ -135,6 +134,7 @@ function ViewPager() {
           resetAutoSlide();
         },
         'gesture:tap': function(e, tp) {
+          if (!insideViewPager(tp)) return;
           if (tapTimeout != null) {
             clearTimeout(tapTimeout);
           }
@@ -147,6 +147,8 @@ function ViewPager() {
       },
       ready: function() {
         layoutElements(true);
+        // Set starting page
+        setPage(0);
       }
     });
     // public component methods
@@ -155,10 +157,11 @@ function ViewPager() {
         return parseInt(currentPage);
       } else setPage(number, DEFAULT_PAGE_TRANSITION);
     }).expose('get', function(number) {
-      return pageList.eq(number);
-    }).expose('slide', function(activate) {
-      if (activate === true) {
-        resetAutoSlide();
+      return number < pageList.length() && pageList.length() > 0 ? pageList.eq(number) : null;
+    }).expose('slide', function(slideMs) {
+      if (slideMs !== false) {
+        enableAutoSlide = true;
+        resetAutoSlide(slideMs !== true ? slideMs : slideIntervalMs);
       } else stopAutoSlide();
     }).expose('layout', function(mode) {
       if (mode == null) {
@@ -286,7 +289,10 @@ function ViewPager() {
     resetAutoSlide();
   }
 
-  function resetAutoSlide(timeout) {
+  function resetAutoSlide(slideInterval) {
+    if (slideInterval) {
+      slideIntervalMs = slideInterval;
+    }
     stopAutoSlide();
     if (enableAutoSlide === true) {
       const visible = cp.view().position().visible;
@@ -294,7 +300,8 @@ function ViewPager() {
         if (!wasVisible) {
           zuix.componentize(cp.view());
         }
-        slideTimeout = setTimeout(slideNext, slideIntervalMs);
+        const delay = pageList.eq(currentPage).attr('slide-interval') || slideIntervalMs;
+        slideTimeout = setTimeout(slideNext, delay);
       } else {
         slideTimeout = setTimeout(resetAutoSlide, 500);
       }
@@ -553,7 +560,7 @@ function ViewPager() {
   // Gesture handling
 
   function handlePan(e, tp) {
-    if (!tp.scrollIntent() || tp.done) {
+    if (!isDragging || !tp.scrollIntent() || tp.done) {
       return;
     }
     if (inputCaptured ||
@@ -634,6 +641,7 @@ function ViewPager() {
   }
 
   function handleSwipe(e, tp) {
+    if (!insideViewPager(tp)) return;
     if (willFly(tp)) {
       return;
     }
@@ -669,6 +677,16 @@ function ViewPager() {
     el.css({
       'transition': transition
     });
+  }
+
+  function insideViewPager(tp) {
+    let elements = document.elementsFromPoint(tp.x, tp.y);
+    if (elements.length > 0 && !cp.view().get().contains(elements[0])) {
+      return false;
+    }
+    elements = elements.filter((el) => el.attributes['z-load'] &&
+            el.attributes['z-load'].value === cp.view().attr('z-load'));
+    return elements.length > 0 && elements[0] === cp.view().get();
   }
 }
 

@@ -42,7 +42,7 @@ Elements do not necessarily require to be sized full screen, they can have diffe
 will center the active element in the view.
 
 
-## Options
+## Option attributes
 
 // TODO: ...
 

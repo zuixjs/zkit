@@ -48,9 +48,15 @@ function ScrollHelper() {
       }
     } else {
       if (cp.options().throttle > 0) {
-        cp.view().on('scroll', throttle(scrollCheck, cp.options().throttle));
+        cp.view().on('scroll', {
+          handler: throttle(scrollCheck, cp.options().throttle),
+          passive: true
+        });
       } else {
-        cp.view().on('scroll', scrollCheck);
+        cp.view().on('scroll', {
+          handler: scrollCheck,
+          passive: true
+        });
       }
     }
     cp.expose('watch', function(filter, callback) {

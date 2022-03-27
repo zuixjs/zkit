@@ -308,7 +308,7 @@ function DrawerLayout() {
   }
 
   function transitionEnd(callback) {
-    drawerLayout.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
+    drawerLayout.one('transitionend transitioncancel', function() {
       callback();
     });
   }

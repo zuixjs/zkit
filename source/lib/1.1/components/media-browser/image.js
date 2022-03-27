@@ -10,7 +10,6 @@
  * @this {ContextController}
  */
 function ImageItem() {
-  const animOptions = {delay: '200ms', duration: '2s'};
   let mediaBrowser;
   let infoBox;
 
@@ -23,7 +22,7 @@ function ImageItem() {
       cp.view('.loader').hide();
     }).attr('src', cp.field('full').attr('href'));
     infoBox = cp.view('.info-container')
-        .animateCss('fadeIn', animOptions).show();
+        .addClass('fadeIn');
   };
 
   function setHost(h) {
@@ -31,17 +30,15 @@ function ImageItem() {
     const showTitleBox = cp.field('title').html().length > 0;
     if (showTitleBox) {
       h.on('controls:hide', function() {
-        infoBox.animateCss('fadeOutUp', function() {
-          this.hide();
-        });
+        infoBox.addClass('fadeOutUp').removeClass('fadeIn');
       }).on('controls:show', function() {
-        infoBox.animateCss('fadeIn', animOptions).show();
+        infoBox.removeClass('fadeOutUp').addClass('fadeIn');
       }).on('page:change', function(e, page) {
         if (mediaBrowser.current() == cp.view().attr('data-index')) {
-          infoBox.animateCss('fadeIn', animOptions).show();
+          infoBox.removeClass('fadeOutUp').addClass('fadeIn');
           mediaBrowser.showControls();
         } else if (infoBox.position().visible) {
-          infoBox.animateCss('fadeOut', () => infoBox.hide());
+          infoBox.addClass('fadeOutUp').removeClass('fadeIn');
         }
       });
     } else {

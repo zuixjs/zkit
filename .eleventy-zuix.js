@@ -2,17 +2,8 @@
  * Copyright 2020-2022 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the MIT license. See LICENSE file.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 /*
@@ -21,7 +12,7 @@
  *  zUIx, Javascript library for component-based development.
  *        https://zuixjs.github.io/zuix
  *
- * @author Generoso Martello - https://github.com/genielabs
+ * @author Generoso Martello - https://github.com/genemars
  * @version 1.0
  *
  */
@@ -40,7 +31,9 @@ const {
   compilePage,
   copyFolder,
   generateServiceWorker,
-  generateAppConfig
+  generateAppConfig,
+  wrapDom,
+  wrapCss
 } = require('zuix');
 
 // Read configuration either from './config/{default}.json'
@@ -169,9 +162,9 @@ function initEleventyZuix(eleventyConfig) {
     });
     postProcessFiles.length = 0;
     if (zuixConfig.build.serviceWorker) {
-      console.log('\nUpdating Service Worker... ');
+      console.log('Updating Service Worker... ');
       await generateServiceWorker().then(function () {
-        console.log('... Service Worker updated.');
+        console.log('... done.');
       });
     } else {
       console.log();
@@ -220,8 +213,34 @@ function copyDependencies() {
   fs.copyFileSync(`${process.cwd()}/node_modules/animate.css/animate.min.css`, `${buildFolder}/css/animate.min.css`);
 }
 
+function rawFileInclude(page, fileName) {
+  const inputPath = path.dirname(page.inputPath);
+  let rawFile = path.join(inputPath, fileName);
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(inputPath, page.fileSlug, fileName);
+  }
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(zuixConfig.build.input, fileName);
+  }
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
+  }
+  if (fs.existsSync(rawFile)) {
+    return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
+  } else {
+    // TODO: report error
+    throw new Error('File not found');
+  }
+}
+
 function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
+
+  /*
+  || Eleventy plugins
+  */
+  const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+  eleventyConfig.addPlugin(syntaxHighlight);
 
   /*
   || Add data collections
@@ -252,23 +271,7 @@ function configure(eleventyConfig) {
   */
 
   eleventyConfig.addShortcode('rawFile', function(fileName) {
-    const inputPath = path.dirname(this.page.inputPath);
-    let rawFile = path.join(inputPath, fileName);
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(inputPath, this.page.fileSlug, fileName);
-    }
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(zuixConfig.build.input, fileName);
-    }
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
-    }
-    if (fs.existsSync(rawFile)) {
-      return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
-    } else {
-      // TODO: report error
-      throw new Error('File not found');
-    }
+    return rawFileInclude(this.page, fileName);
   });
 
   eleventyConfig.addPairedShortcode('unpre', function(content) {
@@ -289,6 +292,13 @@ function configure(eleventyConfig) {
       return normalizeMarkup(require(p)(nunjucks.renderString, content, ...args));
     }
     return ''; // 'Not implemented! (' + content + ') [' + args + ']';
+  });
+
+  eleventyConfig.addPairedShortcode('wrapDom', function(content, cssId) {
+    return wrapDom(content, cssId);
+  });
+  eleventyConfig.addPairedShortcode('wrapCss', function(content, cssId, encapsulate) {
+    return wrapCss(`[${cssId}]`, content, encapsulate);
   });
 }
 
