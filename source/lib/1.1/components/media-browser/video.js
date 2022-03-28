@@ -15,8 +15,7 @@
 function VideoItem(cp) {
   let mediaBrowser;
   let player;
-  let isPlaying = false;
-  let controlToggleTimeout;
+  let controlsHideTimeout;
   let pageIndex = -1;
 
   cp.create = function() {
@@ -24,8 +23,9 @@ function VideoItem(cp) {
     // expose public methods
     cp.expose('host', setHost);
     cp.expose('setup', setPlayer);
-    cp.expose('pause', pauseVideo);
-    cp.expose('play', playVideo);
+    cp.expose('play', play);
+    cp.expose('pause', pause);
+    cp.expose('stop', stop);
     cp.expose('active', isActive);
     // set initial controls state
     cp.field('nav-pause').hide();
@@ -41,22 +41,6 @@ function VideoItem(cp) {
 
   function setHost(view) {
     mediaBrowser = zuix.context(view);
-    const controls = cp.field('player-controls');
-    view.on({
-      'page:change': pageChanged,
-      'open': function() {
-        if (isActive()) {
-          playVideo();
-        }
-      },
-      'close': pauseVideo,
-      'controls:show': function() {
-        zuix.$.playTransition(controls, 'fadeOutUp fadeIn');
-      },
-      'controls:hide': function() {
-        zuix.$.playTransition(controls, 'fadeIn fadeOutUp');
-      }
-    });
   }
 
   function isActive() {
@@ -64,12 +48,11 @@ function VideoItem(cp) {
   }
 
   function pageChanged(e) {
-    if (!player && !player.playVideo) return;
     const page = e.detail;
     if (+page.out === pageIndex) {
-      pauseVideo();
+      pause();
     } else if (+page.in === pageIndex) {
-      playVideo();
+      play();
     }
   }
 
@@ -90,8 +73,40 @@ function VideoItem(cp) {
   }
 
   function onPlayerReady(event) {
+    const controls = cp.field('player-controls');
+    mediaBrowser.on({
+      'page:change': pageChanged,
+      'open': function() {
+        if (isActive()) {
+          play();
+        }
+      },
+      'close': pause,
+      'controls:show': function() {
+        zuix.$.playTransition(controls, 'fadeOutUp fadeIn');
+      },
+      'controls:hide': function() {
+        zuix.$.playTransition(controls, 'fadeIn fadeOutUp');
+      }
+    });
+    if (mediaBrowser.ui.inlineMode) {
+      cp.context.on({
+        'refresh:inactive': function() {
+          const ps = player.getPlayerState();
+          if (isActive() && (ps === 1 || ps === 3)) {
+            pause();
+          }
+        },
+        'refresh:active': function() {
+          const ps = player.getPlayerState();
+          if (isActive() && ps !== 1 && ps !== 3) {
+            play();
+          }
+        }
+      });
+    }
     if (mediaBrowser.current() === pageIndex) {
-      togglePlay();
+      play();
     }
   }
   function onPlayerStateChange(event) {
@@ -103,15 +118,15 @@ function VideoItem(cp) {
          3 (buffering)
          5 (video cued)
         **/
-    if (controlToggleTimeout !== null) {
-      clearTimeout(controlToggleTimeout);
+    if (controlsHideTimeout !== null) {
+      clearTimeout(controlsHideTimeout);
     }
     if (event.data === 0) {
       mediaBrowser.showControls();
     } else if (event.data === 1) {
       cp.field('nav-play').hide();
       cp.field('nav-pause').show();
-      controlToggleTimeout = setTimeout(function() {
+      controlsHideTimeout = setTimeout(function() {
         mediaBrowser.hideControls();
       }, 2500);
     } else if (event.data === 2) {
@@ -120,26 +135,15 @@ function VideoItem(cp) {
     }
   }
 
-  function playVideo() {
+  function play() {
     player.playVideo();
-    isPlaying = true;
   }
-  function stopVideo() {
-    player.stopVideo();
-    isPlaying = false;
-  }
-  function pauseVideo() {
+  function pause() {
     player.pauseVideo();
-    isPlaying = false;
     mediaBrowser.showControls();
   }
-
-  function togglePlay() {
-    if (!isPlaying) {
-      playVideo();
-    } else {
-      pauseVideo();
-    }
+  function stop() {
+    player.stopVideo();
   }
 }
 

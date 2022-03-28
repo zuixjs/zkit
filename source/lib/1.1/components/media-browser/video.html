@@ -22,18 +22,8 @@
 
 </div>
 <script type="jscript">
-  context.on('refresh:inactive', function() {
-    if (context.active()) {
-      context.pause();
-    }
-  });
-  context.on('refresh:active', function() {
-    if (context.active()) {
-      context.play();
-    }
-  });
-  // wait for dependencies (the YT player API)
   let ytPlayer;
+  // wait for dependencies (the YT player API)
   function ready() {
     const canStart = window.YT && typeof window.YT.Player === 'function';
     if (canStart && ytPlayer == null) {
