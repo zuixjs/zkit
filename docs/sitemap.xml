@@ -32,11 +32,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
-    <lastmod>2022-03-15</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zkit/home/</loc>
     <lastmod>2022-03-15</lastmod>
   </url>
@@ -63,6 +58,11 @@
 
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/header-auto-hide/</loc>
+    <lastmod>2022-03-28</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/context-menu/</loc>
     <lastmod>2022-03-28</lastmod>
   </url>
 

@@ -4,30 +4,32 @@
  * MenuOverlay class.
  *
  * @author Gene
+ * @version 1.1.0 (2022-03-28)
+ *
+ * @author Gene
  * @version 1.0.0 (2018-04-20)
  *
  * @constructor
  * @this {ContextController}
  */
-function ContextMenu() {
-  let menuOpenTimeout;
+function ContextMenu(cp) {
   let menu;
   let container;
   let view;
-  const cp = this;
+  let isHidden = true;
 
   cp.create = function() {
     menu = cp.field('menu');
     menu.css('bottom', -(menu.position().rect.height)+'px');
     view = cp.view();
-    container = view.hide().find('.container').css('opacity', 0)
-        .on('click', function() {
-          hideMenu();
-        })
-        .on('keydown', function(evt) {
-          evt = evt || window.event;
-          if (evt.keyCode === 27) {
-            hideMenu();
+    container = view.hide().find('.container')
+        .on({
+          'click': hideMenu,
+          'keydown': function(evt) {
+            evt = evt || window.event;
+            if (evt.keyCode === 27) {
+              hideMenu();
+            }
           }
         });
     zuix.load('@lib/controllers/gesture-helper', {
@@ -56,26 +58,29 @@ function ContextMenu() {
   };
 
   function showMenu() {
-    view.show();
-    // animation will not work without this delay =/
-    clearTimeout(menuOpenTimeout);
-    menuOpenTimeout = setTimeout(function() {
+    if (isHidden) {
+      isHidden = false;
+      view.show();
+      // animation will not work without this delay =/
+      zuix.$.playTransition(container, '', function(a, b) {
+        menu.css('bottom', 0)
+            .get().focus();
+        cp.trigger('open');
+      });
       container.css('opacity', 1);
-      menu.css('bottom', 0)
-          .get().focus();
-      cp.trigger('open');
-    }, 10);
+    }
   }
 
   function hideMenu() {
-    menu.one('transitionend transitioncancel', function() {
-      container.one('transitionend transitioncancel', function() {
+    if (!isHidden) {
+      isHidden = true;
+      zuix.$.playTransition(container, '', function() {
         view.hide();
         cp.trigger('close');
       });
-    });
-    container.css('opacity', 0);
-    menu.css('bottom', -(menu.position().rect.height)+'px');
+      container.css('opacity', 0);
+      menu.css('bottom', -(menu.position().rect.height)+'px');
+    }
   }
 }
 

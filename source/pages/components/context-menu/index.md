@@ -60,20 +60,14 @@ custom styling.
 
 ```js
 var contextMenu;
-
-// since the component loads asynchronously
-// a callback is required to ensure the component is ready
-zuix.context('my-menu', function() {
-
-  // add event listeners
-  this
-    .on('open', function() { /* ... */})
-    .on('close', function() { /* ... */});
-
+zuix.context('my-menu', (menu) => {
+  menu.on({
+    open: function() { /* ... */ },
+    close: function() { /* ... */ }      
+  });
   // store a global reference of
   // the component for later use
-  contextMenu = this;
-
+  contextMenu = menu;
 });
 ```
 
