@@ -10,7 +10,7 @@
             <!-- Image thumbnail url -->
             <img #preview src="https://picsum.photos/400/300/?image=201">
             <!-- Full-size image url -->
-            <a #full href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
+            <a #full z-mirror href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
         </article>
         <!-- Example YT video item -->
         <article data-type="video" slide-interval="15000">
@@ -22,7 +22,7 @@
         {% for i in (1..10) -%}
         <article>
             <img #preview src="https://picsum.photos/seed/docs-2{{ i }}/400/300">
-            <a #full href="https://picsum.photos/seed/docs-2{{ i }}/1600/1200">Full Image</a>
+            <a #full z-mirror href="https://picsum.photos/seed/docs-2{{ i }}/1600/1200">Full Image</a>
         </article>
         {%- endfor %}
     </div> <!-- end of #media container -->

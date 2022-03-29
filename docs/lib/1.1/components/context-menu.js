@@ -62,7 +62,7 @@ function ContextMenu(cp) {
       isHidden = false;
       view.show();
       // animation will not work without this delay =/
-      zuix.$.playTransition(container, '', function(a, b) {
+      zuix.$.playTransition(container, [], function(a, b) {
         menu.css('bottom', 0)
             .get().focus();
         cp.trigger('open');
@@ -74,7 +74,7 @@ function ContextMenu(cp) {
   function hideMenu() {
     if (!isHidden) {
       isHidden = true;
-      zuix.$.playTransition(container, '', function() {
+      zuix.$.playTransition(container, [], function() {
         view.hide();
         cp.trigger('close');
       });

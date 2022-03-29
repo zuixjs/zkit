@@ -31,6 +31,7 @@
         "css": true,
         "zuix": true
       },
+      "mirror": "script,style,img,source,audio",
       "serviceWorker": true,
       "minify": {
         "disable": false,

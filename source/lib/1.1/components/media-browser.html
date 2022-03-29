@@ -63,11 +63,12 @@
     if (!context.ui.inlineMode) {
       zuix.componentize(false);
       setTransitionOrigin();
+      console.log('start')
       zuix.$.playTransition($, 'zoomOut zoomIn', function($el, queue) {
         if (queue == null) {
           this.get().focus();
           zuix.componentize(true);
-          context.refresh();
+          setTimeout(context.refresh, 200);
         }
       });
     }
