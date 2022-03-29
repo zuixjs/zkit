@@ -64,12 +64,14 @@
       zuix.componentize(false);
       setTransitionOrigin();
       console.log('start')
-      zuix.$.playTransition($, 'zoomOut zoomIn', function($el, queue) {
-        if (queue == null) {
-          this.get().focus();
-          zuix.componentize(true);
-          setTimeout(context.refresh, 200);
-        }
+      $.playTransition({
+          classes: 'zoomOut zoomIn',
+          holdState: true,
+          onEnd: function($el) {
+              this.get().focus();
+              zuix.componentize(true);
+              setTimeout(context.refresh, 200);
+          }
       });
     }
     if (scrollParent) {
@@ -80,11 +82,13 @@
     if (!context.ui.inlineMode) {
       zuix.componentize(false);
       setTransitionOrigin();
-      zuix.$.playTransition($, 'zoomIn zoomOut', function($el, queue) {
-        if (queue == null) {
-          this.hide();
-          zuix.componentize(true);
-        }
+      $.playTransition({
+          classes: 'zoomIn zoomOut',
+          holdState: true,
+          onEnd: function($el, queue) {
+              this.hide();
+              zuix.componentize(true);
+          }
       });
     }
     if (scrollParent) {
@@ -95,14 +99,14 @@
     elements.forEach($el => {
       const fxHide = $el.attr('fx-hide');
       const fxShow = $el.attr('fx-show');
-      zuix.$.playTransition($el, [fxHide, fxShow]);
+      $el.playTransition({classes: [fxHide, fxShow], holdState: true});
     });
   }
   function fxHide(elements) {
     elements.forEach($el => {
       const fxHide = $el.attr('fx-hide');
       const fxShow = $el.attr('fx-show');
-      zuix.$.playTransition($el, [fxShow, fxHide]);
+      $el.playTransition({classes: [fxShow, fxHide], holdState: true});
     });
   }
   function setTransitionOrigin() {

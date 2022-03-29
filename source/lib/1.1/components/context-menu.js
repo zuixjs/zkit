@@ -61,12 +61,12 @@ function ContextMenu(cp) {
     if (isHidden) {
       isHidden = false;
       view.show();
-      // animation will not work without this delay =/
-      zuix.$.playTransition(container, [], function(a, b) {
+      container.playTransition({onEnd: function(a, b) {
         menu.css('bottom', 0)
             .get().focus();
         cp.trigger('open');
-      });
+      }});
+      // start the transition
       container.css('opacity', 1);
     }
   }
@@ -74,10 +74,11 @@ function ContextMenu(cp) {
   function hideMenu() {
     if (!isHidden) {
       isHidden = true;
-      zuix.$.playTransition(container, [], function() {
+      container.playTransition({onEnd: function() {
         view.hide();
         cp.trigger('close');
-      });
+      }});
+      // start the transition
       container.css('opacity', 0);
       menu.css('bottom', -(menu.position().rect.height)+'px');
     }

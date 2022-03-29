@@ -80,16 +80,6 @@ function MenuOverlay(cp) {
       });
     }
 
-    // Animate CSS extension
-    zuix.using('component', '@lib/extensions/animate-css', function(res, ctx) {
-      // show floating action button
-      setTimeout(function() {
-        if (!menuButtonShowing) {
-          showButton();
-        }
-      }, 1000);
-    });
-
     cp.expose('show', function() {
       $view.show();
     });
@@ -121,6 +111,13 @@ function MenuOverlay(cp) {
     cp.expose('showing', function() {
       return menuButtonShowing;
     });
+    initializeAnimations();
+    // show floating action button
+    setTimeout(function() {
+      if (!menuButtonShowing) {
+        showButton();
+      }
+    }, 1000);
   };
 
   function toggleButton() {
@@ -132,80 +129,155 @@ function MenuOverlay(cp) {
   }
 
   function hideButton() {
-    menuButtonShowing = false;
-    menuButton.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
-      this.hide();
-      cp.trigger('hide');
-    });
+    if (!menuButton.isPlaying()) {
+      menuButtonShowing = false;
+      menuButton.playTransition({
+        classes: 'fadeIn fadeOutDown',
+        onEnd: function() {
+          this.hide();
+          cp.trigger('hide');
+        }
+      });
+    }
   }
 
   function showButton() {
-    menuButtonShowing = true;
-    menuButton.animateCss('fadeInUp').show();
-    cp.trigger('show');
+    if (!menuButton.isPlaying()) {
+      menuButtonShowing = true;
+      menuButton.playTransition('fadeOutDown fadeIn');
+      menuButton.show();
+      cp.trigger('show');
+    }
   }
 
   function toggleMenu() {
-    if (menuOverlay.hasClass('animate__animated')) {
+    if (menuOverlay.isPlaying()) {
       return;
     }
-    let itemsRevealAnimation = 'fadeInUp';
+    const itemsRevealAnimation = 'fadeIn';
     let itemsHideAnimation = 'fadeOutDown';
     if (menuPosition === 'right') {
-      itemsRevealAnimation = 'bounceInRight';
       itemsHideAnimation = 'fadeOutRight';
     } else if (menuPosition === 'left') {
-      itemsRevealAnimation = 'bounceInLeft';
       itemsHideAnimation = 'fadeOutLeft';
     }
-    let speedFactor = 300 / menuItems.length();
+    let speedFactor = 200 / menuItems.length();
     if (!menuOverlayShowing) {
       menuOverlayShowing = true;
       cp.trigger('open');
-      menuButton.animateCss('rotateOut', {duration: '0.3s'});
-      menuButtonClose.animateCss('rotateIn', {duration: '0.5s'}, function() {
-        menuButton.hide();
-      }).show();
+      menuButton.playTransition({
+        classes: 'rotateIn rotateOutRight',
+        onEnd: menuButton.hide
+      });
+      menuButtonClose.playTransition('rotateOutLeft rotateIn').show();
       let transitionDelay = 0;
       if (menuPosition === 'left' || menuPosition === 'right') {
         transitionDelay = speedFactor * menuItems.length();
         speedFactor *= -1;
       }
-      menuOverlay.animateCss('fadeIn', {duration: '0.5s'}).visibility('');
+      menuOverlay.playTransition('fadeOut fadeIn').visibility('');
       menuItems.each(function(i, el) {
         transitionDelay += speedFactor;
-        this.animateCss(itemsRevealAnimation, {duration: '0.5s', delay: transitionDelay + 'ms'})
-            .show();
+        this.playTransition({
+          classes: [itemsHideAnimation, itemsRevealAnimation],
+          options: {
+            duration: '200ms',
+            delay: transitionDelay + 'ms'
+          }
+        }).show();
       });
     } else if (menuOverlayShowing) {
       menuOverlayShowing = false;
       cp.trigger('close');
       if (menuButtonShowing) {
-        menuButtonClose.animateCss('rotateOut', {duration: '0.3s'}, function() {
-          this.hide();
+        menuButtonClose.playTransition({
+          classes: 'rotateIn rotateOutLeft',
+          onEnd: menuButtonClose.hide
         });
-        menuButton.animateCss('rotateIn', {duration: '0.5s'});
+        menuButton.playTransition('rotateOutRight rotateIn');
       } else {
-        menuButtonClose.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
-          this.hide();
+        menuButtonClose.playTransition({
+          classes: 'fadeIn fadeOutDown',
+          onEnd: menuButtonClose.hide
         });
       }
-      menuOverlay.animateCss('fadeOut', {duration: '0.5s', delay: '0.2s'}, function() {
-        this.visibility('hidden');
+      menuOverlay.playTransition({
+        classes: 'fadeIn fadeOut',
+        holdState: true,
+        onEnd: function() {
+          this.visibility('hidden');
+        }
       });
       let transitionDelay = speedFactor * menuItems.length();
       if (menuPosition === 'left' || menuPosition === 'right') {
         transitionDelay = 0;
         speedFactor *= -1;
       }
-      menuItems.each(function(i, el) {
+      menuItems.each(function(i, item, $item) {
         transitionDelay -= speedFactor;
-        this.animateCss(itemsHideAnimation, {duration: '0.5s', delay: transitionDelay + 'ms'}, function() {
-          this.hide();
-        });
+        $item.playTransition({
+          classes: [itemsRevealAnimation, itemsHideAnimation],
+          options: {
+            duration: '200ms',
+            delay: transitionDelay + 'ms'
+          },
+          onEnd: $item.hide
+        }).show();
       });
       menuButton.show();
     }
+  }
+
+  function initializeAnimations() {
+    const commonOptions = {
+      duration: '0.25s',
+      timingFunction: 'ease-in-out'
+    };
+    cp.addTransition( 'fadeIn', {
+      transform: 'translateXY(0,0)',
+      opacity: '1'
+    }, commonOptions);
+    cp.addTransition( 'fadeOut', {
+      transform: 'translateXY(0,0)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutUp', {
+      transform: 'translateY(-200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutDown', {
+      transform: 'translateY(200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition('fadeOutLeft', {
+      transform: 'translateX(-200px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('fadeOutRight', {
+      transform: 'translateX(200px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('rotateIn', {
+      transform: 'rotate(0)',
+      opacity: 1
+    }, {
+      duration: '250ms',
+      timingFunction: 'ease-in-out'
+    });
+    cp.addTransition('rotateOutRight', {
+      transform: 'rotate(+135deg)',
+      opacity: 0
+    }, {
+      duration: '250ms',
+      timingFunction: 'ease-in-out'
+    });
+    cp.addTransition('rotateOutLeft', {
+      transform: 'rotate(-135deg)',
+      opacity: 0
+    }, {
+      duration: '250ms',
+      timingFunction: 'ease-in-out'
+    });
   }
 }
 

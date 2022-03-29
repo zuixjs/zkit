@@ -83,10 +83,10 @@ function VideoItem(cp) {
       },
       'close': pause,
       'controls:show': function() {
-        zuix.$.playTransition(controls, 'fadeOutUp fadeIn');
+        controls.playTransition({classes: 'fadeOutUp fadeIn', holdState: true});
       },
       'controls:hide': function() {
-        zuix.$.playTransition(controls, 'fadeIn fadeOutUp');
+        controls.playTransition({classes: 'fadeIn fadeOutUp', holdState: true});
       }
     });
     if (mediaBrowser.ui.inlineMode) {

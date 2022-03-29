@@ -34,9 +34,9 @@ function ImageItem() {
       }).on('controls:show', function() {
         infoBox.removeClass('fadeOutUp').addClass('fadeIn');
       }).on('page:change', function(e, page) {
-        if (mediaBrowser.current() == cp.view().attr('data-index')) {
+        if (mediaBrowser.current() === +cp.view().attr('data-index')) {
           infoBox.removeClass('fadeOutUp').addClass('fadeIn');
-          mediaBrowser.showControls();
+//          mediaBrowser.showControls();
         } else if (infoBox.position().visible) {
           infoBox.addClass('fadeOutUp').removeClass('fadeIn');
         }
