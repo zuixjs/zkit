@@ -47,11 +47,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
-    <lastmod>2022-03-28</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/header-auto-hide/</loc>
     <lastmod>2022-03-28</lastmod>
   </url>
@@ -64,6 +59,11 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/view-pager/</loc>
     <lastmod>2022-03-28</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
+    <lastmod>2022-03-30</lastmod>
   </url>
 
 </urlset>

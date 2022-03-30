@@ -260,24 +260,15 @@ function MenuOverlay(cp) {
     cp.addTransition('rotateIn', {
       transform: 'rotate(0)',
       opacity: 1
-    }, {
-      duration: '250ms',
-      timingFunction: 'ease-in-out'
-    });
+    }, commonOptions);
     cp.addTransition('rotateOutRight', {
       transform: 'rotate(+135deg)',
       opacity: 0
-    }, {
-      duration: '250ms',
-      timingFunction: 'ease-in-out'
-    });
+    }, commonOptions);
     cp.addTransition('rotateOutLeft', {
       transform: 'rotate(-135deg)',
       opacity: 0
-    }, {
-      duration: '250ms',
-      timingFunction: 'ease-in-out'
-    });
+    }, commonOptions);
   }
 }
 

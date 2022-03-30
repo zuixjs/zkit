@@ -85,7 +85,7 @@ function startWatcher(eleventyConfig, browserSync) {
     f = path.resolve(path.join(sourceFolder, f));
     watchFiles.push(f);
   });
-  const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file) => {
+  const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file, stats) => {
     if (watchEvents[event] && fs.existsSync(file)) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);
@@ -100,14 +100,21 @@ function startWatcher(eleventyConfig, browserSync) {
       browserSync.reload();
     }
   });
-  const unlinkFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file) => {
+  const includes = path.join(sourceFolder, includesFolder);
+  const allFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file, stats) => {
     if (event.startsWith('unlink') && file !== triggerFile) {
-      fs.writeFileSync(triggerFile, `---
+      forceRebuild();
+    } else if (!file.startsWith(includes) && file.indexOf(path.join('/', '_inc', '/')) !== -1) {
+      forceRebuild();
+    }
+  });
+}
+
+function forceRebuild() {
+  fs.writeFileSync(triggerFile, `---
 permalink: .zuix.build.tmp
 ---
 Temporary file to trigger 11ty build`);
-    }
-  });
 }
 
 function initEleventyZuix(eleventyConfig) {

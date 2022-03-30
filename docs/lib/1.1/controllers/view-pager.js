@@ -285,7 +285,9 @@ function ViewPager() {
   }
 
   function slideNext() {
-    setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);
+    if (cp.view().position().visible) {
+      setPage(parseInt(currentPage) + slideDirection, DEFAULT_PAGE_TRANSITION);
+    }
     resetAutoSlide();
   }
 

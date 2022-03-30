@@ -1,6 +1,6 @@
 <div #container class="container">
 
-    <div ctrl z-load="@lib/controllers/view-pager" z-lazy="false"
+    <div ctrl z-load="@lib/controllers/view-pager" z-lazy="true"
          data-o-paging="true" data-o-autohide="true"
          #media class="media-list"></div>
 
@@ -63,7 +63,6 @@
     if (!context.ui.inlineMode) {
       zuix.componentize(false);
       setTransitionOrigin();
-      console.log('start')
       $.playTransition({
           classes: 'zoomOut zoomIn',
           holdState: true,

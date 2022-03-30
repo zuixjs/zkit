@@ -1,6 +1,6 @@
-<div z-load="@lib/components/media-browser" class="visible-on-ready"
+<div z-load="@lib/components/media-browser" class="visible-on-ready" z-lazy="true"
      z-context="media-browser-inline" z-options="{ready: inlineMediaBrowserReady}"
-     data-o-slide="5000" data-o-inline="true">
+     data-o-slide="5000" data-o-inline="true" style="max-height: 530px; height: 530px;overflow-y: hidden">
     <!-- List of images/videos (#media container) -->
     <div #media>
         <!-- Example image item -->
@@ -12,8 +12,15 @@
             <!-- Full-size image url -->
             <a #full z-mirror href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
         </article>
-        <!-- Example YT video item -->
+        <!-- Example video item -->
         <article data-type="video" slide-interval="15000">
+            <!-- YouTube video id -->
+            <div #video>https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4</div>
+            <!-- Video thumbnail url -->
+            <img #preview src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg">
+        </article>
+        <!-- Example YouTube video item -->
+        <article data-type="video-yt" slide-interval="15000">
             <!-- YouTube video id -->
             <div #video>IdtM6OPdaio</div>
             <!-- Video thumbnail url -->
@@ -35,6 +42,11 @@ function inlineMediaBrowserReady(mb) {
   }).on('fullscreen:close', () => {
     zuix.field('drawer').show();
     zuix.field('header').show();
+  });
+  mb.$.css({
+    height: '',
+    maxHeight: '',
+    overflowY: ''
   });
 }
 </script>

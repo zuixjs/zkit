@@ -26,6 +26,7 @@ An image/video gallery component configurable with minimal HTML code.
 - navigation by onscreen controls, keyboard or gestures
 - thumbnails carousel
 - images with customizable title/description overlay
+- MP4, WebM, and Ogg videos 
 - youtube videos
 - fullscreen mode
 - inline / detached mode
@@ -53,9 +54,17 @@ Put inside the field <code>media</code> the markup defining image and video list
             <!-- Full-size image url -->
             <a #full href="https://picsum.photos/1600/1200/?image=201">Full Size</a>
         </article>
-
-        <!-- Example YT video item -->
+  
+        <!-- Example video item -->
         <article data-type="video" slide-interval="15000">
+          <!-- video URL -->
+          <div #video>https://my-awesome-website/videos/video123.mp4</div>
+          <!-- Video thumbnail url -->
+          <img #preview src="https://my-awesome-website/videos/video123-cover.jpg">
+        </article>
+
+        <!-- Example YouTube video item -->
+        <article data-type="video-yt">
             <!-- YouTube video id -->
             <div #video>IdtM6OPdaio</div>
             <!-- Video thumbnail url -->
@@ -163,6 +172,8 @@ mediaBrowser.on({
   'fullscreen:close': (e) => { /* ... */ },
   'controls:hide': (e) => { /* ... */ },
   'controls:show': (e) => { /* ... */ },
-  'page:change': (e, pageInfo) => { /* ... */ }
+  'page:change': (e, pageInfo) => { /* ... */ },
+  'refresh:active': (e, pageInfo) => { /* ... */ },
+  'refresh:inactive': (e, pageInfo) => { /* ... */ }
 });
 ```

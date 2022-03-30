@@ -4,6 +4,9 @@
  * MenuOverlay class.
  *
  * @author Gene
+ * @version 1.1.1 (2022-03-30)
+ *
+ * @author Gene
  * @version 1.1.0 (2022-03-25)
  *
  * @author Gene
@@ -74,7 +77,8 @@ function MediaBrowser(cp) {
           });
       // highlight initial page
       setTimeout(() => {
-        listView.get(0).addClass('page-active');
+        const firstPage = listView.get(0);
+        firstPage && firstPage.addClass('page-active');
       });
     });
 
@@ -96,7 +100,7 @@ function MediaBrowser(cp) {
       // with temporary preview background
       imageList = mediaList.children().each(function(i, el) {
         let preview = this.find('[z-field="preview"]');
-        // the following 4 lines were added for backward compatibility with 1.0
+        // TODO: the following 4 lines were added for backward compatibility with 1.0.0
         if (preview.get() && preview.get().tagName !== 'IMG') {
           preview.attr('z-field', null);
           preview = preview.find('IMG').attr('z-field', 'preview');
@@ -118,11 +122,13 @@ function MediaBrowser(cp) {
       // creates lazy loaded components to host full sized media
       mediaList.children().each(function(i, el) {
         let type = this.attr('data-type');
+        // TODO: the following 3 lines were added for backward compatibility with version <= 1.1.0
+        if (type === 'video' && this.find('[\\#video]').get().textContent.indexOf('://') === -1) {
+          type = 'video-yt';
+        }
         if (type == null) type = 'image'; // default type
         this.attr('z-load', cp.context.componentId+'/'+type);
-        if (type !== 'video') {
-          this.attr('z-lazy', true);
-        }
+        this.attr('z-lazy', true);
         this.attr('data-index', i);
         zuix.context(el, function() {
           this.host(cp.view());

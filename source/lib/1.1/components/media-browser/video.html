@@ -1,8 +1,8 @@
-<div #video></div>
-
-<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-<div #player></div>
-
+<video controls width="100%" height="100%" poster="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg">
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            type="video/mp4">
+    Sorry, your browser doesn't support embedded videos.
+</video>
 <div #overlay class="capture-touch">
 
     <div #player-controls>
@@ -21,14 +21,3 @@
     </div>
 
 </div>
-<script type="jscript">
-  let ytPlayer;
-  // wait for dependencies (the YT player API)
-  function ready() {
-    const canStart = window.YT && typeof window.YT.Player === 'function';
-    if (canStart && ytPlayer == null) {
-      ytPlayer = context.setup();
-    }
-    return canStart && ytPlayer && ytPlayer.playVideo;
-  }
-</script>
