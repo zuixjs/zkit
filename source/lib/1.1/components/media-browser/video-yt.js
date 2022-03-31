@@ -63,7 +63,7 @@ function YouTubeVideoItem(cp) {
       height: '100%',
       width: '100%',
       playerVars: {controls: 1, disablekb: 1, fs: 0, modestbranding: 0, rel: 0, showinfo: 0, ecver: 2},
-      videoId: cp.field('video').html(),
+      videoId: cp.field('video').get().textContent,
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange

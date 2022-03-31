@@ -11,3 +11,6 @@
 [z-field*="nav-"] {
     width: 48px;
 }
+.hidden {
+    display: none;
+}
