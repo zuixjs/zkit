@@ -136,7 +136,7 @@ function MediaBrowser(cp) {
       });
       // set auto-slide option
       const autoSlide = cp.view().attr('data-o-slide') || cp.options().slide;
-      fullView.slide(autoSlide != null ? autoSlide : false);
+      fullView.slide(autoSlide != null ? +autoSlide : false);
       // final initialization steps
       initializeAnimations();
       preventImageDrag();
