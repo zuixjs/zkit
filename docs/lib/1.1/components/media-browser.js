@@ -254,7 +254,7 @@ function MediaBrowser(cp) {
     }
   }
 
-  function toggleControls(e, tp) {
+  function toggleControls() {
     if (showingControls) {
       hideControls();
     } else {

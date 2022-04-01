@@ -66,7 +66,7 @@ function MenuOverlay(cp) {
         const scrollTop = scroller.get() === window ? (document.documentElement.scrollTop || document.body.scrollTop) : scroller.get().scrollTop;
         if (menuButtonShowing) {
           if ((currentOffset - scrollTop) < -2) {
-            hideButton();
+            setTimeout(hideButton, 100);
           }
         } else if (!menuButtonShowing) {
           if ((currentOffset - scrollTop) > 2) {

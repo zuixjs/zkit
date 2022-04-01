@@ -102,7 +102,6 @@ function VideoItem(cp) {
   }
   function pause() {
     player.pause();
-    mediaBrowser.showControls();
   }
   function stop() {
     player.stop();

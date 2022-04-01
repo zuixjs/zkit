@@ -8,9 +8,8 @@ date: Last Modified
 {% include "head_close.html" %}
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="{{ theme }}"
-      z-context="scroll-helper"
-      z-options="scroll_opts"
+<body ctrl z-load="@lib/controllers/header-auto-hide"
+      data-o-header="header" z-lazy="scroll" data-theme="{{ theme }}"
       layout="column stretch-stretch">
 
     <nav #header layout="row center-start">
@@ -23,13 +22,6 @@ date: Last Modified
             </div>
         </div>
     </nav>
-
-    <!--
-    <div z-load="@lib/components/hamburger-icon"
-         z-context="menu_hamburger"
-         z-options="menuButtonOptions"
-         style="position:fixed;right:0;top:6px;z-index:1001"></div>
-         -->
 
 
     <main class="animate__animated animate__fadeIn animate__faster">

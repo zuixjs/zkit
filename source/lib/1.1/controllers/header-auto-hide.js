@@ -69,6 +69,9 @@ function HeaderAutoHide(cp) {
               headerBar.show();
               showBars();
             }
+          } else if (data.event === 'hit-bottom') {
+            headerBar.show();
+            showBars();
           } else if (autoHideOffset > 0 && data.info.viewport.y === 0) {
             scrollerParent.css({paddingTop: null});
             headerBar.show().css({position: null, zIndex: null});

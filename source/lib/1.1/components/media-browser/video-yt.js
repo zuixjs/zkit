@@ -136,7 +136,6 @@ function YouTubeVideoItem(cp) {
   }
   function pause() {
     player.pauseVideo();
-    mediaBrowser.showControls();
   }
   function stop() {
     player.stopVideo();

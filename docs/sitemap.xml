@@ -12,11 +12,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zkit/pages/controllers/gesture-helper/</loc>
-    <lastmod>2022-03-15</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zkit/pages/controllers/drawer-layout/</loc>
     <lastmod>2022-03-15</lastmod>
   </url>
@@ -64,6 +59,11 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/pages/components/media-browser/</loc>
     <lastmod>2022-03-30</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zkit/pages/controllers/gesture-helper/</loc>
+    <lastmod>2022-04-01</lastmod>
   </url>
 
 </urlset>

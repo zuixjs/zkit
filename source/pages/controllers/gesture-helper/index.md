@@ -31,7 +31,7 @@ Detect tap and swipe gestures over elements.
         <!-- gesture detection area -->
         <div #gesture-xy></div>
         <div #gesture-shift></div>
-        <div #gesture layout="row center-center">Try me!</div>
+        <div #gesture layout="row center-center animate__animated">Try me!</div>
     </div>
 
 </div>
@@ -48,20 +48,20 @@ gesture_opts = {
         // register event callbacks
         gh.on('gesture:touch', function(e, tp) {
             view.addClass('active');
-            info.html('touch').animateCss('flash');
+            info.html('touch').playAnimation('animate__flash');
             tp.cancel();
         }).on('gesture:pan', function(e, tp) {
             infoXy.show().html(Math.round(tp.x) + ' ; ' + Math.round(tp.y));
             infoShift.show().html(Math.round(tp.shiftX) + ' ;' + Math.round(tp.shiftY));
-            info.html('pan').animateCss('fadeIn');
+            info.html('pan').playAnimation('animate__fadeIn');
         }).on('gesture:release', function(e, tp) {
             view.removeClass('active');
             infoXy.hide();
             infoShift.hide();
         }).on('gesture:tap', function(e, tp) {
-            info.html('tap').animateCss('tada');
+            info.html('tap').playAnimation('animate__tada');
         }).on('gesture:swipe', function(e, tp) {
-            info.html('swipe <i class="material-icons animated tada">keyboard_arrow_' + tp.direction + '</i> ' + tp.direction);
+            info.html('swipe <i class="material-icons animate__animated animate__tada">keyboard_arrow_' + tp.direction + '</i> ' + tp.direction);
         });
     }
 };
