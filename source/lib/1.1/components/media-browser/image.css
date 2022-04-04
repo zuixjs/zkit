@@ -56,6 +56,9 @@ img {
     margin: 0;
     padding: 0;
 }
+[z-field="url"] {
+    display: none;
+}
 
 @media only screen and (max-width: 820px) {
     .info-container {

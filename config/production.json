@@ -12,20 +12,21 @@
         "humans.txt",
         "favicon.ico",
         "robots.txt",
-        "pages/**/*.jpg",
-        "pages/**/*.png",
-        "pages/**/*.webp",
-        "pages/**/*.gif",
-        "pages/**/*.svg",
-        "pages/**/*.json"
+        "content/**/*.jpg",
+        "content/**/*.png",
+        "content/**/*.webp",
+        "content/**/*.gif",
+        "content/**/*.svg",
+        "content/**/*.json"
       ],
       "ignore": [
         "_filters",
-        "pages/**/_inc/*"
+        "content/**/_inc/*"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
       "componentsFolders": [ "app", "lib" ],
+      "contentFolder": "content",
       "bundle": {
         "js": true,
         "css": true,

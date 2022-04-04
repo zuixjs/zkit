@@ -58,23 +58,22 @@ function ContextMenu(cp) {
   };
 
   function showMenu() {
-    if (isHidden) {
+    if (isHidden && !menu.isPlaying()) {
       isHidden = false;
       view.show();
-      container.playTransition({onEnd: function(a, b) {
-        menu.css('bottom', 0)
-            .get().focus();
+      menu.playTransition({onEnd: function(a, b) {
         cp.trigger('open');
       }});
       // start the transition
+      menu.css('bottom', 0).get().focus();
       container.css('opacity', 1);
     }
   }
 
   function hideMenu() {
-    if (!isHidden) {
+    if (!isHidden && !menu.isPlaying()) {
       isHidden = true;
-      container.playTransition({onEnd: function() {
+      menu.playTransition({onEnd: function() {
         view.hide();
         cp.trigger('close');
       }});

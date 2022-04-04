@@ -62,15 +62,27 @@ function MenuOverlay(cp) {
       scroller = zuix.$(window);
     }
     if (scroller != null) {
+      let beforeElement = $view.attr('data-o-before') || cp.options().before; // eg. footer
+      if (beforeElement) {
+        beforeElement = zuix.field(beforeElement).get();
+      }
+      let afterElement = $view.attr('data-o-after') || cp.options().after; // eg. header
+      if (afterElement) {
+        afterElement = zuix.field(afterElement).get();
+      }
       scroller.on('scroll', function(e) {
         const scrollTop = scroller.get() === window ? (document.documentElement.scrollTop || document.body.scrollTop) : scroller.get().scrollTop;
         if (menuButtonShowing) {
           if ((currentOffset - scrollTop) < -2) {
-            setTimeout(hideButton, 100);
+            if (afterElement == null || (scrollTop > afterElement.offsetTop + afterElement.offsetHeight - 56)) {
+              setTimeout(hideButton, 100);
+            }
           }
         } else if (!menuButtonShowing) {
           if ((currentOffset - scrollTop) > 2) {
-            showButton();
+            if (beforeElement == null || (scrollTop + window.innerHeight < beforeElement.offsetTop + 56)) {
+              showButton();
+            }
           }
         }
         currentOffset = scrollTop;

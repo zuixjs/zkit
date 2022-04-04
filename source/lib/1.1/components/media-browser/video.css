@@ -11,7 +11,7 @@
 [z-field*="nav-"] {
     width: 48px;
 }
-.hidden {
+[z-field="preview"], [z-field="url"] {
     display: none;
 }
 

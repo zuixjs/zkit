@@ -29,17 +29,16 @@ const moment = require('moment');
 const yesno = require('yesno');
 const child_process = require('child_process');
 
-const destinationFolder = 'pages';
-
 const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
+const contentFolder = zuixConfig.get('build.contentFolder', 'content');
 
-const contentSourceFolder = path.join(sourceFolder, destinationFolder);
-const contentBuildFolder = path.join(buildFolder, destinationFolder)
+const contentSourceFolder = path.join(sourceFolder, contentFolder);
+const contentBuildFolder = path.join(buildFolder, contentFolder)
 
 function addPage(args) {
-  const pageTemplatesPath = './templates/pages/';
+  const pageTemplatesPath = path.join('./templates', contentFolder);
   const template = args.layout;
   let outputFile = args.name.toLowerCase();
   const pageName = path.basename(outputFile);
@@ -57,7 +56,7 @@ function addPage(args) {
     componentTemplate = `${pageTemplatesPath}${template}${extension}`;
   }
   if (fs.existsSync(componentTemplate)) {
-    let sectionFolder = path.join(sourceFolder, destinationFolder);
+    let sectionFolder = path.join(sourceFolder, contentFolder);
     if (args.section) {
       args.section = args.section.toLowerCase();
       sectionFolder = path.join(sectionFolder, args.section);
@@ -165,8 +164,8 @@ module.exports = (program) => {
     .option('-fm, --front-matter "<field>: <value>"', 'Set a front matter field value', collect, [])
     .action(addPage);
   program
-      .command('wipe-content')
-      .alias('wc')
-      .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
-      .action(wipeContent);
+    .command('wipe-content')
+    .alias('wc')
+    .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
+    .action(wipeContent);
 };

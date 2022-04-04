@@ -122,12 +122,8 @@ function MediaBrowser(cp) {
       // creates lazy loaded components to host full sized media
       mediaList.children().each(function(i, el) {
         let type = this.attr('data-type');
-        // TODO: the following 3 lines were added for backward compatibility with version <= 1.1.0
-        if (type === 'video' && this.find('[\\#video]').get().textContent.indexOf('://') === -1) {
-          type = 'video-yt';
-        }
         if (type == null) type = 'image'; // default type
-        this.attr('z-load', cp.context.componentId+'/'+type);
+        this.attr('z-load', cp.context.componentId + '/' + type);
         this.attr('z-lazy', true);
         this.attr('data-index', i);
         zuix.context(el, function() {
@@ -230,7 +226,8 @@ function MediaBrowser(cp) {
     if (!showingFullscreen) {
       showingFullscreen = true;
       cp.view().addClass('fullscreen').css({
-        height: null
+        height: null,
+        maxHeight: null
       });
       refreshViewPagers();
       cp.trigger('fullscreen:open');
@@ -246,7 +243,10 @@ function MediaBrowser(cp) {
         const actualHeight = parseInt(style.height);
         if (actualHeight === 0) {
           const computedHeight = (actualWidth / 16 * 9 );
-          cp.view().css({height: computedHeight +'px'});
+          cp.view().css({
+            height: computedHeight + 'px',
+            maxHeight: computedHeight + 'px'
+          });
         }
         refreshViewPagers();
       }

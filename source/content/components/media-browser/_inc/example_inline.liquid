@@ -1,0 +1,52 @@
+<div z-load="@lib/components/media-browser" class="visible-on-ready" z-lazy="true"
+     z-context="media-browser-inline" z-options="{ready: inlineMediaBrowserReady}"
+     data-o-slide="5000" data-o-inline="true" style="max-height: 530px; height: 530px;overflow-y: hidden">
+    <!-- List of images/videos (#media container) -->
+    <div #media>
+        <!-- Example image item -->
+        <article>
+            <h1 #title>Title</h1>
+            <h2 #description>Description of the image.</h2>
+            <!-- Image thumbnail url -->
+            <img #preview src="https://picsum.photos/400/300/?image=201">
+            <!-- Full-size image url -->
+            <a #url z-mirror href="https://picsum.photos/1600/1200/?image=201">Open media</a>
+        </article>
+        <!-- Example video item -->
+        <article data-type="video" slide-interval="15000">
+            <!-- Thumbnail url -->
+            <img #preview src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg">
+            <!-- Video URL -->
+            <a #url href="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Open media</a>
+        </article>
+        <!-- Example YouTube video item -->
+        <article data-type="video-yt" slide-interval="15000">
+            <!-- Thumbnail url -->
+            <img #preview src="https://img.youtube.com/vi/IdtM6OPdaio/2.jpg">
+            <!-- YouTube video URL -->
+            <a #url href="https://youtu.be/IdtM6OPdaio">Open media</a>
+        </article>
+        {% for i in (1..10) -%}
+        <article>
+            <img #preview src="https://picsum.photos/seed/docs-2{{ i }}/400/300">
+            <a #url z-mirror href="https://picsum.photos/seed/docs-2{{ i }}/1600/1200">Open media</a>
+        </article>
+        {%- endfor %}
+    </div> <!-- end of #media container -->
+</div>
+<script>
+function inlineMediaBrowserReady(mb) {
+  mb.on('fullscreen:open', () => {
+    zuix.field('drawer').hide();
+    zuix.field('header').hide();
+  }).on('fullscreen:close', () => {
+    zuix.field('drawer').show();
+    zuix.field('header').show();
+  });
+  mb.$.css({
+    height: '',
+    maxHeight: '',
+    overflowY: ''
+  });
+}
+</script>

@@ -25,8 +25,8 @@ function VideoItem(cp) {
     cp.field('nav-pause').hide();
     // get reference to the video player instance
     player = cp.view('video').get();
-    player.src = cp.field('video').get().textContent;
-    player.poster = cp.field('preview').get().textContent;
+    player.src = cp.field('url').attr('href') || cp.field('url').html();
+    player.poster = cp.field('preview').html();
     zuix.$(player).on('pause playing', playerStateChanged);
   };
 

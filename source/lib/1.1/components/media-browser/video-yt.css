@@ -15,6 +15,9 @@
 [z-field*="nav-"] {
     width: 48px;
 }
+[z-field="video"] {
+    display: none;
+}
 
 iframe {
     position: absolute;

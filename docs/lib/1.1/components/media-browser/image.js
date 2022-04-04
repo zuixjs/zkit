@@ -20,7 +20,7 @@ function ImageItem() {
     cp.field('full-image').on('load', function() {
       cp.view().css({background: null});
       cp.view('.loader').hide();
-    }).attr('src', cp.field('full').attr('href'));
+    }).attr('src', cp.field('url').attr('href') || cp.field('url').html());
     infoBox = cp.view('.info-container')
         .addClass('fadeIn');
   };

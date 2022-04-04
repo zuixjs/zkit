@@ -59,11 +59,12 @@ function YouTubeVideoItem(cp) {
   // YouTube Player API
 
   function setPlayer() {
+    const videoUrl = cp.field('url').attr('href') || cp.field('url').html();
     player = new YT.Player(cp.field('player').get(), {
       height: '100%',
       width: '100%',
       playerVars: {controls: 1, disablekb: 1, fs: 0, modestbranding: 0, rel: 0, showinfo: 0, ecver: 2},
-      videoId: cp.field('video').get().textContent,
+      videoId: parseVideoId(videoUrl),
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -139,6 +140,13 @@ function YouTubeVideoItem(cp) {
   }
   function stop() {
     player.stopVideo();
+  }
+
+  // https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
+  function parseVideoId(url) {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : url;
   }
 }
 
