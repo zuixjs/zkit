@@ -38,7 +38,7 @@ const contentSourceFolder = path.join(sourceFolder, contentFolder);
 const contentBuildFolder = path.join(buildFolder, contentFolder)
 
 function addPage(args) {
-  const pageTemplatesPath = path.join('./templates', contentFolder);
+  const pageTemplatesPath = path.join('./templates', contentFolder, '/');
   const template = args.layout;
   let outputFile = args.name.toLowerCase();
   const pageName = path.basename(outputFile);
