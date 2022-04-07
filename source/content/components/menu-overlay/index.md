@@ -61,11 +61,11 @@ Put inside the field `items` the code for your menu items.
   color of the menu button. The default value is `deeppink`.
 - `data-o-icon-color` <small>optional</small>  
   color of the menu button icon. The default value is `white`.
-- `data-o-position` <small>optional</small>
+- `data-o-position` <small>optional</small>  
   sets the position of the button. It can be `left`, `center` or `right`. The default value is `right`.
-- `data-o-before` <small>optional</small>
+- `data-o-before` <small>optional</small>  
   show only before the element with the specified field name (eg. 'footer')
-- `data-o-after` <small>optional</small>
+- `data-o-after` <small>optional</small>  
   show only after the element with the specified field name (eg. 'header')
 
 
