@@ -17,6 +17,7 @@
 function HeaderAutoHide(cp) {
   let headerBar;
   let footerBar;
+  let showEnd;
   let headerHeight = 0;
   let footerHeight = 0;
   let autoHideOffset = 0;
@@ -28,6 +29,7 @@ function HeaderAutoHide(cp) {
   };
 
   cp.create = function() {
+    showEnd = cp.options().showEnd || cp.view().attr('data-o-show-end') === 'true';
     headerBar = cp.options().header || cp.view().attr('data-o-header');
     if (headerBar) {
       headerBar = zuix.field(headerBar);
@@ -69,7 +71,7 @@ function HeaderAutoHide(cp) {
               headerBar.show();
               showBars();
             }
-          } else if (data.event === 'hit-bottom') {
+          } else if (data.event === 'hit-bottom' && showEnd) {
             headerBar.show();
             showBars();
           } else if (autoHideOffset > 0 && data.info.viewport.y === 0) {

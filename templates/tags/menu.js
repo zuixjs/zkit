@@ -1,13 +1,22 @@
 const template = `
-<div ctrl z-load="@lib/controllers/mdl-menu" z-lazy="false"
-     z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
+<div ctrl z-load="@lib/controllers/mdl-menu" class="visible-on-ready"
+     z-behavior="menuButtonBehavior" style="min-height: 56px"
+     {% for s in config.settings -%}
+     z-{{ s.name }}="{{ s.value }}"
+     {%- endfor -%}
+     {% for o in config.options -%}
+     data-o-{{ o.name }}="{{ o.value }}"
+     {%- endfor -%}>
 
-    <!-- the menu is defined as a simple UL list -->
-    {{ content | safe  }}
+    <ul>
+        {% for item in config.items -%}
+        <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+        {%- endfor %}
+    </ul>
 
     <!-- the menu's FAB button -->
     <a ctrl z-load="@lib/controllers/mdl-button" title="Open menu" href="javascript:;"
-       z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }">
+       z-options="{ type: '{{ config.button.type }}', class: '{{ config.button.classes }}' }">
         <i class="material-icons">menu</i>
     </a>
 </div>
@@ -25,11 +34,9 @@ const template = `
 </script>
 `;
 
-const markdownIt = require('markdown-it')();
-module.exports = (render, content, buttonType, buttonClass) => {
-  buttonType = buttonType || 'icon'; // flat, raised, fab, icon
-  buttonClass = buttonClass || 'accent'; // mini-fab, accent, colored, primary
-  // convert markdown list to HTML
-  content = markdownIt.render(content, {});
-  return render(template, {content, buttonType, buttonClass});
+const YAML = require('yaml');
+module.exports = (render, config) => {
+  config = YAML.parse(config);
+  console.log(config)
+  return render(template, {config});
 };

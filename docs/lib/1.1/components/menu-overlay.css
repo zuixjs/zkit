@@ -1,7 +1,8 @@
-button {
+button, .button {
     background: transparent;
     outline: transparent;
     border: none;
+    color: inherit;
     font-weight: bold;
     display: inline-flex;
     align-items: center;
@@ -10,6 +11,13 @@ button {
     padding-right: 12px;
     padding-left: 12px;
     margin-right: 0;
+    margin-left: 0;
+    height: 42px;
+}
+.item-title {
+    font-size: 150%;
+    padding: 16px;
+    opacity: 0.7;
 }
 .menu-button {
     z-index: 100; /* topmost */
@@ -58,10 +66,6 @@ div[z-field="items_wrapper"].left {
 div[z-field="items_wrapper"].right {
     padding-right: 24px;
     text-align: right;
-}
-.menu-item {
-    padding-top: 8px;
-    padding-bottom: 8px;
 }
 
 .circle-button {

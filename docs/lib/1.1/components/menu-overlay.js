@@ -48,11 +48,16 @@ function MenuOverlay(cp) {
 
     // apply custom color to menu button
     const $view = cp.view();
-    if ($view.attr('data-o-button-color') != null) {
-      $view.css('background', $view.attr('data-o-button-color'));
+    const buttonColor = cp.options().buttonColor || $view.attr('data-o-button-color'); // eg. header
+    if (buttonColor != null) {
+      $view.find('.circle-button').css({background: buttonColor});
     }
-    if ($view.attr('data-o-icon-color') != null) {
-      $view.css('fill', $view.attr('data-o-icon-color'));
+    const iconColor = cp.options().iconColor || $view.attr('data-o-icon-color'); // eg. header
+    if (iconColor != null) {
+      $view.find('.circle-button i').css({
+        fill: iconColor,
+        color: iconColor
+      });
     }
 
     const scrollerName = $view.attr('data-o-scroller');
@@ -62,11 +67,11 @@ function MenuOverlay(cp) {
       scroller = zuix.$(window);
     }
     if (scroller != null) {
-      let beforeElement = $view.attr('data-o-before') || cp.options().before; // eg. footer
+      let beforeElement = cp.options().before || $view.attr('data-o-before'); // eg. footer
       if (beforeElement) {
         beforeElement = zuix.field(beforeElement).get();
       }
-      let afterElement = $view.attr('data-o-after') || cp.options().after; // eg. header
+      let afterElement = cp.options().after || $view.attr('data-o-after'); // eg. header
       if (afterElement) {
         afterElement = zuix.field(afterElement).get();
       }
