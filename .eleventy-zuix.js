@@ -74,6 +74,8 @@ function getZuixConfig() {
   }
 }
 
+let wrappedCssIds = [];
+
 function startWatcher(eleventyConfig, browserSync) {
   // Watch zuix.js folders and files (`./source/lib`, `./source/app`, zuixConfig.copy), ignored by 11ty
   const watchEvents = {add: true, change: true, unlink: true};
@@ -169,6 +171,7 @@ function initEleventyZuix(eleventyConfig) {
       // TODO: check result code and report
     });
     postProcessFiles.length = 0;
+    wrappedCssIds = [];
     if (zuixConfig.build.serviceWorker) {
       console.log('Updating Service Worker... ');
       await generateServiceWorker().then(function () {
@@ -306,7 +309,22 @@ function configure(eleventyConfig) {
     return wrapDom(content, cssId);
   });
   eleventyConfig.addPairedShortcode('wrapCss', function(content, cssId, encapsulate) {
-    return wrapCss(`[${cssId}]`, content, encapsulate);
+    const path = this.page.inputPath;
+    const processedCss = wrappedCssIds.find((item) => item.id === cssId && item.path === path);
+    if (processedCss == null) {
+      wrappedCssIds.push({id: cssId, path});
+      content = content.replace(/^\s+|\s+$/g, '');
+      let styleTag = false;
+      if (content.startsWith('<style')) {
+        styleTag = content.substring(0, content.indexOf('>') + 1);
+        content = content.substring(content.indexOf('>') + 1);
+        content = content.substring(0, content.indexOf('</style>'));
+      }
+      content = wrapCss(`[${cssId}]`, content, encapsulate);
+      return styleTag ? `${styleTag}${content}</style>` : content;
+    }
+    // cssId already outputted for this page
+    return '';
   });
 }
 
