@@ -98,7 +98,7 @@ function MediaBrowser(cp) {
       });
       // sets list of media with thumbnails and full size items
       // with temporary preview background
-      imageList = mediaList.children().each(function(i, el) {
+      imageList = mediaList.children().each(function(i, el, $el) {
         let preview = this.find('[z-field="preview"]');
         // TODO: the following 4 lines were added for backward compatibility with 1.0.0
         if (preview.get() && preview.get().tagName !== 'IMG') {
@@ -118,14 +118,15 @@ function MediaBrowser(cp) {
           // TODO: add a button or something if preview thumbnail not specified
           carousel.append(document.createElement('div'));
         }
-      });
-      // creates lazy loaded components to host full sized media
-      mediaList.children().each(function(i, el) {
+        $el.addClass('visible-on-ready');
+        // creates lazy loaded components to host full sized media
         let type = this.attr('data-type');
         if (type == null) type = 'image'; // default type
-        this.attr('z-load', cp.context.componentId + '/' + type);
-        this.attr('z-lazy', true);
-        this.attr('data-index', i);
+        this.attr({
+          'z-load': cp.context.componentId + '/' + type,
+          'z-lazy': true,
+          'data-index': i
+        });
         zuix.context(el, function() {
           this.host(cp.view());
         });
