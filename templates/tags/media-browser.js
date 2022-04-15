@@ -1,5 +1,5 @@
 const template = `
-<div z-load="@lib/components/media-browser" class="visible-on-ready"
+<div z-load="@lib/components/media-browser" class="visible-on-ready" style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden"
      {% for s in config.settings -%}
      z-{{ s.name }}="{{ s.value }}"
      {%- endfor -%}

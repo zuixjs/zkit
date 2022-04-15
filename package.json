@@ -37,7 +37,7 @@
     "animate.css": "^4.1.1",
     "elasticlunr": "^0.9.5",
     "flex-layout-attribute": "^1.0.3",
-    "zuix-dist": "^1.0.31"
+    "zuix-dist": "1.0.32"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.4",
@@ -56,6 +56,6 @@
     "nunjucks": "^3.2.3",
     "yaml": "^1.10.2",
     "yesno": "^0.3.1",
-    "zuix": "^0.4.0-beta.7"
+    "zuix": "^0.4.0-beta.8"
   }
 }

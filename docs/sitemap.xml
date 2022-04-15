@@ -34,10 +34,6 @@
     <lastmod>2022-03-28</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
-    <lastmod>2022-03-28</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</loc>
     <lastmod>2022-04-01</lastmod>
   </url>
@@ -52,5 +48,9 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
     <lastmod>2022-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
+    <lastmod>2022-04-15</lastmod>
   </url>
 </urlset>

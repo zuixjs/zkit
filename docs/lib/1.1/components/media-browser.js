@@ -228,7 +228,8 @@ function MediaBrowser(cp) {
       showingFullscreen = true;
       cp.view().addClass('fullscreen').css({
         height: null,
-        maxHeight: null
+        maxHeight: null,
+        aspectRatio: null
       });
       refreshViewPagers();
       cp.trigger('fullscreen:open');
@@ -246,7 +247,8 @@ function MediaBrowser(cp) {
           const computedHeight = (actualWidth / 16 * 9 );
           cp.view().css({
             height: computedHeight + 'px',
-            maxHeight: computedHeight + 'px'
+            maxHeight: computedHeight + 'px',
+            aspectRatio: '16 / 9'
           });
         }
         refreshViewPagers();
