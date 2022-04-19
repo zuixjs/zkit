@@ -51,6 +51,10 @@ module.exports = function(eleventyConfig) {
     f = path.join(zuixConfig.sourceFolder, f);
     eleventyConfig.ignores.add(f);
   });
+  // Ignore `zuix-editor` if mode is 'production'
+  if (process.env.NODE_ENV === 'production') {
+    eleventyConfig.ignores.add(path.join(zuixConfig.sourceFolder, 'editor/*'));
+  }
   // Ignore "copy" files, because they are handled by zuix11ty
   zuixConfig.copyFiles.forEach((f) => {
     f = path.join(zuixConfig.sourceFolder, f);
@@ -75,13 +79,13 @@ module.exports = function(eleventyConfig) {
     read: true,
     outputFileExtension: 'css',
     compile: (content, path) => () => {
-        let output;
-        less.render(content, lessConfig, function(error, lessOutput) {
-          // TODO: handle and report 'error'
-          output = lessOutput;
-        });
-        return output.css;
-      }
+      let output;
+      less.render(content, lessConfig, function(error, lessOutput) {
+        // TODO: handle and report 'error'
+        output = lessOutput;
+      });
+      return output.css;
+    }
   });
   // Add linter to report code errors
   eleventyConfig.addLinter('eslint', function(content, inputPath, outputPath) {

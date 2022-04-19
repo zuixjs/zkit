@@ -1,22 +1,31 @@
-// from: https://www.belter.io/eleventy-search/
-const elasticlunr = require('elasticlunr');
+const Fuse = require('fuse.js');
+const fs = require('fs');
+const path = require('path');
+const nunjucks = require('nunjucks');
 
 module.exports = function(collection) {
-  // what fields we'd like our index to consist of
-  const index = elasticlunr(function() {
-    this.addField('title');
-    this.addField('description');
-    this.addField('keywords');
-    this.setRef('id');
-  });
-  // loop through each page and add it to the index
-  collection.forEach((page) => {
-    index.addDoc({
-      id: page.url,
+  const baseUrl = this.ctx.app.baseUrl;
+  const pages = collection.map(function(page) {
+    const data = {content: page.template.frontMatter.content};
+    const content = nunjucks
+        .renderString('{{ content | striptags }}', data)
+        .substring(0, 600);
+    let image = page.template.frontMatter.data.coverPreview;
+    if (image && image.startsWith('./')) {
+      image = path.join(page.url, page.template.frontMatter.data.coverPreview);
+    }
+    if (image && image.startsWith('/')) {
+      image = path.join(baseUrl, image);
+    }
+    return {
+      url: path.join(baseUrl, page.url),
+      date: page.template.frontMatter.data.pubDate,
       title: page.template.frontMatter.data.title,
       description: page.template.frontMatter.data.description,
-      keywords: page.template.frontMatter.data.keywords
-    });
+      image,
+      content
+    };
   });
-  return index.toJSON();
+  fs.writeFileSync(this.ctx.page.outputPath.replace('-index.', '-list.'), JSON.stringify(pages));
+  return Fuse.createIndex(['title', 'description', 'content'], pages).toJSON();
 };

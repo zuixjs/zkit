@@ -385,35 +385,42 @@ color: #24333e;
 }
 [z-context="menu-drawer"]:focus {
     outline: none;
-}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header" z-lazy="scroll" data-theme="indigo-deep_purple" layout="column stretch-stretch"><nav #header="" layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><div self="size-x1" layout="row center-center"><h1 style="margin:0;margin-left: -48px">Search</h1></div></div></nav><main class="animate__animated animate__fadeIn animate__faster"><div layout="column top-center"><h1 #alt_header="">Search</h1><div class="content"><div z-load="default"><div class="field" layout="row center-left"><div><label class="mdl-button mdl-js-button mdl-button--icon" for="sample1"><i class="material-icons">search</i></label><div class="mdl-textfield mdl-js-textfield"><input #search-input="" aria-label="Search" type="search" class="mdl-textfield__input" id="sample1"> <label class="mdl-textfield__label" for="sample1">Enter search terms</label></div></div></div><ol #results=""></ol><div #results-none="" style="display: none"><p>No results found.</div><!-- zUIx list-view component --><div #results-list="" z-load="@lib/controllers/list-view"><!-- Place holder is mandatory for JS-only compoments.. --> Loading listview...</div><script type="jscript">// get the search index
-      let searchIndex = null;
+}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header" z-lazy="scroll" data-theme="indigo-deep_purple" layout="column stretch-stretch"><nav #header="" layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><div self="size-x1" layout="row center-center"><h1 style="margin:0;margin-left: -48px">Search</h1></div></div></nav><main class="animate__animated animate__fadeIn animate__faster"><div layout="column top-center"><h1 #alt_header="">Search</h1><div class="content"><div z-load="default" layout="column center-stretch"><div layout="column center-center" style="padding: 24px; margin-top: 24px"><div self="size-medium" class="field input-container" layout="column center-center"><input #search-input="" aria-label="Search" required type="search" id="searchInput"> <label class="primary">Search terms</label></div><div #results-none="" style="display: none"><p>No results found.</div></div><div layout="column center-center"><!-- zuix.js list-view component --><div self="size-medium" #results-list="" ctrl="" z-load="@lib/controllers/list-view"></div></div><script type="jscript">// get the search index
+      let searchEngine;
+      let searchItems;
+      const options = {
+        includeScore: true,
+        //findAllMatches: true,
+        keys: ['title', 'description', 'content']
+      }
       /** @type {elasticlunr.Index} searchIndex */
-      fetch('/zkit/search-index.json').then((response) =>
-        response.json().then((rawIndex) => {
-          searchIndex = elasticlunr.Index.load(rawIndex);
-          elasticlunr.clearStopWords(); // the word 'About' is still ignored
+      fetch('/zkit/search-index.json').then((indexResponse) =>
+        indexResponse.json().then((searchIndex) => {
+          fetch('/zkit/search-list.json').then((listResponse) =>
+            listResponse.json().then((searchList) => {
+              searchItems = searchList;
+              const index = Fuse.parseIndex(searchIndex);
+              searchEngine = new Fuse(searchList, options, index);
+            })
+          );
         })
       );
-      // update results list on 'keyup'
-      $searchInput.on('search', (e, v) => {
-        if (!_resultsList) return;
-        const term = $searchInput.value();
-        const results = searchIndex.search(term, {
-          bool: 'OR',
-          expand: true
-        }).map((r) => {
-          if (!r.doc) {
-            r.doc = searchIndex.documentStore.docs[r.ref];
-          }
-          r.ref = '/zkit/' + r.ref.substring(1);
-          return r;
-        });
+      // update results list on 'keydown'
+      $searchInput.on('keyup search', (e, v) => {
+        if (!searchEngine) {
+          // TODO: should report issue
+          console.log('Search engine not initialized.');
+          return;
+        }
+        const terms = $searchInput.value();
+        const results = searchEngine.search(terms);
         _resultsList.clear();
         if (results.length > 0) {
           $resultsNone.hide();
           _resultsList.model({
             itemList: results,
             getItem: function(index, item) {
+              item = searchItems[item.refIndex];
               return {
                 itemId: index,
                 componentId: 'inline/result-item-view',
@@ -425,12 +432,35 @@ color: #24333e;
               };
             }
           });
-        } else if (term.length > 0) {
+        } else if (terms.length > 0) {
           $resultsNone.show();
+        } else {
+          $resultsNone.hide();
         }
-      });</script></div><!--Inline list item template --><div z-view="inline/result-item-view"><a #ref=""><h3 #doc.title="">Item title</h3></a><div #doc.description="" self="size-x1">Description</div></div><style media="#inline/result-item-view">:host { margin-left: 32px }
-    h3 { margin: 0; }
-    div { margin-bottom: 48px; }</style><!--elasticlunr JS --><script src="/zkit/js/elasticlunr/elasticlunr.min.js" defer async></script></div><div layout="rows start-spread" class="components-summary"><div><label>Controllers</label><ul><li><a href="/zkit/content/controllers/drawer-layout/"><div layout="row center-lett"><i class="material-icons">space_dashboard</i> <span>Drawer Layout</span></div></a><li><a href="/zkit/content/controllers/gesture-helper/"><div layout="row center-lett"><i class="material-icons">swipe</i> <span>Gesture Helper</span></div></a><li><a href="/zkit/content/controllers/scroll-helper/"><div layout="row center-lett"><i class="material-icons">swap_vert</i> <span>Scroll Helper</span></div></a><li><a href="/zkit/content/controllers/view-pager/"><div layout="row center-lett"><i class="material-icons">view_carousel</i> <span>View Pager</span></div></a></ul></div><div><label>Components</label><ul><li><a href="/zkit/content/components/context-menu/"><div layout="row center-lett"><i class="material-icons">menu</i> <span>Context Menu</span></div></a><li><a href="/zkit/content/components/menu-overlay/"><div layout="row center-lett"><i class="material-icons">menu_open</i> <span>Menu Overlay</span></div></a><li><a href="/zkit/content/components/media-browser/"><div layout="row center-lett"><i class="material-icons">perm_media</i> <span>Media Browser</span></div></a></ul></div></div><style>.components-summary {
+      });</script></div><!--Inline list item template --><div z-view="inline/result-item-view"><div layout="row top-justify"><div self="size-x1"><a #url=""><h3 #title="">Item title</h3></a><p #description="" self="size-x1">Description</div><a #url=""><img #image="" style="max-width: 150px; height:80px"></a></div></div><style media="#inline/result-item-view">:host {
+
+    }
+    h3 {
+        margin: 0;
+    }
+    div {
+        margin-bottom: 12px;
+        font-size: 100%;
+    }
+    p {
+        margin-top: 6px;
+        margin-bottom: 32px;
+    }
+    img {
+        border-radius: 4px;
+        margin: 8px;
+    }
+    @media only screen and (max-width: 600px) {
+        div {
+            font-size: 88%;
+            margin-bottom: 0;
+        }
+    }</style><!--elasticlunr JS --><script src="/zkit/js/fuse/fuse.min.js" defer async></script></div><div layout="rows start-spread" class="components-summary"><div><label>Controllers</label><ul><li><a href="/zkit/content/controllers/drawer-layout/"><div layout="row center-lett"><i class="material-icons">space_dashboard</i> <span>Drawer Layout</span></div></a><li><a href="/zkit/content/controllers/gesture-helper/"><div layout="row center-lett"><i class="material-icons">swipe</i> <span>Gesture Helper</span></div></a><li><a href="/zkit/content/controllers/scroll-helper/"><div layout="row center-lett"><i class="material-icons">swap_vert</i> <span>Scroll Helper</span></div></a><li><a href="/zkit/content/controllers/view-pager/"><div layout="row center-lett"><i class="material-icons">view_carousel</i> <span>View Pager</span></div></a></ul></div><div><label>Components</label><ul><li><a href="/zkit/content/components/context-menu/"><div layout="row center-lett"><i class="material-icons">menu</i> <span>Context Menu</span></div></a><li><a href="/zkit/content/components/menu-overlay/"><div layout="row center-lett"><i class="material-icons">menu_open</i> <span>Menu Overlay</span></div></a><li><a href="/zkit/content/components/media-browser/"><div layout="row center-lett"><i class="material-icons">perm_media</i> <span>Media Browser</span></div></a></ul></div></div><style>.components-summary {
         margin-top: 80px;
     }
     .components-summary label {

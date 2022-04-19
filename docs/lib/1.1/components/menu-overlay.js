@@ -97,12 +97,6 @@ function MenuOverlay(cp) {
       });
     }
 
-    cp.expose('show', function() {
-      $view.show();
-    });
-    cp.expose('hide', function() {
-      $view.hide();
-    });
     document.body.addEventListener('keyup', function(evt) {
       if (evt.defaultPrevented) {
         return;
@@ -122,11 +116,15 @@ function MenuOverlay(cp) {
         }, 100);
       }
     });
-    cp.expose('toggleButton', toggleButton);
-    cp.expose('showButton', showButton);
-    cp.expose('hideButton', hideButton);
-    cp.expose('showing', function() {
-      return menuButtonShowing;
+    cp.expose({
+      show: $view.show,
+      hide: $view.hide,
+      toggleButton,
+      showButton,
+      hideButton,
+      showing: function() {
+        return menuButtonShowing;
+      }
     });
     initializeAnimations();
     // show floating action button
