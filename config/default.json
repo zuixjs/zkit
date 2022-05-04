@@ -39,7 +39,7 @@
         "css": false,
         "zuix": false
       },
-      "mirror": "script,style,img,source,audio",
+      "mirror": "",
       "serviceWorker": false,
       "minify": {
         "disable": true,

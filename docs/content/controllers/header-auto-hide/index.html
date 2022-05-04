@@ -163,7 +163,7 @@ main h3 {
     margin-bottom: 16px;
 }
 
-[z-field="header"] {
+[\#header] {
     position: fixed;
     z-index: 1;
     top:0; left: 0; right: 0; bottom: 0;
@@ -173,10 +173,10 @@ main h3 {
     background: #f1f1f1;
     box-shadow: 0 1px rgba(100, 100, 100, 30%);
 }
-[data-theme="dark"] [z-field="header"] {
+[data-theme="dark"] [\#header] {
     background: black;
 }
-h1[z-field="alt_header"] {
+h1[\#alt_header] {
     text-align: center;
     display: block;
 }
@@ -192,20 +192,6 @@ h1[z-field="alt_header"] {
 }
 [data-theme="dark"] .header-logo {
     background: #24333e;
-}
-
-[z-load][z-ready=true].visible-on-ready,
-[z-include][z-ready=true].visible-on-ready
-{
-    opacity: 1;
-    transition-delay: 150ms;
-    transition-property: opacity;
-}
-[z-load]:not([z-ready=true]).visible-on-ready,
-[z-include]:not([z-ready=true]).visible-on-ready
-{
-    opacity: 0;
-    visibility: hidden;
 }
 
 .header-menu-button {
@@ -234,11 +220,11 @@ h1[z-field="alt_header"] {
         padding-left: 304px !important;
         padding-right: 24px !important;
     }
-    [z-field="header"] {
+    [\#header] {
         padding-left: 316px;
         display: none;
     }
-    h1[z-field="alt_header"] {
+    h1[\#alt_header] {
         margin-top: 32px;
         margin-bottom: 48px;
         margin-left: -28px;
@@ -389,7 +375,7 @@ color: #24333e;
 }
 [z-context="menu-drawer"]:focus {
     outline: none;
-}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header" z-lazy="scroll" data-theme="indigo-pink" layout="column stretch-stretch"><nav #header="" layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><div self="size-x1" layout="row center-center"><h1 style="margin:0;margin-left: -48px">Auto hiding header</h1></div></div></nav><main class="animate__animated animate__fadeIn animate__faster"><div layout="column top-center"><h1 #alt_header="">Auto hiding header</h1><div class="content"><p>// TODO: ...</div><div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%"><div>&nbsp;</div><div>&nbsp;</div></div><style>.navigation-image {
+}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header" z-lazy="scroll" data-theme="indigo-pink" layout="column stretch-stretch"><nav #header="" layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><div self="size-x1" layout="row center-center"><h1 style="margin:0;margin-left: -48px">Auto hiding header</h1></div></div></nav><main><div layout="column top-center"><h1 #alt_header="">Auto hiding header</h1><div class="content"><p>// TODO: ...</div><div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%"><div>&nbsp;</div><div>&nbsp;</div></div><style>.navigation-image {
             border-radius: 32px;
             border-color: rgba(100,200,200,0.5);
         }
@@ -420,7 +406,7 @@ color: #24333e;
     }
     .components-summary li i {
         margin-right: 12px;
-    }</style><footer self="size-large" layout="columns bottom-center" style="min-height: 200px"><div self="size-large" layout="rows center-justify" style="padding: 24px;"><a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/"><div layout="row center-center" style="gap: 8px"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zkit/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div>powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a></div></div></footer></div></main><!-- Navigation Drawer --><div ctrl="" z-load="@lib/controllers/drawer-layout" #drawer="" z-context="menu-drawer" z-lazy="false" z-options="drawer_opts" class="drawer-layout no-select visible-on-ready animate__animated animate__faster" layout="column top-stretch"><!-- Navigation Drawer content --><!-- Header --><div class="drawer-header" layout="column justify-stretch"><div layout="row center-justify"><a href="/zkit/"><i style="font-size: 600%; color: #b0bbaa; text-shadow: -1px -1px 0 #00000044, 1px -1px 0 #00000044, -1px 1px 0 #00000044, 1px 1px 0 #00000044;" class="material-icons">extension </i></a><a href="https://github.com/zuixjs/zkit" style="opacity: 0.75"><img src="/zkit/images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;"></a></div><div class="title"><code>zKit</code> components <small>v1.1.1</small></div><div class="subtitle">web enhancing bits</div></div><!-- Menu items and other content --><div class="drawer-content" self="size-x1"><ul><li><a href="/zkit/home" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">home</i> <span>Home</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a></li><!--
+    }</style><footer self="size-large" layout="columns bottom-center" style="min-height: 200px"><div self="size-large" layout="rows center-justify" style="padding: 24px;"><a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/"><div layout="row center-center" style="gap: 8px"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zkit/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div>powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a></div></div></footer></div></main><!-- Navigation Drawer --><div ctrl="" z-load="@lib/controllers/drawer-layout" #drawer="" z-context="menu-drawer" z-lazy="false" z-options="drawer_opts" class="drawer-layout no-select visible-on-ready" layout="column top-stretch"><!-- Navigation Drawer content --><!-- Header --><div class="drawer-header" layout="column justify-stretch"><div layout="row center-justify"><a href="/zkit/"><i style="font-size: 600%; color: #b0bbaa; text-shadow: -1px -1px 0 #00000044, 1px -1px 0 #00000044, -1px 1px 0 #00000044, 1px 1px 0 #00000044;" class="material-icons">extension </i></a><a href="https://github.com/zuixjs/zkit" style="opacity: 0.75"><img src="/zkit/images/github-mark-light.png" title="Visit GitHub repository" style="width: 40px; height: 40px;"></a></div><div class="title"><code>zKit</code> components <small>v1.1.1</small></div><div class="subtitle">web enhancing bits</div></div><!-- Menu items and other content --><div class="drawer-content" self="size-x1"><ul><li><a href="/zkit/home" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">home</i> <span>Home</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a></li><!--
     <li >
         <a href="/zkit/search" class="mdl-js-ripple-effect">
             <div layout="row center-left">
@@ -430,4 +416,4 @@ color: #24333e;
             <span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span>
         </a>
     </li>
-    --></ul><label>Components</label><ul><li><a href="/zkit/content/components/context-menu/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu</i> <span class="title">Context Menu</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/components/menu-overlay/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu_open</i> <span class="title">Menu Overlay</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/components/media-browser/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">perm_media</i> <span class="title">Media Browser</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul><label>Controllers</label><ul><li><a href="/zkit/content/controllers/drawer-layout/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">space_dashboard</i> <span class="title">Drawer Layout</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/gesture-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swipe</i> <span class="title">Gesture Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/scroll-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swap_vert</i> <span class="title">Scroll Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/view-pager/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">view_carousel</i> <span class="title">View Pager</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul></div></div><!-- Built with love using zUIx Web Starter --><script>let menuDrawer;function scrollbarVisible(e){e=e.getBoundingClientRect();return e.bottom!==e.height}window.drawer_opts={autoHideWidth:1280,on:{"drawer:open":function(){},"drawer:close":function(){}},ready:function(){(menuDrawer=this).$.playAnimation(["animate__fadeIn",enterAnimation])}};const header=zuix.field("header");let headerVisible=!0;function showHeader(){headerVisible||(headerVisible=!0,header.playAnimation(["animate__fadeOutUp","animate__fadeInDown"]).show())}function hideHeader(){headerVisible&&!header.isPlaying()&&(headerVisible=!1,header.playAnimation({classes:["animate__fadeInDown","animate__fadeOutUp"],onEnd:function(){this.hide()}}))}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document);const referrerLink=document.createElement("a"),enterAnimation=(referrerLink.href=document.referrer,"/zkit/"===referrerLink.pathname?"animate__fadeInLeft":"animate__fadeIn")</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script></body><!-- page script -->
+    --></ul><label>Components</label><ul><li><a href="/zkit/content/components/context-menu/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu</i> <span class="title">Context Menu</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/components/menu-overlay/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">menu_open</i> <span class="title">Menu Overlay</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/components/media-browser/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">perm_media</i> <span class="title">Media Browser</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul><label>Controllers</label><ul><li><a href="/zkit/content/controllers/drawer-layout/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">space_dashboard</i> <span class="title">Drawer Layout</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/gesture-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swipe</i> <span class="title">Gesture Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/scroll-helper/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">swap_vert</i> <span class="title">Scroll Helper</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zkit/content/controllers/view-pager/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">view_carousel</i> <span class="title">View Pager</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul></div></div><!-- Built with love using zUIx Web Starter --><script>let menuDrawer;function scrollbarVisible(e){e=e.getBoundingClientRect();return e.bottom!==e.height}window.drawer_opts={autoHideWidth:1280,on:{"drawer:open":function(){},"drawer:close":function(){}},ready:function(){(menuDrawer=this).$.playAnimation(["animate__fadeIn",enterAnimation])}};const header=zuix.field("header");let headerVisible=!0;function showHeader(){headerVisible||(headerVisible=!0,header.playAnimation(["animate__fadeOutUp","animate__fadeInDown"]).show())}function hideHeader(){headerVisible&&!header.isPlaying()&&(headerVisible=!1,header.playAnimation({classes:["animate__fadeInDown","animate__fadeOutUp"],onEnd:function(){this.hide()}}))}function processExternalLinks(e){e.find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(zuix.$(document));const referrerLink=document.createElement("a"),enterAnimation=(referrerLink.href=document.referrer,"/zkit/"===referrerLink.pathname?"animate__fadeInLeft":"animate__fadeIn")</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script></body><!-- page script -->

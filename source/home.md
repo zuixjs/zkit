@@ -16,7 +16,6 @@ keywords:
 - pwa
 ---
 
-
 {% unpre %}
 ```html
 <div self="size-x1" layout="column center-center" style="margin: 24px; margin-bottom: 72px; margin-top: 72px; width:auto!important">
@@ -45,15 +44,33 @@ These components can also be loaded at runtime without requiring to copy any fil
 
 ### 2. Load components 
 
-Add the `z-load` attributes to the host element specifying the component to be loaded
+By adding the `z-load` attributes to the host element specifying the component to be loaded
+
 ```html
-<div z-load="path/to/my/component"></div>
+<div z-load="path/to/my-component"></div>
+```
+
+or by defining a custom element
+
+```js
+customElements.define('my-component', class extends HTMLElement {
+  connectedCallback() {
+    zuix.loadComponent(this, 'path/to/my-component');
+  }
+});
+```
+
+so that components can be added to the page using the custom element tag
+
+```html
+<my-component></my-component>
 ```
 
 ## See also
 - [zuix.js](https://zuixjs.org/)  
   A small library (18.5kB gzipped) for component-based web development
-- [zuix.js Web Starter](https://github.com/zuixjs/zuix-web-starter/)  
+- [Web Starter](https://github.com/zuixjs/zuix-web-starter/)  
   A web starter with templates and examples, based on *zuix.js* and [Eleventy](https://www.11ty.dev/), a simple static site generator.
+- [Web App](https://github.com/zuixjs/web-app/) starter template
 - [News Blog](https://github.com/zuixjs/news-blog/) starter template
 - Older zKit release [v1.0]({{ '/1.0/' | url }}) (2016)

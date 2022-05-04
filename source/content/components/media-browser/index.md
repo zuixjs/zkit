@@ -127,11 +127,11 @@ The media-browser component can also be controlled with JavaScript.
 
 ```js
 var mediaBrowser;
-zuix.context('media-browser', function () {
+zuix.context('media-browser', (mb) => {
 
   // store a global reference of the
   // component for eventual later use
-  mediaBrowser = this;
+  mediaBrowser = mb;
 
   // open the media browser
   mediaBrowser.open();

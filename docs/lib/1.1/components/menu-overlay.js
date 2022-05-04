@@ -97,28 +97,9 @@ function MenuOverlay(cp) {
       });
     }
 
-    document.body.addEventListener('keyup', function(evt) {
-      if (evt.defaultPrevented) {
-        return;
-      }
-      if (evt.key === 'Escape') {
-        evt.cancelBubble = true;
-        evt.preventDefault();
-        setTimeout(function() {
-          if (menuOverlayShowing) {
-            hideButton();
-            toggleMenu();
-          } else if (!menuButtonShowing) {
-            showButton();
-          } else {
-            hideButton();
-          }
-        }, 100);
-      }
-    });
     cp.expose({
-      show: $view.show,
-      hide: $view.hide,
+      show: $view.show.bind($view),
+      hide: $view.hide.bind($view),
       toggleButton,
       showButton,
       hideButton,

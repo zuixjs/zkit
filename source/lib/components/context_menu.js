@@ -32,7 +32,7 @@ zuix.controller(function(cp) {
         },
         'gesture:release': function(e, tp) {
           menu.removeClass('no-transition');
-          if (tp.velocity <= 0 && tp.direction === 'up') {
+          if (tp && tp.velocity <= 0 && tp.direction === 'up') {
             menu.css('bottom', 0);
           } else if (tp.direction === 'down') {
             hideMenu();

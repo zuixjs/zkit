@@ -421,10 +421,6 @@ function configure(eleventyConfig) {
     // cssId already outputted for this page
     return '';
   });
-
-  eleventyConfig.addShortcode('edit', function(fileName) {
-    return renderTemplate('', 'editable');
-  });
 }
 
 function addPage(args) {

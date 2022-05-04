@@ -119,14 +119,15 @@ toggleButton = { type: 'fab', class: 'accent', lazyLoad: false };
 var menuOverlay;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
-zuix.context('menu-overlay', function() {
+zuix.context('menu-overlay', (mo) => {
   // add event listeners
-  this
-    .on('open', function() { /* ... */})
-    .on('close', function() { /* ... */});
+  mo.on({
+    open: function() { /* ... */ },
+    close: function() { /* ... */ }
+  });
   // store a global reference of
   // the component for later use
-  menuOverlay = this;
+  menuOverlay = mo;
 });
 ```
 

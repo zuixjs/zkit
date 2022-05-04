@@ -50,10 +50,7 @@ Before component is loaded
 
 ```js
 var scrollHelper; // it will be == null until component is loaded
-zuix.context('scroll-helper', function() {
-  // component loaded
-  scrollHelper = this;
-});
+zuix.context('scroll-helper', (sh) => scrollHelper = sh);
 ```
 
 or at any time after component is loaded
@@ -65,7 +62,7 @@ var scrollHelper = zuix.context('scroll-helper');
 ### Listen to events
 
 ```js
-scrollHelper.on('scroll:change', function(e, data) {
+scrollHelper.on('scroll:change', (e, data) => {
   switch (data.event) {
 
     case 'hit-top':
@@ -130,7 +127,7 @@ The `watch` method takes one argument that can be either an element object or a 
 
 ```js
 // watch elements having the 'watchable' class
-scrollHelper.watch('.watchable', function(el, data) {
+scrollHelper.watch('.watchable', (el, data) => {
   switch (data.event) {
 
     case 'enter':

@@ -113,7 +113,7 @@ main h3 {
     margin-bottom: 16px;
 }
 
-[z-field="header"] {
+[\#header] {
     position: fixed;
     z-index: 1;
     top:0; left: 0; right: 0; bottom: 0;
@@ -123,10 +123,10 @@ main h3 {
     background: #f1f1f1;
     box-shadow: 0 1px rgba(100, 100, 100, 30%);
 }
-[data-theme="dark"] [z-field="header"] {
+[data-theme="dark"] [\#header] {
     background: black;
 }
-h1[z-field="alt_header"] {
+h1[\#alt_header] {
     text-align: center;
     display: block;
 }
@@ -142,20 +142,6 @@ h1[z-field="alt_header"] {
 }
 [data-theme="dark"] .header-logo {
     background: #24333e;
-}
-
-[z-load][z-ready=true].visible-on-ready,
-[z-include][z-ready=true].visible-on-ready
-{
-    opacity: 1;
-    transition-delay: 150ms;
-    transition-property: opacity;
-}
-[z-load]:not([z-ready=true]).visible-on-ready,
-[z-include]:not([z-ready=true]).visible-on-ready
-{
-    opacity: 0;
-    visibility: hidden;
 }
 
 .header-menu-button {
@@ -184,11 +170,11 @@ h1[z-field="alt_header"] {
         padding-left: 304px !important;
         padding-right: 24px !important;
     }
-    [z-field="header"] {
+    [\#header] {
         padding-left: 316px;
         display: none;
     }
-    h1[z-field="alt_header"] {
+    h1[\#alt_header] {
         margin-top: 32px;
         margin-bottom: 48px;
         margin-left: -28px;

@@ -89,15 +89,16 @@ drawer_options = {
 var menuDrawer;
 // since the component loads asynchronously
 // a callback is required to ensure the component is ready
-zuix.context('menu-drawer', function() {
+zuix.context('menu-drawer', (md) => {
   // add event listeners
-  this
-    .on('drawer:open', function(e) { /* ... */})
-    .on('drawer:close', function(e) { /* ... */});
-    .on('layout:change', function(e, d) { /* ... */});
+  md.on({
+    'drawer:open': function(e) { /* ... */ },
+    'drawer:close': function(e) { /* ... */ },
+    'layout:change': function(e, d) { /* ... */ }
+  });
   // store a global reference of
   // the component for later use
-  menuDrawer = this;
+  menuDrawer = md;
 });
 ```
 

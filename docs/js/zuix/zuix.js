@@ -1,4 +1,4 @@
-/* zUIx v1.0.35 22.04.20 00:53:22 */
+/* zUIx v1.0.38 22.05.04 21:30:20 */
 
 var zuix;
 /******/ (function() { // webpackBootstrap
@@ -121,7 +121,7 @@ function Logger(ctx) {
       _callback.call(ctx, level, args);
     }
     // route event
-    if (_global.__zuix__debug || level === 'ERROR') {
+    if (_global.__zuix__debug || level === 'ERROR' || level === 'WARN') {
       this.args(ctx, level, args);
       _console.log.apply(_console, args);
     }
@@ -459,8 +459,13 @@ module.exports = {
     if (typeof s !== 'string' || o == null) {
       return;
     }
-    if (typeof o[s] !== 'undefined') {
-      return o[s];
+    try {
+      if (typeof o[s] !== 'undefined') {
+        return o[s];
+      }
+    } catch (e) {
+      // TODO: "TypeError: Cannot create proxy with a non-object as target or handler"
+      console.log(e);
     }
     let ref = o; let path = '';
     const parts = s.match(/\[(".*?"|'.*?'|(.*?))\]|".*?"|'.*?'|[0-9a-zA-Z_$]+/g);
@@ -1873,7 +1878,7 @@ ZxQueryStatic.getClosest = function(elem, selector) {
   // Get closest match
   elem = elem.parentNode;
   for (; elem && elem !== document; elem = elem.parentNode) {
-    if (elem.matches(selector)) return elem;
+    if (elem.matches && elem.matches(selector)) return elem;
   }
   return null;
 };
@@ -2152,10 +2157,10 @@ module.exports = ZxQueryStatic;
 /***/ }),
 
 /***/ 693:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_RESULT__;/* eslint-disable */
+/* eslint-disable */
 /*!
  * @license
  * Copyright 2015-2022 G-Labs. All Rights Reserved.
@@ -2186,16 +2191,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* eslint-disable */
 
 
 
-// TODO: detect whether running in a browser environment or not
-(function(root, factory) {
-  if (true) {
-    // AMD. Register as an anonymous module.
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
-      return (root.zuix = (factory).call(root));
-    }).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-}(this, __webpack_require__(459)));
+module.exports = __webpack_require__(459)();
 
 
 /***/ }),
@@ -2650,7 +2646,6 @@ function ActiveRefresh($v, $el, data, refreshCallback) {
   this.paused = false;
   this.forceActive = false;
   const _t = this;
-  let inactive = false;
   let initialized = false;
   this.requestRefresh = function($v, $el, data) {
     const isMainComponent = $v.get() === $el.get() && zuix.context($v) != null;
@@ -2677,9 +2672,9 @@ function ActiveRefresh($v, $el, data, refreshCallback) {
       }
     };
     if (isActive) {
-      if (isMainComponent && inactive) {
-        inactive = false;
-        $v.trigger('refresh:active');
+      if (!$el._refreshActive) {
+        $el._refreshActive = true;
+        $el.trigger('refresh:active');
       }
       // call the `refreshCallback` and wait for
       // its completion before next loop round
@@ -2687,9 +2682,9 @@ function ActiveRefresh($v, $el, data, refreshCallback) {
         refreshLoop(nextData, nextMsDelay, forceActive);
       });
     } else {
-      if (isMainComponent && !inactive) {
-        inactive = true;
-        $v.trigger('refresh:inactive');
+      if ($el._refreshActive) {
+        $el._refreshActive = false;
+        $el.trigger('refresh:inactive');
       }
       // noop-loop
       refreshLoop(_t.contextData);
@@ -3567,7 +3562,7 @@ ComponentContext.prototype.controller = function(controller) {
 /**
  * Gets/Sets the component's options.
  *
- * @param {ContextOptions|undefined} options The JSON options object.
+ * @param {ContextOptions|undefined} [options] The JSON options object.
  * @return {ComponentContext|object}
  */
 ComponentContext.prototype.options = function(options) {
@@ -3753,7 +3748,23 @@ ComponentContext.prototype.loadHtml = function(options, enableCaching) {
         util.dom.cssNot(_optionAttributes.dataUiComponent)
     ));
     if (inlineView.length() > 0) {
-      const inlineElement = inlineView.get(0);
+      let inlineElement = inlineView.get(0);
+      if (inlineElement.tagName.toLowerCase() === 'template') {
+        inlineElement = inlineElement.cloneNode(true);
+        const styles = inlineElement.content.querySelectorAll('style');
+        if (styles) {
+          for (const s of styles) {
+            s.setAttribute('media', '#' + context.componentId);
+          }
+        }
+      } else {
+        const styles = inlineElement.querySelectorAll('style[media="#"]');
+        if (styles) {
+          for (const s of styles) {
+            s.setAttribute('media', '#' + context.componentId);
+          }
+        }
+      }
       inlineViews[htmlPath] = inlineElement.innerHTML;
       if (context.view() === inlineElement || (context.container() != null && context.container().contains(inlineElement))) {
         // TODO: test this case better (or finally integrate some unit testing =))
@@ -4030,6 +4041,16 @@ const LIBRARY_PATH_DEFAULT = 'https://zuixjs.github.io/zkit/lib/'; // CORS works
  * @return {Componentizer}
  */
 Componentizer.prototype.componentize = function(element, child) {
+  if (isBusy) {
+    z$().one('componentize:step', function() {
+      requestAnimationFrame(function() {
+        isBusy = false;
+        zuix.componentize(element, child);
+      });
+    });
+    return this;
+  }
+  isBusy = true;
   zuix.trigger(this, 'componentize:begin');
   zuix.$().trigger('componentize:begin');
   zuix.resolveImplicitLoad(element);
@@ -4158,6 +4179,8 @@ if (_isCrawlerBotClient) {
   _log.d(navigator.userAgent, 'is a bot, ignoring `lazy-loading` option.');
 }
 
+let isBusy = false;
+
 /**
  *
  * @class
@@ -4220,13 +4243,15 @@ function queueLoadables(element) {
   }
   // Select all loadable elements
   let waitingLoad = getElementCache(element);
-  //    if (waitingLoad == null || waitingLoad.length == 0) {
-  const q = util.dom.queryAttribute(_optionAttributes.dataUiLoad, null, util.dom.cssNot(_optionAttributes.dataUiLoaded)) + ',' +
-        util.dom.queryAttribute(_optionAttributes.dataUiInclude, null, util.dom.cssNot(_optionAttributes.dataUiLoaded));
-  waitingLoad = z$(element).find(q);
-  waitingLoad = Array.prototype.slice.call(waitingLoad._selection);
-  setElementCache(element, waitingLoad);
-  //    }
+  if (waitingLoad == null || waitingLoad.length == 0) {
+    const q = util.dom.queryAttribute(_optionAttributes.dataUiLoad, null, util.dom.cssNot(_optionAttributes.dataUiLoaded)) + ',' +
+      util.dom.queryAttribute(_optionAttributes.dataUiInclude, null, util.dom.cssNot(_optionAttributes.dataUiLoaded));
+    waitingLoad = z$(element).find(q);
+    waitingLoad = Array.prototype.slice.call(waitingLoad._selection);
+    // Cache loadable elements
+    setElementCache(element, waitingLoad);
+  }
+  // Process elements options
   const waitingTasks = [];
   for (let w = 0; w < waitingLoad.length; w++) {
     const el = waitingLoad[w];
@@ -4284,7 +4309,10 @@ function queueLoadables(element) {
   if (added === 0 || (_componentizeRequests.length === 0 && _componentizeQueue.length === 0)) {
     zuix.trigger(this, 'componentize:end');
     zuix.$().trigger('componentize:end');
+  } else {
+    zuix.$().trigger('componentize:step');
   }
+  isBusy = false;
 }
 
 /** @private */
@@ -4324,7 +4352,7 @@ function loadNext(element) {
   queueLoadables(element);
   const job = getNextLoadable();
   if (job != null && job.item != null && job.item.element != null) {
-    z$(job.item.element).one('component:ready', function() {
+    z$(job.item.element).one('component:loaded', function() {
       zuix.componentize(job.item.element);
     });
     loadInline(job.item.element);
@@ -4335,7 +4363,7 @@ function loadNext(element) {
 function loadInline(element, opts) {
   const v = z$(element);
   if (v.attr(_optionAttributes.dataUiLoaded) != null || v.parent('pre,code').length() > 0) {
-    // _log.w("Skipped", element);
+    //_log.w('Skipped', element);
     return false;
   }
   v.attr(_optionAttributes.dataUiLoaded, 'true');
@@ -4346,6 +4374,8 @@ function loadInline(element, opts) {
     options = parseOptions(element, options);
     // copy passed options
     options = util.cloneObject(options) || {};
+  } else if (v.get().__zuix_loadOptions != null) {
+    options = v.get().__zuix_loadOptions;
   } else {
     options = {};
   }
@@ -4776,7 +4806,8 @@ function ContextController(context) {
   };
   if (isClass(context.controller())) {
     // >= ES6
-    context.controller(new (context.controller())(this));
+    const ctrl = new ((context.controller()).bind(this, this))();
+    context.controller(ctrl);
   } else {
     // <= ES5
     context.controller().call(this, this);
@@ -5047,6 +5078,81 @@ module.exports = ContextController;
 
 /***/ }),
 
+/***/ 871:
+/***/ (function(module) {
+
+"use strict";
+/*
+ * Copyright 2015-2022 G-Labs. All Rights Reserved.
+ *         https://zuixjs.github.io/zuix
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ *
+ *  This file is part of
+ *  zUIx, Javascript library for component-based development.
+ *        https://zuixjs.github.io/zuix
+ *
+ * @author Generoso Martello  -  https://github.com/genemars
+ */
+
+
+// noinspection JSClosureCompilerSyntax
+/**
+ * @class ControllerInstance
+ * @param {ContextController} controller The controller instance.
+ * @extends {ContextController}
+ * @constructor
+ */
+function ControllerInstance(controller) {
+  const _t = this;
+  controller.init = this.onInit.bind(this);
+  controller.create = this.onCreate.bind(this);
+  controller.dispose = this.onDispose.bind(this);
+  controller.update = function(target, key, value, path, old) {
+    return _t.onUpdate.call(_t, target, key, value, path, old);
+  };
+  Object.assign(this, controller);
+  Object.assign(this, Object.getPrototypeOf(controller));
+}
+/**
+ * @type {ContextControllerInitCallback}
+ */
+ControllerInstance.prototype.onInit = function() {
+};
+/**
+ * @type {ContextControllerCreateCallback}
+ */
+ControllerInstance.prototype.onCreate = function() {
+};
+/**
+ * @type {ContextControllerDisposeCallback}
+ */
+ControllerInstance.prototype.onDispose = function() {
+};
+/**
+ * @type {ContextControllerUpdateCallback}
+ */
+ControllerInstance.prototype.onUpdate = function(target, key, value, path, old) {
+};
+
+module.exports = ControllerInstance;
+
+
+/***/ }),
+
 /***/ 541:
 /***/ (function(module) {
 
@@ -5303,6 +5409,8 @@ const ComponentContext =
     __webpack_require__(622);
 const ContextController =
     __webpack_require__(561);
+const ControllerInstance =
+    __webpack_require__(871);
 const ActiveRefresh =
     __webpack_require__(398);
 const _componentizer =
@@ -5316,8 +5424,8 @@ __webpack_require__(854);
 
 /**
  * This object can be supplied when loading a component. It can be either passed as argument for the
- * `zuix.load(...)` method in the javascript code, or in the `z-options` attribute of the HTML code
- * of the component container.
+ * `zuix.load(...) / zuix.loadComponent(...) ` methods, in the javascript code, or with the `z-options` attribute in the HTML code
+ * of the component's host element.
  *
  * @typedef {object} ContextOptions
  * @property {Object|undefined} contextId The context id. HTML attribute equivalent: *z-context*. If not specified it will be randomly generated.
@@ -5334,7 +5442,8 @@ __webpack_require__(854);
  * @property {boolean|undefined} html Enables or disables HTML template loading (**default:** true).
  * @property {boolean|undefined} lazyLoad Enables or disables lazy-loading (**default:** false).
  * @property {number|undefined} priority Loading priority (**default:** 0).
- * @property {ContextReadyCallback|undefined} ready The ready callback, triggered once the component is successfully loaded.
+ * @property {ContextLoadedCallback|undefined} ready The loaded callback, triggered once the component is successfully loaded.
+ * @property {ContextReadyCallback|undefined} ready The ready callback, triggered once all component's dependencies have been loaded.
  * @property {ContextErrorCallback|undefined} error The error callback, triggered when an error occurs.
  */
 
@@ -5344,6 +5453,15 @@ __webpack_require__(854);
  * @callback ContextErrorCallback
  * @param {Object} error
  * @param {ComponentContext} ctx The component context object (same as `this`).
+ * @this {ComponentContext}
+ */
+
+/**
+ * Callback function triggered when a component is created, after all of its dependencies have been loaded.
+ *
+ *
+ * @callback ContextLoadedCallback
+ * @param {ComponentContext} ctx The component context (same as `this`).
  * @this {ComponentContext}
  */
 
@@ -5660,6 +5778,9 @@ function load(componentId, options) {
   if (util.isFunction(options.ready)) {
     ctx.ready = options.ready;
   }
+  if (util.isFunction(options.loaded)) {
+    ctx.loaded = options.loaded;
+  }
   if (util.isFunction(options.error)) {
     ctx.error = options.error;
   }
@@ -5803,7 +5924,7 @@ function unload(context) {
       // it's a lazy-loadable element not yet loaded
       _componentizer.dequeue(el);
     }
-    if (!util.isNoU(ctx)) {
+    if (!util.isNoU(ctx) && ctx.dispose) {
       ctx.dispose();
     }
   };
@@ -5817,6 +5938,31 @@ function unload(context) {
 }
 
 /** @private */
+function loadComponent(elements, componentId, type, options) {
+  elements = z$(elements);
+  unload(elements);
+  /**
+   * @param {ZxQuery} container
+   */
+  const load = function(container) {
+    container.attr(_optionAttributes.dataUiLoad, componentId);
+    if (type) {
+      container.attr(type, '');
+    }
+    if ((options && options.lazyLoad && options.lazyLoad.toString() === 'true') || container.attr(_optionAttributes.dataUiLazyload) === 'true') {
+      if (options) {
+        container.get().__zuix_loadOptions = options;
+      }
+      return false;
+    }
+    return _componentizer.loadInline(container, options);
+  };
+  elements.each(function(i, el, $el) {
+    load($el);
+  });
+}
+
+/** @private */
 function createContext(options) {
   const context = new ComponentContext(zuix, options, trigger);
   _contextRoot.push(context);
@@ -5826,9 +5972,9 @@ function createContext(options) {
 /**
  *
  * @private
- * @param {Element|ZxQuery|object} contextId The `contextId` object (usually a string) or the container/view element of the component.
- * @param {function} [callback] The callback function that will pass the context object once it is ready.
- * @return {ComponentContext} The matching component context or `null` if the context does not exist, or it is not yet loaded.
+ * @param {Element|ZxQuery|object} contextId The `contextId` or the component's host element.
+ * @param {ContextReadyCallback} [callback] The callback function that will pass the component's context object once loaded and ready.
+ * @return {ComponentContext} The matching component's context or `null` if the context does not exist or not yet loaded.
  */
 function context(contextId, callback) {
   let context = null;
@@ -5847,7 +5993,7 @@ function context(contextId, callback) {
   });
   if (typeof callback === 'function' && (contextId instanceof Element || contextId instanceof z$.ZxQuery)) {
     if (context == null || !context.isReady) {
-      z$(contextId).one('component:ready', function() {
+      z$(contextId).one('component:loaded', function() {
         context = zuix.context(this);
         setTimeout(function() {
           callback.call(context, context);
@@ -5867,7 +6013,12 @@ function context(contextId, callback) {
 function hook(path, handler) {
   if (util.isNoU(handler)) {
     delete _hooksCallbacks[path];
-  } else _hooksCallbacks[path] = handler;
+  } else {
+    if (_hooksCallbacks[path]) {
+      _log.w('Overwritten an already registered hook for', '"' + path + '"', 'OLD HANDLER', _hooksCallbacks[path], 'REPLACED BY', handler);
+    }
+    _hooksCallbacks[path] = handler;
+  }
 }
 
 /**
@@ -6024,7 +6175,9 @@ function createComponent(context, task) {
       } else if (cached.controller == null) {
         cached.controller = context.controller();
       }
-    } else _log.w(context.componentId, 'component:deferred:load');
+    } else {
+      _log.d(context.componentId, 'component:deferred:load');
+    }
 
     const v = z$(context.view());
     // if dataUiContext it's not null, a main controller was already loaded
@@ -6156,35 +6309,27 @@ function isDirectComponentElement($view, $el) {
 
 /**
  * @private
- * @param {ContextController} c
+ * @param {ContextController} ctrl
  */
-function initController(c) {
-  const ctx = c.context;
+function initController(ctrl) {
+  const ctx = ctrl.context;
   _log.t(ctx.componentId, 'controller:init', 'timer:init:start');
 
+  ctx.isReady = true;
+  // isReady status can be set to false in the `create` callback
+  // and later set to true when all dependencies have been loaded
+
   // tender lifecycle moments
-  const $view = c.view();
-  if (util.isFunction(c.create)) {
-    c.create();
+  const $view = ctrl.view();
+  if (util.isFunction(ctrl.create)) {
+    ctrl.create();
   }
-  c.trigger('view:create', $view);
+  ctrl.trigger('view:create', $view);
 
-  const contextReady = function() {
-    zuix.componentize($view);
-
-    // re-enable nested components loading
-    $view.find(util.dom.queryAttribute(_optionAttributes.dataUiLoaded, 'false', util.dom.cssNot(_optionAttributes.dataUiComponent)))
-        .each(function(i, v) {
-          this.attr(_optionAttributes.dataUiLoaded, null);
-          // Load inner-component after componentizer completed current job queue
-          z$().one('componentize:end', function() {
-            zuix.componentize(v);
-          });
-        });
-
-    // set component ready
-    if (util.isFunction(ctx.ready)) {
-      (ctx.ready).call(ctx, ctx);
+  const contextLoaded = function() {
+    // set component loaded
+    if (util.isFunction(ctx.loaded)) {
+      (ctx.loaded).call(ctx, ctx);
     }
 
     // load pending resources
@@ -6196,8 +6341,29 @@ function initController(c) {
         loadResources(context.c, context.o);
       }
     }
-  };
 
+    // re-enable nested components loading
+    z$().one('componentize:end', function() {
+      setTimeout(function() {
+        $view.find(util.dom.queryAttribute(_optionAttributes.dataUiLoaded, 'false', util.dom.cssNot(_optionAttributes.dataUiComponent)))
+            .each(function(i, v) {
+              this.attr(_optionAttributes.dataUiLoaded, null);
+            });
+        // render nested components
+        zuix.componentize($view);
+      });
+    });
+  };
+  contextLoaded();
+  ctrl.trigger('component:loaded', $view, true);
+
+  const contextReady = function() {
+    // set component ready
+    if (util.isFunction(ctx.ready)) {
+      (ctx.ready).call(ctx, ctx);
+    }
+    ctrl.trigger('component:ready', $view, true);
+  };
 
   /** @type {Object.<string, ActiveRefreshHandler>} */
   const globalHandlers = zuix.store('handlers');
@@ -6217,7 +6383,7 @@ function initController(c) {
           activeTagHandler = globalHandlers[handlerName];
         }
         if (typeof activeTagHandler === 'function') {
-          const h = zuix.activeRefresh($view, $el, c.model(), function($v, $element, data, refreshCallback) {
+          const h = zuix.activeRefresh($view, $el, ctrl.model(), function($v, $element, data, refreshCallback) {
             // TODO: should `$v` and/or `$element` be passed here?
             const runActiveTagHandler = function() {
               activeTagHandler.call(el, $view, $el, data, refreshCallback, activeTagName);
@@ -6241,9 +6407,10 @@ function initController(c) {
 
 
   // Setup main component's 'refresh' handler
+  const contextId = ctx.contextId;
   const viewRefreshScript = $view.find(':scope > [type="jscript"]');
+  viewRefreshScript._selection = viewRefreshScript._selection.concat(z$(document).find('[type="jscript"][for="' + contextId + '"]')._selection);
   ctx.handlers.refresh = function($view, $el, contextData, refreshCallback) {
-    //const ctx = zuix.context($view);
     if (!ctx._disposed) {
       if (ctx._dependencyResolver && !ctx._dependencyResolver.resolved()) {
         // not all requested components are ready, retry on next refresh
@@ -6275,11 +6442,12 @@ function initController(c) {
 
         // add custom "jscript" code / collects "using" components
         const usingComponents = []; let userCode = '';
+        usingComponents.push(contextId); // map contextId to a local variable
         viewRefreshScript.each(function(i, el, $el) {
           if ($el.attr('using') != null) {
             usingComponents.push(...$el.attr('using').split(','));
           }
-          if ($el.parent().get() === $view.get()) {
+          if ($el.parent().get() === $view.get() || $el.attr('for') === contextId) {
             userCode += $el.html() + ';';
           }
         });
@@ -6346,10 +6514,17 @@ function initController(c) {
     const refreshDelay = viewRefreshScript.length() > 0 ? viewRefreshScript.attr('refreshDelay') : null;
     const handlersDelay = viewRefreshScript.length() > 0 ? viewRefreshScript.attr('handlersDelay') : null;
     // init refresh handler / first paint
-    ctx.handlers.refresh.call($view.get(), $view, $view, c.model(), function(contextData, delay) {
+    ctx.handlers.refresh.call($view.get(), $view, $view, ctrl.model(), function(contextData, delay) {
       zuix.activeRefresh($view, $view, contextData, function($v, $element, data, refreshCallback) {
         if (ctx._refreshHandler && !ctx._refreshHandler.initialized) {
-          const canStart = ctx._refreshHandler.ready();
+          let loadedNested = true;
+          allocated.forEach(function(h) {
+            if (h.$element.attr(_optionAttributes.dataUiLoad) != null || h.$element.attr(_optionAttributes.dataUiInclude) != null) {
+              loadedNested = zuix.context(h.$element) != null && zuix.context(h.$element).isReady;
+              return loadedNested;
+            }
+          });
+          const canStart = ctx._refreshHandler.ready() && ctx.isReady === true && loadedNested;
           if (canStart) {
             ctx._refreshHandler.initialized = true;
             // start '@' handlers
@@ -6372,11 +6547,8 @@ function initController(c) {
     contextReady();
   }
 
-  ctx.isReady = true;
-  c.trigger('component:ready', $view, true);
-
   _log.t(ctx.componentId, 'controller:init', 'timer:init:stop');
-  _log.i(ctx.componentId, 'component:loaded', ctx.contextId);
+  _log.i(ctx.componentId, 'component:loaded', contextId);
 }
 
 /**
@@ -6388,12 +6560,17 @@ function initController(c) {
 function getController(javascriptCode) {
   let instance = function(ctx) { };
   if (typeof javascriptCode === 'string') {
+    let ctrl;
     try {
       if (javascriptCode.indexOf('module.exports') >= 0) {
-        instance = Function('module = {};\n' + javascriptCode + '; return module.exports;')();
+        ctrl = Function('\'use strict\'; let ControllerInstance = arguments[0]; let module = {};\n' + javascriptCode + '; return module.exports;')(ControllerInstance);
       } else {
-        instance = Function('return ' + javascriptCode)();
+        ctrl = Function('return ' + javascriptCode)();
       }
+      if (typeof ctrl !== 'function') {
+        throw new Error('Unexpected module type: "' + (typeof ctrl) + '"');
+      }
+      instance = ctrl;
     } catch (e) {
       // TODO: should trigger a global hook
       // eg. 'controller:error'
@@ -6511,9 +6688,7 @@ Zuix.prototype.unload = function(context) {
 /**
  * Loads a component, given the target host element(s).
  * If the target is already a component, it will be
- * unloaded and replaced by the new one. The component will
- * be loaded right away, lazy loading option is ignored when
- * using this method.
+ * unloaded and replaced by the new one.
  *
  * @example
  * ```html
@@ -6558,31 +6733,14 @@ Zuix.prototype.unload = function(context) {
   zuix.loadComponent(elements, 'templates/mdl_card', 'view');
 </script>
  *
- * @param {ComponentContext|ZxQuery|Element} elements The target host element(s) or component context(s)
+ * @param {ZxQuery|Element} elements The target host element(s) or component context(s)
  * @param {string|object} componentId The id of the component to load (path/component_name)
  * @param {'view'|'ctrl'|undefined} [type] The component type
  * @param {ContextOptions|undefined} [options] The component options
  * @return {Zuix} The `{Zuix}` object itself.
  */
 Zuix.prototype.loadComponent = function(elements, componentId, type, options) {
-  unload(elements);
-  /**
-   * @param {ZxQuery} container
-   */
-  const load = function(container) {
-    container.attr(_optionAttributes.dataUiLoad, componentId);
-    if (type) {
-      container.attr(type, '');
-    }
-    _componentizer.loadInline(container, options);
-  };
-  if (elements.each) {
-    elements.each(function(i, el, $el) {
-      load($el);
-    });
-  } else {
-    load(elements);
-  }
+  loadComponent(elements, componentId, type, options);
   return this;
 };
 /**
@@ -6607,8 +6765,8 @@ Zuix.prototype.controller = function(handler) {
   return controller.call(this, handler);
 };
 /**
- * Gets a `ComponentContext` object, given its `contextId` or its container/view element.
- * The `contextId` is the one specified in the `ContextOptions` object or by using the `z-context` attribute.
+ * Gets a `ComponentContext` object, given its `contextId` or its host element.
+ * The `contextId` is the one specified in the `ContextOptions` object or by using the `z-context` attribute on the host element.
  *
  * @example
 ```html
@@ -6624,9 +6782,9 @@ zuix.context('my-slide-show', function(ctx) {
 });
 ```
  *
- * @param {Element|ZxQuery|object} contextId The *contextId* object (usually a string) or the container/view element of the component
- * @param {function} [callback] The callback function that will be called once the component is loaded. The *ComponentContext* object will be passed as argument of this callback
- * @return {ComponentContext} The matching component context or `null` if the component does not exist, or it is not loaded yet.
+ * @param {Element|ZxQuery|object} contextId The `contextId` or the component's host element.
+ * @param {ContextReadyCallback} [callback] The callback function that will pass the component's context object once loaded and ready.
+ * @return {ComponentContext} The matching component's context or `null` if the context does not exist or not yet loaded.
  */
 Zuix.prototype.context = function(contextId, callback) {
   return context.call(this, contextId, callback);
@@ -7113,19 +7271,24 @@ Zuix.prototype.parseAttributeArgs = function(attributeName, $el, $view, contextD
 Zuix.prototype.utils = util;
 
 /**
- * @param root
  * @return {Zuix}
  */
-module.exports = function(root) {
+module.exports = function() {
   const zuix = new Zuix();
-  const globalStyle = '[z-view]{display:none;}[type="jscript"],[media*="#"]{display:none;}[z-include][z-ready=true].visible-on-ready,[z-load][z-ready=true].visible-on-ready{opacity:1;transition:opacity 150ms ease-in-out}[z-include]:not([z-ready=true]).visible-on-ready,[z-load]:not([z-ready=true]).visible-on-ready{opacity:0;visibility:hidden}';
-  zuix.$.appendCss(globalStyle, null, 'zuix-global');
-  if (document.readyState != 'loading') {
-    zuix.componentize();
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
+  if (window && document) {
+    const globalStyle = '[z-view]{display:none;}[type="jscript"],[media*="#"]{display:none;}[z-include][z-ready=true].visible-on-ready,[z-load][z-ready=true].visible-on-ready{opacity:1}[z-include]:not([z-ready=true]).visible-on-ready,[z-load]:not([z-ready=true]).visible-on-ready{opacity:0;visibility:hidden}';
+    zuix.$.appendCss(globalStyle, null, 'zuix-global');
+    const refreshCallback = function() {
       zuix.componentize();
-    });
+    };
+    window.ControllerInstance = ControllerInstance;
+//    window.addEventListener('DOMContentLoaded', refreshCallback);
+    window.addEventListener('load', refreshCallback);
+    window.addEventListener('resize', refreshCallback);
+    window.addEventListener('pageshow', refreshCallback);
+    if (document.readyState !== 'loading') {
+      refreshCallback();
+    }
   }
   // log messages monitor (one global listener)
   _log.monitor(function(level, args) {
@@ -7159,7 +7322,7 @@ module.exports = function(root) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;

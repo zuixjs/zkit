@@ -44,8 +44,6 @@ will center the active element in the view.
 
 ## Option attributes
 
-// TODO: ...
-
 - `ctrl z-load="@lib/controllers/view-pager"` <small>constructor</small>  
   load the <code>view-pager</code> controller on the element.
 - `z-context` <small>optional</small>  
@@ -91,11 +89,7 @@ called once the component has been loaded, passing a reference to it as argument
 
 <script>
 let viewPager;
-zuix.context('my-view-pager', function(ctx) {
-
-  viewPager = ctx; // also `this` === ctx 
-
-});
+zuix.context('my-view-pager', (vp) => viewPager = vp);
 </script>
 ```
 
@@ -111,7 +105,7 @@ Alternatively the `ready` callback function can be passed with the `z-options` a
 <script>
 let viewPager;
 vp_options = {
-  ready: (ctx) => viewPager = ctx
+  ready: (vp) => viewPager = vp
 }
 </script>
 ```

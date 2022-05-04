@@ -33,7 +33,6 @@ Detect tap and swipe gestures over elements.
         <div #gesture-shift></div>
         <div #gesture layout="row center-center animate__animated">Try me!</div>
     </div>
-
 </div>
 <script>
 gesture_opts = {
