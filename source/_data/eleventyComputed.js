@@ -1,8 +1,7 @@
 module.exports = {
   eleventyComputed: {
     _data: (data) => {
-      let d = JSON.stringify(data);
-      d = JSON.parse(d);
+      const d = Object.assign({}, data);
       delete d.collections;
       delete d.eleventyComputed;
       delete d.pkg;

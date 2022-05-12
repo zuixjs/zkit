@@ -18,10 +18,6 @@
     <lastmod>2022-04-06</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/search/</loc>
-    <lastmod>2022-04-20</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/components/menu-overlay/</loc>
     <lastmod>2022-05-03</lastmod>
   </url>
@@ -46,11 +42,15 @@
     <lastmod>2022-05-03</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/home/</loc>
-    <lastmod>2022-05-04</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/</loc>
     <lastmod>2022-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/home/</loc>
+    <lastmod>2022-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/search/</loc>
+    <lastmod>2022-05-12</lastmod>
   </url>
 </urlset>

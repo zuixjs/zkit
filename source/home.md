@@ -1,6 +1,6 @@
 ---
 layout: side_drawer.liquid
-options: mdl highlight no-title no-pagenav
+options: mdl highlight no-title no-pagenav sponsor
 theme: green-pink
 order: 0
 icon: home
