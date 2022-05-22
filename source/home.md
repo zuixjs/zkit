@@ -29,7 +29,7 @@ keywords:
     </div>
     <small class="animate__animated animate__fadeIn animate__slower">web enhancing bits</small>
     <code class="animate__animated animate__fadeInUp animate__slower" style="margin-top: 12px; padding: 0">
-        made with <a href="https://zuixjs.org">zUIx.js</a>
+        made with <a href="https://zuixjs.org">zuix.js</a>
     </code>
 </div>
 ```

@@ -1,4 +1,4 @@
-// Type definitions for Fuse.js v6.5.3
+// Type definitions for Fuse.js v6.6.2
 // TypeScript v4.5.4
 
 export default Fuse
@@ -89,7 +89,7 @@ declare class Fuse<T> {
    * @returns An indexed list
    */
   static createIndex<U>(
-    keys: Array<Fuse.FuseOptionKey>,
+    keys: Array<Fuse.FuseOptionKey<U>>,
     list: ReadonlyArray<U>,
     options?: Fuse.FuseIndexOptions<U>
   ): Fuse.FuseIndex<U>
@@ -110,7 +110,7 @@ declare namespace Fuse {
     add(doc: T): void
     toJSON(): {
       keys: ReadonlyArray<string>
-      collection: FuseIndexRecords
+      records: FuseIndexRecords
     }
   }
 
@@ -234,28 +234,46 @@ declare namespace Fuse {
   //   name: 'title',
   //   weight: 0.7
   // }
-  export type FuseOptionKeyObject = {
+  export type FuseOptionKeyObject<T> = {
     name: string | string[]
-    weight: number
+    weight?: number
+    getFn?: (obj: T) => ReadonlyArray<string> | string
   }
 
-  export type FuseOptionKey = FuseOptionKeyObject | string | string[]
+  export type FuseOptionKey<T> = FuseOptionKeyObject<T> | string | string[]
 
   export interface IFuseOptions<T> {
+    /** Indicates whether comparisons should be case sensitive. */
     isCaseSensitive?: boolean
+    /** Determines how close the match must be to the fuzzy location (specified by `location`). An exact letter match which is `distance` characters away from the fuzzy location would score as a complete mismatch. A `distance` of `0` requires the match be at the exact `location` specified. A distance of `1000` would require a perfect match to be within `800` characters of the `location` to be found using a `threshold` of `0.8`. */
     distance?: number
+    /** When true, the matching function will continue to the end of a search pattern even if a perfect match has already been located in the string. */
     findAllMatches?: boolean
+    /** The function to use to retrieve an object's value at the provided path. The default will also search nested paths. */
     getFn?: FuseGetFunction<T>
+    /** When `true`, search will ignore `location` and `distance`, so it won't matter where in the string the pattern appears. */
     ignoreLocation?: boolean
+    /** When `true`, the calculation for the relevance score (used for sorting) will ignore the `field-length norm`. */
     ignoreFieldNorm?: boolean
+    /** Determines how much the `field-length norm` affects scoring. A value of `0` is equivalent to ignoring the field-length norm. A value of `0.5` will greatly reduce the effect of field-length norm, while a value of `2.0` will greatly increase it. */
+    fieldNormWeight?: number
+    /** Whether the matches should be included in the result set. When `true`, each record in the result set will include the indices of the matched characters. These can consequently be used for highlighting purposes. */
     includeMatches?: boolean
+    /** Whether the score should be included in the result set. A score of `0`indicates a perfect match, while a score of `1` indicates a complete mismatch. */
     includeScore?: boolean
-    keys?: Array<FuseOptionKey>
+    /** List of keys that will be searched. This supports nested paths, weighted search, searching in arrays of `strings` and `objects`. */
+    keys?: Array<FuseOptionKey<T>>
+    /** Determines approximately where in the text is the pattern expected to be found. */
     location?: number
+    /** Only the matches whose length exceeds this value will be returned. (For instance, if you want to ignore single character matches in the result, set it to `2`). */
     minMatchCharLength?: number
+    /** Whether to sort the result list, by score. */
     shouldSort?: boolean
+    /** The function to use to sort all the results. The default will sort by ascending relevance score, ascending index. */
     sortFn?: FuseSortFunction
+    /** At what point does the match algorithm give up. A threshold of `0.0` requires a perfect match (of both letters and location), a threshold of `1.0` would match anything. */
     threshold?: number
+    /** When `true`, it enables the use of unix-like search commands. See [example](/examples.html#extended-search). */
     useExtendedSearch?: boolean
   }
 
@@ -290,6 +308,6 @@ declare namespace Fuse {
       }
     | { $and?: Expression[] }
     | { $or?: Expression[] }
-   
-  export const config: Required<IFuseOptions<any>>;
+
+  export const config: Required<IFuseOptions<any>>
 }

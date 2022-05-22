@@ -37,17 +37,18 @@
     "animate.css": "^4.1.1",
     "fuse.js": "^6.6.2",
     "flex-layout-attribute": "^1.0.3",
-    "zuix-dist": "^1.1.0"
+    "zuix-dist": "^1.1.2"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.11",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11ty/eleventy-server-browsersync": "^1.0.2",
+    "capture-console": "^1.0.1",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
     "compression": "^1.7.4",
     "config": "^3.3.7",
-    "eslint": "^8.15.0",
+    "eslint": "^8.16.0",
     "eslint-config-google": "^0.14.0",
     "jsdom": "^19.0.0",
     "less": "^4.1.2",
@@ -56,6 +57,6 @@
     "nunjucks": "^3.2.3",
     "yaml": "^1.10.2",
     "yesno": "^0.3.1",
-    "zuix": "^0.4.0-beta.10"
+    "zuix": "^0.4.0-beta.11"
   }
 }

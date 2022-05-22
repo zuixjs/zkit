@@ -61,16 +61,16 @@
       "googleSiteId": "UA-116384214-1",
       "siteMapUrl": "https://zuixjs.github.io/zkit",
       "baseUrl": "/zkit/",
-      "resourcePath": "/zkit/app/",
+      "resourcePath": "{{app.baseUrl}}app/",
       "libraryPath": {
-        "@lib": "/zkit/lib/1.1/",
+        "@lib": "{{app.baseUrl}}lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
       "zuixjs.github.io": {
-        "resourcePath": "/zkit/app/",
+        "resourcePath": "{{app.baseUrl}}app/",
         "libraryPath": {
-          "@lib": "/zkit/lib/1.1/",
+          "@lib": "{{app.baseUrl}}lib/1.1/",
           "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
           "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
         }

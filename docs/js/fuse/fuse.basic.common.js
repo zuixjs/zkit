@@ -1,7 +1,7 @@
 /**
- * Fuse.js v6.5.3 - Lightweight fuzzy-search (http://fusejs.io)
+ * Fuse.js v6.6.2 - Lightweight fuzzy-search (http://fusejs.io)
  *
- * Copyright (c) 2021 Kiro Risk (http://kiro.me)
+ * Copyright (c) 2022 Kiro Risk (http://kiro.me)
  * All Rights Reserved. Apache Software License 2.0
  *
  * http://www.apache.org/licenses/LICENSE-2.0
@@ -230,6 +230,7 @@ function createKey(key) {
   var id = null;
   var src = null;
   var weight = 1;
+  var getFn = null;
 
   if (isString(key) || isArray(key)) {
     src = key;
@@ -253,13 +254,15 @@ function createKey(key) {
 
     path = createKeyPath(name);
     id = createKeyId(name);
+    getFn = key.getFn;
   }
 
   return {
     path: path,
     id: id,
     weight: weight,
-    src: src
+    src: src,
+    getFn: getFn
   };
 }
 function createKeyPath(key) {
@@ -519,8 +522,7 @@ var FuseIndex = /*#__PURE__*/function () {
       }; // Iterate over every key (i.e, path), and fetch the value at that key
 
       this.keys.forEach(function (key, keyIndex) {
-        // console.log(key)
-        var value = _this3.getFn(doc, key.path);
+        var value = key.getFn ? key.getFn(doc) : _this3.getFn(doc, key.path);
 
         if (!isDefined(value)) {
           return;
@@ -562,7 +564,7 @@ var FuseIndex = /*#__PURE__*/function () {
 
             record.$[keyIndex] = subRecords;
           })();
-        } else if (!isBlank(value)) {
+        } else if (isString(value) && !isBlank(value)) {
           var subRecord = {
             v: value,
             n: _this3.norm.get(value)
@@ -1451,7 +1453,7 @@ var Fuse$1 = /*#__PURE__*/function () {
   return Fuse;
 }();
 
-Fuse$1.version = '6.5.3';
+Fuse$1.version = '6.6.2';
 Fuse$1.createIndex = createIndex;
 Fuse$1.parseIndex = parseIndex;
 Fuse$1.config = Config;

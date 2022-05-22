@@ -62,9 +62,9 @@
       "googleSiteId": "UA-123-456",
       "siteMapUrl": "https://zuixjs.github.io/zkit",
       "baseUrl": "/",
-      "resourcePath": "/app/",
+      "resourcePath": "{{app.baseUrl}}app/",
       "libraryPath": {
-        "@lib": "../lib/1.1/",
+        "@lib": "{{app.baseUrl}}lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
