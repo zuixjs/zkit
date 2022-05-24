@@ -113,8 +113,8 @@ Source elements can be also components, not just images.
 
 ## Option attributes
 
-- `ctrl z-load="@lib/controllers/gesture-helper"` <small>constructor</small>  
-  load the `gesture-helper` controller on the element.
+- `ctrl z-load="@lib/controllers/transpose-fx"` <small>constructor</small>  
+  load the `transpose-fx` controller on the hosting element.
 - `z-context` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
 
