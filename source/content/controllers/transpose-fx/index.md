@@ -1,0 +1,153 @@
+---
+layout: side_drawer.liquid
+tags:
+- controllers
+- documentation
+group: controllers
+order: 6
+options: mdl highlight
+theme: indigo-pink
+icon: move_up
+title: Transpose Fx
+description: Transpose effect to transition a component between two views
+keywords:
+- Header
+- Hide
+- Auto
+- Scroll
+---
+
+The `transpose-fx` controller can be used to swap an element from a view to another one.
+For instance when an element in a list view is clicked and the detail view is shown.
+
+<div layout="row center-center">
+  <video controls autoplay loop width="100%" style="max-width: 560px">
+    <source src="transpose-fx-example.m4v" type="video/webm">
+  </video>
+</div> 
+
+{% include 'common/zkit-basic-usage.md' %}
+
+### 2. Load the `transpose-fx` controller
+
+Add the `ctrl z-load` attributes to the element hosting the target view, and, inside, add the class
+`transpose-fx-container` to the destination container into which the source element will be transposed:
+
+```html
+<div ctrl z-load="@lib/controllers/transpose-fx"
+     z-context="tfx" class="my-dialog-view">
+
+    <div class="transpose-fx-container">
+        <!-- the element will be transposed here -->
+    </div>
+
+    <!-- view contents ... -->
+
+</div>
+```
+
+Use the `z-context` attribute to assign an identifier to the transpose controller, so that it can be easily referenced
+in order to begin/end the transpose effect at any time. In the example above the identifier `tfx` is assigned using the
+`z-context` attribute.
+
+Set the initial `display` mode of the target view to `none`, the controller will take care of showing/hiding the
+view when requested.
+
+```css
+.my-dialog-view {
+    display: none;
+    /* ... */
+}
+```
+
+#### Optional step
+
+In order to improve the visual transition effect, the class `transpose-fx` can be added to those elements, inside the target
+view, that we want to fadeIn/fadeOut as the element gets transposed.  
+This way, the target view can have a transparent background, allowing the element to be clearly visible when attached to
+the target view, since the target view is not cross-fading, but only those elements with the `transpose-fx` class.
+An absolute positioned background with the `transpose-fx` class can be added in this case.  
+
+```html
+<div ctrl z-load="@lib/controllers/transpose-fx"
+     z-context="tfx" class="my-dialog-view">
+
+    <div class="background transpose-fx"></div>
+
+    <div class="transpose-fx-container">
+        <!-- the element will be transposed here -->
+    </div>
+
+    <!-- view contents ... -->
+
+</div>
+<style>
+  .background {
+    background: #205856fc;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+</style>
+```
+
+If no `transpose-fx` class is specified, the whole target view will cross-fade and also the transposed element.
+
+### 3. Transpose elements
+
+To transpose an element to the target view, call the `toggle` method of the transpose controller,
+passing to it a reference to the element to be transposed:
+
+```js
+<img src="my-image.png" onclick="zuix.context('tfx').toggle(this)">
+```
+
+Source elements can be also components, not just images.
+
+{% unpre %}
+```html
+{% include './_inc/example.liquid' %}
+```
+{% endunpre %}
+
+## Option attributes
+
+- `ctrl z-load="@lib/controllers/gesture-helper"` <small>constructor</small>  
+  load the `gesture-helper` controller on the element.
+- `z-context` <small>optional</small>  
+  identifier name to be used to access this component from JavaScript.
+
+
+## Scripting
+
+### Event listeners
+
+
+```js
+var transposeFx;
+// since the component loads asynchronously
+// a callback is required to ensure the component is ready
+zuix.context('tfx', (tfx) => {
+  // add event listeners
+  tfx.on({
+    'transpose:begin': function() { /* ... */ },
+    'transpose:end': function() { /* ... */ }
+  });
+  // store a global reference of
+  // the component for later use
+  transposeFx = tfx;
+});
+```
+
+
+### Methods
+
+```js
+// Transpose 'element' to the transposeFx container
+transposeFx.begin(element);
+// Transpose element back to its home position
+transposeFx.end();
+// toggle transposeFx on 'element'
+transposeFx.toggle(element);
+```

@@ -30,6 +30,6 @@
     "no-const-assign": 2
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 13
   }
 }

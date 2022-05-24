@@ -1,9 +1,9 @@
 ---
 layout: side_drawer.liquid
 tags:
-- __controllers
-- __documentation
-group: __controllers
+- --controllers
+- --documentation
+group: --controllers
 order: 5
 options: mdl highlight
 theme: indigo-pink

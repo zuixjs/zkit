@@ -4,7 +4,6 @@
       "input": "source",
       "output": "docs",
       "copy": [
-        "1.0",
         "css",
         "images",
         ".nojekyll",
@@ -18,6 +17,7 @@
         "content/**/*.webp",
         "content/**/*.gif",
         "content/**/*.svg",
+        "content/**/*.m4v",
         "content/**/*.json"
       ],
       "ignore": [

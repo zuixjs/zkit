@@ -20,7 +20,7 @@ keywords:
 
 {% include 'common/zkit-basic-usage.md' %}
 
-## 2. Load the scroll helper
+### 2. Load the scroll helper
 
 Add the `ctrl z-load` attributes to the host element implementing the scrollbar (usually the main `body` or a `div` element):
 
