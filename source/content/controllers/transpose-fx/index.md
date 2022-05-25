@@ -60,39 +60,6 @@ view when requested.
 }
 ```
 
-#### Optional step
-
-In order to improve the visual transition effect, the class `transpose-fx` can be added to those elements, inside the target
-view, that we want to fadeIn/fadeOut as the element gets transposed.  
-This way, the target view can have a transparent background, allowing the element to be clearly visible when attached to
-the target view, since the target view is not cross-fading, but only those elements with the `transpose-fx` class.
-An absolute positioned background with the `transpose-fx` class can be added in this case.  
-
-```html
-<div ctrl z-load="@lib/controllers/transpose-fx"
-     z-context="tfx" class="my-dialog-view">
-
-    <div class="background transpose-fx"></div>
-
-    <div class="transpose-fx-container">
-        <!-- the element will be transposed here -->
-    </div>
-
-    <!-- view contents ... -->
-
-</div>
-<style>
-  .background {
-    background: #205856fc;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-</style>
-```
-
-If no `transpose-fx` class is specified, the whole target view will cross-fade and also the transposed element.
 
 ### 3. Transpose elements
 

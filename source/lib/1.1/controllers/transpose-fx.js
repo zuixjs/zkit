@@ -1,6 +1,7 @@
 /**
  * zuix.js / zKit - Transpose Effect
  *
+ * @version 1.1.1 (2022-05-25)
  * @version 1.1.0 (2022-05-23)
  * @author Gene
  *
@@ -13,11 +14,11 @@ class TransposeFx extends ControllerInstance {
   newPosition;
   placeHolder;
   elementSize;
-  fadingElements;
 
   onCreate() {
     this.placeHolder = zuix.$(document.createElement('div'))
         .css({background: 'rgba(0,0,0,5%)'});
+    this.targetView = this.view('.transpose-fx-container');
     // set component's public methods
     this.expose({
       begin: (el) => this.#begin(el),
@@ -26,18 +27,32 @@ class TransposeFx extends ControllerInstance {
       active: () => this.isOpen
     });
     this.#setupTransitions();
-    this.view().display('none');
+    const backgroundDiv = zuix.$(document.createElement('div'))
+        .css({
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          zIndex: -1
+        });
+    this.#copyBackground(backgroundDiv);
+    this.view()
+        .insert(0, backgroundDiv)
+        .display('none')
+        .find(':not(.transpose-fx-container)')
+        .each((i, el, $el) => {
+          $el.addClass('transpose-fx');
+        });
+    let parent = this.targetView.parent();
+    while (parent.length() > 0 && parent.get() !== this.view().get()) {
+      parent.removeClass('transpose-fx');
+      parent = parent.parent();
+    }
   }
 
   #begin(element) {
     if (this.isOpen) return;
     this.isOpen = true;
     this.element = element;
-    this.targetView = this.view('.transpose-fx-container');
-    this.fadingElements = this.view('.transpose-fx');
-    if (this.fadingElements.length() === 0) {
-      this.fadingElements = this.view();
-    }
     this.oldPosition = element.position();
     const parent = element.parent();
     // give placeHolder same size as element
@@ -59,7 +74,7 @@ class TransposeFx extends ControllerInstance {
     this.targetView.insert(0, element.get());
     // show the host view with a fade-in effect
     this.view().display('block');
-    this.fadingElements
+    this.view('.transpose-fx')
         .playTransition('fadeOut fadeIn');
     // animate the element with a translate-transform from old location to the new location
     this.newPosition = element.position();
@@ -105,7 +120,7 @@ class TransposeFx extends ControllerInstance {
           .css({transform: 'translate(0,0)', zIndex: null});
       this.placeHolder.detach();
     }});
-    this.fadingElements
+    this.view('.transpose-fx')
         .playTransition({classes: 'fadeIn fadeOut', onEnd: () => {
           this.isOpen = false;
           this.view().hide();
@@ -154,6 +169,22 @@ class TransposeFx extends ControllerInstance {
         // TODO: the following line can be removed as soon as
         //       zuix.js gets fixed (next coming release 1.1.4)
         .attr(this.context.getCssId(), '');
+  }
+
+  #copyBackground(backgroundDiv) {
+    const props = [
+      'background-attachment', 'background-clip',
+      'background-color', 'background-image',
+      'background-origin', 'background-position',
+      'background-repeat', 'background-size',
+      'box-shadow', 'border-radius', 'border', 'backdrop-filter'
+    ];
+    const view = this.view();
+    const style = view.get().currentStyle || window.getComputedStyle(view.get());
+    props.map((p) => {
+      backgroundDiv.css(p, style[p]);
+      view.css(p, 'unset');
+    });
   }
 }
 
