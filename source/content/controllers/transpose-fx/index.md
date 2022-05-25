@@ -70,7 +70,9 @@ passing to it a reference to the element to be transposed:
 <img src="my-image.png" onclick="zuix.context('tfx').toggle(this)">
 ```
 
-Source elements can be also components, not just images.
+Source elements can be also components, not just images, like in the following example.
+
+Click elements to pop up the detail view:
 
 {% unpre %}
 ```html
