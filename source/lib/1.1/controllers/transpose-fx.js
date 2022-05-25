@@ -173,11 +173,7 @@ class TransposeFx extends ControllerInstance {
 
   #copyBackground(backgroundDiv) {
     const props = [
-      'background-attachment', 'background-clip',
-      'background-color', 'background-image',
-      'background-origin', 'background-position',
-      'background-repeat', 'background-size',
-      'box-shadow', 'border-radius', 'border', 'backdrop-filter'
+      'background', 'box-shadow', 'border-radius', 'border', 'backdrop-filter'
     ];
     const view = this.view();
     const style = view.get().currentStyle || window.getComputedStyle(view.get());
