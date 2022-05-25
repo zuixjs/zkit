@@ -5,7 +5,7 @@ tags:
 - documentation
 group: components
 order: 1
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: menu
 title: Context Menu

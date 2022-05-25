@@ -5,7 +5,7 @@ tags:
 - documentation
 group: controllers
 order: 6
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: move_up
 title: Transpose Fx

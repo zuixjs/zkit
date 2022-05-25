@@ -5,7 +5,7 @@ tags:
 - documentation
 group: components
 order: 3
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: perm_media
 title: Media Browser

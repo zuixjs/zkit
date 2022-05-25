@@ -5,7 +5,7 @@ tags:
 - --documentation
 group: --controllers
 order: 5
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: table_chart
 title: Auto hiding header

@@ -5,7 +5,7 @@ tags:
 - documentation
 group: controllers
 order: 4
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: view_carousel
 title: View Pager

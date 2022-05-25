@@ -5,7 +5,7 @@ tags:
 - documentation
 group: controllers
 order: 2
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: swipe
 title: Gesture Helper

@@ -5,7 +5,7 @@ tags:
 - documentation
 group: controllers
 order: 3
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: swap_vert
 title: Scroll Helper

@@ -165,10 +165,7 @@ class TransposeFx extends ControllerInstance {
       opacity: '0'
     }, commonOptions);
     this.context.$
-        .css({zIndex: 1000})
-        // TODO: the following line can be removed as soon as
-        //       zuix.js gets fixed (next coming release 1.1.4)
-        .attr(this.context.getCssId(), '');
+        .css({zIndex: 1000});
   }
 
   #copyBackground(backgroundDiv) {

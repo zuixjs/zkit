@@ -5,7 +5,7 @@ tags:
 - documentation
 group: controllers
 order: 1
-options: mdl highlight
+options: mdl highlight sponsor
 theme: indigo-pink
 icon: space_dashboard
 title: Drawer Layout

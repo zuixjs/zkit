@@ -5,7 +5,7 @@ tags:
 - documentation
 group: components
 order: 2
-options: mdl highlight
+options: mdl highlight sponsor
 theme: blue-pink
 icon: menu_open
 title: Menu Overlay
