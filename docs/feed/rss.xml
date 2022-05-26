@@ -7,8 +7,8 @@
     <description></description>
     <language></language>
     <copyright></copyright>
-    <lastBuildDate>Wed, 25 May 2022 23:01:40 +0200</lastBuildDate>
-    <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+    <lastBuildDate>Thu, 26 May 2022 20:20:28 +0200</lastBuildDate>
+    <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
     <image>
         <title>&lt;code&gt;zKit&lt;/code&gt; components</title>
         <url>https://zuixjs.github.io/zkit/images/icons/icon-152x152.png</url>
@@ -19,7 +19,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/</guid>
         <description>zKit Controllers</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -28,7 +28,7 @@
         <link>https://zuixjs.github.io/zkit/content/components/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/</guid>
         <description>zKit Components</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/components/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -37,7 +37,7 @@
         <link>https://zuixjs.github.io/zkit/search/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/search/</guid>
         <description>Search this website</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/search/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -46,7 +46,7 @@
         <link>https://zuixjs.github.io/zkit/home/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/home/</guid>
         <description>zKit, a collection of framework-agnostic components for the web</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/home/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -55,7 +55,7 @@
         <link>https://zuixjs.github.io/zkit/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/</guid>
         <description>A collection of example web components made with love and zuix.js! =)</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -64,7 +64,7 @@
         <link>https://zuixjs.github.io/zkit/content/components/menu-overlay/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/menu-overlay/</guid>
         <description>A classic floating action button activated menu for page-contextual operations.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/components/menu-overlay/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -73,7 +73,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</guid>
         <description>An adaptive drawer layout for both mobile and desktop displays, gestures enabled.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/drawer-layout/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -82,7 +82,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</guid>
         <description>Automatically hides/reveals header on scroll.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -91,7 +91,7 @@
         <link>https://zuixjs.github.io/zkit/content/components/media-browser/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/media-browser/</guid>
         <description>A gestures enabled media browser supporting image, videos and text.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/components/media-browser/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -100,7 +100,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</guid>
         <description>Helper class for detecting common touch gestures.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/gesture-helper/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -109,7 +109,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</guid>
         <description>Scroll helper to improve page scrolling handling, watching elements and get notified when they scroll into view.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/scroll-helper/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -118,7 +118,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/view-pager/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/view-pager/</guid>
         <description>View Pager component for implementing carousel, gallery, tab-views. Gesture enabled, for desktop and mobile.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/view-pager/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -127,7 +127,7 @@
         <link>https://zuixjs.github.io/zkit/content/components/context-menu/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/context-menu/</guid>
         <description>A bottom popping context menu, like the one commonly used on mobile devices.</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/components/context-menu/" rel="self" />
         <dc:creator></dc:creator>
     </item>
@@ -136,7 +136,7 @@
         <link>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</guid>
         <description>Transpose effect to transition a component between two views</description>
-        <pubDate>Wed, 25 May 2022 23:01:40 +0200</pubDate>
+        <pubDate>Thu, 26 May 2022 20:20:28 +0200</pubDate>
         <atom:link href="https://zuixjs.github.io/zkit/content/controllers/transpose-fx/" rel="self" />
         <dc:creator></dc:creator>
     </item>
