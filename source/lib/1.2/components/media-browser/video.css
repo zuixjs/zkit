@@ -1,0 +1,22 @@
+[z-field="overlay"] {
+    background: rgba(255,255,255,0);
+    left: 0; right: 0;
+    bottom: 56px; top: 0;
+    position: absolute;
+}
+[z-field="player-controls"] {
+    background-color: rgba(255,255,255,0);
+    padding: 12px;
+}
+[z-field*="nav-"] {
+    width: 48px;
+}
+[z-field="preview"], [z-field="url"] {
+    display: none;
+}
+
+@media only screen and (max-width: 820px) {
+    [z-field="player-controls"] {
+        padding: 6px;
+    }
+}

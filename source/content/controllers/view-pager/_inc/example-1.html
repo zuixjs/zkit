@@ -1,8 +1,8 @@
 <div>
     <label>Horizontal layout</label>
-    <div ctrl z-load="@lib/controllers/view-pager"
-         data-o-paging="true"
-         data-o-slide="true"
+    <view-pager
+         :paging="true"
+         :auto-slide="true"
          class="mdl-shadow--8dp visible-on-ready"
          style="width:300px; height: 300px;">
 
@@ -34,5 +34,5 @@
         <img src="https://picsum.photos/seed/docs-10/300/300" loading="lazy">
         <img src="https://picsum.photos/seed/docs-11/300/300" loading="lazy">
 
-    </div>
+    </view-pager>
 </div>

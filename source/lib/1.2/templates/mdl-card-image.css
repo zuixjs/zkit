@@ -1,0 +1,37 @@
+:host {
+    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.mdl-card {
+    width: 256px;
+    height: 256px;                 /* 259 306 317 342 392 292 */
+    background: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+    background-repeat: no-repeat!important;
+    background-position: center!important;
+}
+.mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    border-top: solid 1px rgba(255,255,255, 0.4);
+    background: rgba(0, 0, 0, 0.5);
+}
+.title {
+    color: #fff;
+    font-size: 110%;
+    font-weight: 500;
+}
+.mdl-ripple {
+    background: #fff;
+}
+.mdl-card__title {
+    align-items: start;
+}
+.mdl-card__title span {
+    width: 100%;
+    font-size: 95%;
+    padding-left: 3px;
+    padding-right: 3px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 3px;
+}

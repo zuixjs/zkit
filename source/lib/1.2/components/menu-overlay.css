@@ -1,0 +1,100 @@
+button, .button {
+    background: transparent;
+    outline: transparent;
+    border: none;
+    color: inherit;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-right: 0;
+    margin-left: 0;
+    height: 42px;
+}
+.item-title {
+    font-size: 150%;
+    padding: 16px;
+    opacity: 0.7;
+}
+.menu-button {
+    z-index: 100; /* topmost */
+    position: fixed;
+    right: calc(50% - 28px);
+    left: calc(50% - 28px);
+    bottom: 24px;
+}
+.menu-button.left {
+    left: 24px;
+    right: unset!important;
+}
+.menu-button.right {
+    right: 24px;
+    left: unset!important;
+}
+div[z-field="menu_overlay"] {
+    z-index: 100; /* topmost */
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: radial-gradient(circle at bottom, white, #ffffffee, #ffffff88, transparent);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+}
+div[z-field="menu_overlay"].left {
+    background: linear-gradient(230deg, transparent, #ffffff88, #ffffffee, white);
+}
+div[z-field="menu_overlay"].right {
+    background: linear-gradient(130deg, transparent, #ffffff88, #ffffffee, white);
+}
+div[z-field="items_wrapper"] {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 24px;
+}
+div[z-field="items_wrapper"].left {
+    padding-left: 24px;
+    text-align: left;
+}
+div[z-field="items_wrapper"].right {
+    padding-right: 24px;
+    text-align: right;
+}
+
+.circle-button {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    background: deeppink;
+    fill: white;
+    color: white;
+    box-shadow: 0 0 10px rgb(0 0 0 / 25%), 0 0 4px rgb(0 0 0 / 25%);
+    font-size: 0;
+    transition: all 0.1s cubic-bezier(.25,.8,.25,1);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+.circle-button:active {
+    transform: scale(97%);
+    transition: 0s;
+}
+
+@media screen and (max-width: 960px), screen and (max-height: 480px) {
+    .menu-button {
+        bottom: 24px;
+    }
+    div[z-field="menu_overlay"] {
+        padding-bottom: 72px;
+    }
+}

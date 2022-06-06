@@ -1,0 +1,70 @@
+<script type="module">
+  import "{{ app.zkit.libraryPath }}components/menu-overlay.module.js";
+</script>
+<!-- HTML includes must be "div"-wrapped to prevent markdown engine to process this code block -->
+<div>
+    <menu-overlay z-lazy="false" class="visible-on-ready">
+        <div #items>
+            <div class="mo-title-mdl mdl-color-text--accent">Example Menu</div>
+            <a class="mo-item-mdl" href="#noop" title="Settings">
+                <span>Settings</span>
+                <span class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">settings</i>
+            </span>
+            </a>
+            <a class="mo-item-mdl" href="#noop" title="Share">
+                <span>Share</span>
+                <span class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">share</i>
+            </span>
+            </a>
+            <a class="mo-item-mdl" href="#noop" title="Add to favorite">
+                <span>Add to favorite</span>
+                <span class="mdl-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                <i class="material-icons">favorite</i>
+            </span>
+            </a>
+        </div>
+        <div #menu_button>
+            <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton" href="javascript:;">
+                <i class="material-icons">message</i>
+            </a>
+        </div>
+        <div #menu_button_close>
+            <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton" href="javascript:;">
+                <i class="material-icons">close</i>
+            </a>
+        </div>
+    </menu-overlay>
+</div>
+<style>
+    .menu-item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .mo-title-mdl {
+        font-size: 80%;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 4px;
+        margin-right: 8px;
+    }
+
+    .mo-item-mdl span:first-child {
+        padding: 8px 8px;
+        margin-right: 4px;
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 6px;
+        font-size: 80%;
+        font-weight: 600;
+        color: white;
+    }
+
+    .mo-item-mdl span {
+        margin-right: 8px;
+    }
+</style>
+<script>
+  toggleButton = {type: 'fab', class: 'accent', lazyLoad: false};
+</script>

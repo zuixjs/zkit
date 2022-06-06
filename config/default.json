@@ -60,21 +60,25 @@
       "title": "<code>zKit</code> components",
       "subtitle": "web enhancing bits",
       "googleSiteId": "UA-123-456",
-      "siteMapUrl": "https://zuixjs.github.io/zkit",
+      "siteMapUrl": "",
       "baseUrl": "/",
       "resourcePath": "{{app.baseUrl}}app/",
       "libraryPath": {
-        "@lib": "{{app.baseUrl}}lib/1.1/",
+        "@lib": "{{app.baseUrl}}lib/1.2/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
       "zuixjs.github.io": {
         "resourcePath": "/zkit/app",
         "libraryPath": {
-          "@lib": "/zkit/lib/1.1/",
+          "@lib": "/zkit/lib/1.2/",
           "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
           "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
         }
+      },
+      "zkit": {
+        "libraryPath": "/lib/1.2/",
+        "zuixVersion": "1.1.6"
       }
     }
   }

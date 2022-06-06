@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 4
+order: 2
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: view_carousel
@@ -22,20 +22,67 @@ keywords:
 
 A versatile ViewPager controller, featuring both horizontal and vertical layout, gestures and automatic sliding.
 
-{% include 'common/zkit-basic-usage.md' %}
+## Usage
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar" layout="row top-left">
+      <a href="#module" class="mdl-tabs__tab is-active">Method #1</a>
+      <a href="#script" class="mdl-tabs__tab">Method #2</a>
+  </div>
+  <div class="mdl-tabs__panel is-active" id="module">
+
+
+### 1. Import `view-pager` component module
+
+```html
+<script type="module">
+  import "{{ app.zkit.libraryPath }}controllers/view-pager.module.js";
+</script>
+```
+
+### 2. Add component to the page
+
+```html
+<view-pager z-context="my-view-pager">
+
+  <!-- Content pages of this ViewPager -->
+
+  <div>Page 1</div>
+
+  <div>Page 2</div>
+
+  <div>Page 3</div>
+
+</view-pager>
+```
+
+  </div>
+  <div class="mdl-tabs__panel" id="script">
+
+{% include 'common/zkit-basic-usage.liquid' %}
 
 ### 2. Load the scroll helper
 
 Add the `ctrl z-load` attributes to the host element implementing the scrollbar (usually the main `body` or a `div` element):
 
 ```html
-<div ctrl z-load="@lib/controllers/view-pager">
+<div ctrl z-load="{{ app.zkit.libraryPath }}controllers/view-pager"
+     z-context="my-view-pager">
+
     <!-- Content pages of this ViewPager -->
+
     <div>Page 1</div>
+
     <div>Page 2</div>
+
     <div>Page 3</div>
+
 </div>
 ```
+
+  </div>
+</div>
+
 
 The ViewPager will re-arrange all elements stacked horizontally or vertically accordingly to the chosen layout mode.  
 Elements do not necessarily require to be sized full screen, they can have different sizes, in which case the ViewPager
@@ -44,89 +91,55 @@ will center the active element in the view.
 
 ## Option attributes
 
-- `ctrl z-load="@lib/controllers/view-pager"` <small>constructor</small>  
-  load the <code>view-pager</code> controller on the element.
-- `z-context` <small>optional</small>  
-  identifier name to be used to reference this component from JavaScript.
-- `z-options` <small>optional</small>  
-  name of a global variable defining options to use for this component. See next page for details.
-- `data-o-layout` <small>optional</small>  
-  layout of elements can be `horizontal` or `vertical`. The default value is `horizontal`.
-- `data-o-paging` <small>optional</small>  
+- `z-context="<context_id>"` <small>optional</small>  
+  identifier name to be used to access this component from JavaScript.
+- `:on:<event_name>="<handler>"` <small>optional</small>  
+  set handler function for event `<event_name>`
+- `:vertical-layout` <small>optional</small>  
+  layouts elements vertically. The default value is `false`.
+- `:paging` <small>optional</small>  
   after scrolling, automatically select and focus the closest element centering it in the view. The default value is `false`.
-- `data-o-slide` <small>optional</small>  
+- `:auto-slide` <small>optional</small>  
   slide-show mode (cycle elements). The default value is `false`.
-- `data-o-slide-interval` <small>optional</small>  
+- `:slide-interval` <small>optional</small>  
   interval between each slide (milliseconds). The default value is `750`.
-- `data-o-passive` <small>optional</small>  
+- `:passive` <small>optional</small>  
   use <a href="https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md" target="_blank" rel="noopener">passive mode</a>
   for best performance or disable passive mode to prevent default scrolling. The default value is <code>true</code>.
-- `data-o-hold`  <small>optional</small>
+- `:hold-touch`  <small>optional</small>
   prevent touch events from being propagated to other elements off the view. The default value is `false`.
-- `data-o-hide`  <small>optional experimental</small>  
+- `:auto-hide`  <small>optional experimental</small>  
   set page visibility to `hidden` when off view. The default value is `false`.
+- `:start-gap` <small>optional</small>
+
+
+### Events
+
+- `page:change` - occurs when the page is changed  
+  The second argument of the callback is an object containing the fields `in` (the new page number) and `out` (the old page number):  
+  `{in: <current_page>, out: <old_page>}`
+- `page:tap` - occurs when a page is tapped  
+  The second argument of the callback is the tapped page number.
 
 
 ## Scripting
 
-### ViewPager object
-
-A reference to a ViewPager instance can be obtained through its context identifier which is assigned by adding the `z-context`
-attribute to the ViewPager element and finally by using the `zuix.context(...)` method.
-
-Since components are loaded asynchronously the `zuix.context` method might return `null` if called before the component
-is actually ready.  
-So, when not sure if the component is ready, a `callback` function can be passed as the `zuix.context` argument and it will be
-called once the component has been loaded, passing a reference to it as argument of the callback function.
-
-```html
-<div z-context="my-view-pager" ctrl
-     z-load="@lib/controllers/view-pager">
-
-  <!-- view pager content -->
-
-</div>
-
-<script>
-let viewPager;
-zuix.context('my-view-pager', (vp) => viewPager = vp);
-</script>
-```
-
-Alternatively the `ready` callback function can be passed with the `z-options` attribute:
-
-```html
-<div ctrl z-load="@lib/controllers/view-pager"
-     z-options="vp_options">
-
-  <!-- ... -->
-
-</div>
-<script>
-let viewPager;
-vp_options = {
-  ready: (vp) => viewPager = vp
-}
-</script>
-```
-
-Other `z-options` fields:
+Get a reference to the component instance:
 
 ```js
-vp_options = {
-  autoSlide: true,      // default `false`
-  enablePaging: true,   // default `false`
-  slideInterval: 500,   // default `750`
-  verticalLayout: true, // default `false`
-  holdTouch: true,      // default `false`
-  passive: false,       // default `true`
-  autoHide: true,       // default `false`
-  startGap: 36          // default '0` (ignore touch on the left side to allow swipe gesture to open side drawer)
-}
+zuix.context('my-view-pager', (vp) => {
+  // store a global reference for later use
+  self.viewPager = vp;
+});
 ```
 
 
 ## Examples
+
+<script type="module">
+  import "{{ app.zkit.libraryPath }}controllers/view-pager.module.js";
+</script>
+
 
 {% layout "rows center-spread" 'style="margin-bottom: 56px"' %}
 

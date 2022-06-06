@@ -20,13 +20,65 @@ keywords:
 The `transpose-fx` controller can be used to swap an element from a view to another one.
 For instance when an element in a list view is clicked and the detail view is shown.
 
+
+**Demo:** Tap elements to pop up the details view:
+
+{% unpre %}
+```html
+{% include './_inc/example.liquid' %}
+```
+{% endunpre %}
+
+
+<!--
 <div layout="row center-center">
   <video controls autoplay loop width="100%" style="max-width: 560px">
     <source src="transpose-fx-example.m4v" type="video/webm">
   </video>
 </div> 
+-->
 
-{% include 'common/zkit-basic-usage.md' %}
+## Usage
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar" layout="row top-left">
+      <a href="#module" class="mdl-tabs__tab is-active">Method #1</a>
+      <a href="#script" class="mdl-tabs__tab">Method #2</a>
+  </div>
+  <div class="mdl-tabs__panel is-active" id="module">
+
+### 1. Import `transpose-fx` component module
+
+```html
+<script type="module">
+  import "{{ app.zkit.libraryPath }}controllers/transpose-fx.module.js";
+</script>
+```
+
+### 2. Add component
+
+Add the component inside the details view/dialog/popup element:
+
+```html
+<div z-context="transpose-fx">
+    <transpose-fx></transpose-fx>
+
+    <!-- gesture detection area -->
+
+    <div class="transpose-fx-container">
+      <!-- the element will be transposed here -->
+    </div>
+
+    <!-- view contents ... -->
+
+</div>
+```
+
+  </div>
+  <div class="mdl-tabs__panel" id="script">
+
+
+{% include 'common/zkit-basic-usage.liquid' %}
 
 ### 2. Load the `transpose-fx` controller
 
@@ -34,7 +86,7 @@ Add the `ctrl z-load` attributes to the element hosting the target view, and, in
 `transpose-fx-container` to the destination container into which the source element will be transposed:
 
 ```html
-<div ctrl z-load="@lib/controllers/transpose-fx"
+<div ctrl z-load="{{ app.zkit.libraryPath }}controllers/transpose-fx"
      z-context="tfx" class="my-dialog-view">
 
     <div class="transpose-fx-container">
@@ -45,6 +97,10 @@ Add the `ctrl z-load` attributes to the element hosting the target view, and, in
 
 </div>
 ```
+
+  </div>
+</div>
+
 
 Use the `z-context` attribute to assign an identifier to the transpose controller, so that it can be easily referenced
 in order to begin/end the transpose effect at any time. In the example above the identifier `tfx` is assigned using the
@@ -70,45 +126,33 @@ passing to it a reference to the element to be transposed:
 <img src="my-image.png" onclick="zuix.context('tfx').toggle(this)">
 ```
 
-Source elements can be also components, not just images, like in the following example.
+Source elements can be also components, not just image.
 
-Click elements to pop up the detail view:
-
-{% unpre %}
-```html
-{% include './_inc/example.liquid' %}
-```
-{% endunpre %}
 
 ## Option attributes
 
-- `ctrl z-load="@lib/controllers/transpose-fx"` <small>constructor</small>  
-  load the `transpose-fx` controller on the hosting element.
-- `z-context` <small>optional</small>  
+- `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
+- `:on:<event_name>="<handler>"` <small>optional</small>  
+  set handler function for event `<event_name>`
+
+
+# Events
+
+- `transpose:begin`
+- `transpose:end`
 
 
 ## Scripting
 
-### Event listeners
-
+Get a reference to the component instance:
 
 ```js
-var transposeFx;
-// since the component loads asynchronously
-// a callback is required to ensure the component is ready
 zuix.context('tfx', (tfx) => {
-  // add event listeners
-  tfx.on({
-    'transpose:begin': function() { /* ... */ },
-    'transpose:end': function() { /* ... */ }
-  });
-  // store a global reference of
-  // the component for later use
-  transposeFx = tfx;
+  // store a global reference for later use
+  self.transposeFx = tfx;
 });
 ```
-
 
 ### Methods
 

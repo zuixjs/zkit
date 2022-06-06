@@ -1,7 +1,8 @@
 <div z-load="@lib/components/context-menu" z-lazy="false"
-     z-context="my-menu">
+     z-context="my-menu"
+     :lazy-Load="false">
     <div #menu>
-        <button layout="row center-left">
+        <button layout="row center-left" #test>
             <i class="material-icons">bookmark_border</i>
             <span>Save for later</span>
         </button>
@@ -28,9 +29,9 @@
     </div>
 </div>
 <script>
-zuix.context('my-menu', (ctx) => {
-  // re-attach as direct body child
-  const menu = ctx.$.detach().get();
-  document.body.appendChild(menu);
-});
+  zuix.context('my-menu', (ctx) => {
+    // re-attach as direct body child
+    const menu = ctx.$.detach().get();
+    document.body.appendChild(menu);
+  });
 </script>

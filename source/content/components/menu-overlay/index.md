@@ -24,14 +24,51 @@ usage. No JavaScript coding is required for a basic use.
 
 This component is framework-agnostic, so it can be used with any UI framework or even with just plain `HTML/CSS`.
 
-{% include 'common/zkit-basic-usage.md' %}
+## Usage
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar" layout="row top-left">
+      <a href="#module" class="mdl-tabs__tab is-active">Method #1</a>
+      <a href="#script" class="mdl-tabs__tab">Method #2</a>
+  </div>
+  <div class="mdl-tabs__panel is-active" id="module">
+
+### 1. Import `menu-overlay` component module
+
+```html
+<script type="module">
+  import "{{ app.zkit.libraryPath }}components/menu-overlay.module.js";
+</script>
+```
+
+### 2. Add component to the page
+
+```html
+<menu-overlay z-context="menu-overlay">
+
+  <div #items>
+
+    <!-- menu items list -->
+    <a href="#link_1">Menu Item 1</a>
+    <a href="#link_2">Menu Item 2</a>
+    <a href="#link_3">Menu Item 3</a>
+
+  </div>
+
+</menu-overlay>
+```
+
+  </div>
+  <div class="mdl-tabs__panel" id="script">
+
+{% include 'common/zkit-basic-usage.liquid' %}
 
 ### 2. Add the menu markup
 
 Put inside the field `items` the code for your menu items.
 
 ```html
-<div z-load="@lib/components/menu-overlay"
+<div z-load="{{ app.zkit.libraryPath }}components/menu-overlay"
      z-context="menu-overlay">
 
   <div #items>
@@ -46,30 +83,38 @@ Put inside the field `items` the code for your menu items.
 </div>
 ```
 
-... and that's it! Super duper easy **: )**
+  </div>
+</div>
+
 
 ## Option attributes
 
-- `z-load="@lib/components/menu-overlay"` <small>constructor</small>  
-  load the `menu-overlay` component on the element.
-- `z-context` <small>optional</small>  
+- `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
-- `data-o-scroller` <small>optional</small>  
+- `:on:<event_name>="<handler>"` <small>optional</small>  
+  set handler function for event `<event_name>`
+- `:scroller="'<field_id>'"` <small>optional</small>  
   if the scrolling container it is not the main document, use this parameter to specify the value of field attribute  
   assigned to the container with the scroll.
-- `data-o-button-color` <small>optional</small>  
+- `:button-color="'<color>'"` <small>optional</small>  
   color of the menu button. The default value is `deeppink`.
-- `data-o-icon-color` <small>optional</small>  
+- `:icon-color="'<color>'"` <small>optional</small>  
   color of the menu button icon. The default value is `white`.
-- `data-o-position` <small>optional</small>  
+- `:position="'<position>'"` <small>optional</small>  
   sets the position of the button. It can be `left`, `center` or `right`. The default value is `right`.
-- `data-o-before` <small>optional</small>  
+- `:before="'<field_id>'"` <small>optional</small>  
   show only before the element with the specified field name (eg. 'footer')
-- `data-o-after` <small>optional</small>  
+- `:after="'<field_id>'"` <small>optional</small>  
   show only after the element with the specified field name (eg. 'header')
 
 
-## Customizing
+## Events
+
+- `open` - occurs when the menu opens
+- `close` - occurs when the menu is closed
+
+
+## Customizing button
 
 You can customize the appearance of the menu button by overriding the template fields:
 
@@ -83,7 +128,7 @@ You can customize the appearance of the menu button by overriding the template f
 For instance the example menu in this page is using Material Design Lite FAB (floating action buttons):
 
 ```html
-<div z-load="@lib/components/menu-overlay">
+<menu-overlay>
 
   <div #items>
 
@@ -94,44 +139,36 @@ For instance the example menu in this page is using Material Design Lite FAB (fl
   <!-- custom open/close menu button -->
 
   <div #menu_button>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
-      <i class="material-icons">message</i>
-    </a>
+
+    <mdl-button :type="'fab'" :class="'primary'">
+      add
+    </mdl-button>
+
   </div>
 
   <div #menu_button_close>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
-      <i class="material-icons">close</i>
-    </a>
+
+    <mdl-button :type="'fab'" :class="'primary'">
+      remove
+    </mdl-button>
+
   </div>
 
-</div>
-<script>
-toggleButton = { type: 'fab', class: 'accent', lazyLoad: false };
-</script>
+</menu-overlay>
 ```
 
 ## Scripting
 
-### Event listeners
+Get a reference to the component instance:
 
 ```js
-var menuOverlay;
-// since the component loads asynchronously
-// a callback is required to ensure the component is ready
 zuix.context('menu-overlay', (mo) => {
-  // add event listeners
-  mo.on({
-    open: function() { /* ... */ },
-    close: function() { /* ... */ }
-  });
-  // store a global reference of
-  // the component for later use
-  menuOverlay = mo;
+  // store a global reference for later use
+  self.menuOverlay = mo;
 });
 ```
 
-### Programmatically show/hide
+Programmatically show/hide:
 
 ```js
 // show the menu (enable)
@@ -146,4 +183,4 @@ menuOverlay.hideButton();
 buttonShowing = menuOverlay.showing();
 ```
 
-{% rawFile "_inc/example.html" %}
+{% include "./_inc/example.wc.liquid" %}

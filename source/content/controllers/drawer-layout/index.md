@@ -30,76 +30,85 @@ It is hidden when not in use, but appears when the user swipes a finger from the
 when at the top level of the app, the user touches the drawer icon in the app bar.
 </blockquote>
 
-{% include 'common/zkit-basic-usage.md' %}
+## Usage
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar" layout="row top-left">
+      <a href="#module" class="mdl-tabs__tab is-active">Method #1</a>
+      <a href="#script" class="mdl-tabs__tab">Method #2</a>
+  </div>
+  <div class="mdl-tabs__panel is-active" id="module">
+
+### 1. Import `drawer-layout` component module
+
+```html
+<script type="module">
+  import "{{ app.zkit.libraryPath }}components/drawer-layout.module.js";
+</script>
+```
+
+### 2. Add component to the page
+
+```html
+<drawer-layout z-context="menu-drawer">
+
+  <!-- Add Navigation Drawer menu and content here -->
+
+</drawer-layout>
+```
+
+  </div>
+  <div class="mdl-tabs__panel" id="script">
+
+{% include 'common/zkit-basic-usage.liquid' %}
 
 ### 2. Load the drawer layout
 
 Add the `ctrl z-load` attributes to the container of your navigation drawer
 ```html
-<div ctrl z-load="@lib/controllers/drawer-layout"
-     z-context="menu-drawer"
-     z-options="drawer_options">
+<div ctrl z-load="{{ app.zkit.libraryPath }}controllers/drawer-layout"
+     z-context="menu-drawer">
 
   <!-- Add Navigation Drawer menu and content here -->
 
 </div>
 ```
 
-Set the options
+  </div>
+</div>
 
-```js
-drawer_options = {
-  on: {
-    'drawer:open': function(e) {
-      // things to do when drawer is open
-    },
-    'drawer:close': function(e) {
-      // things to do when drawer is closed
-    },
-    'layout:change': function(e, status) {
-        // where `status` object has two fields
-        // {
-        //    smallScreen, (boolean)
-        //    drawerLocked (boolean)
-        // }
-    }
-  },
-  autoHideWidth: 960,
-  drawerWidth: 280
-};
-```
 
 ### Option attributes
 
-- `ctrl z-load="@lib/controllers/drawer-layout"` <small>(constructor)</small>  
-  loads the `drawer-layout` controller on the host element
-- `z-context` <small>optional</small>  
-  identifier name to be used to reference this component from JavaScript.
-- `data-o-width` <small>optional</small>  
+- `z-context="<context_id>"` <small>optional</small>  
+  identifier name to be used to access this component from JavaScript.
+- `:on:<event_name>="<handler>"` <small>optional</small>  
+  set handler function for event `<event_name>`
+- `:drawer-width="<width_px>"` <small>optional</small>  
   panel width. Default value is `280` pixels.
-- `data-o-hide-width` <small>optional</small>  
+- `:auto-hide-width="<width_px>"` <small>optional</small>  
   auto-hide panel if available width is less than specified value, otherwise show as fixed.
   Set to `-1` to always auto-hide. Default value is `960` pixels.
 
 
+### Events
+
+
+- `drawer:open` - occurs when the drawer opens
+- `drawer:close` - occurs when the drawer is closed
+- `layout:change` - occurs when the page layout changed.  
+  The second argument of the callback is a status object with two fields:  
+  `{smallScreen: boolean, drawerLocked: boolean}`
+
+
 ## Scripting
 
-### Event listeners
+Get a reference to the component instance:
 
 ```js
-var menuDrawer;
-// since the component loads asynchronously
-// a callback is required to ensure the component is ready
 zuix.context('menu-drawer', (md) => {
-  // add event listeners
-  md.on({
-    'drawer:open': function(e) { /* ... */ },
-    'drawer:close': function(e) { /* ... */ },
-    'layout:change': function(e, d) { /* ... */ }
-  });
-  // store a global reference of
-  // the component for later use
-  menuDrawer = md;
+  // store a global reference for later use
+  self.menuDrawer = md;
 });
 ```
 
@@ -115,5 +124,3 @@ menuDrawer.toggle();
 // enable/disable control by gesture
 menuDrawer.lock(true);
 ```
-
-You can try these command in the developer console right now from this page.

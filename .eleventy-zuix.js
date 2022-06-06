@@ -26,6 +26,7 @@ const fs = require('fs');
 const chokidar = require('chokidar');
 const moment = require('moment');
 const nunjucks = require('nunjucks');
+const pkg = require('./package.json');
 
 const {
   compilePage,
@@ -111,7 +112,7 @@ function startWatcher(eleventyConfig, browserSync) {
           path.dirname(file),
           ...templateFolders
         ], {}));
-        njk.render(file, zuixConfig, function(err, res) {
+        njk.render(file, { pkg, app: zuixConfig.app }, function(err, res) {
           if (err != null) {
             console.error(
               chalk.red.bold(err)

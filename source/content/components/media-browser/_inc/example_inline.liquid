@@ -1,5 +1,6 @@
 <div z-load="@lib/components/media-browser" class="visible-on-ready" z-lazy="true"
-     z-context="media-browser-inline" z-options="{ready: inlineMediaBrowserReady}"
+     z-context="media-browser-inline"
+     :ready="inlineMediaBrowserReady"
      data-o-slide="5000" data-o-inline="true" style="max-height: 530px; height: 530px;overflow-y: hidden">
     <!-- List of images/videos (#media container) -->
     <div #media>

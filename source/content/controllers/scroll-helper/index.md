@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 3
+order: 4
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: swap_vert
@@ -18,7 +18,41 @@ keywords:
 - Elements
 ---
 
-{% include 'common/zkit-basic-usage.md' %}
+## Usage
+
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+  <div class="mdl-tabs__tab-bar" layout="row top-left">
+      <a href="#module" class="mdl-tabs__tab is-active">Method #1</a>
+      <a href="#script" class="mdl-tabs__tab">Method #2</a>
+  </div>
+  <div class="mdl-tabs__panel is-active" id="module">
+
+### 1. Import `scroll-helperr` component module
+
+```html
+<script type="module">
+  import "{{ app.zkit.libraryPath }}controllers/scroll-helper.module.js";
+</script>
+```
+
+### 2. Add component
+
+Add the scroll helper component inside the scrolling host element:
+
+```html
+<div z-context="scroll-helper">
+    <scroll-helper></scroll-helper>
+
+    <!-- gesture detection area -->
+
+</div>
+```
+
+  </div>
+  <div class="mdl-tabs__panel" id="script">
+
+
+{% include 'common/zkit-basic-usage.liquid' %}
 
 ### 2. Load the scroll helper
 
@@ -27,36 +61,41 @@ Add the `ctrl z-load` attributes to the host element implementing the scrollbar 
 ```html
 <html>
 <!-- ... -->
-<body ctrl z-load="@lib/controllers/scroll-helper"
+<body ctrl z-load="{{ app.zkit.libraryPath }}controllers/scroll-helper"
       z-context="scroll-helper">
 <!-- ... -->
 </body>
 </html>
 ```
 
+  </div>
+</div>
+
+
 ## Option attributes
 
-- `ctrl z-load="@lib/controllers/scroll-helper"` <small>constructor</small>  
-  load the `scroll-helper` controller on the element.
-- `z-context` <small>optional</small>  
+- `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
+- `:on:<event_name>="<handler>"` <small>optional</small>  
+  set handler function for event `<event_name>`
+
+
+## Events
+
+- `scroll:change`
+
+
 
 
 ## Scripting
 
-### Get a reference to the scroll helper object
-
-Before component is loaded
+Get a reference to the component instance:
 
 ```js
-var scrollHelper; // it will be == null until component is loaded
-zuix.context('scroll-helper', (sh) => scrollHelper = sh);
-```
-
-or at any time after component is loaded
-
-```js
-var scrollHelper = zuix.context('scroll-helper');
+zuix.context('scroll-helper', (sh) => {
+  // store a global reference for later use
+  self.scrollHelper = sh;
+});
 ```
 
 ### Listen to events
@@ -121,7 +160,7 @@ info -> {
 }
 ```
 
-## Watching DOM elements
+### Watching DOM elements
 
 The `watch` method takes one argument that can be either an element object or a valid  DOM query selector expression.
 
