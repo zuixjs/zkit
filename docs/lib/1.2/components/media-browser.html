@@ -51,7 +51,7 @@
 
 <!-- script to handle UI status changes -->
 <script type="jscript">
-  let openButton = $.attr('data-o-button');
+  let openButton = context.options().button;
   const scrollParent = $.get().offsetParent || document.body;
   context.on('controls:show', () => {
     fxShow([$controls, $navNext, $navPrev, $navClose, $navFullscreen]);
