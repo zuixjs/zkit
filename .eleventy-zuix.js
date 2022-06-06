@@ -370,10 +370,55 @@ function initEleventyZuix(eleventyConfig) {
     });
     componentsFolders.map(f =>  {
       f = path.join(sourceFolder, f);
-      eleventyConfig.addPassthroughCopy(f);
+      postProcessRecursiveSync(f, buildFolder)
     });
   }
   eleventyConfig.setDataDeepMerge(true);
+}
+
+function postProcessRecursiveSync( source, target ) {
+  let files = [];
+  // Check if folder needs to be created or integrated
+  const targetFolder = path.join( target, path.basename( source ) );
+  if ( !fs.existsSync( targetFolder ) ) {
+    fs.mkdirSync( targetFolder );
+  }
+  // Copy
+  if ( fs.lstatSync( source ).isDirectory() ) {
+    files = fs.readdirSync( source );
+    files.forEach( function ( file ) {
+      const curSource = path.join( source, file );
+      if ( fs.lstatSync( curSource ).isDirectory() ) {
+        postProcessRecursiveSync( curSource, targetFolder );
+      } else {
+        const templateExtensions = ['.html', '.js', '.css', '.less', '.scss', '.njk'];
+        const templateFolders = componentsFolders.map(f =>  path.resolve(path.join(sourceFolder, f)));
+        const postProcess = templateExtensions.filter(cn => curSource.endsWith(cn));
+        const outputFile = path.resolve(path.join(buildFolder, curSource.substring(sourceFolder.length)));
+        if (postProcess.length === 1) {
+          // Post-process file with Nunjucks
+          const njk = new nunjucks.Environment(new nunjucks.FileSystemLoader([
+            path.dirname(curSource),
+            ...templateFolders
+          ], {}));
+          njk.render(path.resolve(curSource), {pkg, app: zuixConfig.app}, function(err, res) {
+            if (err != null) {
+              console.error(
+                chalk.red.bold(err)
+              );
+            } else {
+              // fs.readFileSync(curSource)
+              fs.writeFile(outputFile, res, function() {
+                // TODO: ...
+              });
+            }
+          });
+        } else {
+          fs.writeFileSync(outputFile, fs.readFileSync(curSource));
+        }
+      }
+    });
+  }
 }
 
 function copyDependencies(dependencyList) {
