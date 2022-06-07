@@ -60,8 +60,9 @@ For instance when an element in a list view is clicked and the detail view of th
 Add the `transpose-fx` component inside the details view/dialog/popup element:
 
 ```html
-<div z-context="tfx" class="my-dialog-view">
-    <transpose-fx></transpose-fx>
+<div class="my-dialog-view">
+
+    <transpose-fx z-context="tfx"></transpose-fx>
 
     <div class="transpose-fx-container">
       <!-- the element will be transposed here -->

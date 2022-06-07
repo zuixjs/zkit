@@ -42,8 +42,9 @@ keywords:
 Add the gesture helper component inside the detection area element: 
 
 ```html
-<div z-context="gesture-helper">
-    <gesture-helper></gesture-helper>
+<div>
+
+    <gesture-helper z-context="gesture-helper"></gesture-helper>
 
     <!-- gesture detection area -->
 

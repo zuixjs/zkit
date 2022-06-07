@@ -37,15 +37,15 @@ keywords:
 
 ### 2. Add component
 
-Add the scroll helper component inside the scrolling host element:
+Add the scroll helper component inside the host element implementing the scrollbar (usually the `body` or a `div` element):
 
 ```html
-<div z-context="scroll-helper">
-    <scroll-helper></scroll-helper>
+<body>
+    <scroll-helper z-context="scroll-helper"></scroll-helper>
 
-    <!-- gesture detection area -->
+    <!-- content -->
 
-</div>
+</body>
 ```
 
   </div>
@@ -56,7 +56,7 @@ Add the scroll helper component inside the scrolling host element:
 
 ### 2. Load the scroll helper
 
-Add the `ctrl z-load` attributes to the host element implementing the scrollbar (usually the main `body` or a `div` element):
+Add the `ctrl z-load` attributes to the host element implementing the scrollbar (usually the `body` or a `div` element):
 
 ```html
 <html>

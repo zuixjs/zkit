@@ -1,3 +1,7 @@
+<script type="module">
+  import "{{ app.zkit.libraryPath }}controllers/transpose-fx.module.js";
+</script>
+
 <!-- images list (with special guest "time-clock" widget) -->
 <div class="elements-view" self="size-medium center-center" layout="rows center-center">
 
@@ -20,8 +24,8 @@
 </div>
 
 <!-- the detail view with "transpose-fx" controller -->
-<div ctrl z-load="@lib/controllers/transpose-fx"
-     z-context="tfx" class="my-dialog-view">
+<div class="my-dialog-view">
+    <transpose-fx z-context="tfx"></transpose-fx>
 
     <div layout="column spread-center" style="height: 100%">
         <div layout="rows center-justify">
