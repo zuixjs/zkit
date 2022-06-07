@@ -18,7 +18,7 @@ keywords:
 ---
 
 The `transpose-fx` controller can be used to swap an element from a view to another one.
-For instance when an element in a list view is clicked and the detail view is shown.
+For instance when an element in a list view is clicked and the detail view of that element is then shown.
 
 
 **Demo:** Tap elements to pop up the details view:
@@ -57,19 +57,17 @@ For instance when an element in a list view is clicked and the detail view is sh
 
 ### 2. Add component
 
-Add the component inside the details view/dialog/popup element:
+Add the `transpose-fx` component inside the details view/dialog/popup element:
 
 ```html
-<div z-context="transpose-fx">
+<div z-context="tfx" class="my-dialog-view">
     <transpose-fx></transpose-fx>
-
-    <!-- gesture detection area -->
 
     <div class="transpose-fx-container">
       <!-- the element will be transposed here -->
     </div>
 
-    <!-- view contents ... -->
+    <!-- view content ... -->
 
 </div>
 ```
@@ -93,7 +91,7 @@ Add the `ctrl z-load` attributes to the element hosting the target view, and, in
         <!-- the element will be transposed here -->
     </div>
 
-    <!-- view contents ... -->
+    <!-- view content ... -->
 
 </div>
 ```
@@ -102,12 +100,13 @@ Add the `ctrl z-load` attributes to the element hosting the target view, and, in
 </div>
 
 
-Use the `z-context` attribute to assign an identifier to the transpose controller, so that it can be easily referenced
-in order to begin/end the transpose effect at any time. In the example above the identifier `tfx` is assigned using the
-`z-context` attribute.
+Use the `z-context` attribute to assign an identifier to the transpose controller. In the example above the identifier
+`tfx` is assigned using the `z-context` attribute.
 
-Set the initial `display` mode of the target view to `none`, the controller will take care of showing/hiding the
-view when requested.
+Add the class `transpose-fx-container` to a `div` that will host the transposed element once clicked. 
+
+Set the initial `display` mode of the target view to `none` (the details view), the controller will take care of
+showing/hiding the view when required.
 
 ```css
 .my-dialog-view {
@@ -119,19 +118,19 @@ view when requested.
 
 ### 3. Transpose elements
 
-To transpose an element to the target view, call the `toggle` method of the transpose controller,
-passing to it a reference to the element to be transposed:
+Add the attribute `[transpose-to="<context_id>"]` to elements you want to be opened in the detail view when clicked.
+In this example the `<context_id>` is `tfx`. 
 
-```js
-<img src="my-image.png" onclick="zuix.context('tfx').toggle(this)">
+```html
+   <img transpose-to="tfx" src="...">
 ```
 
-Source elements can be also components, not just image.
+Source elements can be also components, not just images.
 
 
 ## Option attributes
 
-- `z-context="<context_id>"` <small>optional</small>  
+- `z-context="<context_id>"`
   identifier name to be used to access this component from JavaScript.
 - `:on:<event_name>="<handler>"` <small>optional</small>  
   set handler function for event `<event_name>`
@@ -139,8 +138,8 @@ Source elements can be also components, not just image.
 
 # Events
 
-- `transpose:begin`
-- `transpose:end`
+- `transpose:begin` (e, element)
+- `transpose:end` (e, element)
 
 
 ## Scripting

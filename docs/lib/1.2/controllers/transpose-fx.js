@@ -48,6 +48,8 @@ function TransposeFx(ctrl) {
       parent.removeClass('transpose-fx');
       parent = parent.parent();
     }
+    zuix.$.find(`[transpose-to="${this.context.contextId}"]`)
+        .on('click', (e, $el) => toggle($el));
   };
 
   function begin(el) {
@@ -98,7 +100,7 @@ function TransposeFx(ctrl) {
         transform: 'translate(0,0)'
       });
     });
-    ctrl.view().trigger('transpose:active');
+    ctrl.view().trigger('transpose:begin', element);
   }
 
   function end() {
@@ -125,7 +127,7 @@ function TransposeFx(ctrl) {
         .playTransition({classes: 'fadeIn fadeOut', onEnd: () => {
           isOpen = false;
           ctrl.view().hide();
-          ctrl.view().trigger('transpose:end');
+          ctrl.view().trigger('transpose:end', element);
         }});
   }
 

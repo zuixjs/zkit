@@ -4,16 +4,17 @@
     {% for i in (1..4) %}
         <img src="https://picsum.photos/seed/t-fx!{{i}}/400/200"
              width="200" height="100" alt="" loading="lazy"
-             onclick="transposeDemo(this)">
+             transpose-to="tfx">
     {% endfor %}
 
-    <div z-load="widgets/time-clock" onclick="transposeDemo(this)"
-         layout="column center-center" class="widget-container"></div>
+    <div z-load="widgets/time-clock"
+         layout="column center-center" class="widget-container"
+         transpose-to="tfx"></div>
 
     {% for i in (5..8) %}
         <img src="https://picsum.photos/seed/t-fx!{{i}}/400/200"
              width="200" height="100" alt="" loading="lazy"
-             onclick="transposeDemo(this)">
+             transpose-to="tfx">
     {% endfor %}
 
 </div>
@@ -59,10 +60,12 @@
 </div>
 
 <script>
-  function transposeDemo(el) {
-    zuix.context('tfx')
-      .toggle(zuix.$(el))
-  }
+  zuix.context('tfx', (tfx) => {
+    tfx.on({
+      'transpose:begin': (e, el) => console.log(e, el),
+      'transpose:end': (e, el) => console.log(e, el)
+    });
+  });
 </script>
 
 <style>
