@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="/js/zuix/zuix.js"></script>
+    <script type="module">
+      import "/lib/1.2/controllers/drawer-layout.module.js";
+      import "/lib/1.2/controllers/view-pager.module.js";
+      import "/lib/1.2/controllers/mdl-button.module.js";
+      import "/lib/1.2/controllers/shadow-view.module.js";
+    </script>
+
+    <style>
+
+        drawer-layout {
+            background: white;
+        }
+
+        view-pager {
+            width: 350px;
+        }
+        view-pager div, view-pager .view-pager-item {
+            width: 298px;
+            height: 298px;
+            border:solid 1px green;
+        }
+
+    </style>
+</head>
+<body z-context="ok">
+
+    <drawer-layout z-context="drawer" :main-content="zuix.field('content')">
+
+        <!-- Add Navigation Drawer menu and content here -->
+        <h1>Drawer</h1>
+
+    </drawer-layout>
+
+    <main #content z-using="drawer,viewpager as vp">
+
+        <view-pager z-context="viewpager"
+                    :auto-slide="true"
+                    :paging="true">
+
+            <div>
+                <h1>A</h1>
+            </div>
+            <div>
+                <h1>B</h1>
+            </div>
+            <div>
+                <h1>C</h1>
+            </div>
+            <div>
+                <h1>D</h1>
+            </div>
+
+        </view-pager>
+
+        <mdl-button (click)="drawer.open()"
+                    @disable-if="drawer.isOpen()">
+            Open Drawer
+        </mdl-button>
+
+        <mdl-button (click)="vp.page(1)">
+            1
+        </mdl-button>
+
+    </main>
+
+</body>
+</html>
