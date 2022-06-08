@@ -45,7 +45,7 @@ date: Last Modified
 
     <!-- Navigation Drawer -->
     <div ctrl z-load="@lib/controllers/drawer-layout"
-         #drawer z-context="menu-drawer" z-lazy="false"
+         #drawer z-context="menu-drawer" :lazyLoad="false"
          z-options="drawer_opts"
          class="drawer-layout no-select visible-on-ready"
          layout="column top-stretch">

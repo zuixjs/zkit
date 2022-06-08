@@ -20,16 +20,16 @@
             </span>
         </a>
     </div>
-    <div #menu_button>
+    <template #menu_button>
         <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton" href="javascript:;">
             <i class="material-icons">message</i>
         </a>
-    </div>
-    <div #menu_button_close>
+    </template>
+    <template #menu_button_close>
         <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton" href="javascript:;">
             <i class="material-icons">close</i>
         </a>
-    </div>
+    </template>
 </div>
 <style>
 .menu-item {

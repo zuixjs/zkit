@@ -1,7 +1,7 @@
 <div z-load="@lib/components/context-menu" z-lazy="false"
      z-context="my-menu"
      :lazy-Load="false">
-    <div #menu>
+    <template #menu>
         <button layout="row center-left" #test>
             <i class="material-icons">bookmark_border</i>
             <span>Save for later</span>
@@ -26,7 +26,7 @@
             <i class="material-icons">thumb_down</i>
             <span>Less like this</span>
         </button>
-    </div>
+    </template>
 </div>
 <script>
   zuix.context('my-menu', (ctx) => {

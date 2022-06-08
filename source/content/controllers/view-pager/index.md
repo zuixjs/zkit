@@ -61,9 +61,9 @@ A versatile ViewPager controller, featuring both horizontal and vertical layout,
 
 {% include 'common/zkit-basic-usage.liquid' %}
 
-### 2. Load the scroll helper
+### 2. Load the view pager
 
-Add the `ctrl z-load` attributes to the host element implementing the scrollbar (usually the main `body` or a `div` element):
+Add the `ctrl z-load` attributes to the host element:
 
 ```html
 <div ctrl z-load="{{ app.zkit.libraryPath }}controllers/view-pager"

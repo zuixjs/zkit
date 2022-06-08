@@ -6,7 +6,7 @@
 <div class="elements-view" self="size-medium center-center" layout="rows center-center">
 
     {% for i in (1..4) %}
-        <img src="https://picsum.photos/seed/t-fx!{{i}}/400/200"
+        <img src="https://picsum.photos/seed/t-fx!{{ now | date: 'D' }}{{i}}/400/200"
              width="200" height="100" alt="" loading="lazy"
              transpose-to="tfx">
     {% endfor %}
@@ -16,7 +16,7 @@
          transpose-to="tfx"></div>
 
     {% for i in (5..8) %}
-        <img src="https://picsum.photos/seed/t-fx!{{i}}/400/200"
+        <img src="https://picsum.photos/seed/t-fx!B{{ now | date: 'D' }}{{i}}/400/200"
              width="200" height="100" alt="" loading="lazy"
              transpose-to="tfx">
     {% endfor %}

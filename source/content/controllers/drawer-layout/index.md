@@ -43,7 +43,7 @@ when at the top level of the app, the user touches the drawer icon in the app ba
 
 ```html
 <script type="module">
-  import "{{ app.zkit.libraryPath }}components/drawer-layout.module.js";
+  import "{{ app.zkit.libraryPath }}controllers/drawer-layout.module.js";
 </script>
 ```
 
@@ -89,6 +89,9 @@ Add the `ctrl z-load` attributes to the container of your navigation drawer
 - `:auto-hide-width="<width_px>"` <small>optional</small>  
   auto-hide panel if available width is less than specified value, otherwise show as fixed.
   Set to `-1` to always auto-hide. Default value is `960` pixels.
+- `:main-content` <small>optional</small>
+  element hosting the main page content. The drawer will automatically resize the content when open and
+  page width is greater than `:auto-hide-width` 
 
 
 ### Events

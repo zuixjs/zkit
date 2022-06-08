@@ -12,6 +12,8 @@ customElements.define('mdl-button', class extends HTMLElement {
     });
   }
   attributeChangedCallback(name, oldValue, newValue) {
-    this.context.$.attr(name, newValue);
+    if (this.context) {
+      this.context.$.attr(name, newValue);
+    }
   }
 });

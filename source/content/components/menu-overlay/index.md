@@ -138,21 +138,21 @@ For instance the example menu in this page is using Material Design Lite FAB (fl
 
   <!-- custom open/close menu button -->
 
-  <div #menu_button>
+  <template #menu_button>
 
     <mdl-button :type="'fab'" :class="'primary'">
       add
     </mdl-button>
 
-  </div>
+  </template>
 
-  <div #menu_button_close>
+  <template #menu_button_close>
 
     <mdl-button :type="'fab'" :class="'primary'">
       remove
     </mdl-button>
 
-  </div>
+  </template>
 
 </menu-overlay>
 ```

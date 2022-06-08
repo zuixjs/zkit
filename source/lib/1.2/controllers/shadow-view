@@ -1,0 +1,14 @@
+'use strict';
+
+/**
+ * ShadowView class.
+ *
+ * @author Gene
+ * @version 1.0.0 (2022-06-08)
+ *
+ * @constructor
+ * @this {ContextController}
+ */
+function ShadowView() {
+}
+module.exports = ShadowView;

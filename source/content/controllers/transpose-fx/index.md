@@ -57,7 +57,7 @@ For instance when an element in a list view is clicked and the detail view of th
 
 ### 2. Add component
 
-Add the `transpose-fx` component inside the details view/dialog/popup element:
+Add the `transpose-fx` component inside the element hosting the target view:
 
 ```html
 <div class="my-dialog-view">
@@ -81,8 +81,7 @@ Add the `transpose-fx` component inside the details view/dialog/popup element:
 
 ### 2. Load the `transpose-fx` controller
 
-Add the `ctrl z-load` attributes to the element hosting the target view, and, inside, add the class
-`transpose-fx-container` to the destination container into which the source element will be transposed:
+Add the `ctrl z-load` attributes to the element hosting the target view:
 
 ```html
 <div ctrl z-load="{{ app.zkit.libraryPath }}controllers/transpose-fx"
@@ -100,11 +99,10 @@ Add the `ctrl z-load` attributes to the element hosting the target view, and, in
   </div>
 </div>
 
+Use the `z-context` attribute to assign an identifier to the transpose controller. In the example above the assigned
+identifier is `tfx`.
 
-Use the `z-context` attribute to assign an identifier to the transpose controller. In the example above the identifier
-`tfx` is assigned using the `z-context` attribute.
-
-Add the class `transpose-fx-container` to a `div` that will host the transposed element once clicked. 
+Add the class `transpose-fx-container` to the container that will host the transposed element once clicked.
 
 Set the initial `display` mode of the target view to `none` (the details view), the controller will take care of
 showing/hiding the view when required.

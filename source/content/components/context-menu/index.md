@@ -50,14 +50,14 @@ Put inside the `#menu` field the code of your menu items.
 ```html
 <context-menu z-context="my-menu">
 
-  <items #menu>
+  <div #menu>
 
     <!-- menu items list -->
     <button>Option 1</button>
     <button>Option 2</button>
     <button>Option 3</button>
 
-  </items>
+  </div>
 
 </context-menu>
 ```
