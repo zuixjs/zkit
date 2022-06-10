@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 1
+order: 3
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: space_dashboard

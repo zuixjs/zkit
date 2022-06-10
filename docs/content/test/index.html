@@ -12,4 +12,18 @@
             width: 298px;
             height: 298px;
             border:solid 1px green;
-        }</style><body z-context="ok"><drawer-layout z-context="drawer" :main-content="zuix.field('content')"><!-- Add Navigation Drawer menu and content here --><h1>Drawer</h1></drawer-layout><main #content z-using="drawer,viewpager as vp"><view-pager z-context="viewpager" :auto-slide="true" :paging="true"><div><h1>A</h1></div><div><h1>B</h1></div><div><h1>C</h1></div><div><h1>D</h1></div></view-pager><mdl-button (click)="drawer.open()" @disable-if="drawer.isOpen()">Open Drawer</mdl-button><mdl-button (click)="vp.page(1)">1</mdl-button></main>
+        }</style><body z-context="ok"><drawer-layout z-context="drawer" :main-content="zuix.field('content')"><!-- Add Navigation Drawer menu and content here --><h1>Drawer</h1></drawer-layout><main #content z-using="drawer,viewpager as vp"><view-pager z-context="viewpager" :auto-slide="true" :paging="true"><div><h1>A</h1></div><div><h1>B</h1></div><div><h1>C</h1></div><div><h1>D</h1></div></view-pager><mdl-button (click)="drawer.open()" @disable-if="drawer.isOpen()">Open Drawer</mdl-button><mdl-button (click)="vp.page(1)">1</mdl-button><shadow-view :mode="closed" :model:num="0"><h1>Heading1 <span #num>-</span></h1><p>Inside the ShadowView component.</p><button (pointerdown)="model.num--">Decrement</button> <button (pointerdown)="model.num++">Increment</button> <button (click)="scopedMethod()">Test scoped script</button><!-- this stylesheet will be applied
+                 only inside this shadow-view --><style>h1 {
+                    color: green;
+                }
+                span {
+                    color: orange;
+                }
+                p {
+                    color: deeppink;
+                }</style><script type="jscript">console.log(this, $, context, num);
+
+              function scopedMethod() {
+                model.num++;
+                alert('This method is only visible inside this component.');
+              }</script></shadow-view><h1>Heading1 <span>-</span></h1><p>Outside the ShadowView component.</main>

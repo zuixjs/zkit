@@ -18,32 +18,8 @@
     <lastmod>2022-05-22</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</loc>
-    <lastmod>2022-05-25</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/home/</loc>
     <lastmod>2022-06-06</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</loc>
-    <lastmod>2022-06-07</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</loc>
-    <lastmod>2022-06-07</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
-    <lastmod>2022-06-08</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
-    <lastmod>2022-06-08</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
-    <lastmod>2022-06-08</lastmod>
   </url>
   <url>
     <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
@@ -56,5 +32,29 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/content/components/menu-overlay/</loc>
     <lastmod>2022-06-08</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</loc>
+    <lastmod>2022-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
+    <lastmod>2022-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
+    <lastmod>2022-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</loc>
+    <lastmod>2022-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
+    <lastmod>2022-06-09</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</loc>
+    <lastmod>2022-06-10</lastmod>
   </url>
 </urlset>

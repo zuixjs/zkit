@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 4
+order: 6
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: swap_vert

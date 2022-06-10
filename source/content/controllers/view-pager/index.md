@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 2
+order: 4
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: view_carousel

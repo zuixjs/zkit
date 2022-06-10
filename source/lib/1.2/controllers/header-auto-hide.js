@@ -29,8 +29,8 @@ function HeaderAutoHide(cp) {
   };
 
   cp.create = function() {
-    showEnd = cp.options().showEnd || cp.view().attr('data-o-show-end') === 'true';
-    headerBar = cp.options().header || cp.view().attr('data-o-header');
+    showEnd = cp.options().showEnd;
+    headerBar = cp.options().header;
     const zIndex = cp.options().zIndex || 10;
     if (headerBar) {
       headerBar = zuix.field(headerBar);
@@ -40,25 +40,31 @@ function HeaderAutoHide(cp) {
     if (headerBar.length() === 0) {
       throw new Error('Header element not found: "' + headerBar + '".');
     }
-    headerHeight = headerBar.position().rect.height;
-    const hp = getComputedStyle(headerBar.get()).position;
-    if (hp !== 'fixed' && hp !== 'absolute') {
-      autoHideOffset = headerHeight;
-    }
-    const scrollerParent = cp.view();
+    const headerStyle = getComputedStyle(headerBar.get());
     addHeaderStyle();
     // footer options parsing
-    const footer = cp.options().footer || cp.view().attr('data-o-footer');
+    const footer = cp.options().footer;
+    let footerStyle = null;
     if (footer != null) {
       footerBar = zuix.field(footer);
       footerBar.css({position: 'fixed', zIndex});
-      footerHeight = footerBar.position().rect.height;
+      footerStyle = getComputedStyle(footerBar.get());
       addFooterStyle();
     }
+    const scrollerParent = cp.options().scrollHost || cp.view();
     zuix.load('@lib/controllers/scroll-helper', {
       view: scrollerParent,
       on: {
         'scroll:change': function(e, data) {
+          headerHeight = parseFloat(headerStyle.height);
+          if (headerStyle.position !== 'fixed' && headerStyle.position !== 'absolute') {
+            autoHideOffset = headerHeight;
+          }
+          document.documentElement.style.setProperty('--header-height', -headerHeight+'px');
+          if (footerStyle) {
+            footerHeight = parseFloat(footerStyle.height);
+            document.documentElement.style.setProperty('--footer-height', -footerHeight+'px');
+          }
           if (data.event === 'scroll' && data.info.viewport.y < -autoHideOffset) {
             if (data.info.shift.y < -4) {
               // scrolling up
@@ -120,52 +126,54 @@ function HeaderAutoHide(cp) {
   }
 
   function addHeaderStyle() {
-    zuix.$.appendCss('\n' +
-      '/* Header bar shrink/expand */\n' +
-      '@keyframes header-collapse-anim {\n' +
-      '  from { top: 0; }\n' +
-      '  to { top: -'+headerHeight+'px; }\n' +
-      '}\n' +
-      '@keyframes header-expand-anim {\n' +
-      '  from { top: -'+headerHeight+'px; }\n' +
-      '  to { top: 0; }\n' +
-      '}\n' +
-      '.header-collapse {\n' +
-      '  animation-fill-mode: forwards;\n' +
-      '  animation-name: header-collapse-anim;\n' +
-      '  animation-duration: 0.5s;\n' +
-      '  top: -'+headerHeight+'px;\n' +
-      '}\n' +
-      '.header-expand {\n' +
-      '  animation-fill-mode: forwards;\n' +
-      '  animation-name: header-expand-anim;\n' +
-      '  animation-duration: 0.5s;\n' +
-      '  top: 0px;\n' +
-      '}\n', null, 'onscroll_header_hide_show');
+    zuix.$.appendCss(`
+/* Header bar shrink/expand */
+@keyframes header-collapse-anim {
+  from { top: 0; }
+  to { top: var(--header-height); }
+}
+@keyframes header-expand-anim {
+  from { top: var(--header-height); }
+  to { top: 0; }
+}
+.header-collapse {
+  animation-fill-mode: forwards;
+  animation-name: header-collapse-anim;
+  animation-duration: 0.5s;
+  top: var(--header-height);
+}
+.header-expand {
+  animation-fill-mode: forwards;
+  animation-name: header-expand-anim;
+  animation-duration: 0.5s;
+  top: 0px;
+}
+`, null, 'zkit_header_auto_hide');
   }
   function addFooterStyle() {
-    zuix.$.appendCss('\n' +
-      '/* Footer bar shrink/expand */\n' +
-      '@keyframes footer-collapse-anim {\n' +
-      '  from { bottom: 0; }\n' +
-      '  to { bottom: -'+footerHeight+'px; }\n' +
-      '}\n' +
-      '@keyframes footer-expand-anim {\n' +
-      '  from { bottom: -'+footerHeight+'px; }\n' +
-      '  to { bottom: 0; }\n' +
-      '}\n' +
-      '.footer-collapse {\n' +
-      '  animation-fill-mode: forwards;\n' +
-      '  animation-name: footer-collapse-anim;\n' +
-      '  animation-duration: 0.5s;\n' +
-      '  bottom: -'+footerHeight+'px;\n' +
-      '}\n' +
-      '.footer-expand {\n' +
-      '  animation-fill-mode: forwards;\n' +
-      '  animation-name: footer-expand-anim;\n' +
-      '  animation-duration: 0.5s;\n' +
-      '  bottom: 0;\n' +
-      '}\n', null, 'zkit_onscroll_hide_show');
+    zuix.$.appendCss(`
+/* Footer bar shrink/expand */
+@keyframes footer-collapse-anim {
+  from { bottom: 0; }
+  to { bottom: var(--footer-height); }
+}
+@keyframes footer-expand-anim {
+  from { bottom: var(--footer-height); }
+  to { bottom: 0; }
+}
+.footer-collapse {
+  animation-fill-mode: forwards;
+  animation-name: footer-collapse-anim;
+  animation-duration: 0.5s;
+  bottom: var(--footer-height);
+}
+.footer-expand {
+  animation-fill-mode: forwards;
+  animation-name: footer-expand-anim;
+  animation-duration: 0.5s;
+  bottom: 0;
+}
+`, null, 'zkit_header_auto_hide');
   }
 }
 

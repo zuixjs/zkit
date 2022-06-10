@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 3
+order: 2
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: swipe

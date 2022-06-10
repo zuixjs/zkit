@@ -9,7 +9,7 @@ date: Last Modified
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
 <body ctrl z-load="@lib/controllers/header-auto-hide" z-context="my-header"
-      data-o-header="header" z-lazy="scroll" data-theme="{{ theme }}"
+      :header="'header'" z-lazy="scroll" data-theme="{{ theme }}"
       layout="column stretch-stretch">
 
     <nav #header layout="row center-start">

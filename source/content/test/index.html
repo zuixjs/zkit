@@ -66,6 +66,57 @@
             1
         </mdl-button>
 
+
+        <shadow-view :mode="closed" :model:num="0">
+
+            <h1>
+                Heading1
+                <span #num>-</span>
+            </h1>
+            <p>
+                Inside the ShadowView component.
+            </p>
+
+            <button (pointerdown)="model.num--">Decrement</button>
+            <button (pointerdown)="model.num++">Increment</button>
+            <button (click)="scopedMethod()">Test scoped script</button>
+
+            <!-- this stylesheet will be applied
+                 only inside this shadow-view -->
+            <style>
+                h1 {
+                    color: green;
+                }
+                span {
+                    color: orange;
+                }
+                p {
+                    color: deeppink;
+                }
+            </style>
+
+            <script type="jscript">
+              console.log(this, $, context, num);
+
+              function scopedMethod() {
+                model.num++;
+                alert('This method is only visible inside this component.');
+              }
+            </script>
+
+        </shadow-view>
+
+        <h1>
+            Heading1
+            <span>-</span>
+        </h1>
+        <p>
+            Outside the ShadowView component.
+        </p>
+
+
+
+
     </main>
 
 </body>
