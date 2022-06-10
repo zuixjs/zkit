@@ -29,7 +29,7 @@ keywords:
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `gesture-helper` component module
+### 1. Import `gesture-helper` module
 
 ```html
 <script type="module">

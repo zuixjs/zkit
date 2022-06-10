@@ -66,8 +66,10 @@
             1
         </mdl-button>
 
-
-        <shadow-view :mode="closed" :model:num="0">
+        <shadow-view :mode="closed"
+                     :model:num="0"
+                     :ready="contextReady"
+                     z-context="my-shadow-component">
 
             <h1>
                 Heading1
@@ -83,7 +85,7 @@
 
             <!-- this stylesheet will be applied
                  only inside this shadow-view -->
-            <style>
+            <style media="#">
                 h1 {
                     color: green;
                 }
@@ -98,6 +100,11 @@
             <script type="jscript">
               console.log(this, $, context, num);
 
+              expose = {
+                testMethod: () => console.log('This is a method of this component'),
+                get testProp() { return 'this is a read-only property'; }
+              }
+
               function scopedMethod() {
                 model.num++;
                 alert('This method is only visible inside this component.');
@@ -106,6 +113,15 @@
 
         </shadow-view>
 
+
+        <script>
+          function contextReady(ctx) {
+            console.log(ctx, ctx.testProp);
+            ctx.testMethod();
+          }
+        </script>
+
+
         <h1>
             Heading1
             <span>-</span>
@@ -113,9 +129,6 @@
         <p>
             Outside the ShadowView component.
         </p>
-
-
-
 
     </main>
 

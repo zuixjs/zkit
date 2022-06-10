@@ -32,7 +32,7 @@ A versatile ViewPager controller, featuring both horizontal and vertical layout,
   <div class="mdl-tabs__panel is-active" id="module">
 
 
-### 1. Import `view-pager` component module
+### 1. Import `view-pager` module
 
 ```html
 <script type="module">

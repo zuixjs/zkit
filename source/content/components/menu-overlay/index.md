@@ -33,7 +33,7 @@ This component is framework-agnostic, so it can be used with any UI framework or
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `menu-overlay` component module
+### 1. Import `menu-overlay` module
 
 ```html
 <script type="module">

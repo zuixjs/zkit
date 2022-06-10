@@ -8,7 +8,7 @@ order: 5
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: table_chart
-title: Auto hiding header
+title: Header Auto Hide
 description: Automatically hides/reveals header on scroll.
 keywords:
 - Header
@@ -26,7 +26,7 @@ keywords:
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `header-auto-hide` component module
+### 1. Import `header-auto-hide` module
 
 ```html
 <script type="module">
@@ -57,9 +57,9 @@ keywords:
 
 {% include 'common/zkit-basic-usage.liquid' %}
 
-### 2. Load the drawer layout
+### 2. Load the `header-auto-hide` controller
 
-Add the `ctrl z-load` attributes to the container of your navigation drawer
+Add the `ctrl z-load` attributes to the component with the scrollbar
 ```html
 <body ctrl z-load="{{ app.zkit.libraryPath }}controllers/header-auto-hide"
      z-context="header-auto-hide"
@@ -93,8 +93,8 @@ Add the `ctrl z-load` attributes to the container of your navigation drawer
   show header when scroll hits page's bottom (default: `false`).
 - `:z-index` <small>optional</small>  
   set the specified `z-index` to header/footer elements
-- `:scroll-host` <small>optional</small>
-  sets the element hosting scrollbars. This value is auto-detected by default.
+- `:scroll-host` <small>optional</small>  
+  field name of the element hosting the scrollbar. This value is auto-detected by default.
 
 
 ### Events

@@ -47,7 +47,7 @@ For instance when an element in a list view is clicked and the detail view of th
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `transpose-fx` component module
+### 1. Import `transpose-fx` module
 
 ```html
 <script type="module">

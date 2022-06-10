@@ -41,7 +41,7 @@ An image/video gallery component configurable with minimal HTML code.
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `media-browser` component module
+### 1. Import `media-browser` module
 
 ```html
 <script type="module">

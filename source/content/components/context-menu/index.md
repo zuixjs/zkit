@@ -35,7 +35,7 @@ Example
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `context-menu` component module
+### 1. Import `context-menu` module
 
 ```html
 <script type="module">

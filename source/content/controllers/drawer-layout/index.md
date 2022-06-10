@@ -39,7 +39,7 @@ when at the top level of the app, the user touches the drawer icon in the app ba
   </div>
   <div class="mdl-tabs__panel is-active" id="module">
 
-### 1. Import `drawer-layout` component module
+### 1. Import `drawer-layout` module
 
 ```html
 <script type="module">
