@@ -127,6 +127,9 @@ In this example the `<context_id>` is `tfx`.
 Source elements can be also components, not just images.
 
 
+{% tryLink 'Example on CodePen' 'https://codepen.io/genielabs/pen/KKQxRRK' %}
+
+
 ## Option attributes
 
 - `z-context="<context_id>"`

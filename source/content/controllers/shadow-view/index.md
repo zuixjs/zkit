@@ -4,7 +4,7 @@ tags:
 - controllers
 - documentation
 group: controllers
-order: 7
+order: 0
 options: mdl highlight sponsor
 theme: indigo-pink
 icon: beach_access
@@ -20,7 +20,18 @@ keywords:
 ---
 
 Decralative [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) component that
-supports not just scoped CSS styles, but also scoped JavaScript.
+supports not just scoped CSS styles, but also:
+
+- Scoped JavaScript
+- Data model with two-way binding (model &rlarr; view)
+- Templating
+- Dynamic component interface with definable public methods and properties
+- Component's interoperability with the `using` directive
+- Nested components
+- Custom events
+- Behavior
+- Lazy loading
+
 
 ## Usage
 
@@ -64,14 +75,7 @@ supports not just scoped CSS styles, but also scoped JavaScript.
 ```
 
 
-<div layout="column center-left" style="margin-top: 48px; margin-bottom: 32px">
-  <div>
-    <a layout="row center-start" href="https://codepen.io/genielabs/pen/PoQyKPE" target="_blank" rel="noreferrer">
-      <i class="material-icons mdl-color-text--primary">try</i>
-      <span style="font-size: 120%;margin-left:2px;margin-bottom: 2px">Example on CodePen</span>
-    </a>
-  </div>
-</div>
+{% tryLink 'Example on CodePen' 'https://codepen.io/genielabs/pen/PoQyKPE' %}
 
 
 ### Option attributes
@@ -87,7 +91,7 @@ supports not just scoped CSS styles, but also scoped JavaScript.
 
 &nbsp;
 
-Find out how to use scoped scripts and other *zuix.js* component's features from
+Find out how to use scoped scripts and all other *zuix.js* component's features from
 [zuix.js](https://zuixjs.org/pages/documentation/active_refresh/) website.
 
 
