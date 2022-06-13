@@ -1,0 +1,68 @@
+<style>
+    .scrollable {
+        height: 420px;
+        overflow-y: scroll;
+        border-top: solid 2px gray;
+        border-bottom: solid 2px gray;
+    }
+    .item {
+        background-color: #fafafa;
+        margin:6px;
+        width: 320px;
+        min-height: 320px;
+    }
+</style>
+
+
+<div self="center" layout="column top-center" class="scrollable" z-lazy="scroll">
+    <!-- zUIx list_view component -->
+    <div z-load="@lib/controllers/list-view"
+         z-options="example_lv_options"
+         self="size-xlarge" layout="rows top-center">
+        <!--
+        Loading listview...
+        -->
+    </div>
+</div>
+
+
+<script>
+  // ListView component options and adapters
+
+  var example_lv_options = {
+    ready: function(ctx) {
+      // Set the model data and the 'getItem' method called by the list_view control for each item
+      ctx.model({
+        itemList: getItemList(),
+        getItem: function(index, item) {
+          // Return the item data. Each item could also be rendered with a different template,
+          // in this case all items are using the 'card-template' which is defined
+          // inline in the same page. For further information about ZUIX templates referer
+          // to the documentation http://genielabs.github.io/zuix/#/docs .
+          return {
+            itemId: index,
+            componentId: '@lib/templates/mdl-card-square',
+            options: {
+              controller: () => {},
+              className: 'item',
+              model: item
+            }
+          }
+        }
+      });
+    }
+  };
+
+  function getItemList() {
+    // This is usually a result from some WebService API call
+    return [
+      {% for n in (1..500) %}
+      { title: 'Just a test! {{ n }}',
+        text: 'All texts in this page were randomly generated to fill-in the spaces.',
+        image: 'https://picsum.photos/seed/list-view-{{ n }}/320/160' },
+      {% endfor %}
+    ];
+  }
+
+  zuix.lazyLoad(true, -600);
+</script>

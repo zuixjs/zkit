@@ -1,4 +1,4 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.10/js/zuix.module.min.js';
+import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.11/js/zuix.module.min.js';
 customElements.define('view-pager', class extends HTMLElement {
   connectedCallback() {
     this.style.display = 'block';

@@ -22,9 +22,9 @@ function TransposeFx(ctrl) {
     targetView = ctrl.view('.transpose-fx-container');
     // set component's public methods
     ctrl.expose({
-      begin: (el) => begin(el),
-      end: () => end(),
-      toggle: (el) => toggle(el),
+      begin,
+      end,
+      toggle,
       active: () => isOpen
     });
     setupTransitions();
@@ -100,7 +100,8 @@ function TransposeFx(ctrl) {
         transform: 'translate(0,0)'
       });
     });
-    ctrl.view().trigger('transpose:begin', element);
+    ctrl.view()
+        .trigger('transpose:begin', element);
   }
 
   function end() {

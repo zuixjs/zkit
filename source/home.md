@@ -18,7 +18,7 @@ keywords:
 
 {% unpre %}
 ```html
-<div self="size-x1" layout="column center-center" style="margin: 24px; margin-bottom: 72px; margin-top: 72px; width:auto!important">
+<div class="logo" self="size-x1" layout="column center-center" style="margin: 24px; margin-bottom: 72px; margin-top: 72px; width:auto!important">
     <div layout="row center-center" class="animate__animated animate__fadeInDown animate__fast" style="font-size: 300%">
         <strong>Z</strong>
         <i style="font-size: 150%; margin-bottom: 6px; color: mediumseagreen; margin-right: 4px; margin-left: 4px" class="material-icons animate__animated animate__bounce">
@@ -32,6 +32,11 @@ keywords:
         made with <a href="https://zuixjs.org">zuix.js</a>
     </code>
 </div>
+<style>
+  .logo strong {
+    font-family: "Times New Roman", serif ;
+  }
+</style>
 ```
 {% endunpre %}
 
@@ -43,7 +48,7 @@ features.
 - [zuix.js](https://zuixjs.org/)  
   A small library for component-based web development
 - [Web Starter](https://github.com/zuixjs/zuix-web-starter/)  
-  A web starter with templates and examples, based on *zuix.js* and [Eleventy](https://www.11ty.dev/), a simple static site generator.
+  A web starter with templates and examples, based on *zuix.js*
 - [Web App](https://github.com/zuixjs/web-app/) starter template
 - [News Blog](https://github.com/zuixjs/news-blog/) starter template
 - Older zKit release [v1.0]({{ '/1.0/' | url }}) (2016)

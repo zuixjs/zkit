@@ -8,6 +8,12 @@ main {
     overflow: hidden;
 }
 a {
-    color: forestgreen;
+    color: deeppink;
     text-decoration: none!important;
+}
+strong {
+    color: #000000;
+}
+code {
+    color: darkgreen;
 }

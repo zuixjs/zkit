@@ -14,14 +14,6 @@
     <lastmod>2022-05-12</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/</loc>
-    <lastmod>2022-05-22</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/home/</loc>
-    <lastmod>2022-06-06</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</loc>
     <lastmod>2022-06-09</lastmod>
   </url>
@@ -42,15 +34,7 @@
     <lastmod>2022-06-10</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</loc>
     <lastmod>2022-06-10</lastmod>
   </url>
   <url>
@@ -59,6 +43,34 @@
   </url>
   <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/shadow-view/</loc>
-    <lastmod>2022-06-11</lastmod>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/home/</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/test-1.html</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/test-2.html</loc>
+    <lastmod>2022-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/</loc>
+    <lastmod>2022-06-14</lastmod>
   </url>
 </urlset>

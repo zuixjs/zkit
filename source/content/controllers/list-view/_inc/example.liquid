@@ -1,0 +1,126 @@
+<style>
+    .scrollable {
+        height: 420px;
+        overflow-y: scroll;
+        border-top: solid 2px gray;
+        border-bottom: solid 2px gray;
+    }
+    .item {
+        background-color: #dadada;
+        margin:6px;
+        width: 320px;
+        min-height: 320px;
+    }
+    .progress-bar {
+        padding: 1px;
+        width: 100%;
+        height: 12px;
+        border: solid 1px limegreen;
+        border-radius: 6px;
+        margin-top: 12px;
+    }
+    .progress-bar .bar {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-radius: 6px;
+        /*background-color: lime;*/
+        transition: width 0.3s ease-in-out;
+    }
+</style>
+
+
+<div self="center" layout="column top-center" class="scrollable"
+     z-lazy="scroll">
+    <!-- zUIx list_view component -->
+    <div ctrl z-load="@lib/controllers/list-view"
+         z-context="list-view"
+         z-options="example_lv_options"
+         self="size-xlarge" layout="rows top-center">
+    </div>
+</div>
+
+<script>
+  // ListView component options and adapters
+
+  var example_lv_options = {
+//    listMode: 'incremental',
+//    listMode: 'paged',
+    ready: function(ctx) {
+      const listView = ctx;
+      console.log(ctx)
+      // Set the model data and the 'getItem' method called by the list_view control for each item
+      ctx.model({
+        itemList: [],
+        getItem: function(index, item) {
+          // Return the item data. Each item could also be rendered with a different template,
+          // in this case all items are using the 'card-template' which is defined
+          // inline in the same page. For further information about ZUIX templates referer
+          // to the documentation http://genielabs.github.io/zuix/#/docs .
+          return {
+            itemId: index,
+            componentId: '@lib/templates/mdl-card-square',
+            options: {
+              controller: zuix.controller(() => {}),
+              className: 'item',
+              model: item,
+              type: 'view'
+            }
+          }
+        }
+      });
+
+    }
+  };
+
+
+  zuix.lazyLoad(true, -500);
+</script>
+
+<div z-context="test" style="display: none">
+    <div class="progress-bar">
+        <canvas #bar class="bar" width="1000" height="20"></canvas>
+    </div>
+
+    <label>Page</label>
+    <div #page></div>
+    <div #items></div>
+
+</div>
+
+
+
+<script type="jscript" for="test" using="list-view">
+  const canvas = bar.getContext('2d');
+  listView.on({
+    'page:change': (e, info) => {
+      const p = info.page;
+      console.log(p.current, '---');
+    },
+    'item:loaded': (e, el, item, t) => {
+      const itemIndex = e.detail;
+      const xpos = Math.round((itemIndex / 500) * 1000);
+      const width = 1;
+console.log(xpos)
+      //canvas.strokeWidth = this.clientWidth / 500;
+      canvas.fillRect(xpos, 0, width, 19);
+      console.log(itemIndex, xpos, t);
+    },
+    'status:info': (e, status) => {
+//console.log(e.detail, e.detail.items.loaded, this.clientWidth, this)
+//      $bar.css({width: ((e.detail.items.loaded / e.detail.items.count) * this.clientWidth) + 'px' })
+      const p = status.page;
+      const i = status.items;
+console.log(status)
+      $page.html(`${p.current + 1} / ${p.count}`);
+      $items.html(`${i.loaded} / ${i.count}`);
+    }
+  });
+
+  fetch('test-data.json')
+    .then((result) => result.json())
+    .then((data) => {
+      listView.model().itemList = data;
+    })
+
+</script>

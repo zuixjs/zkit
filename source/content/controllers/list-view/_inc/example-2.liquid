@@ -1,0 +1,34 @@
+<h3>Pre-rendered items list with lazy-loaded components</h3>
+
+<div self="center" layout="column top-center" class="scrollable" z-lazy="scroll">
+    <div self="size-xlarge" layout="rows top-center">
+        {% for n in (1..500) %}
+
+            <div view z-load="@lib/templates/mdl-card-square" class="item" z-model="{
+        image: 'https://picsum.photos/seed/list-view-{{ n }}/320/160',
+        title: 'Lazy-loaded {{ n }}',
+        text: '12345 abdcef ...'
+    }"></div>
+
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+  zuix.lazyLoad(true, -400);
+</script>
+
+<style>
+    .scrollable {
+        max-width: 720px;
+        height: 340px;
+        overflow-y: scroll;
+    }
+
+    .item {
+        background-color: lightgray;
+        margin:6px;
+        width: 320px;
+        min-height: 320px;
+    }
+</style>

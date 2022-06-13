@@ -1,13 +1,13 @@
 <div #container class="container">
 
-    <div ctrl z-load="@lib/controllers/view-pager" z-lazy="true"
+    <div ctrl z-load="@lib/controllers/view-pager"
          :paging="true" :auto-hide="true"
          #media class="media-list visible-on-ready"></div>
 
     <div #controls fx-show="fadeIn" fx-hide="fadeOutDown">
 
         <div ctrl z-load="@lib/controllers/view-pager"
-             z-lazy="false" data-o-autohide="true"
+             :auto-hide="true"
              #carousel></div>
 
     </div>

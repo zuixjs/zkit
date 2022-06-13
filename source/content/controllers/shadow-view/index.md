@@ -29,7 +29,7 @@ supports not just scoped CSS styles, but also:
 - Component's interoperability with the `using` directive
 - Nested components
 - Custom events
-- Behavior
+- Behaviors
 - Lazy loading
 
 

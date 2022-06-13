@@ -4,10 +4,10 @@
     {% assign prevPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getPreviousCollectionItem: page %}
     {% assign nextPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getNextCollectionItem: page %}
 
-    <div layout="rows center-spread" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+    <div self="size-large" layout="rows center-justify" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%">
 
         {% if prevPost %}
-        <a href="{{ prevPost.url |  url }}" style="text-align: center">
+        <a href="{{ prevPost.url |  url }}" style="text-align: center;margin-left: 64px">
             <div layout="row center-center">
                 <i class="material-icons">arrow_left</i>&nbsp;
                 <span style="padding-right: 24px">Previous</span>
@@ -19,7 +19,7 @@
         {% endif %}
 
         {% if nextPost %}
-        <a href="{{ nextPost.url |  url }}" style="text-align: center">
+        <a href="{{ nextPost.url |  url }}" style="text-align: center;margin-right: 64px">
             <div layout="row center-center">
                 <span style="padding-left: 24px">Next</span>
                 <i class="material-icons">arrow_right</i>&nbsp;

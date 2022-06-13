@@ -2,25 +2,29 @@
 **Example with module import**
 
 {% capture example1 %}
-    ```html
+```html
     <script type="module">
       import "{{ app.zkit.libraryPath }}controllers/gesture-helper.module.js";
 
       self.handleSwipe = function(e, tp) {
         console.log('Swipe direction', tp.direction, tp.velocity)
       }
+
+      zuix.context('gh', (ctx) => {
+        console.log(ctx)
+      });
     </script>
 
     <div style="width: 300px; height: 300px; background: whitesmoke; padding: 12px; border: solid 1px"
          :passive="false"
          :on:gesture:swipe="handleSwipe"
          :on:gesture:pan="model.test = args.velocity">
-        <gesture-helper></gesture-helper>
+        <gesture-helper z-context="gh"></gesture-helper>
 
         <div #test></div>
 
     </div>
-    ```
+```
 {% endcapture %}
 
 {{ example1 }}

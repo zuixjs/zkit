@@ -1,0 +1,49 @@
+
+<style>
+    .scrollable {
+        max-width: 720px;
+        height: 340px;
+        overflow-y: scroll;
+    }
+
+    test-component {
+        background-color: lightgray;
+        margin:6px;
+        width: 320px;
+        min-height: 320px;
+    }
+</style>
+
+
+<template z-view="test">
+
+    {% rawFile '/lib/1.2/templates/mdl-card-square.html' %}
+
+    <style>
+        {% rawFile '/lib/1.2/templates/mdl-card-square.css' %}
+    </style>
+
+</template>
+
+<script>
+
+  customElements.define('test-component', class extends HTMLElement {
+    connectedCallback() {
+      zuix.loadComponent(this, 'test', 'view');
+    }
+  });
+
+</script>
+
+
+<h3>Pre-rendered items list (html+css template)</h3>
+
+<div self="center" layout="column top-center" class="scrollable" z-lazy="scroll">
+    <div self="size-xlarge" layout="rows top-center">
+        {% for n in (1..500) %}
+
+            <test-component></test-component>
+
+        {% endfor %}
+    </div>
+</div>

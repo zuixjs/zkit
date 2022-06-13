@@ -54,7 +54,7 @@
             <a ctrl z-load="@lib/controllers/mdl-button"
                z-options="{class: 'accent'}"
                z-lazy="false" layout="row center-center"
-               onclick="zuix.context('tfx').end()">
+               (click)="tfx.end()">
                 <i class="material-icons">close</i>
                 Close
             </a>
@@ -64,12 +64,10 @@
 </div>
 
 <script>
-  zuix.context('tfx', (tfx) => {
-    tfx.on({
-      'transpose:begin': (e, el) => console.log(e, el),
-      'transpose:end': (e, el) => console.log(e, el)
-    });
-  });
+zuix.context('tfx', (tfx) => tfx.on({
+  'transpose:begin': (e, el) => console.log(e, el),
+  'transpose:end': (e, el) => console.log(e, el)
+}));
 </script>
 
 <style>
