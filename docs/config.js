@@ -22,7 +22,7 @@
     },
     "zkit": {
       "libraryPath": "https://zuixjs.github.io/zkit/lib/1.2/",
-      "zuixVersion": "1.1.11"
+      "zuixVersion": "1.1.13"
     }
   });
   // Check that service workers are registered

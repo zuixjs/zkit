@@ -1,4 +1,4 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.11/js/zuix.module.min.js';
+import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.13/js/zuix.module.min.js';
 customElements.define('mdl-button', class extends HTMLElement {
   static get observedAttributes() { return ['disabled']; }
   context = null;
