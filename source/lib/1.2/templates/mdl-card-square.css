@@ -34,13 +34,12 @@
 h1 {
     padding: 16px !important;
     font-size: 160% !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     margin: 0 !important;
-    text-shadow:
-            -.5px -.5px 0 #00000055,
-            .5px -.5px 0 #00000055,
-            -.5px .5px 0 #00000055,
-            1px 1px 0 #00000055 !important;
+    text-shadow: 1px 0 4px #00000085,
+                 0 0 4px #00000085,
+                -1px 0 4px #00000085,
+                1px 1px 4px #00000085 !important;
     z-index: 10 !important;
 }
 .mdl-button {

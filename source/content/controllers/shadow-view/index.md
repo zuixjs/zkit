@@ -78,7 +78,7 @@ supports not just scoped CSS styles, but also:
 {% tryLink 'Example on CodePen' 'https://codepen.io/genielabs/pen/PoQyKPE' %}
 
 
-### Option attributes
+## Option attributes
 
 - `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.

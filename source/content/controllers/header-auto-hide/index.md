@@ -79,7 +79,7 @@ Add the `ctrl z-load` attributes to the component with the scrollbar
 </div>
 
 
-### Option attributes
+## Option attributes
 
 - `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
@@ -97,7 +97,7 @@ Add the `ctrl z-load` attributes to the component with the scrollbar
   field name of the element hosting the scrollbar. This value is auto-detected by default.
 
 
-### Events
+## Events
 
 - `page:scroll` (e, data) - occurs when the page is scrolling
 

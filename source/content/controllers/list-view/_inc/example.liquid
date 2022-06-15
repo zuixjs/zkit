@@ -1,15 +1,176 @@
+<div z-context="test" z-using="list-view" class="visible-on-ready">
+
+    <div self="center" layout="column top-center" class="scrollable"
+         z-lazy="scroll">
+        <!-- zUIx list_view component -->
+        <div ctrl z-load="@lib/controllers/list-view" self="size-xlarge" layout="rows top-center"
+             z-context="list-view">
+        </div>
+        <div #spinner class="mdl-spinner mdl-js-spinner is-active" style="margin-top: auto;margin-bottom: auto;"></div>
+    </div>
+
+    <div layout="row center-center" style="padding: 8px; margin-top: 12px;">
+
+        <label class="mdl-color-text--accent mdl-typography--font-bold">
+            ListView MODE:
+        </label>
+
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-full">
+            <input #mode type="radio" id="mode-full" class="mdl-radio__button" name="options" value="full">
+            <span class="mdl-radio__label">Full</span>
+        </label>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-incremental">
+            <input #mode type="radio" id="mode-incremental" class="mdl-radio__button" name="options" value="incremental" checked>
+            <span class="mdl-radio__label">Incremental</span>
+        </label>
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-paginated">
+            <input #mode type="radio" id="mode-paginated" class="mdl-radio__button" name="options" value="paginated">
+            <span class="mdl-radio__label">Paginated</span>
+        </label>
+
+    </div>
+
+    <div layout="row center-justify">
+        <label class="mdl-color-text--primary">Map of loaded components</label>
+        <div #items></div>
+    </div>
+    <div class="progress-bar">
+        <canvas #bar class="bar" width="500" height="20"></canvas>
+    </div>
+
+    <div style="height: 40px">
+
+        <div layout="row center-right"
+             @if="listView.config().listMode !== 'incremental'"
+             @then="$this.hide()"
+             @else="$this.show()"
+             @active>
+            <label class="mdl-color-text--primary">Loaded pages</label>
+            <div #loaded-pages></div>
+        </div>
+
+        <div @hide-if="listView.config().listMode !== 'paginated'" layout="row center-right" style="gap: 12px">
+            <strong class="mdl-color-text--primary">Page</strong>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect" title="previous page"
+                    (click)="listView.prev()">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            <select #pages (change)="listView.page(this.value)">
+            </select>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect" title="next page"
+                    (click)="listView.next()">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- -->
+
+<script type="jscript" for="test">
+  const canvas = bar.getContext('2d');
+  canvas.fillStyle = 'rgba(255, 165, 0, 0.5)';
+
+  let pagesCount = 0;
+
+  $mode.on('change', (e, a) => {
+    canvas.clearRect(0, 0, 500, 19);
+    listView.config({listMode: a.value()});
+  });
+
+  // fetch data and configure listView
+  fetch('test-data.json')
+    .then((result) => result.json())
+    .then((data) => {
+      listView.on({
+        'page:change': handlePageChange,
+        'list:update': handleListUpdate,
+        'list:busy': () => $spinner.show(),
+        'list:ready': () => $spinner.hide()
+      });
+      listView.model(data);
+      listView.config({
+        listMode: 'incremental',
+        adapter: (index, item) => ({
+          componentId: item.componentId,
+          type: item.type,
+          options: {
+            on: {click: (e, data, $el) => console.log('clicked', $el, zuix.context($el))},
+            model: item.model
+          },
+          className: item.className
+        })
+      });
+    });
+
+  // set lazy-loading threshold
+  zuix.lazyLoad(true, -800);
+
+  function handlePageChange(e, info) {
+    const p = info.page;
+    $pages.value(p.current);
+    if (listView.config().listMode !== 'incremental') {
+      zuix.$.find('.scrollable').get().scrollTop = 0;
+    }
+  }
+
+  function handleListUpdate(e, status) {
+    const p = status.page;
+    const i = status.items;
+
+    if (p.count !== pagesCount) {
+      pagesCount = p.count;
+      $pages.html('');
+      for (let p = 0; p < pagesCount; p++) {
+        const option = zuix.$(document.createElement('option'))
+          .attr('value', p)
+          .html((p+1));
+        $pages.insert(p, option);
+      }
+    }
+
+    $loadedPages.html(`${(p.current + 1)} / ${p.count}`);
+    $items.html(`${i.loaded} / ${i.count}`);
+
+    // draw loaded item on map
+    canvas.fillRect(i.current, 0, 1, 19);
+  }
+</script>
+
 <style>
     .scrollable {
+        background-color: rgba(100, 100, 100, 0.1);
         height: 420px;
         overflow-y: scroll;
         border-top: solid 2px gray;
         border-bottom: solid 2px gray;
     }
-    .item {
+    .list-item {
         background-color: #dadada;
         margin:6px;
         width: 320px;
         min-height: 320px;
+    }
+    .list-item-wide {
+        text-align: center;
+        background-color: #dadada;
+        margin: 12px 6px;
+        padding: 1px;
+        width: 100%;
+        min-width: 332px;
+        max-width: 652px;
+        height: 128px;
+    }
+
+    [z-context="test"] {
+        margin-top: 24px;
+    }
+    [z-context="test"] label {
+        font-weight: bold;
+        margin-right: 16px;
+        padding: 2px;
     }
     .progress-bar {
         padding: 1px;
@@ -17,7 +178,7 @@
         height: 12px;
         border: solid 1px limegreen;
         border-radius: 6px;
-        margin-top: 12px;
+        margin-bottom: 12px;
     }
     .progress-bar .bar {
         display: block;
@@ -29,98 +190,22 @@
     }
 </style>
 
-
-<div self="center" layout="column top-center" class="scrollable"
-     z-lazy="scroll">
-    <!-- zUIx list_view component -->
-    <div ctrl z-load="@lib/controllers/list-view"
-         z-context="list-view"
-         z-options="example_lv_options"
-         self="size-xlarge" layout="rows top-center">
-    </div>
-</div>
-
-<script>
-  // ListView component options and adapters
-
-  var example_lv_options = {
-//    listMode: 'incremental',
-//    listMode: 'paged',
-    ready: function(ctx) {
-      const listView = ctx;
-      console.log(ctx)
-      // Set the model data and the 'getItem' method called by the list_view control for each item
-      ctx.model({
-        itemList: [],
-        getItem: function(index, item) {
-          // Return the item data. Each item could also be rendered with a different template,
-          // in this case all items are using the 'card-template' which is defined
-          // inline in the same page. For further information about ZUIX templates referer
-          // to the documentation http://genielabs.github.io/zuix/#/docs .
-          return {
-            itemId: index,
-            componentId: '@lib/templates/mdl-card-square',
-            options: {
-              controller: zuix.controller(() => {}),
-              className: 'item',
-              model: item,
-              type: 'view'
-            }
-          }
+<template z-view="inline/banner-example">
+    <div #title class="title"></div>
+    <div #text class="text"></div>
+    <style>
+        :host {
+            background-color: white;
         }
-      });
-
-    }
-  };
-
-
-  zuix.lazyLoad(true, -500);
-</script>
-
-<div z-context="test" style="display: none">
-    <div class="progress-bar">
-        <canvas #bar class="bar" width="1000" height="20"></canvas>
-    </div>
-
-    <label>Page</label>
-    <div #page></div>
-    <div #items></div>
-
-</div>
-
-
-
-<script type="jscript" for="test" using="list-view">
-  const canvas = bar.getContext('2d');
-  listView.on({
-    'page:change': (e, info) => {
-      const p = info.page;
-      console.log(p.current, '---');
-    },
-    'item:loaded': (e, el, item, t) => {
-      const itemIndex = e.detail;
-      const xpos = Math.round((itemIndex / 500) * 1000);
-      const width = 1;
-console.log(xpos)
-      //canvas.strokeWidth = this.clientWidth / 500;
-      canvas.fillRect(xpos, 0, width, 19);
-      console.log(itemIndex, xpos, t);
-    },
-    'status:info': (e, status) => {
-//console.log(e.detail, e.detail.items.loaded, this.clientWidth, this)
-//      $bar.css({width: ((e.detail.items.loaded / e.detail.items.count) * this.clientWidth) + 'px' })
-      const p = status.page;
-      const i = status.items;
-console.log(status)
-      $page.html(`${p.current + 1} / ${p.count}`);
-      $items.html(`${i.loaded} / ${i.count}`);
-    }
-  });
-
-  fetch('test-data.json')
-    .then((result) => result.json())
-    .then((data) => {
-      listView.model().itemList = data;
-    })
-
-</script>
+        .title {
+            margin: 0;
+            padding: 12px;
+            display: block;
+            font-size: 200%;
+            color:  deeppink;
+        }
+        .text {
+            padding: 12px;
+        }
+    </style>
+</template>

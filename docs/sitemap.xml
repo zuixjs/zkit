@@ -18,32 +18,8 @@
     <lastmod>2022-06-09</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/components/menu-overlay/</loc>
     <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/components/context-menu/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</loc>
-    <lastmod>2022-06-10</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
-    <lastmod>2022-06-11</lastmod>
-  </url>
-  <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/shadow-view/</loc>
-    <lastmod>2022-06-12</lastmod>
   </url>
   <url>
     <loc>https://zuixjs.github.io/zkit/</loc>
@@ -58,10 +34,6 @@
     <lastmod>2022-06-12</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
-    <lastmod>2022-06-12</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/test-1.html</loc>
     <lastmod>2022-06-12</lastmod>
   </url>
@@ -70,7 +42,35 @@
     <lastmod>2022-06-12</lastmod>
   </url>
   <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/view-pager/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/components/context-menu/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/shadow-view/</loc>
+    <lastmod>2022-06-15</lastmod>
+  </url>
+  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/</loc>
-    <lastmod>2022-06-14</lastmod>
+    <lastmod>2022-06-16</lastmod>
   </url>
 </urlset>

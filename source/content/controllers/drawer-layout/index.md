@@ -78,7 +78,7 @@ Add the `ctrl z-load` attributes to the container of your navigation drawer
 </div>
 
 
-### Option attributes
+## Option attributes
 
 - `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
@@ -94,7 +94,7 @@ Add the `ctrl z-load` attributes to the container of your navigation drawer
   page width is greater than `:auto-hide-width` 
 
 
-### Events
+## Events
 
 
 - `drawer:open` - occurs when the drawer opens

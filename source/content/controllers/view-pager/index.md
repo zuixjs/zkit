@@ -113,7 +113,7 @@ will center the active element in the view.
 - `:start-gap` <small>optional</small>
 
 
-### Events
+## Events
 
 - `page:change` - occurs when the page is changed  
   The second argument of the callback is an object containing the fields `in` (the new page number) and `out` (the old page number):  

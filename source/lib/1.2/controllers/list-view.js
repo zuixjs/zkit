@@ -1,201 +1,238 @@
 /**
- * zUIx - ListView Component
+ * ListView controller class.
  *
+ * @version 1.1.0 (2022-06-14)
  * @version 1.0.3 (2017-06-11)
  * @author Gene
  *
+ * @constructor
+ * @this {ContextController}
  */
+function ListView() {
+  const cp = this;
 
-zuix.controller(function(cp) {
-  // Set list type: [ 'full', 'paged', 'incremental' ] (default: 'full')
+  // List type
   const MODE_FULL = 'full';
-  const MODE_PAGED = 'paged';
+  const MODE_PAGINATED = 'paginated';
   const MODE_INCREMENTAL = 'incremental';
+  // Initial mode set to 'full'
   let listMode = MODE_FULL;
 
-  // How many items per page to show/add (for 'paged' and 'incremental' modes) (default: 30)
+  // How many items per page to show/add (for 'paginated' and 'incremental' modes) (default: 30)
   let itemsPerPage = 30;
 
   // Structure used to store component state info
-  const statusInfo = {
+  const updateInfo = {
     page: {
       current: 0,
       count: 0
     },
     items: {
+      current: -1,
       loaded: 0,
       count: 0
     }
   };
 
-  // Objects data persistence
-  const listItems = [];
+  // Data list and adapter
+  let dataAdapter;
 
-  cp.init = function() {
-    cp.options().html = false;
-    cp.options().css = false;
-  };
+  // Loaded component reference
+  const loadedComponents = [];
 
-  // TODO: describe the model and options used by this component
-  cp.create = function() {
-    // exposed methods through this component context
-    cp.expose('config', configure);
-    cp.expose('page', setPage);
-    cp.expose('status', triggerStatusUpdate);
-    cp.expose('more', function() {
-      statusInfo.page.current++;
-      cp.update();
+  // Component's life-cycle interface
+
+  cp.create = () => {
+    // expose public component's methods
+    cp.expose({
+      config,
+      page,
+      prev: () => page(updateInfo.page.current - 1),
+      next: () => page(updateInfo.page.current + 1),
+      more: () => {
+        updateInfo.page.current++;
+        renderList();
+      },
+      clear
     });
-    cp.expose('clear', clear);
     // set initial config
-    configure(cp.options());
-    // init
-    clear();
+    cp.options().itemsPerPage = cp.options().itemsPerPage || itemsPerPage;
+    cp.options().listMode = cp.options().listMode || listMode;
+    config(cp.options());
   };
+  cp.update = () => renderList();
+  cp.destroy = () => clear();
 
-  cp.destroy = function() {
-    clear();
-  };
+  // Private methods
 
-  cp.update = function() {
-    const modelList = cp.model().itemList;
-    if (modelList == null) return;
+  function renderList() {
+    const dataModel = cp.model();
+    if (!dataModel || typeof dataAdapter !== 'function') {
+      clear();
+      return;
+    }
 
-    statusInfo.page.count = pageCount();
-    statusInfo.items.count = modelList.length;
+    cp.trigger('list:busy');
 
-    const startItem = statusInfo.page.current*itemsPerPage;
+    updateInfo.page.count = pageCount();
+    updateInfo.items.count = dataModel.length;
+
+    const startItem = updateInfo.page.current * itemsPerPage;
     let i = 0;
-    if (listMode === MODE_PAGED && startItem > 0) {
+    if (listMode === MODE_PAGINATED && startItem > 0) {
       i = startItem;
     }
 
-    for ( ; i < modelList.length; i++) {
-      const dataItem = cp.model().getItem(i, modelList[i]);
-      const id = dataItem.itemId;
-
+    for ( ; i < dataModel.length; i++) {
+      const item = JSON.parse(JSON.stringify(dataModel[i]));
+      const dataItem = dataAdapter(i, item);
       if ((listMode === MODE_FULL) ||
-                (listMode === MODE_PAGED && i >= startItem && i < startItem+itemsPerPage) ||
-                (listMode === MODE_INCREMENTAL && i < startItem+itemsPerPage)) {
-        if (!listItems[id]) {
-          const container = zuix.$(document.createElement('div'));
-          container.attr('z-lazy', 'true');
-          zuix.loadComponent(container, dataItem.componentId, 'view', dataItem.options);
+        (listMode === MODE_PAGINATED && i >= startItem && i < startItem+itemsPerPage) ||
+        (listMode === MODE_INCREMENTAL && i < startItem+itemsPerPage)) {
+        if (!loadedComponents[i]) {
+          // allocate component
+          const container = zuix
+              .$(document.createElement('div'))
+              .attr('z-lazy', 'true');
+
           // use a responsive CSS class if provided
-          if (dataItem.options.className != null) {
+          if (dataItem.className != null) {
             // this class should set the min-height property
-            container.addClass(dataItem.options.className);
+            container.addClass(dataItem.className);
           } else {
             // set a temporary height for the container (for lazy load to work properly)
-            container.css({minHeight: dataItem.options.height || '48px'});
+            container.css({minHeight: dataItem.height || '48px'});
           }
+
           // register a callback to know when the component is actually loaded
-          const setupListener = function(itemIndex, el) {
-            const componentReady = function() {
-              // trigger status update event
-              statusInfo.items.loaded++;
-              triggerStatusUpdate();
+          const setupListener = (itemIndex, el) => {
+            const componentReady = () => {
+              // update info and trigger status update event
+              updateInfo.items.loaded++;
+              updateInfo.items.current = itemIndex;
               // if all components have been loaded, then trigger 'complete' event
-              if (itemIndex === modelList.length - 1) {
-                cp.trigger('complete');
-              } else if (itemIndex + 1 === (statusInfo.page.current + 1) * itemsPerPage) {
+              if (itemIndex === dataModel.length - 1) {
+                cp.trigger('list:end');
+              } else if (itemIndex + 1 === (updateInfo.page.current + 1) * itemsPerPage) {
                 if (listMode === MODE_INCREMENTAL) {
-                  setPage(statusInfo.page.current + 1);
+                  page(updateInfo.page.current + 1);
                 }
               }
+              triggerStatusUpdate();
             };
-            el.one({'component:loaded': componentReady});
+            el.one({'component:ready': componentReady});
           };
           setupListener(i, container);
+          //const options = JSON.parse(JSON.stringify(dataItem.options));
+          zuix.loadComponent(container, dataItem.componentId, dataItem.type, dataItem.options);
           // keep track of already allocated items
-          listItems[id] = container.get();
+          loadedComponents[i] = container;
           // add item container to the list-view, the component will be lazy-loaded later as needed
-          cp.view().insert(startItem + i, listItems[id]);
-        } else if (!dataItem.options.static) {
-          // update existing item model's data
-          // TODO: should check if the data in the model has changed before calling this
-          // TODO: should also call the `model` method in the `zuix.context` callback
-          const ctx = zuix.context(listItems[id]);
+          cp.view().insert(startItem + i, loadedComponents[i]);
+        } else if (!dataItem.static) {
+          // update existing item dataModel's data
+          const ctx = zuix.context(loadedComponents[i]);
           if (ctx) {
-            ctx.model(dataItem.options.model);
+            if (JSON.stringify(ctx.model()) !== JSON.stringify(dataItem.options.model)) {
+              ctx.model(dataItem.options.model);
+            }
           }
         }
       }
 
-      if (typeof listItems[id] !== 'undefined') {
-        if ((listMode === MODE_PAGED && i < statusInfo.page.current * itemsPerPage) ||
-                    (listMode !== MODE_FULL && i > ((statusInfo.page.current + 1) * itemsPerPage - 1))) {
-          listItems[id].style['display'] = 'none';
+      if (typeof loadedComponents[i] !== 'undefined') {
+        if ((listMode === MODE_PAGINATED && i < updateInfo.page.current * itemsPerPage) ||
+          (listMode !== MODE_FULL && i > ((updateInfo.page.current + 1) * itemsPerPage - 1))) {
+          loadedComponents[i].hide();
         } else {
-          listItems[id].style['display'] = '';
+          loadedComponents[i].show();
         }
       }
 
-      if ((listMode === MODE_PAGED || listMode === MODE_INCREMENTAL) && i > startItem+itemsPerPage) {
+      if ((listMode === MODE_PAGINATED || listMode === MODE_INCREMENTAL) && i > startItem+itemsPerPage) {
         break;
       }
     }
 
-    // trigger status update event
-    triggerStatusUpdate();
+    cp.trigger('list:ready');
 
     // `componentize` is required to process lazy-loaded items
     zuix.componentize(cp.view());
-  };
+  }
 
-  function setPage(number) {
+  function page(number) {
     if (!isNaN(number) && number >= 0 && number < pageCount()) {
-      if (listMode == MODE_PAGED) {
-        clearPage(statusInfo.page.current);
+      if (listMode === MODE_PAGINATED) {
+        clearPage(updateInfo.page.current);
       }
-      statusInfo.page.current = parseInt(number);
-      cp.trigger('page:change', statusInfo);
-      cp.update();
+      updateInfo.page.current = parseInt(number);
+      cp.trigger('page:change', updateInfo);
+      renderList();
     }
-    return statusInfo.page.current;
+    return updateInfo.page.current;
   }
-
   function clearPage(number) {
-    const modelList = cp.model().itemList;
-    if (modelList == null) return;
-    const startItem = number*itemsPerPage;
-    for (let i = startItem; i < listItems.length && i < startItem+itemsPerPage; i++) {
-      const dataItem = cp.model().getItem(i, modelList[i]);
-      const id = dataItem.itemId;
-      if (typeof listItems[id] !== 'undefined') {
-        listItems[id].style['display'] = 'none';
+    if (!cp.model()) return;
+    const startItem = number * itemsPerPage;
+    for (let i = startItem; i < cp.model().length && i < startItem + itemsPerPage; i++) {
+      if (typeof loadedComponents[i] !== 'undefined') {
+        loadedComponents[i].hide();
       }
     }
-  }
-
-  function triggerStatusUpdate() {
-    cp.trigger('status:info', statusInfo);
   }
 
   function pageCount() {
-    return Math.ceil(cp.model().itemList.length / itemsPerPage);
+    return Math.ceil(cp.model().length / itemsPerPage);
   }
 
-  function configure(options) {
+  function config(options) {
+    if (options == null) {
+      return {
+        itemsPerPage,
+        listMode,
+        adapter: dataAdapter
+      };
+    }
+    const refresh = () => {
+      renderList();
+      cp.trigger('page:change', updateInfo);
+    };
+    let changed = false;
     if (options.itemsPerPage != null) {
       itemsPerPage = options.itemsPerPage;
+      changed = true;
     }
-    if (options.listMode != null) {
+    if ([MODE_FULL, MODE_PAGINATED, MODE_INCREMENTAL].indexOf(options.listMode) !== -1 && listMode !== options.listMode) {
       listMode = options.listMode;
+      changed = true;
     }
+    if (typeof options.adapter === 'function') {
+      dataAdapter = options.adapter;
+      changed = true;
+    }
+    changed && clear(refresh);
   }
 
-  function clear() {
-    // dispose components
-    for (let i = 0; i < listItems.length; i++) {
-      zuix.unload(listItems[i]);
-    }
-    listItems.length = 0;
-    statusInfo.page.current = 0;
-    statusInfo.page.count = 0;
-    statusInfo.items.loaded = 0;
-    statusInfo.items.count = 0;
+  function clear(callback) {
+    cp.trigger('list:busy');
+    setTimeout(() => {
+      // dispose components
+      loadedComponents.forEach((c) => zuix.unload(c));
+      loadedComponents.length = 0;
+      if (callback) callback();
+      cp.trigger('list:ready');
+    });
+    updateInfo.page.current = 0;
+    updateInfo.page.count = 0;
+    updateInfo.items.loaded = 0;
+    updateInfo.items.count = 0;
     // clear the view
     cp.view().html('');
   }
-});
+
+  function triggerStatusUpdate() {
+    cp.trigger('list:update', updateInfo);
+  }
+}
+
+module.exports = ListView;

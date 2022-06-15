@@ -3,10 +3,30 @@ permalink: /content/controllers/list-view/test-data.json
 ---
 [
   {%- for n in (1..500) %}
+  {% assign idx = n | modulo: 5 %}
+  {% if idx > 0 %}
   {
-    "title": "Just a test! {{ n }}",
-    "text": "All texts in this page were randomly generated to fill-in the spaces.",
-    "image": "https://picsum.photos/seed/list-view-{{ n }}/320/160"
-  }{% unless forloop.last %},{% endunless %}
+    "className": "list-item",
+    "type": "view",
+    "componentId": "@lib/templates/mdl-card-square",
+    "model": {
+      "title": "Test card #{{ n }}",
+      "text": "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.",
+      "image": "https://picsum.photos/seed/list-view-{{ n }}/320/160",
+      "link.title": "Read more"
+    }
+  }
+  {%- else %}
+  {
+    "className": "list-item-wide",
+    "type": "view",
+    "componentId": "inline/banner-example",
+    "model": {
+      "title": "Test banner #{{ n }}",
+      "text": "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart."
+    }
+  }
+  {%- endif -%}
+  {% unless forloop.last %},{% endunless %}
   {%- endfor %}
 ]

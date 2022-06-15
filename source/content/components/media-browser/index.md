@@ -158,7 +158,7 @@ Put inside the field <code>media</code> the markup defining image and video list
   The attribute `#<button_name>` must be added to the button element. Only works in detached mode (not inline).
 
 
-### Events
+## Events
 
 
 - `open` - occurs when the media-browser opens

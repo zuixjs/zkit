@@ -138,7 +138,7 @@ Source elements can be also components, not just images.
   set handler function for event `<event_name>`
 
 
-# Events
+## Events
 
 - `transpose:begin` (e, element)
 - `transpose:end` (e, element)
