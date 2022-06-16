@@ -60,7 +60,6 @@
       "title": "<code>zKit</code> components",
       "subtitle": "web enhancing bits",
       "googleSiteId": "UA-116384214-1",
-      "siteMapUrl": "https://zuixjs.github.io/zkit",
       "baseUrl": "/zkit/",
       "resourcePath": "{{app.baseUrl}}app/",
       "libraryPath": {
@@ -79,7 +78,8 @@
       "zkit": {
         "libraryPath": "https://zuixjs.github.io/zkit/lib/1.2/",
         "zuixVersion": "1.1.13"
-      }
+      },
+      "siteMapUrl": "https://zuixjs.github.io/zkit"
     }
   }
 }

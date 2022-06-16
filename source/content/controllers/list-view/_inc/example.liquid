@@ -88,7 +88,8 @@
         'page:change': handlePageChange,
         'list:update': handleListUpdate,
         'list:busy': () => $spinner.show(),
-        'list:ready': () => $spinner.hide()
+        'list:ready': () => $spinner.hide(),
+        'list:end': () => console.log('end of list reached')
       });
       listView.model(data);
       listView.config({

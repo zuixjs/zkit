@@ -4,7 +4,6 @@
     "title": "<code>zKit</code> components",
     "subtitle": "web enhancing bits",
     "googleSiteId": "UA-116384214-1",
-    "siteMapUrl": "https://zuixjs.github.io/zkit",
     "baseUrl": "/zkit/",
     "resourcePath": "/zkit/app/",
     "libraryPath": {
@@ -23,7 +22,8 @@
     "zkit": {
       "libraryPath": "https://zuixjs.github.io/zkit/lib/1.2/",
       "zuixVersion": "1.1.13"
-    }
+    },
+    "siteMapUrl": "https://zuixjs.github.io/zkit"
   });
   // Check that service workers are registered
   if ('serviceWorker' in navigator) {

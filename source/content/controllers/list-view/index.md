@@ -124,6 +124,8 @@ Add the `ctrl z-load` attributes to the element hosting the *list-view*:
   the list view is ready
 - `list:update` &rarr; *(e, info)*  
   data has been updated
+- `list:end`  
+  end of list reached
 - `page:change` &rarr; *(e, info)*  
   page changed
 
