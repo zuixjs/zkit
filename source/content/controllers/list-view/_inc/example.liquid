@@ -9,24 +9,38 @@
         <div #spinner class="mdl-spinner mdl-js-spinner is-active" style="margin-top: auto;margin-bottom: auto;"></div>
     </div>
 
-    <div layout="row center-center" style="padding: 8px; margin-top: 12px;">
+    <div layout="rows center-center" style="padding: 8px; margin-top: 12px;gap:16px">
 
         <label class="mdl-color-text--accent mdl-typography--font-bold">
             ListView MODE:
         </label>
+        <div>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-full">
+                <input #mode type="radio" id="mode-full" class="mdl-radio__button" name="options" value="full">
+                <span class="mdl-radio__label">Full</span>
+            </label>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-incremental">
+                <input #mode type="radio" id="mode-incremental" class="mdl-radio__button" name="options" value="incremental" checked>
+                <span class="mdl-radio__label">Incremental</span>
+            </label>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-paginated">
+                <input #mode type="radio" id="mode-paginated" class="mdl-radio__button" name="options" value="paginated">
+                <span class="mdl-radio__label">Paginated</span>
+            </label>
+        </div>
 
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-full">
-            <input #mode type="radio" id="mode-full" class="mdl-radio__button" name="options" value="full">
-            <span class="mdl-radio__label">Full</span>
-        </label>
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-incremental">
-            <input #mode type="radio" id="mode-incremental" class="mdl-radio__button" name="options" value="incremental" checked>
-            <span class="mdl-radio__label">Incremental</span>
-        </label>
-        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="mode-paginated">
-            <input #mode type="radio" id="mode-paginated" class="mdl-radio__button" name="options" value="paginated">
-            <span class="mdl-radio__label">Paginated</span>
-        </label>
+        <div>
+            <label class="mdl-color-text--accent mdl-typography--font-bold">
+                Buffer size:
+            </label>
+            <select #buffer-size (change)="zuix.lazyLoad(true, -this.value)">
+                <option value="750">1</option>
+                <option value="1250" selected>2</option>
+                <option value="2000">3</option>
+                <option value="3000">4</option>
+                <option value="5000">5</option>
+            </select>
+        </div>
 
     </div>
 
@@ -107,7 +121,7 @@
     });
 
   // set lazy-loading threshold
-  zuix.lazyLoad(true, -800);
+  zuix.lazyLoad(true, -bufferSize.value);
 
   function handlePageChange(e, info) {
     const p = info.page;

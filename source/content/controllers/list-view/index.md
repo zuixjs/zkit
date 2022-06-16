@@ -45,6 +45,9 @@ Components preload threshold can be adjusted using the [`zuix.lazyLoad(..)`](htt
 {% endunpre %}
 
 
+{% tryLink 'Example on CodePen' 'https://codepen.io/genielabs/pen/JjpzygP' %}
+
+
 ## Usage
 
 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
@@ -145,6 +148,17 @@ The `info` object passed to the `list:update` and `page:change` events, has the 
 }
 ```
 
+### Infinite scroll
+
+When the `list:end` event occurs, more data can be added to the feed to implement infinite scroll:
+
+```js
+listView.on('list:end', () => {
+  // fetch more data
+  // ...
+  listView.model().push(...newData);
+});
+```
 
 
 ## Scripting
