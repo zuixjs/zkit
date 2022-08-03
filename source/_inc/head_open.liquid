@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="{{ description | strip_html }}">
     {% if keywords != null -%}
-    <meta name="keywords" content="{{ keywords }}" />
+    <meta name="keywords" content="{{ keywords | join: "," }}" />
     {%- endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title | strip_html }}</title>
