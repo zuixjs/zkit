@@ -40,7 +40,7 @@
     "zuix-dist": "^1.1.13"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0-canary.11",
+    "@11ty/eleventy": "^2.0.0-canary.23",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11ty/eleventy-server-browsersync": "^1.0.2",
     "capture-console": "^1.0.1",
