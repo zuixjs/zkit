@@ -5,7 +5,16 @@
 <!-- images list (with special guest "time-clock" widget) -->
 <div class="elements-view" self="size-medium center-center" layout="rows center-center">
 
-    {% for i in (1..4) %}
+    <div class="widget-container" style="overflow:hidden;background: black;border-radius: 0"
+         transpose-to="tfx">
+        <video loading="lazy" width="100%" onclick="this.play()"
+               poster="demo_video_cover.jpg"
+               autoplay loop>
+            <source src="./Jellyfish_720_10s_1MB.webm">
+        </video>
+    </div>
+
+    {% for i in (1..3) %}
         <img src="https://picsum.photos/seed/t-fx!{{ now | date: 'D' }}{{i}}/400/200"
              width="200" height="100" alt="" loading="lazy"
              transpose-to="tfx">

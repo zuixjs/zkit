@@ -18,6 +18,7 @@
         "content/**/*.gif",
         "content/**/*.svg",
         "content/**/*.m4v",
+        "content/**/*.webm",
         "content/**/*.json"
       ],
       "ignore": [
