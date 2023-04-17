@@ -194,7 +194,7 @@ Using `:inline` attribute set to `true`.
 Without the `:inline` attribute and using the `:button` option. In this case the media-browser is not visible
 in the page unless the button is clicked.
 
-{% zx "button" "javascript:void(0);" "raised" "colored" 'z-field=open-button' %}
+{% zx "button" "" "raised" "colored" 'z-field=open-button' %}
 Open fullscreen
 {% endzx %}
 {% rawFile "_inc/example.wc.html" %}

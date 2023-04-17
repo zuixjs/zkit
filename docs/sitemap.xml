@@ -58,10 +58,6 @@
     <lastmod>2022-06-15</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
-    <lastmod>2022-06-15</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/components/context-menu/</loc>
     <lastmod>2022-06-15</lastmod>
   </url>
@@ -72,5 +68,9 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/list-view/</loc>
     <lastmod>2022-06-16</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/components/media-browser/</loc>
+    <lastmod>2023-04-17</lastmod>
   </url>
 </urlset>
