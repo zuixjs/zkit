@@ -1,4 +1,4 @@
-/* zuix.js v1.1.13 22.06.16 00:19:35 */
+/* zuix.js v1.1.19 23.04.17 09:58:27 */
 
 var zuix;
 /******/ (function() { // webpackBootstrap
@@ -1625,7 +1625,7 @@ ZxQueryStatic.appendCss = function(css, target, cssId, container) {
     head.removeChild(target);
   } else {
     const oldStyle = document.getElementById(cssId);
-    if (oldStyle != null) {
+    if (oldStyle && head.contains(oldStyle)) {
       head.removeChild(oldStyle);
     }
   }
@@ -2532,8 +2532,10 @@ module.exports = () => {
 
 
 
+const _loggerFactory =
+    __webpack_require__(381);
 const _log =
-    __webpack_require__(381)('ComponentContext.js');
+    _loggerFactory('ComponentContext.js');
 const _optionAttributes =
     __webpack_require__(541);
 const z$ =
@@ -2686,6 +2688,7 @@ const queryAdapter = (_t, $view, $el, fn, field) => {
  * @property {string} componentId The component identifier "`[<path>/]<name>`".
  * @property {string} path Gets the base path of this component.
  * @property {string} name Gets the name of this component (last part of the path).
+ * @property {boolean} isReady Gets/Sets the component's ready state.
  * @property {ZxQuery} $ Access the view of this component. Use this to register event handlers for elements in this view to take advantage of automatic event unsubscription and view fields caching.
  * @property {Object.<string, ActiveRefreshHandler>} handlers List component-local `@` handlers.
  *
@@ -2697,63 +2700,73 @@ const queryAdapter = (_t, $view, $el, fn, field) => {
  */
 function ComponentContext(zuixInstance, options, eventCallback) {
   zuix = zuixInstance;
-  this._options = null;
   this.contextId = (options == null || options.contextId == null) ? null : options.contextId;
   this.componentId = null;
-  this.handlers = {refresh: function($view, $el, contextData, refreshCallback) {}};
-  this.trigger = (context, eventPath, eventValue) => {
-    if (eventCallback) {
-      eventCallback(context, eventPath, eventValue);
-    }
-  };
+  Object.defineProperty(this, 'handlers', {enumerable: false, writable: true, value: {
+    refresh: function($view, $el, contextData, refreshCallback) {}}
+  });
+
+  /** @package */
+  Object.defineProperty(this, 'trigger', {enumerable: false, writable: true, value:
+        (context, eventPath, eventValue) => {
+          if (eventCallback) {
+            eventCallback(context, eventPath, eventValue);
+          }
+        }});
 
   /** @protected */
-  this._container = null;
+  Object.defineProperty(this, '_options', {enumerable: false, writable: true, value: null});
 
   /** @protected */
-  this._model = null;
+  Object.defineProperty(this, '_container', {enumerable: false, writable: true, value: null});
+
   /** @protected */
-  this._view = null;
+  Object.defineProperty(this, '_model', {enumerable: false, writable: true, value: null});
   /** @protected */
-  this._css = null;
+  Object.defineProperty(this, '_view', {enumerable: false, writable: true, value: null});
   /** @protected */
-  this._style = null;
+  Object.defineProperty(this, '_css', {enumerable: false, writable: true, value: null});
+  /** @protected */
+  Object.defineProperty(this, '_style', {enumerable: false, writable: true, value: null});
   /**
      * @protected
      * @type {ContextControllerHandler}
      */
-  this._controller = null;
+  Object.defineProperty(this, '_controller', {enumerable: false, writable: true, value: null});
 
   /**
      * Define the local behavior handler for this context instance only.
      * Any global behavior matching the same `componentId` will be overridden.
      *
+     * // TODO: this might not be used anymore (verify and deprecate)
+     *
      * @function behavior
      * @param handler_fn {function}
      */
-  this.behavior = null;
+  Object.defineProperty(this, 'behavior', {enumerable: false, writable: true, value: null});
 
   /** @package */
-  this._eventMap = [];
+  Object.defineProperty(this, '_eventMap', {enumerable: false, writable: true, value: []});
   /** @package */
-  this._behaviorMap = [];
+  Object.defineProperty(this, '_behaviorMap', {enumerable: false, writable: true, value: []});
 
   /**
    * @package
    * @type {!Array.<ZxQuery>}
    **/
-  this._fieldCache = [];
+  Object.defineProperty(this, '_fieldCache', {enumerable: false, writable: true, value: []});
 
   /**
      * @protected
      * @type {ContextController}
      */
-  this._c = null;
+  Object.defineProperty(this, '_c', {enumerable: false, writable: true, value: null});
 
   /**
      * @protected
      * @type {ObservableListener}
      */
+  Object.defineProperty(this, '_modelListener', {enumerable: false, writable: true});
   this._modelListener = Object.assign({
     /** @type {ComponentContext} */
     context: null,
@@ -2797,12 +2810,21 @@ function ComponentContext(zuixInstance, options, eventCallback) {
      * @type {ViewObserver}
      * @private
      */
-  this._viewObserver = new ViewObserver(this);
+  Object.defineProperty(this, '_viewObserver', {enumerable: false, writable: true, value: new ViewObserver(this)});
   /**
    * @type {boolean}
    * @private
    */
-  this._disposed = false;
+  Object.defineProperty(this, '_disposed', {enumerable: false, writable: true, value: false});
+
+  /** @private */
+  Object.defineProperty(this, '#', {enumerable: false, writable: true, value: {}});
+  /** @private */
+  Object.defineProperty(this, '_', {enumerable: false, writable: true, value: {}});
+  /** @private */
+  Object.defineProperty(this, '_refreshHandler', {enumerable: false, writable: true});
+  /** @private */
+  Object.defineProperty(this, '_dependencyResolver', {enumerable: false, writable: true});
 
   this.options(options);
 
@@ -2817,8 +2839,16 @@ ComponentContext.prototype.dispose = function() {
     return;
   }
   this._disposed = true;
-  // TODO: ... check out for more resources that could be freed
   this._viewObserver.stop();
+
+  // remove styles
+  // TODO: do not remove style if component is still cached or being in use somewhere else
+  //this.style(null);
+  // TODO: ... check out for more resources that could be freed
+
+  // un-register model observable
+  this.model(null);
+  // reset view/event handlers
   if (this._c) {
     if (this._c.view()) {
       this._c.trigger('component:dispose', this._c.view(), true);
@@ -2846,8 +2876,6 @@ ComponentContext.prototype.dispose = function() {
       this._c.dispose.call(this, this);
     }
   }
-  // un-register model observable
-  this.model(null);
   // detach component view from its container (parent element)
   if (this._c && this._c._childNodes.length > 0) {
     this._c.view().html('');
@@ -3258,10 +3286,12 @@ ComponentContext.prototype.model = function(model) {
  * @return {ComponentContext|ContextControllerHandler}
  */
 ComponentContext.prototype.controller = function(controller) {
+  const componentId = this.componentId;
   if (typeof controller === 'undefined') return this._controller;
   // TODO: should dispose previous context controller first,
   // TODO: alternatively should not allow _controller reassignment and throw an error
-  else this._controller = controller; // can be null
+  else this._controller = typeof controller === 'string' ? zuix.controller(controller, {componentId}) : controller; // can be null
+  this._controller.log = _loggerFactory(this.componentId);
   return this;
 };
 
@@ -3369,7 +3399,8 @@ ComponentContext.prototype.loadCss = function(options) {
       if (cssPath == context.componentId) {
         cssPath += '.css';
       }
-      fetch(zuix.getResourcePath(cssPath))
+      const fetchOptions = zuix.store('settings') ? zuix.store('settings').fetchOptions : undefined;
+      fetch(zuix.getResourcePath(cssPath), fetchOptions)
           .then((response) => response.text())
           .then((viewCss) => {
             context.style(viewCss);
@@ -3478,7 +3509,8 @@ ComponentContext.prototype.loadHtml = function(options) {
       if (htmlPath == context.componentId) {
         htmlPath += cext;
       }
-      fetch(zuix.getResourcePath(htmlPath))
+      const fetchOptions = zuix.store('settings') ? zuix.store('settings').fetchOptions : undefined;
+      fetch(zuix.getResourcePath(htmlPath), fetchOptions)
           .then((response) => response.text())
           .then((viewHtml) => {
             context.view(viewHtml);
@@ -4373,33 +4405,43 @@ const util =
  */
 function ContextController(context) {
   const _t = this;
-  _t._view = null;
-  _t.context = context;
+  Object.defineProperty(_t, 'context', {
+    enumerable: true, writable: true,
+    value: context
+  });
+  Object.defineProperty(_t, '_view', {
+    enumerable: false, writable: true,
+    value: null
+  });
 
   /**
-     * @protected
-     * @type {!Array.<Element>}
-     * */
-  _t._childNodes = [];
+   * @protected
+   * @type {!Array.<Element>}
+   **/
+  Object.defineProperty(_t, '_childNodes', {
+    enumerable: false, writable: true,
+    value: []
+  });
   /**
    * @type {function}
    * @ignore
    */
-  _t.saveView = () => {
+  Object.defineProperty(_t, 'saveView', {enumerable: false, writable: true, value: () => {
     _t.restoreView();
     _t.view()
         .children()
         .each((i, el) => _t._childNodes.push(el));
-  };
-  _t.restoreView = () => {
+  }});
+  Object.defineProperty(_t, 'restoreView', {enumerable: false, writable: true, value: () => {
     if (_t._childNodes.length > 0) {
       _t.view().html('');
       z$.each(_t._childNodes, (i, el) =>
         _t.view().append(el));
       _t._childNodes.length = 0;
     }
-  };
+  }});
 
+  Object.defineProperty(_t, 'on', {enumerable: false, writable: true});
   _t.on = (eventPath, handler) => {
     if (typeof eventPath === 'object' && handler == null) {
       z$.each(eventPath, (evt, hnd) =>
@@ -4413,6 +4455,7 @@ function ContextController(context) {
    * @protected
    * @ignore
    */
+  Object.defineProperty(_t, 'mapEvent', {enumerable: false, writable: true});
   _t.mapEvent = (eventMap, target, eventPath, handler) => {
     if (target != null) {
       target.off(eventPath, _t.eventRouter);
@@ -4426,6 +4469,7 @@ function ContextController(context) {
    * @protected
    * @ignore
    */
+  Object.defineProperty(_t, 'eventRouter', {enumerable: false, writable: true});
   _t.eventRouter = (e) => {
     const v = _t.view();
     context._behaviorMap.concat(context._eventMap).forEach((em) => {
@@ -4452,16 +4496,23 @@ function ContextController(context) {
     }
   }
 
-  const isClass = (v) =>
-    typeof v === 'function' && /^\s*class\s+/.test(v.toString());
-  if (isClass(context.controller())) {
-    // >= ES6
-    const ctrl = new ((context.controller()).bind(_t, _t))();
-    context.controller(ctrl);
-  } else {
-    // <= ES5
-    context.controller().call(_t, _t);
+  try {
+    const isClass = (v) =>
+      typeof v === 'function' && /^\s*class\s+/.test(v.toString());
+    if (isClass(context.controller())) {
+      // >= ES6
+      const ctrl = new ((context.controller()).bind(_t, _t))();
+      context.controller(ctrl);
+    } else {
+      // <= ES5
+      context.controller().call(_t, _t);
+    }
+  } catch (e) {
+    console.log(e);
   }
+
+  // add members to this controller instance
+  Object.assign(context.controller(), options.controllerMembers);
 
   return _t;
 }
@@ -4628,8 +4679,7 @@ ContextController.prototype.trigger = function(eventPath, eventData, isHook) {
   return this;
 };
 /**
- * Exposes a method or property declared in the private
- * scope of the controller, as a public member of the
+ * Declare fields that are available as public members of the
  * component context object.
  *
  * @param {string|JSON} name Name of the exposed method/property, or list of name/value pairs
@@ -4641,13 +4691,43 @@ ContextController.prototype.expose = function(name, handler) {
     if (h && (h.get || h.set)) {
       Object.defineProperty(this.context, m, h);
     } else {
-      this.context[m] = h;
+      if (h === undefined) {
+        delete this.context[m];
+      } else {
+        this.context[m] = h;
+      }
     }
   };
   if (typeof name === 'object') {
     z$.each(name, (k, v) => expose(k, v));
   } else {
     expose(name, handler);
+  }
+  return this;
+};
+/**
+ * Declare fields that are available in the view's scripting scope.
+ *
+ * @param {string|JSON} name Name of the declared method/property, or list of name/value pairs
+ * @param {function} [handler] Function or property descriptor.
+ * @return {ContextController} The `{ContextController}` itself.
+ */
+ContextController.prototype.declare = function(name, handler) {
+  const declare = (m, h) => {
+    if (h && (h.get || h.set)) {
+      Object.defineProperty(this.context['_'], m, h);
+    } else {
+      if (h === undefined) {
+        delete this.context['_'][m];
+      } else {
+        this.context['_'][m] = h;
+      }
+    }
+  };
+  if (typeof name === 'object') {
+    z$.each(name, (k, v) => declare(k, v));
+  } else {
+    declare(name, handler);
   }
   return this;
 };
@@ -5054,8 +5134,10 @@ module.exports = ViewObserver;
 
 
 
+const _loggerFactory =
+    __webpack_require__(381);
 const _log =
-    __webpack_require__(381)('Zuix.js');
+    _loggerFactory('Zuix.js');
 const util =
     __webpack_require__(826);
 const z$ =
@@ -5092,6 +5174,7 @@ __webpack_require__(854);
  * @property {JSON|undefined} model The data model. HTML attribute equivalent: *z-model*.
  * @property {Element|undefined} view The view element.
  * @property {ContextControllerHandler|undefined} controller The controller handler.
+ * @property {Object} controllerMembers Additional methods/properties to add to the context controller.
  * @property {Object.<string, EventCallback>|Object.<string, string>|undefined} on The map of event handlers for standard and component's events. An event can also be simply routed to another component's event by specifying the mapped event name string. HTML attribute equivalent: *z-on*.
  * @property {Object.<string, EventCallback>|Object.<string, string>|undefined} behavior The map of event handlers for behaviors. An event can also be simply routed to another component's event by specifying the mapped event name string. HTML attribute equivalent: *z-behavior*.
  * @property {HTMLStyleElement|string|boolean|undefined} css Custom stylesheet to apply to the component's view.
@@ -5218,6 +5301,7 @@ function Zuix() {
    * @private
    */
   this._store = {
+    settings: {fetchOptions: {}},
     config: {
       'title': 'zUIx.js app',
       'baseUrl': '/',
@@ -5492,7 +5576,8 @@ function loadResources(ctx, options) {
       }
       if (options.css !== false && typeof options.css !== 'string') {
         options.css = false;
-        if (!cachedComponent.css_applied) {
+        const shadowRoot = util.dom.getShadowRoot(ctx.view());
+        if (!cachedComponent.css_applied || shadowRoot) {
           cachedComponent.css_applied = true;
           ctx.style(cachedComponent.css);
           _log.t(ctx.componentId + ':css', 'component:cached:css');
@@ -5754,12 +5839,19 @@ function loadController(context, task) {
     } else {
       const job = function(t) {
         const jsPath = context.componentId + '.js';
-        fetch(zuix.getResourcePath(jsPath))
+        const fetchOptions = zuix.store('settings') ? zuix.store('settings').fetchOptions : undefined;
+        fetch(zuix.getResourcePath(jsPath), fetchOptions)
             .then((response) => response.text())
             .then((ctrlJs) => {
-              ctrlJs += '\n//# sourceURL="'+context.componentId + '.js"\n';
               try {
-                context.controller(getController(ctrlJs));
+                context.controller(ctrlJs, {
+                  error: (e) => {
+                    if (context.error) {
+                      (context.error).call(context, e, context);
+                    }
+                  },
+                  componentId: context.componentId
+                });
                 let cached = getCachedComponent(context.componentId);
                 if (cached == null) {
                   cached = {
@@ -5840,16 +5932,27 @@ function createComponent(context, task) {
       // TODO: should use 'require' instead of 'new Controller' ... ?
       /** @type {ContextController} */
       const c = context._c = new ContextController(context);
-      c.log = __webpack_require__(381)(context.contextId);
-      if (c.init) {
-        c.init();
-      }
+      c.log = _loggerFactory(context.contextId);
       const endTask = () => {
         task && _log.d(context.componentId, 'controller:create:deferred');
         initController(c);
         task && task.end();
         v.attr(_optionAttributes.zReady, 'true');
       };
+
+      if (c.init) {
+        try {
+          c.init();
+        } catch (err) {
+          endTask();
+          if (err && context.options().error) {
+            (context.options().error)
+                .call(context, err, context);
+          }
+          return;
+        }
+      }
+
       // TODO: when loading multiple controllers perhaps some code paths can be skipped -- check/optimize this!
       if (c.view() && c.view().attr(_optionAttributes.zComponent) == null) {
         // add the `zComponent` attribute
@@ -5967,7 +6070,14 @@ function initController(ctrl) {
   // tender lifecycle moments
   const $view = ctrl.view();
   if (ctrl.create) {
-    ctrl.create();
+    try {
+      ctrl.create();
+    } catch (err) {
+      if (err && ctx.options().error) {
+        (ctx.options().error)
+            .call(ctx, err, ctx);
+      }
+    }
   }
   ctrl.trigger('view:create', $view);
 
@@ -6157,7 +6267,13 @@ function initController(ctrl) {
             code += 'let _' + f + ' = null; zuix.context(' + f + ', function(c) { _' + f + ' = c; });';
           });
         }
-        code += 'function runScriptlet($el, s, args) { let result; try { result = eval("const $this = $el; const _this = zuix.context(this); " + s) } catch (e) { console.error(\'SCRIPTLET ERROR\', e, \'\\n\', context, this, \'\\n\', s); }; return result };';
+        // add explicit local vars defined via {ContextController}.delcare(...)
+        if (ctx['_']) {
+          z$.each(ctx['_'], (f, v) => {
+            code += 'const ' + f + ' = context["_"].' + f + ';';
+          });
+        }
+        code += 'function runScriptlet($el, s, args) { let result; try { result = eval("const $this = $el; const _this = zuix.context(this); " + s) } catch (e) { if (!$el._lastError || $el._lastError.toString() !== e.toString()) { console.error(\'SCRIPTLET ERROR\', e, \'\\n\', context, this, \'\\n\', s); if (context.error) context.error(e); } $el._lastError = e; }; return result };';
 
         // add custom "jscript" code / collects "using" components
         const usingComponents = []; let userCode = '';
@@ -6287,19 +6403,23 @@ function initController(ctrl) {
  // TODO: refactor this method name
  * @private
  * @param javascriptCode string
+ * @param {{error: function}} [callback] Optional error callback
  * @return {ContextControllerHandler}
  */
-function getController(javascriptCode) {
+function getController(javascriptCode, callback) {
   let instance = (ctx) => { };
   if (typeof javascriptCode === 'string') {
     try {
       const ctrl = Function(util.normalizeControllerCode(javascriptCode))();
       if (typeof ctrl !== 'function') {
-        throw new Error('Unexpected module type: "' + (typeof ctrl) + '"');
+        throw new Error('Unexpected controller type: "' + (typeof ctrl) + '"');
       }
       instance = ctrl;
     } catch (e) {
       // TODO: should trigger a global hook
+      if (callback && typeof callback.error === 'function') {
+        callback.error(e);
+      }
       // eg. 'controller:error'
       _log.e(this, e, javascriptCode);
     }
@@ -6478,10 +6598,17 @@ ctrl = zuix.controller(function(cp) {
 }).for('path/to/component_name');
 ```
  *
- * @param {ContextControllerHandler} handler Function called to initialize the component controller that will be passed as argument of this function
+ * @param {ContextControllerHandler|string} handler Function called to initialize the component controller that will be passed as argument of this function
+ * @param {{error: function}|{error: function, componentId: string}} [options] Optional controller options / callback
  * @return {ContextControllerHandler} The allocated controller handler.
  */
-Zuix.prototype.controller = function(handler) {
+Zuix.prototype.controller = function(handler, options) {
+  if (typeof handler === 'string') {
+    if (options.componentId) {
+      handler += '\n//# sourceURL="' + options.componentId + '.js"\n';
+    }
+    handler = getController(handler, options);
+  }
   return controller.call(this, handler);
 };
 /**
@@ -6673,11 +6800,14 @@ Zuix.prototype.using = function(resourceType, resourcePath, callback, ctx) {
               resource.appendChild(document.createTextNode(text));
             }
           } else {
+            const actualDefine = window['define'];
+            window['define'] = undefined;
             if (resource.innerText) {
               resource.innerText = text;
             } else {
               resource.appendChild(document.createTextNode(text));
             }
+            window['define'] = actualDefine;
           }
           task.end();
           if (callback) {
@@ -6690,7 +6820,8 @@ Zuix.prototype.using = function(resourceType, resourcePath, callback, ctx) {
         if (cached != null) {
           addResource(isCss ? cached.css : cached.controller);
         } else {
-          fetch(resourcePath)
+          const fetchOptions = zuix.store('settings') ? zuix.store('settings').fetchOptions : undefined;
+          fetch(resourcePath, fetchOptions)
               .then((response) => response.text())
               .then((resText) => {
                 // TODO: add logging
@@ -6877,7 +7008,10 @@ Zuix.prototype.TaskQueue = TaskQueue;
 Zuix.prototype.ObjectObserver = ObjectObserver;
 /** @private */
 Zuix.prototype.ZxQuery = z$.ZxQuery;
-/** @private */
+/**
+ * Sets components cache.
+ * @return void
+ */
 Zuix.prototype.setComponentCache = (componentCache) => setComponentCache(componentCache);
 /**
  * Dumps content of the components cache. Mainly for debugging purpose.
@@ -6926,7 +7060,7 @@ Zuix.prototype.resolveImplicitLoad = (element) => {
  */
 Zuix.prototype.runScriptlet = (scriptCode, $el, $view, data) => {
   const ctx = zuix.context($view);
-  if (ctx && ctx._refreshHandler) {
+  if (ctx && ctx._refreshHandler && $el.get().isConnected) {
     return ctx._refreshHandler.runScriptlet.call($el.get(), $el, scriptCode, data);
   }
 };

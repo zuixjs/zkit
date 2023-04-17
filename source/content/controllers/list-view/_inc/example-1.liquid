@@ -1,3 +1,15 @@
+<div self="center" layout="column top-center" class="scrollable" z-lazy="scroll">
+    <!-- zUIx list_view component -->
+    <div z-load="@lib/controllers/list-view"
+         z-options="example_lv_options"
+         self="size-xlarge" layout="rows top-center">
+        <!--
+        Loading listview...
+        -->
+    </div>
+</div>
+
+{% raw -%}
 <style>
     .scrollable {
         height: 420px;
@@ -12,19 +24,6 @@
         min-height: 320px;
     }
 </style>
-
-
-<div self="center" layout="column top-center" class="scrollable" z-lazy="scroll">
-    <!-- zUIx list_view component -->
-    <div z-load="@lib/controllers/list-view"
-         z-options="example_lv_options"
-         self="size-xlarge" layout="rows top-center">
-        <!--
-        Loading listview...
-        -->
-    </div>
-</div>
-
 
 <script>
   // ListView component options and adapters
@@ -66,3 +65,4 @@
 
   zuix.lazyLoad(true, -600);
 </script>
+{% endraw -%}
