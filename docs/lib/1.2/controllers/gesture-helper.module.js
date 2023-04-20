@@ -1,4 +1,4 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.19/js/zuix.module.min.js';
+import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.20/js/zuix.module.min.js';
 customElements.define('gesture-helper', class extends HTMLElement {
   connectedCallback() {
     const contextId = this.getAttribute('z-context');

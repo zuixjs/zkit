@@ -21,7 +21,7 @@
     },
     "zkit": {
       "libraryPath": "https://zuixjs.github.io/zkit/lib/1.2/",
-      "zuixVersion": "1.1.19"
+      "zuixVersion": "1.1.20"
     },
     "siteMapUrl": "https://zuixjs.github.io/zkit"
   });
