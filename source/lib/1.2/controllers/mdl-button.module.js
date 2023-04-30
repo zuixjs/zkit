@@ -1,19 +1,22 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix.module.min.js';
 customElements.define('mdl-button', class extends HTMLElement {
-  static get observedAttributes() { return ['disabled']; }
+  static get observedAttributes() { return ['disabled', 'class']; }
   context = null;
+
   connectedCallback() {
     this.classList.add('visible-on-ready');
     this.style.display = 'inline-block';
-    this.style.margin = '4px';
-    zuix.loadComponent(this, '{{ app.zkit.libraryPath }}controllers/mdl-button', 'ctrl', {
+    const extraCss = this.attributes.getNamedItem('z-css');
+    zuix.loadComponent(this, '@lib/controllers/mdl-button', 'ctrl', {
+      css: self[extraCss?.value],
       container: this.attachShadow({mode: 'closed'}),
       ready: (ctx) => this.context = ctx
     });
   }
   attributeChangedCallback(name, oldValue, newValue) {
     if (this.context) {
-      this.context.$.attr(name, newValue);
+      if (name === 'disabled') {
+        this.context.$.attr(name, newValue);
+      }
     }
   }
 });

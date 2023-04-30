@@ -4,6 +4,7 @@
  * MdlButton class.
  *
  * @author Gene
+ * @version 1.0.2 (2023-04-30)
  * @version 1.0.1 (2022-06-03)
  * @version 1.0.0 (2021-12-19)
  *
@@ -14,9 +15,12 @@ function MdlButton() {
   this.init = () => {
     const theme = this.options().theme || 'indigo-pink';
     if (this.view().parent().get().mode) { // "mode" -> ShadowRoot
-      zuix.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
-      zuix.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css', null, this.context);
-      zuix.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap', null, this.context);
+      this.options().fetchOptions = {priority: 'low'};
+      if (!MaterialButton) {
+        this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
+      }
+      this.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css');
+      this.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
     }
   };
 
