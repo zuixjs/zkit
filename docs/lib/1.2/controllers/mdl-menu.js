@@ -212,21 +212,24 @@ function MdlMenu() {
           container.classList.add(this.CssClasses_.IS_UPGRADED);
 
           if (forEl) {
-            zuix.context(forEl, (ctx) => {
-              const isMini = ctx.$.hasClass('mdl-button--mini-fab');
-              const isIcon = ctx.$.hasClass('mdl-button--icon');
-              ctx.$.find('.material-icons').css({
-                transform: 'translate(0,0)', WebkitTransform: 'translate(0,0)',
-                marginTop: isMini ? '8px' : isIcon ? '0' : '16px',
-                marginLeft: isMini || isIcon ? '1px' : '2px',
-                position: 'initial'
-              });
-              setTimeout(() => {
+            setTimeout(() => {
+              zuix.context(forEl, (ctx) => {
+                const isMini = ctx.$.hasClass('mdl-button--mini-fab');
+                const isIcon = ctx.$.hasClass('mdl-button--icon');
                 ctx.$.find('.material-icons').css({
-                  transition: 'transform .2s ease-in-out'
+                  transition: 'none',
+                  transform: 'translate(0,0)', WebkitTransform: 'translate(0,0)',
+                  marginTop: isMini ? '8px' : isIcon ? '0' : '16px',
+                  marginLeft: isMini || isIcon ? '1px' : '2px',
+                  position: 'initial'
                 });
+                setTimeout(() => {
+                  ctx.$.find('.material-icons').css({
+                    transition: 'transform .2s ease-in-out'
+                  });
+                }, 100);
               });
-            });
+            }, 50);
           }
         }
       };
