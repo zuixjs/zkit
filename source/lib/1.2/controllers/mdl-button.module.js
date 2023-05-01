@@ -6,7 +6,7 @@ customElements.define('mdl-button', class extends HTMLElement {
     this.classList.add('visible-on-ready');
     this.style.display = 'inline-block';
     const extraCss = this.attributes.getNamedItem('z-css');
-    zuix.loadComponent(this, '@lib/controllers/mdl-button', 'ctrl', {
+    zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/mdl-button', 'ctrl', {
       css: self[extraCss?.value],
       container: this.attachShadow({mode: 'closed'}),
       ready: (ctx) => this.context = ctx

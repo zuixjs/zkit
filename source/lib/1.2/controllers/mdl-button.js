@@ -35,7 +35,7 @@ function MdlButton() {
         view.addClass('mdl-button--' + c);
       });
     }
-    if (type === 'fab' && view.html().indexOf('material-icons') === -1) {
+    if ((type === 'fab' || type === 'icon') && view.html().indexOf('material-icons') === -1) {
       const iconText = view.get().textContent;
       view.html(`<i class="material-icons">${iconText}</i>`);
     }
