@@ -1,0 +1,124 @@
+<div class="component-preview">
+    <zx-context #widget></zx-context>
+    <div class="errors-log" style="bottom:0">
+        <pre #errors-log></pre>
+    </div>
+</div>
+<div class="main-container" @refresh>
+
+    <div class="toolbar">
+
+        <div class="editor-tabs">
+
+            <mdl-button :type="'flat'" z-css="buttonsCss" @s_tyles="[buttonsCss]" #edit-view-button
+                        (click)="switchEditor(this, $htmlEditor)">
+                <span class="file-type">HTML</span>
+                <span class="tab-label">View</span>
+            </mdl-button>
+            <mdl-button :type="'flat'" z-css="buttonsCss"
+                        (click)="switchEditor(this, $cssEditor)">
+                <span class="file-type">CSS</span>
+                <span class="tab-label">Style</span>
+            </mdl-button>
+            <mdl-button :type="'flat'" z-css="buttonsCss"
+                        (click)="switchEditor(this, $jsEditor)">
+                <span class="file-type">JS</span>
+                <span class="tab-label">Controller</span>
+            </mdl-button>
+
+        </div>
+
+        <div ctrl z-load="@lib[1.2]/controllers/mdl-menu" z-lazy="false"
+             (download)="download()" (load)="load(event)" (new)="editNew()"
+             :behavior="menuButtonBehavior" class="visible-on-ready menu-button">
+
+            <!-- the menu is defined as a simple UL list -->
+            <ul>
+                <template #item-template>
+                    <li><a href="{link}">{description}</a></li>
+                </template>
+                <li (click)="$.trigger('download'); console.log(context)">
+                    <svg width="24" height="24" viewBox="0 96 960 960">
+                        <path d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z"/>
+                    </svg>
+                    Download component
+                </li>
+            </ul>
+
+            <!-- the menu's FAB button -->
+            <a ctrl z-load="@lib[1.2]/controllers/mdl-button"
+               :type="'icon'" :class="'accent'">
+                <!-- TODO: use an svg icon! -->
+                <i class="material-icons">menu</i>
+            </a>
+
+        </div>
+
+    </div>
+    <div #tab-cursor class="tab-cursor"></div>
+
+    <div #html-editor class="editor-container"></div>
+    <div #css-editor class="editor-container"></div>
+    <div #js-editor class="editor-container"></div>
+
+    <div @hide-if="!isLoading()" class="loading-overlay">
+        <div class="title">Loading...</div>
+        <div class="subtitle" #component-id>&nbsp;</div>
+        <div class="loader"></div>
+    </div>
+
+</div>
+
+<dialog #name-request-dialog>
+    <div class="dialog-title">Name</div>
+    <form>
+        <input #component-name type="text" value="component-name"
+               placeholder="Enter name" spellcheck="false"
+               (change)="this.value = zuix.utils.camelCaseToHyphens(this.value)">
+        <div>
+            <mdl-button :type="'flat'" (click)="nameRequestDialog.close()">Cancel</mdl-button>
+            <mdl-button :type="'flat'" :class="'accent'"
+                        @disable-if="componentName.value.length < 3"
+                        (click)="nameRequestDialog.close(componentName.value)">Download</mdl-button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Custom style for "mdl-button" element -->
+<script>
+
+    self.buttonsCss = `
+    [z-load*="/controllers/mdl-button"] {
+        margin:0!important;
+        font-size: 10px!important;
+        min-width: 56px!important;
+    }
+    .file-type {
+        height: 12px;
+        line-height: 12px;
+        opacity: 0.5;
+        font-weight: bold;
+        font-size: 9px;
+        padding: 3px;
+        border: solid 1px;
+        border-radius: 24px;
+        width: 28px;
+        margin-right: 2px;
+        transform: translateY(-2px);
+    }
+    .tab-label {
+        text-transform: uppercase;
+    }`;
+
+    self.menuButtonBehavior = {
+        'menu:show': function() {
+            this.find('.material-icons').html('add')
+                .css({ transform: 'rotate(-135deg)' });
+        },
+        'menu:hide': function() {
+            this.find('.material-icons').html('menu')
+                .css({ transform: 'rotate(0)' });
+        }
+    };
+
+</script>

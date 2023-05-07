@@ -37,7 +37,7 @@
     "animate.css": "^4.1.1",
     "flex-layout-attribute": "^1.0.3",
     "fuse.js": "^6.6.2",
-    "zuix-dist": "^1.1.23"
+    "zuix-dist": "^1.1.24"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",

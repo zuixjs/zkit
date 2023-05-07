@@ -25,12 +25,13 @@
     font-size: 80%;
     font-weight: 700;
     line-height: 100%;
-}
-.date::first-letter,.day::first-letter {
-    text-transform:capitalize;
+    white-space: nowrap;
 }
 .frame {
     display: inline-block;
     width: auto;
     border-radius: 6px;
+}
+.translucent {
+    opacity: 0.5;
 }
