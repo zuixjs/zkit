@@ -1,4 +1,4 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.23/js/zuix.module.min.js';
+import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.24/js/zuix.module.min.js';
 customElements.define('transpose-fx', class extends HTMLElement {
   connectedCallback() {
     const contextId = this.getAttribute('z-context');

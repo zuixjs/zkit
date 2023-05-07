@@ -389,7 +389,7 @@ console.log('ERROR', err);
       zip.file(`${componentName}.html`, this.componentData.html);
       zip.file(`${componentName}.css`, this.componentData.css);
       zip.file(`${componentName}.js`, this.componentData.js);
-      zip.file(`${componentName}.module.js`, `import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.23/js/zuix.module.min.js';
+      zip.file(`${componentName}.module.js`, `import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.24/js/zuix.module.min.js';
 customElements.define('${componentName}', class extends HTMLElement {
   // change the following value if component
   // location is other than the default one ("/app/")
