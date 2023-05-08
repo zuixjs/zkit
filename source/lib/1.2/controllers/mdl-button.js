@@ -16,7 +16,7 @@ function MdlButton() {
     const theme = this.options().theme || 'indigo-pink';
     if (this.view().parent().get().mode) { // "mode" -> ShadowRoot
       this.options().fetchOptions = {priority: 'low'};
-      if (!MaterialButton) {
+      if (!self.MaterialButton) {
         this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
       }
       this.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css');
