@@ -1,7 +1,7 @@
 const setup = () => {
-  customElements.define('menu-overlay', class extends HTMLElement {
+  customElements.define('zx-playground', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, '{{ app.zkit.libraryPath }}components/menu-overlay');
+      zuix.loadComponent(this, '{{ app.zkit.libraryPath }}components/zx-playground');
     }
   });
 };

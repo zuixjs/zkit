@@ -1,5 +1,4 @@
 const _paths = {
-  componentsLibrary: 'https://zuixjs.github.io/zkit/lib/1.2/',
   monacoEditor: '@cdnjs/monaco-editor/0.38.0/min/vs/loader.min.js',
   defaultComponentId: 'https://zuixjs.org/app/examples/new-component'
 };
@@ -12,7 +11,7 @@ import('https://zuixjs.github.io/zkit/js/zuix/zx-context.module.js')
     .then(() => _zxContextLoaded = true);
 // No need to wait for this other module to be loaded since it just
 // contains custom element declaration
-import(`${_paths.componentsLibrary}controllers/mdl-button.module.js`);
+import('{{ app.zkit.libraryPath }}controllers/mdl-button.module.js');
 
 let ErrorStackParser;
 
@@ -47,10 +46,10 @@ class ZxPlayground extends ControllerInstance {
   };
 
   onInit() {
-    self.zuixVersion = self.zuixVersion || '1.1.23';
+    self.zuixVersion = '{{ app.zkit.zuixVersion }}';
     // set components library path used in the view template
     zuix.store('config')
-        .libraryPath['@lib[1.2]'] = _paths.componentsLibrary;
+        .libraryPath['@lib[1.2]'] = '{{ app.zkit.libraryPath }}';
     // get component id from location hash (if any)
     this.componentId = window.location.hash.substring(1) || this.componentId;
     // add custom menu items
@@ -248,7 +247,7 @@ console.log('ERROR', err);
         this._monacoEditorLoaded = true;
       });
 
-      fetch(`${_paths.componentsLibrary}/components/zx-playground/zuix.d.ts`).then((res) => {
+      fetch('{{ app.zkit.libraryPath }}components/zx-playground/zuix.d.ts').then((res) => {
         res.text().then((tsd) => {
           const additionalDeclarations =
               'declare const info: any;'; // <-- TODO: just a test, to be used to declare component's context variables/members
@@ -389,28 +388,29 @@ console.log('ERROR', err);
       zip.file(`${componentName}.html`, this.componentData.html);
       zip.file(`${componentName}.css`, this.componentData.css);
       zip.file(`${componentName}.js`, this.componentData.js);
-      zip.file(`${componentName}.module.js`, `import 'https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix.module.min.js';
-customElements.define('${componentName}', class extends HTMLElement {
-  // change the following value if component
+      zip.file(`${componentName}.module.js`, `const setup = () => {
+  // change 'componentId' value if component
   // location is other than the default one ("/app/")
-  componentId = '${componentName}';
-
-  context = null;
-  shadowView = null;
-
-  connectedCallback() {
-    if (!this.shadowView) {
-      this.classList.add('visible-on-ready');
-      this.style.display = 'inline-block';
-      this.shadowView = this.attachShadow({mode: 'closed'});
-      zuix.loadComponent(this, componentId, '', {
-        container: this.shadowView,
-        ready: (ctx) => this.context = ctx
-      });
+  const componentId = '${componentName}';
+  customElements.define('${componentName}', class extends HTMLElement {
+    context = null;
+    connectedCallback() {
+      if (this.context === null) {
+        this.context = false;
+        zuix.loadComponent(this, componentId, undefined, {
+          container: this.attachShadow({mode: 'closed'}),
+          ready: (ctx) => this.context = ctx
+        });
+      }
     }
-  }
-});`);
+  });
+};
+if (self.zuix === undefined) {
+  import('https://cdn.jsdelivr.net/npm/zuix-dist@1.1.24/js/zuix.module.min.js')
+      .then(() => setup());
+} else setup();`);
       zip.file(`README.md`, `# How to use this component
+
 - Copy the component files to the **/app/** folder of your website/application.
 - Add the component's module to your page:
 \`\`\`html
@@ -421,9 +421,11 @@ customElements.define('${componentName}', class extends HTMLElement {
 <${componentName}></${componentName}>
 \`\`\`
 - If you want to place the component in a location other than **/app/**, ensure to update
-  the component's path accordinlgly in the \`${componentName}.module.js\` file.
+  the component's path in the \`${componentName}.module.js\` file by changing the value
+  of the \`const componentId\` accordingly. 
 
-This component was auto-generated from [zuix.js playground](https://zuixjs.org/playground/) on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}.
+This component was auto-generated from [zuix.js playground](https://zuixjs.org/playground/)
+on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}.
 `);
       zip.generateAsync({type: 'blob'})
           .then(function(content) {
