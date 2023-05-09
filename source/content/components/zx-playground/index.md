@@ -24,7 +24,7 @@ It also allows to load any existing component by adding to the URL of the page h
 a `#` followed by the path of the component to be loaded. Either relative or absolute URL can be provided 
 even if pointing to a component located on a different server.
 
-{% zx "button" "https://zuixjs.org/playground/" "raised" "colored" %}
+{% zx "button" "https://zuixjs.org/playground/#/app/widgets/analog-clock" "raised" "colored" %}
 Try the Playground
 {% endzx %}
 
