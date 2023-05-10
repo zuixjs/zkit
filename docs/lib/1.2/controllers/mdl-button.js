@@ -20,7 +20,8 @@ function MdlButton() {
         this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
       }
       this.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css');
-      this.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
+      // loads fonts as a global resource
+      zuix.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
     }
   };
 

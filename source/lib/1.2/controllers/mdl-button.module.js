@@ -10,7 +10,7 @@ const setup = () => {
         this.style.display = 'inline-block';
         const extraCss = this.attributes.getNamedItem('z-css');
         this.shadowView = this.attachShadow({mode: 'closed'});
-        zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/mdl-button', 'ctrl', {
+        zuix.loadComponent(this, '{{ app.zkit.libraryPath }}controllers/mdl-button', 'ctrl', {
           css: self[extraCss?.value],
           container: this.shadowView,
           ready: (ctx) => this.context = ctx

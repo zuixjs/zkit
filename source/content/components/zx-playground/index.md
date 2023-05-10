@@ -18,8 +18,10 @@ keywords:
 ---
 
 
-The *Playground* component is an online editor for creating and testing components.
-It features error reporting, component's live preview and download.
+The *Playground* is a client-side editor for creating and testing web components.  
+It features error reporting, live preview and download of created components that can be then
+added to your page by just importing the component module. No dependencies, no extra tools required!  
+
 It also allows to load any existing component by adding to the URL of the page hosting the *playground*
 a `#` followed by the path of the component to be loaded. Either relative or absolute URL can be provided 
 even if pointing to a component located on a different server.
@@ -71,5 +73,8 @@ Try the Playground
 
 - `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
-- `:menu-items= <items_list>` <small>optional</small>  
+- `:load=<component_id>` <small>optional</small>  
+  identifier of an existing component to load. It can also be an *absolute
+  URL* if the component to be loaded is located on a different server.
+- `:menu-items=<items_list>` <small>optional</small>  
   list of custom menu items `[ {link: '<url>', description: '<desc>'}, ... ]`.

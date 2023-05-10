@@ -7,7 +7,7 @@ const setup = () => {
         this.classList.add('visible-on-ready');
         this.style.display = 'inline-block';
         this.shadowView = this.attachShadow({mode: 'closed'});
-        zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/mdl-menu', 'ctrl', {
+        zuix.loadComponent(this, '{{ app.zkit.libraryPath }}controllers/mdl-menu', 'ctrl', {
           container: this.shadowView,
           ready: (ctx) => this.context = ctx
         });

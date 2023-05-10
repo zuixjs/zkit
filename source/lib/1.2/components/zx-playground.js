@@ -45,18 +45,24 @@ class ZxPlayground extends ControllerInstance {
     }
   };
 
+  // ControllerInstance life-cycle methods: onInit / onCreate / onDispose
+
   onInit() {
-    self.zuixVersion = '{{ app.zkit.zuixVersion }}';
+
     // set components library path used in the view template
     zuix.store('config')
         .libraryPath['@lib[1.2]'] = '{{ app.zkit.libraryPath }}';
-    // get component id from location hash (if any)
-    this.componentId = window.location.hash.substring(1) || this.componentId;
+
+    // get component id from location hash (if any) or via the `load` option
+    this.componentId = window.location.hash.substring(1) ||
+      this.options().load ||
+      this.componentId;
+
     // add custom menu items
     this.buildMenuList(this.options().menuItems || []);
+
   }
 
-  // onCreate/onDispose -> ControllerInstance life-cycle methods
   onCreate() {
     // Tab buttons cursor implementation
     const tabCursor = this.field('tabCursor');
@@ -122,6 +128,7 @@ class ZxPlayground extends ControllerInstance {
       );
     });
   }
+
   onDispose() {
     clearTimeout(this._errorCheckTimeout);
     if (this._extraLib) {
@@ -129,6 +136,8 @@ class ZxPlayground extends ControllerInstance {
     }
     self.removeEventListener('hashchange', this._hashChangeListener);
   }
+
+  // Other utility methods
 
   buildMenuList(list) {
     const templateElement = this.field('item-template');
@@ -155,12 +164,12 @@ class ZxPlayground extends ControllerInstance {
       if (res.status === 200) {
         res.text().then((text) => downloadCallback(text));
       } else {
-console.log('ERROR');
         downloadCallback('');
+        console.log('ERROR', res);
       }
     }).catch((err) => {
-console.log('ERROR', err);
       downloadCallback('');
+      console.log('ERROR', err);
     });
     this._isLoading = true;
     m.componentId = `${componentId}.html`;
@@ -283,7 +292,6 @@ console.log('ERROR', err);
     clearTimeout(this._updateTimeout);
     this._updateTimeout = setTimeout(() => this._updateWidget(), 50);
   }
-
   _updateWidget() {
     const {html, css, js} = this.componentData;
     const widgetView = this.field('widget');
@@ -318,38 +326,6 @@ console.log('ERROR', err);
     }
   }
 
-  setError(err) {
-    zuix.using('script', 'https://cdn.jsdelivr.net/npm/error-stack-parser@2.1.4/dist/error-stack-parser.min.js', () => {
-      ErrorStackParser = self.ErrorStackParser;
-
-      const frames = ErrorStackParser.parse(err);
-      const errorFrame = frames[0]; // <-- TODO: find by 'fileName'
-      errorFrame.lineNumber -= 2; // adjust source line
-      // set error
-      //const cm = this.codeModel[WidgetCodeType.JsCode];
-      //const model = monaco.editor.getModel(`file:///${cm.uri}`);
-      const error = {
-        startLineNumber: errorFrame.lineNumber,
-        startColumn: errorFrame.columnNumber,
-        endLineNumber: errorFrame.lineNumber,
-        endColumn: errorFrame.columnNumber,
-        message: err.message,
-        severity: monaco.MarkerSeverity.Error
-      };
-      const model = this.editorJs.getModel();
-      monaco.editor.setModelMarkers(model, 'service', [error]);
-
-      // check for other errors (view)
-      this.checkErrors();
-    });
-  }
-  clearError() {
-    const model = this.editorJs.getModel();
-    monaco.editor.setModelMarkers(model, 'service', []);
-    this.hideErrors();
-    this.checkErrors();
-  }
-
   checkErrors() {
     clearTimeout(this._errorCheckTimeout);
     this._errorCheckTimeout = setTimeout(() => {
@@ -372,6 +348,29 @@ console.log('ERROR', err);
       }
     }, 1000);
   }
+  setError(err) {
+    zuix.using('script', 'https://cdn.jsdelivr.net/npm/error-stack-parser@2.1.4/dist/error-stack-parser.min.js', () => {
+      ErrorStackParser = self.ErrorStackParser;
+
+      const frames = ErrorStackParser.parse(err);
+      const errorFrame = frames[0]; // <-- TODO: find by 'fileName'
+      errorFrame.lineNumber -= 2; // adjust source line
+      // set error
+      const error = {
+        startLineNumber: errorFrame.lineNumber,
+        startColumn: errorFrame.columnNumber,
+        endLineNumber: errorFrame.lineNumber,
+        endColumn: errorFrame.columnNumber,
+        message: err.message,
+        severity: monaco.MarkerSeverity.Error
+      };
+      const model = this.editorJs.getModel();
+      monaco.editor.setModelMarkers(model, 'service', [error]);
+
+      // check for other errors (view)
+      this.checkErrors();
+    });
+  }
 
   showErrors(errorsMessage) {
     this.field('errors-log')
@@ -380,6 +379,12 @@ console.log('ERROR', err);
   hideErrors() {
     this.field('errors-log')
         .html('').parent().hide();
+  }
+  clearError() {
+    const model = this.editorJs.getModel();
+    monaco.editor.setModelMarkers(model, 'service', []);
+    this.hideErrors();
+    this.checkErrors();
   }
 
   downloadComponent(componentName = 'component-name') {
