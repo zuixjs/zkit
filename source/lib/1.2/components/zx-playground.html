@@ -1,26 +1,26 @@
 <div class="component-preview">
     <zx-context #widget></zx-context>
-    <div class="errors-log" style="bottom:0">
+    <div class="errors-log">
         <pre #errors-log></pre>
     </div>
 </div>
-<div class="main-container" @refresh>
+<div class="main-container">
 
     <div class="toolbar">
 
         <div class="editor-tabs">
 
-            <mdl-button :type="'flat'" z-css="buttonsCss" @s_tyles="[buttonsCss]" #edit-view-button
+            <mdl-button :type="'flat'" :css="buttonsCss" #edit-view-button
                         (click)="switchEditor(this, $htmlEditor)">
                 <span class="file-type">HTML</span>
                 <span class="tab-label">View</span>
             </mdl-button>
-            <mdl-button :type="'flat'" z-css="buttonsCss"
+            <mdl-button :type="'flat'" :css="buttonsCss"
                         (click)="switchEditor(this, $cssEditor)">
                 <span class="file-type">CSS</span>
                 <span class="tab-label">Style</span>
             </mdl-button>
-            <mdl-button :type="'flat'" z-css="buttonsCss"
+            <mdl-button :type="'flat'" :css="buttonsCss"
                         (click)="switchEditor(this, $jsEditor)">
                 <span class="file-type">JS</span>
                 <span class="tab-label">Controller</span>
@@ -28,31 +28,27 @@
 
         </div>
 
-        <div ctrl z-load="@lib[1.2]/controllers/mdl-menu" z-lazy="false"
-             (download)="download()" (load)="load(event)" (new)="editNew()"
-             :behavior="menuButtonBehavior" class="visible-on-ready menu-button">
-
+        <mdl-menu z-lazy="false"
+                  (download)="download()" (load)="load(event)" (new)="editNew()"
+                  :forel="menuButton"
+                  :behavior="menuButtonBehavior" class="visible-on-ready menu-button">
             <!-- the menu is defined as a simple UL list -->
             <ul>
+                <li (click)="trigger('download')">
+                    <i class="material-icons">download</i>
+                    <span>Download component</span>
+                </li>
                 <template #item-template>
                     <li><a href="{link}">{description}</a></li>
                 </template>
-                <li (click)="$.trigger('download')">
-                    <svg width="24" height="24" viewBox="0 96 960 960">
-                        <path d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z"/>
-                    </svg>
-                    Download component
-                </li>
             </ul>
 
-            <!-- the menu's FAB button -->
-            <a ctrl z-load="@lib[1.2]/controllers/mdl-button"
-               :type="'icon'" :class="'accent'">
-                <!-- TODO: use an svg icon! -->
-                <i class="material-icons">menu</i>
-            </a>
+        </mdl-menu>
 
-        </div>
+        <!-- the menu's FAB button -->
+        <mdl-button #menu-button :type="'icon'" :class="'accent'">
+           menu
+        </mdl-button>
 
     </div>
     <div #tab-cursor class="tab-cursor"></div>
@@ -84,10 +80,9 @@
     </form>
 </dialog>
 
-<!-- Custom style for "mdl-button" element -->
-<script>
-
-    self.buttonsCss = `
+<script type="jscript">
+  // Custom style for "mdl-button" element
+  buttonsCss = `
     [z-load*="/controllers/mdl-button"] {
         margin:0!important;
         font-size: 10px!important;
@@ -109,16 +104,14 @@
     .tab-label {
         text-transform: uppercase;
     }`;
-
-    self.menuButtonBehavior = {
-        'menu:show': function() {
-            this.find('.material-icons').html('add')
-                .css({ transform: 'rotate(-135deg)' });
-        },
-        'menu:hide': function() {
-            this.find('.material-icons').html('menu')
-                .css({ transform: 'rotate(0)' });
-        }
-    };
-
+  menuButtonBehavior = {
+    'menu:show': function() {
+      _menuButton.$.find('.material-icons').html('add')
+        .css({ transform: 'rotate(-135deg)', transition: 'transform .2s ease-in-out' });
+    },
+    'menu:hide': function() {
+      _menuButton.$.find('.material-icons').html('menu')
+        .css({ transform: 'rotate(0)', transition: 'transform .2s ease-in-out' });
+    }
+  };
 </script>

@@ -13,34 +13,54 @@ function MdlMenu() {
   const cp = this;
   cp.init = onInit;
   cp.create = onCreate;
-
   function onInit() {
     const theme = this.options().theme || 'indigo-pink';
-    if (this.view().parent().get() instanceof ShadowRoot) {
+    const isShadowRoot = this.view().parent().get() instanceof ShadowRoot;
+    if (isShadowRoot) {
       this.options().fetchOptions = {priority: 'low'};
-      if (!self.MaterialMenu) {
-        this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
-      }
+    }
+    if (!self.MaterialMenu) {
+      this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
+    }
+    if (!zuix.$.classExists('.mdl-button') || isShadowRoot) {
       this.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css');
-      // loads fonts as a global resource
+    }
+    // loads fonts as a global resource
+    if (!zuix.$.classExists('.material-icons')) {
       zuix.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
     }
-    this.options().css = 'ul{ margin:0 !important; padding:0 !important; } li{width:100%} li[disabled]{ pointer-events: none; } a{text-decoration: none;}';
-    // Patch MDL
-    patchMDL();
+    // apply custom css
+    this.options().css = `ul{
+       margin:0 !important;
+       padding:0 !important;
+    }
+    li {
+      width:100%;
+      display:flex!important;
+      flex-direction:row;
+      gap:8px;
+      align-items:center
+    }
+    li[disabled] {
+      pointer-events: none;
+    }
+    a {
+      text-decoration: none;
+    }`;
   }
 
   function onCreate() {
     // position relative must be set on the container
     // in order to make MaterialMenu positioning work properly
     this.view().css('position', 'relative');
-    const position = this.options().position || 'unaligned';
+    const position = this.options().position;
     // generate unique identifier for this instance
     const menuId = 'menu-' + this.context.contextId;
     // add required MDL classes to elements
     const ul = this.view('ul');
     if (!ul.length()) return;
-    ul.addClass('mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--' + position)
+    if (position) ul.addClass('mdl-menu--' + position);
+    ul.addClass('mdl-menu mdl-js-menu mdl-js-ripple-effect')
         .attr('for', menuId);
     ul.get().__mdl_menu_forel = this.options().forel;
     ul.find('li').on('click', function(e, $li) {
@@ -59,9 +79,10 @@ function MdlMenu() {
           cp.trigger('menu:select', {action: $el.attr('action'), $el});
         });
     const getPositionClass = (source) => {
+      if (ul.hasClass('mdl-menu--unaligned')) return;
       const menuPosition = guessPosition(cp.options(), source.position());
       if (menuPosition) {
-        const positionClasses = 'mdl-menu--bottom-left mdl-menu--bottom-right mdl-menu--top-left mdl-menu--top-right mdl-menu--unaligned';
+        const positionClasses = 'mdl-menu--bottom-left mdl-menu--bottom-right mdl-menu--top-left mdl-menu--top-right';
         ul.removeClass(positionClasses)
             .addClass(menuPosition);
         ul.prev().removeClass(positionClasses)
@@ -78,22 +99,27 @@ function MdlMenu() {
       hide: () => ul.get().MaterialMenu.hide()
     });
     // if anchor or button is present in the view template, then use it as button to toggle the menu
-    let a = this.view('a,button');
-    if (a.length() >= 1) {
-      a = a.eq(a.length() - 1);
-      a.attr('id', menuId)
-          .addClass('mdl-button mdl-js-button mdl-js-ripple-effect')
-          .on('click', () => getPositionClass(a));
+    let button = this.view('a,button');
+    if (cp.options().forel) {
+      button = zuix.$(cp.options().forel);
+      button.detach();
+      cp.view().prepend(button);
+    } else if (button.length() >= 1) {
+      button = button.eq(button.length() - 1);
+      button.attr('id', menuId)
+          .addClass('mdl-button mdl-js-button mdl-js-ripple-effect');
     }
+    if (button) button.on('click', () => getPositionClass(button));
     getPositionClass(cp.view());
 
     // Upgrade MDL elements
     zuix.activeRefresh(cp.view(), cp.view(), null, ($view, $element, data, nextCallback) => {
       if (window['componentHandler']) {
+        patchMDL();
         new MaterialMenu(ul.get());
         componentHandler.upgradeElements(ul.get().querySelectorAll('li'));
-        if (a.length() >= 1) {
-          componentHandler.upgradeElements(a.get());
+        if (button.length() >= 1) {
+          componentHandler.upgradeElements(button.get());
         }
         cp.context.isReady = true;
       } else {
@@ -224,61 +250,12 @@ function MdlMenu() {
                   marginLeft: isMini || isIcon ? '1px' : '2px',
                   position: 'initial'
                 });
-                setTimeout(() => {
-                  ctx.$.find('.material-icons').css({
-                    transition: 'transform .2s ease-in-out'
-                  });
-                }, 100);
               });
             }, 250);
           }
         }
       };
-      /**
-       * Handles a click on the "for" element, by positioning the menu and then
-       * toggling it.
-       *
-       * @param {Event} evt The event that fired.
-       * @private
-       */
-      MaterialMenu.prototype.handleForClick_ = function(evt) {
-        if (this.element_ && this.forElement_) {
-          const rect = this.forElement_.getBoundingClientRect();
-          const forRect = this.forElement_.context ?
-              this.forElement_.context.options().__shadowRoot.position().rect :
-              this.forElement_.parentElement.getBoundingClientRect();
-          let shadowRootTop = this.forElement_.context ? forRect.top : 0;
-          if (shadowRootTop) {
-            shadowRootTop += document.scrollingElement.scrollTop;
-          }
-          const shadowRootRight = this.forElement_.context ? forRect.width : 0;
-          if (this.element_.classList.contains(this.CssClasses_.UNALIGNED)) {
-            // Do not position the menu automatically. Requires the developer to
-            // manually specify position.
-          } else if (this.element_.classList.contains(
-              this.CssClasses_.BOTTOM_RIGHT)) {
-            // Position below the "for" element, aligned to its right.
-            this.container_.style.right = (forRect.right - rect.right - shadowRootRight) + 'px';
-            this.container_.style.top =
-                this.forElement_.offsetTop + this.forElement_.offsetHeight - shadowRootTop + 'px';
-          } else if (this.element_.classList.contains(this.CssClasses_.TOP_LEFT)) {
-            // Position above the "for" element, aligned to its left.
-            this.container_.style.left = this.forElement_.offsetLeft + 'px';
-            this.container_.style.bottom = (forRect.bottom - rect.top) + 'px';
-          } else if (this.element_.classList.contains(this.CssClasses_.TOP_RIGHT)) {
-            // Position above the "for" element, aligned to its right.
-            this.container_.style.right = (forRect.right - rect.right) + 'px';
-            this.container_.style.bottom = (forRect.bottom - rect.top) + 'px';
-          } else {
-            // Default: position below the "for" element, aligned to its left.
-            this.container_.style.left = this.forElement_.offsetLeft + 'px';
-            this.container_.style.top =
-                this.forElement_.offsetTop + this.forElement_.offsetHeight + 'px';
-          }
-        }
 
-        this.toggle(evt);
-      };
       if (!MaterialMenu.prototype._hide) {
         MaterialMenu.prototype._hide = MaterialMenu.prototype.hide;
         MaterialMenu.prototype.hide = function() {

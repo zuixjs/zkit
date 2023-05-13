@@ -14,13 +14,18 @@
 function MdlButton() {
   this.init = () => {
     const theme = this.options().theme || 'indigo-pink';
-    if (this.view().parent().get().mode) { // "mode" -> ShadowRoot
+    const isShadowRoot = this.view().parent().get() instanceof ShadowRoot;
+    if (isShadowRoot) {
       this.options().fetchOptions = {priority: 'low'};
-      if (!self.MaterialButton) {
-        this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
-      }
+    }
+    if (!self.MaterialButton) {
+      this.using('script', '@cdnjs/material-design-lite/1.3.0/material.min.js');
+    }
+    if (!zuix.$.classExists('.mdl-button') || isShadowRoot) {
       this.using('style', '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css');
-      // loads fonts as a global resource
+    }
+    // loads fonts as a global resource
+    if (!zuix.$.classExists('.material-icons')) {
       zuix.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap');
     }
   };

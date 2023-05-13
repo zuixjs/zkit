@@ -1,30 +1,21 @@
 const _paths = {
-  monacoEditor: '@cdnjs/monaco-editor/0.38.0/min/vs/loader.min.js',
+  monacoEditor: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0-dev.20230511/min/',
   defaultComponentId: 'https://zuixjs.org/app/examples/new-component'
 };
 
-let _zxContextLoaded = false;
-// Before starting, this component will
-// wait until the following module is loaded
-// (see `ready` method override in the `viewDeclarations`)
-import('https://zuixjs.github.io/zkit/js/zuix/zx-context.module.js')
-    .then(() => _zxContextLoaded = true);
-// No need to wait for this other module to be loaded since it just
-// contains custom element declaration
 import('{{ app.zkit.libraryPath }}controllers/mdl-button.module.js');
-
-let ErrorStackParser;
+import('{{ app.zkit.libraryPath }}controllers/mdl-menu.module.js');
 
 class ZxPlayground extends ControllerInstance {
-  _monacoEditorLoaded = false;
+  // maybe switch `_` to private field `#`
   _extraLib = null;
   _errorCheckTimeout = null;
   _updateTimeout = null;
   _isLoading = false;
 
-  editorHtml = null;
-  editorCss = null;
-  editorJs = null;
+  _editorHtml = null;
+  _editorCss = null;
+  _editorJs = null;
 
   componentId = _paths.defaultComponentId;
   componentData = {
@@ -34,6 +25,7 @@ class ZxPlayground extends ControllerInstance {
   };
   componentContext = null;
 
+  // listen to URL hash changes
   _hashChangeListener = () => {
     const locationHash = window.location.hash.substring(1);
     const cid = locationHash || this.componentId;
@@ -53,20 +45,37 @@ class ZxPlayground extends ControllerInstance {
     zuix.store('config')
         .libraryPath['@lib[1.2]'] = '{{ app.zkit.libraryPath }}';
 
+    this.waitingResources = 2;
+
+    // override the default "ready" handler in order to wait for
+    // dependencies to be loaded before starting the component
+    this.declare('ready', () => this.waitingResources === 0);
+
+    // Before starting, this component will
+    // wait until the following module is loaded
+    import('https://zuixjs.github.io/zkit/js/zuix/zx-context.module.js')
+        .then(() => this.waitingResources--);
+
+    // Load Monaco Editor from CDNJS
+    zuix.using('script', _paths.monacoEditor + 'vs/loader.min.js', () => {
+      this.createEditors(() => this.waitingResources--);
+    });
+
     // get component id from location hash (if any) or via the `load` option
     this.componentId = window.location.hash.substring(1) ||
       this.options().load ||
       this.componentId;
 
-    // add custom menu items
-    this.buildMenuList(this.options().menuItems || []);
-
   }
 
   onCreate() {
+
+    // add custom menu items
+    this.buildMenuList(this.options().menuItems || []);
+
     // Tab buttons cursor implementation
     const tabCursor = this.field('tabCursor');
-    const moveCursorTo = (target) => {
+    this.moveCursorTo = (target) => {
       const targetPosition = zuix.$(target).position();
       tabCursor
           .css({
@@ -74,8 +83,8 @@ class ZxPlayground extends ControllerInstance {
             width: targetPosition.rect.width + 'px'
           });
     };
-    let selectedTab = null;
 
+    let selectedTab = null;
     const dialog = this.field('nameRequestDialog');
     // declare properties/methods that can be used in the view template
     const viewDeclarations = {
@@ -86,7 +95,7 @@ class ZxPlayground extends ControllerInstance {
         this.view('.editor-container')
             .hide();
         $editor.show();
-        moveCursorTo(selectedTab);
+        this.moveCursorTo(selectedTab);
       },
       editNew: () => {
         this.loadWidgetFiles(this.componentId, () => {
@@ -106,27 +115,20 @@ class ZxPlayground extends ControllerInstance {
           }
         }).get().showModal();
       },
-      // override the default "ready" handler in order to wait for
-      // dependencies to be loaded before starting the component
-      ready: () => this._monacoEditorLoaded && _zxContextLoaded,
       isLoading: () => this._isLoading
     };
     this.declare(viewDeclarations);
 
-    // Load Monaco Editor from CDNJS
-    zuix.using('script', _paths.monacoEditor, () => {
-      this.createEditors();
-    });
-
-    // wait the "loaded" event before then set the current tab
-    this.view().one('loaded', () => {
-      setTimeout(() => moveCursorTo(this.field('editViewButton').get()), 50);
+    // wait the "monaco:loaded" event before then set the current tab
+    this.view().one('monaco:loaded', () => {
+      setTimeout(() => this.moveCursorTo(this.field('editViewButton').get()), 50);
       self.addEventListener(
           'hashchange',
           this._hashChangeListener,
           false
       );
     });
+
   }
 
   onDispose() {
@@ -178,9 +180,9 @@ class ZxPlayground extends ControllerInstance {
       download('css', (css) => {
         m.componentId = `${componentId}.js`;
         download('js', (js) => {
-          this.editorHtml.setValue(html);
-          this.editorCss.setValue(css);
-          this.editorJs.setValue(js);
+          this._editorHtml.setValue(html);
+          this._editorCss.setValue(css);
+          this._editorJs.setValue(js);
           this.componentData = {html, css, js};
           callback(this.componentData);
           this._isLoading = false;
@@ -189,12 +191,12 @@ class ZxPlayground extends ControllerInstance {
     });
   }
 
-  createEditors() {
+  createEditors(callback) {
     const htmlEditor = this.field('html-editor').show();
     const cssEditor = this.field('css-editor').hide();
     const jsEditor = this.field('js-editor').hide();
 
-    require.config({paths: {vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.37.1/min/vs'}});
+    require.config({paths: {vs: _paths.monacoEditor + 'vs'}});
 
     // Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
     // the default worker url location (used when creating WebWorkers). The problem here is that
@@ -204,46 +206,46 @@ class ZxPlayground extends ControllerInstance {
       getWorkerUrl: function(workerId, label) {
         return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
         self.MonacoEnvironment = {
-          baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.37.1/min/'
+          baseUrl: '${_paths.monacoEditor}'
         };
-        importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.37.1/min/vs/base/worker/workerMain.js');`
+        importScripts('${_paths.monacoEditor}vs/base/worker/workerMain.js');`
         )}`;
       }
     };
 
     require(['vs/editor/editor.main'], () => {
       // create editor instances
-      this.editorHtml = monaco.editor.create(htmlEditor.get(), {
+      this._editorHtml = monaco.editor.create(htmlEditor.get(), {
         value: '',
         language: 'html',
         automaticLayout: true,
         theme: 'vs-dark'
       });
-      this.editorCss = monaco.editor.create(cssEditor.get(), {
+      this._editorCss = monaco.editor.create(cssEditor.get(), {
         value: '',
         language: 'css',
         automaticLayout: true,
         theme: 'vs-dark'
       });
-      this.editorJs = monaco.editor.create(jsEditor.get(), {
+      this._editorJs = monaco.editor.create(jsEditor.get(), {
         value: '',
         language: 'javascript',
         automaticLayout: true,
         theme: 'vs-dark'
       });
 
-      this.view().one('loaded', () => {
+      this.view().one('monaco:loaded', () => {
         // set event listeners
-        this.editorHtml.getModel().onDidChangeContent((event) => {
-          this.componentData.html = this.editorHtml.getValue();
+        this._editorHtml.getModel().onDidChangeContent((event) => {
+          this.componentData.html = this._editorHtml.getValue();
           this.updateWidget();
         });
-        this.editorCss.getModel().onDidChangeContent((event) => {
-          this.componentData.css = this.editorCss.getValue();
+        this._editorCss.getModel().onDidChangeContent((event) => {
+          this.componentData.css = this._editorCss.getValue();
           this.componentContext.style(this.componentData.css);
         });
-        this.editorJs.getModel().onDidChangeContent((event) => {
-          this.componentData.js = this.editorJs.getValue();
+        this._editorJs.getModel().onDidChangeContent((event) => {
+          this.componentData.js = this._editorJs.getValue();
           this.updateWidget();
         });
 
@@ -252,8 +254,6 @@ class ZxPlayground extends ControllerInstance {
         } else {
           // TODO: most likely an error occurred loading component's parts
         }
-
-        this._monacoEditorLoaded = true;
       });
 
       fetch('{{ app.zkit.libraryPath }}components/zx-playground/zuix.d.ts').then((res) => {
@@ -268,7 +268,8 @@ class ZxPlayground extends ControllerInstance {
           this.loadWidgetFiles(this.componentId, (mvc) => {
             this.componentData = mvc;
             // signal the 'loaded' event
-            this.trigger('loaded');
+            this.trigger('monaco:loaded');
+            if (callback) callback();
           });
         });
       });
@@ -329,7 +330,7 @@ class ZxPlayground extends ControllerInstance {
   checkErrors() {
     clearTimeout(this._errorCheckTimeout);
     this._errorCheckTimeout = setTimeout(() => {
-      const model = this.editorJs.getModel();
+      const model = this._editorJs.getModel();
       this.jsCodeErrors = monaco.editor.getModelMarkers({owner: 'javascript'})
           .concat(monaco.editor.getModelMarkers({owner: 'service'}))
           .filter((e) => e.severity === monaco.MarkerSeverity.Error);
@@ -350,9 +351,7 @@ class ZxPlayground extends ControllerInstance {
   }
   setError(err) {
     zuix.using('script', 'https://cdn.jsdelivr.net/npm/error-stack-parser@2.1.4/dist/error-stack-parser.min.js', () => {
-      ErrorStackParser = self.ErrorStackParser;
-
-      const frames = ErrorStackParser.parse(err);
+      const frames = self.ErrorStackParser.parse(err);
       const errorFrame = frames[0]; // <-- TODO: find by 'fileName'
       errorFrame.lineNumber -= 2; // adjust source line
       // set error
@@ -364,7 +363,7 @@ class ZxPlayground extends ControllerInstance {
         message: err.message,
         severity: monaco.MarkerSeverity.Error
       };
-      const model = this.editorJs.getModel();
+      const model = this._editorJs.getModel();
       monaco.editor.setModelMarkers(model, 'service', [error]);
 
       // check for other errors (view)
@@ -381,7 +380,7 @@ class ZxPlayground extends ControllerInstance {
         .html('').parent().hide();
   }
   clearError() {
-    const model = this.editorJs.getModel();
+    const model = this._editorJs.getModel();
     monaco.editor.setModelMarkers(model, 'service', []);
     this.hideErrors();
     this.checkErrors();
@@ -411,7 +410,7 @@ class ZxPlayground extends ControllerInstance {
   });
 };
 if (self.zuix === undefined) {
-  import('https://cdn.jsdelivr.net/npm/zuix-dist@1.1.24/js/zuix.module.min.js')
+  import('https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix.module.min.js')
       .then(() => setup());
 } else setup();`);
       zip.file(`README.md`, `# How to use this component
@@ -434,7 +433,7 @@ on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}.
 `);
       zip.generateAsync({type: 'blob'})
           .then(function(content) {
-            zuix.using('script', 'https://zuixjs.github.io/zuix/js/zuix-bundler.min.js', () => {
+            zuix.using('script', 'https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix-bundler.min.js', () => {
               zuix.saveBlob(content, `${componentName}.zip`);
             });
           });
