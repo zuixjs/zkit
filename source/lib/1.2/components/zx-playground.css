@@ -1,7 +1,7 @@
 :host {
     width: 100%;
     overflow: hidden;
-    min-height: 280px;
+    min-height: 85vh!important;
 }
 /*
 :host.not-ready,:host:not([z-loaded]) {
@@ -15,7 +15,7 @@
 .component-preview {
     position: relative;
     width: 100%;
-    padding: 24px;
+    min-height: 35vh;
     height: 35vh;
     overflow-y: auto;
     display: flex;
@@ -27,7 +27,7 @@
     position: relative;
     border: solid 1px gray;
     border-radius: 4px;
-    min-height: 50vh;
+    height: 50vh;
     box-shadow: 0 6px 16px -2px;
 }
 .editor-container {

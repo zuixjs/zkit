@@ -65,6 +65,7 @@ class ZxPlayground extends ControllerInstance {
     this.componentId = window.location.hash.substring(1) ||
       this.options().load ||
       this.componentId;
+    console.log(this.options(), this);
 
   }
 
@@ -149,7 +150,7 @@ class ZxPlayground extends ControllerInstance {
       listHtml += zuix.$.replaceBraces(templateHtml, (key) => {
         switch (key) {
           case '{link}':
-            return item.link;
+            return item.link.startsWith('#') ? item.link : '#' + item.link;
           case '{description}':
             return item.description;
         }
@@ -312,7 +313,7 @@ class ZxPlayground extends ControllerInstance {
       });
       if (!error) {
         zxWidget.load(this.componentId, {
-          html,
+          html: html.length ? html : ' ',
           css,
           controller,
           ready: (ctx) => {

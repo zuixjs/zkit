@@ -27,8 +27,10 @@ a `#` followed by the path of the component to be loaded. Either relative or abs
 even if pointing to a component located on a different server.
 
 {% zx "button" "https://zuixjs.org/playground/#/app/widgets/analog-clock" "raised" "colored" %}
-Try the Playground
+Try the Playground on zuixjs.org
 {% endzx %}
+
+... or see the example below.
 
 
 ## Usage
@@ -73,8 +75,38 @@ Try the Playground
 
 - `z-context="<context_id>"` <small>optional</small>  
   identifier name to be used to access this component from JavaScript.
-- `:load=<component_id>` <small>optional</small>  
+- `:load="'<component_id>'"` <small>optional</small>  
   identifier of an existing component to load. It can also be an *absolute
   URL* if the component to be loaded is located on a different server.
-- `:menu-items=<items_list>` <small>optional</small>  
+- `:menu-items="<items_list>"` <small>optional</small>  
   list of custom menu items `[ {link: '<url>', description: '<desc>'}, ... ]`.
+
+
+### Example
+
+<style>
+zx-playground {
+    display: block;
+    height: 85vh!important;
+}
+</style>
+
+{% capture example -%}
+<script type="module">
+  import "/lib/1.2/components/zx-playground.module.js";
+</script>
+<zx-playground :load="'https://zuixjs.org/app/widgets/analog-clock'" :menu-items="[
+    {link: 'https://zuixjs.org/app/examples/new-component', description: 'Hello World'},
+    {link: 'https://zuixjs.org/app/widgets/time-clock', description: 'Time Clock'},
+    {link: 'https://zuixjs.org/app/widgets/analog-clock', description: 'Analog Clock'},
+    {link: 'https://zuixjs.org/app/examples/custom-elements-01', description: 'Custom Elements'}
+]"></zx-playground>
+{% endcapture %}
+
+```html
+{{ example }}
+```
+
+### Result
+
+{{ example }}
