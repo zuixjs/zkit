@@ -93,7 +93,7 @@ zx-playground {
 
 {% capture example -%}
 <script type="module">
-  import "/lib/1.2/components/zx-playground.module.js";
+  import "{{ app.zkit.libraryPath }}components/zx-playground.module.js";
 </script>
 <zx-playground :load="'https://zuixjs.org/app/widgets/analog-clock'" :menu-items="[
     {link: 'https://zuixjs.org/app/examples/new-component', description: 'Hello World'},
