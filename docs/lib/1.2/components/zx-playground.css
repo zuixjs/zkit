@@ -24,6 +24,7 @@
     place-content: center;
 }
 .main-container {
+    background-color: rgba(255,255,255,0.75);
     position: relative;
     border: solid 1px gray;
     border-radius: 4px;
@@ -108,15 +109,19 @@ dialog form {
     flex-direction: column;
     gap: 12px;
 }
-dialog form input {
+dialog form select {
+    font-size: 100%;
     padding: 4px;
     border-radius: 6px;
+}
+.dialog label {
+    font-weight: bold;
 }
 .dialog-title {
     font-size: 200%;
     color: var(--primary-color);
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 6px;
+    margin-bottom: 24px;
 }
 
 

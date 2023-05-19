@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * MdlMenu class.
  *
@@ -9,11 +7,8 @@
  * @constructor
  * @this {ContextController}
  */
-function MdlMenu() {
-  const cp = this;
-  cp.init = onInit;
-  cp.create = onCreate;
-  function onInit() {
+class MdlMenu extends ControllerInstance {
+  onInit() {
     const theme = this.options().theme || 'indigo-pink';
     const isShadowRoot = this.view().parent().get() instanceof ShadowRoot;
     if (isShadowRoot) {
@@ -49,7 +44,7 @@ function MdlMenu() {
     }`;
   }
 
-  function onCreate() {
+  onCreate() {
     // position relative must be set on the container
     // in order to make MaterialMenu positioning work properly
     this.view().css('position', 'relative');
@@ -72,15 +67,15 @@ function MdlMenu() {
     });
     this.view('li')
         .addClass('mdl-menu__item mdl-menu__item--full-bleed-divider')
-        .on('click', function(e, $el) {
+        .on('click', (e, $el) => {
           // trigger a custom event when option is selected,
           // the 'action' attribute of the clicked element
           // is used to pass custom data
-          cp.trigger('menu:select', {action: $el.attr('action'), $el});
+          this.trigger('menu:select', {action: $el.attr('action'), $el});
         });
     const getPositionClass = (source) => {
       if (ul.hasClass('mdl-menu--unaligned')) return;
-      const menuPosition = guessPosition(cp.options(), source.position());
+      const menuPosition = this.guessPosition(this.options(), source.position());
       if (menuPosition) {
         const positionClasses = 'mdl-menu--bottom-left mdl-menu--bottom-right mdl-menu--top-left mdl-menu--top-right';
         ul.removeClass(positionClasses)
@@ -88,7 +83,7 @@ function MdlMenu() {
         ul.prev().removeClass(positionClasses)
             .addClass(menuPosition);
         // reset container position as a work-around to MaterialMenu bug
-        cp.view('div.mdl-menu__container').css({
+        this.view('div.mdl-menu__container').css({
           top: '', left: '', right: '', bottom: ''
         });
       }
@@ -100,28 +95,28 @@ function MdlMenu() {
     });
     // if anchor or button is present in the view template, then use it as button to toggle the menu
     let button = this.view('a,button');
-    if (cp.options().forel) {
-      button = zuix.$(cp.options().forel);
+    if (this.options().forel) {
+      button = zuix.$(this.options().forel);
       button.detach();
-      cp.view().prepend(button);
+      this.view().prepend(button);
     } else if (button.length() >= 1) {
       button = button.eq(button.length() - 1);
       button.attr('id', menuId)
           .addClass('mdl-button mdl-js-button mdl-js-ripple-effect');
     }
     if (button) button.on('click', () => getPositionClass(button));
-    getPositionClass(cp.view());
+    getPositionClass(this.view());
 
     // Upgrade MDL elements
-    zuix.activeRefresh(cp.view(), cp.view(), null, ($view, $element, data, nextCallback) => {
+    zuix.activeRefresh(this.view(), this.view(), null, ($view, $element, data, nextCallback) => {
       if (window['componentHandler']) {
-        patchMDL();
+        this.patchMDL();
         new MaterialMenu(ul.get());
         componentHandler.upgradeElements(ul.get().querySelectorAll('li'));
         if (button.length() >= 1) {
           componentHandler.upgradeElements(button.get());
         }
-        cp.context.isReady = true;
+        this.context.isReady = true;
       } else {
         nextCallback(data, 33, true);
       }
@@ -132,7 +127,7 @@ function MdlMenu() {
    * @param {ContextOptions|any} options
    * @param {ElementPosition} p
    */
-  function guessPosition(options, p) {
+  guessPosition(options, p) {
     // Auto-position menu if no 'position' option was passed
     if (options.position == null) {
       // auto-positioning
@@ -151,7 +146,7 @@ function MdlMenu() {
     }
   }
 
-  function patchMDL() {
+  patchMDL() {
     if (window['__mdl_patched'] !== true) {
       Object.defineProperty(window, '__mdl_patched', {value: true});
       /**
@@ -279,5 +274,3 @@ function MdlMenu() {
     }
   }
 }
-
-module.exports = MdlMenu;

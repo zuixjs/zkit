@@ -65,7 +65,6 @@ class ZxPlayground extends ControllerInstance {
     this.componentId = window.location.hash.substring(1) ||
       this.options().load ||
       this.componentId;
-    console.log(this.options(), this);
 
   }
 
@@ -109,10 +108,12 @@ class ZxPlayground extends ControllerInstance {
         });
       },
       download: () => {
+        const {className, componentId} = this.getClassId();
+        this.model().componentId = componentId;
         dialog.one('close', (e) => {
-          const name = dialog.get().returnValue;
-          if (name.length) {
-            this.downloadComponent(name);
+          const customElement = dialog.get().returnValue;
+          if (customElement.length) {
+            this.downloadComponent(className, componentId, customElement === 'embed');
           }
         }).get().showModal();
       },
@@ -387,17 +388,29 @@ class ZxPlayground extends ControllerInstance {
     this.checkErrors();
   }
 
-  downloadComponent(componentName = 'component-name') {
+  getClassId() {
+    const matchClassName = this.componentData.js.match(/(?<=class\s).*[\w+](?=\s+extends\s+ControllerInstance)/);
+    if (matchClassName && matchClassName.length) {
+      const className = matchClassName[0];
+      const componentId = zuix.utils.camelCaseToHyphens(className);
+      return {
+        className, componentId
+      };
+    }
+  }
+
+  downloadComponent(className, componentId, embedDefinition) {
     zuix.using('script', '@cdnjs/jszip/3.10.1/jszip.min.js', () => {
-      const zip = new JSZip();
-      zip.file(`${componentName}.html`, this.componentData.html);
-      zip.file(`${componentName}.css`, this.componentData.css);
-      zip.file(`${componentName}.js`, this.componentData.js);
-      zip.file(`${componentName}.module.js`, `const setup = () => {
-  // change 'componentId' value if component
-  // location is other than the default one ("/app/")
-  const componentId = '${componentName}';
-  customElements.define('${componentName}', class extends HTMLElement {
+      const elementDefine = `// update next line if component path was changed
+const componentId = '${componentId}';
+
+const setup = () => {
+  const elementTag = '${componentId}';
+  if (customElements.get(elementTag) != null) return;
+${embedDefinition ?`  // register controller class
+  zuix.controller(${className}, {componentId});\n` : ''
+}  // register custom element tag
+  customElements.define(elementTag, class extends HTMLElement {
     context = null;
     connectedCallback() {
       if (this.context === null) {
@@ -413,20 +426,32 @@ class ZxPlayground extends ControllerInstance {
 if (self.zuix === undefined) {
   import('https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix.module.min.js')
       .then(() => setup());
-} else setup();`);
+} else setup();`;
+      const zip = new JSZip();
+      zip.file(`${componentId}.html`, this.componentData.html);
+      zip.file(`${componentId}.css`, this.componentData.css);
+      if (embedDefinition) {
+        // append custom element define to controller class
+        zip.file(`${componentId}.js`, this.componentData.js + '\n\n' + elementDefine);
+      } else {
+        // separate module for custom element define
+        zip.file(`${componentId}.js`, this.componentData.js);
+        zip.file(`${componentId}.module.js`, elementDefine);
+      }
+      const moduleFile = `${componentId}${embedDefinition ? '' : '.module'}.js`;
       zip.file(`README.md`, `# How to use this component
 
 - Copy the component files to the **/app/** folder of your website/application.
 - Add the component's module to your page:
 \`\`\`html
-<script src="/app/${componentName}.module.js" type="module"></script>
+<script src="/app/${moduleFile}" type="module"></script>
 \`\`\`
 - Use the component in your page:
 \`\`\`html
-<${componentName}></${componentName}>
+<${componentId}></${componentId}>
 \`\`\`
 - If you want to place the component in a location other than **/app/**, ensure to update
-  the component's path in the \`${componentName}.module.js\` file by changing the value
+  the component's path in the \`${moduleFile}\` file by changing the value
   of the \`const componentId\` accordingly. 
 
 This component was auto-generated from [zuix.js playground](https://zuixjs.org/playground/)
@@ -435,7 +460,7 @@ on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}.
       zip.generateAsync({type: 'blob'})
           .then(function(content) {
             zuix.using('script', 'https://cdn.jsdelivr.net/npm/zuix-dist@{{ app.zkit.zuixVersion }}/js/zuix-bundler.min.js', () => {
-              zuix.saveBlob(content, `${componentName}.zip`);
+              zuix.saveBlob(content, `${componentId}.zip`);
             });
           });
     });

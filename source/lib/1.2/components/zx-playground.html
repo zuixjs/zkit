@@ -66,16 +66,17 @@
 </div>
 
 <dialog #name-request-dialog>
-    <div class="dialog-title">Name</div>
+    <div class="dialog-title" #component-id></div>
     <form>
-        <input #component-name type="text" value="component-name"
-               placeholder="Enter name" spellcheck="false"
-               (change)="this.value = zuix.utils.camelCaseToHyphens(this.value)">
-        <div>
+        <label>Custom element definition:</label>
+        <select #custom-element>
+            <option value="embed">Append to controller class</option>
+            <option value="module">Add to a separate module</option>
+        </select>
+        <div style="margin-top: 24px; display: flex; flex-direction: row; place-content: space-between">
             <mdl-button :type="'flat'" (click)="nameRequestDialog.close()">Cancel</mdl-button>
             <mdl-button :type="'flat'" :class="'accent'"
-                        @disable-if="componentName.value.length < 3"
-                        (click)="nameRequestDialog.close(componentName.value)">Download</mdl-button>
+                        (click)="nameRequestDialog.close(customElement.value)">Download</mdl-button>
         </div>
     </form>
 </dialog>

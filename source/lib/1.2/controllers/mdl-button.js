@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * MdlButton class.
  *
@@ -11,8 +9,8 @@
  * @constructor
  * @this {ContextController}
  */
-function MdlButton() {
-  this.init = () => {
+class MdlButton extends ControllerInstance {
+  onInit() {
     const theme = this.options().theme || 'indigo-pink';
     const isShadowRoot = this.view().parent().get() instanceof ShadowRoot;
     if (isShadowRoot) {
@@ -30,7 +28,7 @@ function MdlButton() {
     }
   };
 
-  this.create = () => {
+  onCreate() {
     const view = this.view();
     const options = this.options();
     const type = options.type || 'raised';
@@ -45,10 +43,10 @@ function MdlButton() {
       const iconText = view.get().textContent;
       view.html(`<i class="material-icons">${iconText}</i>`);
     }
-    initializeMdl(view);
+    this.initializeMdl(view);
   };
 
-  function initializeMdl(view) {
+  initializeMdl(view) {
     // initializes MDL component as soon as MDL library is available
     zuix.activeRefresh(view, view, null, ($view, $element, data, nextCallback) => {
       if (window['componentHandler']) {
@@ -59,4 +57,3 @@ function MdlButton() {
     }).start();
   }
 }
-module.exports = MdlButton;
