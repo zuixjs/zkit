@@ -85,7 +85,7 @@ class ZxPlayground extends ControllerInstance {
     };
 
     let selectedTab = null;
-    const dialog = this.field('nameRequestDialog');
+    const dialog = this.field('downloadRequestDialog');
     // declare properties/methods that can be used in the view template
     const viewDeclarations = {
       getSelected: () => selectedTab,

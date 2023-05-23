@@ -1,7 +1,6 @@
 ---
 layout: side_drawer.liquid
-options: mdl
-theme: indigo-deep_purple
+options: mdl no-title
 title: Search
 description: Search this website
 ---
@@ -9,10 +8,14 @@ description: Search this website
 <div z-load="default" layout="column center-stretch">
 
     <div layout="column center-center" style="padding: 24px; margin-top: 24px">
-        <div self="size-medium" class="field input-container" layout="column center-center">
-            <input #search-input aria-label="Search" required=""
-                   type="search" id="searchInput">
-            <label class="primary">Search terms</label>
+        <div self="size-medium" class="field" layout="row center-left">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample1">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input #search-input aria-label="Search" type="search" class="mdl-textfield__input" id="sample1" required>
+                <label class="mdl-textfield__label" for="sample1">Enter search terms</label>
+            </div>
         </div>
         <div #results-none style="display: none">
             <p>No results found.</p>
@@ -20,8 +23,9 @@ description: Search this website
     </div>
 
     <div layout="column center-center">
-        <!-- zuix.js list-view component -->
-        <div self="size-medium" #results-list ctrl z-load="@lib/controllers/list-view"></div>
+        <!-- zKit list-view component -->
+        <div #results-list self="size-medium"
+             ctrl z-load="@lib/controllers/list-view"></div>
     </div>
 
     <script type="jscript">
@@ -33,7 +37,7 @@ description: Search this website
         //findAllMatches: true,
         keys: ['title', 'description', 'content']
       }
-      /** @type {elasticlunr.Index} searchIndex */
+
       fetch('{{ app.baseUrl }}search-index.json').then((indexResponse) =>
         indexResponse.json().then((searchIndex) => {
           fetch('{{ app.baseUrl }}search-list.json').then((listResponse) =>
@@ -45,6 +49,7 @@ description: Search this website
           );
         })
       );
+
       // update results list on 'keydown'
       $searchInput.on('keyup search', (e, v) => {
         if (!searchEngine) {
@@ -57,15 +62,15 @@ description: Search this website
         _resultsList.clear();
         if (results.length > 0) {
           $resultsNone.hide();
-          _resultsList.model({
-            itemList: results,
-            getItem: function(index, item) {
+          _resultsList.model(results);
+          _resultsList.config({
+            adapter: (index, item) => {
               item = searchItems[item.refIndex];
               return {
                 itemId: index,
                 componentId: 'inline/result-item-view',
+                type: 'view',
                 options: {
-                  controller: zuix.controller(function(cp){}),
                   className: 'item',
                   model: item
                 }
@@ -84,40 +89,45 @@ description: Search this website
 
 <!--Inline list item template -->
 <div z-view="inline/result-item-view">
-    <div layout="row top-justify">
+    <div layout="row center-justify">
         <div self="size-x1">
-            <a #url><h3 #title>Item title</h3></a>
-            <p #description self="size-x1">Description</p>
+            <a #url><h4 #title>Untitled</h4></a>
+            <p #description self="size-x1">No description provided.</p>
         </div>
-        <a #url><img #image style="max-width: 150px; height:80px" /></a>
+        <a #url><img #image /></a>
     </div>
 </div>
 <style media="#inline/result-item-view">
     :host {
-
+        margin-bottom: 6px;
     }
-    h3 {
+    h4 {
         margin: 0;
     }
-    div {
-        margin-bottom: 12px;
+    div[layout] {
+        padding: 8px;
         font-size: 100%;
     }
     p {
         margin-top: 6px;
-        margin-bottom: 32px;
+        margin-bottom: 6px;
     }
     img {
         border-radius: 4px;
         margin: 8px;
+        height: 80px;
+        max-height: 80px;
+        width: auto;
     }
     @media only screen and (max-width: 600px) {
-        div {
-            font-size: 88%;
-            margin-bottom: 0;
+        p {
+            font-size: 100%;
+        }
+        div[layout] {
+            font-size: 100%;
         }
     }
 </style>
 
-<!--elasticlunr JS -->
+<!-- Fuse JS -->
 <script src="{{ '/js/fuse/fuse.min.js' | url }}" defer async></script>

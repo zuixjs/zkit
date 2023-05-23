@@ -10,10 +10,6 @@
     <lastmod>2022-03-15</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/search/</loc>
-    <lastmod>2022-05-12</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</loc>
     <lastmod>2022-06-09</lastmod>
   </url>
@@ -76,5 +72,9 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/content/components/zx-playground/</loc>
     <lastmod>2023-05-14</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/search/</loc>
+    <lastmod>2023-05-23</lastmod>
   </url>
 </urlset>
