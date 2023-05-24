@@ -424,7 +424,7 @@ ${embedDefinition ?`  // register controller class
   });
 };
 if (self.zuix === undefined) {
-  import('https://cdn.jsdelivr.net/npm/zuix-dist@1.1.27/js/zuix.module.min.js')
+  import('https://cdn.jsdelivr.net/npm/zuix-dist@1.1.28/js/zuix.module.min.js')
       .then(() => setup());
 } else setup();`;
       const zip = new JSZip();
@@ -459,7 +459,7 @@ on ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}.
 `);
       zip.generateAsync({type: 'blob'})
           .then(function(content) {
-            zuix.using('script', 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.27/js/zuix-bundler.min.js', () => {
+            zuix.using('script', 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.28/js/zuix-bundler.min.js', () => {
               zuix.saveBlob(content, `${componentId}.zip`);
             });
           });
