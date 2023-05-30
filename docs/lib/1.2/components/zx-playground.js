@@ -112,7 +112,7 @@ class ZxPlayground extends ControllerInstance {
         this.model().componentId = componentId;
         dialog.one('close', (e) => {
           const customElement = dialog.get().returnValue;
-          if (customElement.length) {
+          if (customElement.length > 0) {
             this.downloadComponent(className, componentId, customElement === 'embed');
           }
         }).get().showModal();
