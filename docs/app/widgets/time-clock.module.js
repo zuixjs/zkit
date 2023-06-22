@@ -1,4 +1,4 @@
-import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.28/js/zuix.module.min.js';
+import 'https://cdn.jsdelivr.net/npm/zuix-dist@1.1.29/js/zuix.module.min.js';
 
 customElements.define('time-clock', class extends HTMLElement {
   connectedCallback() {
