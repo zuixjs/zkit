@@ -4,7 +4,7 @@
     {% assign prevPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getPreviousCollectionItem: page %}
     {% assign nextPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getNextCollectionItem: page %}
 
-    <div self="size-large" layout="rows center-justify" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+    <div self="size-large" layout="rows center-justify" style="margin-top: 112px; gap:12px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 120%">
 
         {% if prevPost %}
         <a href="{{ prevPost.url |  url }}" style="text-align: center;margin-left: 64px">
