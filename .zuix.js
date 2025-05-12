@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 G-Labs. All Rights Reserved.
+ * Copyright 2020-2025 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the MIT license. See LICENSE file.
@@ -54,7 +54,7 @@ module.exports = (program) => {
     .requiredOption('-s, --section <section_name>', 'Page section')
     .requiredOption('-n, --name <page_name>', 'Page name')
     .option('-l, --layout <layout_template>', 'Layout template name', 'article')
-    .option('-fm, --front-matter "<field>: <value>"', 'Set a front matter field value', collect, [])
+    .option('-f, --front-matter "<field>: <value>"', 'Set a front matter field value', collect, [])
     .action(addPage);
   program
     .command('wipe-content')

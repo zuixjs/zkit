@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 G-Labs. All Rights Reserved.
+ * Copyright 2020-2025 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the MIT license. See LICENSE file.
@@ -61,6 +61,77 @@ const includesFolder = zuixConfig.get('build.includesFolder');
 // replace {{variables}} eventually employed in the config
 zuixConfig = JSON.parse(nunjucks.renderString(JSON.stringify(zuixConfig), zuixConfig));
 
+let wrappedCssIds = [];
+let io = null;
+
+let copyFilesWatcher = null;
+let allFilesWatcher = null;
+let browserSyncInstance = null;
+
+let forceRebuildTimeout = null;
+let errorNotifierTimeout = null;
+let isHandlingExit = false;
+
+function handleExitSignal(signal) {
+  if (isHandlingExit) {
+    console.log(`Exit already in progress for ${signal}...`);
+    return;
+  }
+  isHandlingExit = true;
+  console.log(`\nGot signal: ${signal}. Starting resource cleanup...`);
+
+  const promises = [];
+
+  clearTimeout(forceRebuildTimeout);
+  clearTimeout(errorNotifierTimeout);
+  capcon.stopCapture(process.stderr);
+
+  if (copyFilesWatcher) {
+    promises.push(
+      copyFilesWatcher.close()
+    );
+  }
+  if (allFilesWatcher) {
+    promises.push(
+      allFilesWatcher.close()
+    );
+  }
+
+  if (browserSyncInstance) {
+    try {
+      browserSyncInstance.exit();
+      promises.push(new Promise(resolve => setTimeout(resolve, 500)));
+    } catch (e) {
+      promises.push(Promise.resolve());
+    }
+  }
+  if (io) {
+    promises.push(new Promise((resolve, reject) => {
+      io.close(() => resolve());
+    }));
+  }
+
+  Promise.allSettled(promises).then(() => {
+    console.log('Resource cleanup attempted. Exiting now.');
+    process.exit(0);
+  }).catch(err => {
+    console.error('Unexpected error during cleanup promises:', err);
+    process.exit(1);
+  });
+
+  setTimeout(() => {
+    console.error('Cleanup timeout. Forcing exit.');
+    process.exit(1);
+  }, 5000);
+}
+
+if (process.env.ZUIX_EXIT_HANDLERS_SET !== 'true') {
+  process.on('SIGINT', () => handleExitSignal('SIGINT'));
+  process.on('SIGTERM', () => handleExitSignal('SIGTERM'));
+  process.on('SIGQUIT', () => handleExitSignal('SIGQUIT'));
+  process.env.ZUIX_EXIT_HANDLERS_SET = 'true';
+}
+
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
     return l;
@@ -81,10 +152,8 @@ function getZuixConfig() {
   }
 }
 
-let wrappedCssIds = [];
-let io;
-
 function startWatcher(eleventyConfig, browserSync) {
+  browserSyncInstance = browserSync;
   // Watch zuix.js folders and files (`./source/lib`, `./source/app`, zuixConfig.copy), ignored by 11ty
   const watchEvents = {add: true, change: true, unlink: true};
   const watchFiles = [];
@@ -98,7 +167,7 @@ function startWatcher(eleventyConfig, browserSync) {
   });
   const templateExtensions = ['.html', '.js', '.css', '.less', '.scss', '.njk'];
   const templateFolders = componentsFolders.map(f =>  path.resolve(path.join(sourceFolder, f)));
-  const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file, stats) => {
+  copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file, stats) => {
     if (watchEvents[event] && fs.existsSync(file) && file.indexOf('/_inc/') === -1) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);
@@ -136,7 +205,7 @@ function startWatcher(eleventyConfig, browserSync) {
     }
   });
   const includes = path.join(sourceFolder, includesFolder);
-  const allFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file, stats) => {
+  allFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file, stats) => {
     if (event.startsWith('unlink')) {
       forceRebuild(200);
     } else if (!file.startsWith(includes) && file.indexOf(path.join('/', '_inc', '/')) !== -1) {
@@ -228,7 +297,6 @@ function setupSocketApi(browserSync) {
       debug: false
     }
     // Eleventy console messages handling
-    let errorNotifierTimeout = null;
     const errorNotifier = function() {
       if (!errorObject.errors[0].startsWith('! ') && !errorObject.errors[0].startsWith(' Benchmark ')) {
         ioEmit('zuix:eleventy:error', errorObject);
@@ -273,7 +341,6 @@ function cmsLog(...args) {
   console.log(`[zuix-cms] ${args.join(' ')}`);
 }
 
-let forceRebuildTimeout = null;
 function forceRebuild(delay) {
   clearTimeout(forceRebuildTimeout);
   forceRebuildTimeout = setTimeout(() => {
@@ -335,24 +402,38 @@ function initEleventyZuix(eleventyConfig) {
     }
     changedFiles.push(...cf);
   });
-  eleventyConfig.on('eleventy.after', async function(args) {
-    console.log();
-    postProcessFiles.forEach((pf) => {
-      const result = compilePage(pf.file, pf.file, {
-        baseFolder: pf.baseFolder,
-        ...zuixConfig
+  eleventyConfig.on('eleventy.after', async function({ dir, results, runMode, outputMode }) {
+    if (postProcessFiles.length > 0) {
+      const compilePromises = postProcessFiles.map((pf) => {
+        return compilePage(pf.file, pf.file, {
+          baseFolder: pf.baseFolder,
+          ...zuixConfig
+        }).catch(err => {
+          console.error(chalk.red.bold(`ERROR compiling ${pf.file}:`), err);
+          return -2;
+        });
       });
-      // TODO: check result code and report
-    });
-    postProcessFiles.length = 0;
-    wrappedCssIds = [];
+      try {
+        const compileResults = await Promise.all(compilePromises);
+        const errorsInCompilation = compileResults.some(result => result !== 0);
+        if (errorsInCompilation) {
+          console.error(chalk.red.bold('Errors occurred while compiling one or more pages.'));
+          // TODO: should report pages with errors
+          // if (runMode === 'build' && outputMode === 'fs') process.exitCode = 1;
+        }
+      } catch (e) {
+        console.error(chalk.red.bold('ERROR occurred (Promise.all) while compiling:'), e);
+        // if (runMode === 'build' && outputMode === 'fs') process.exitCode = 1;
+      }
+    }
     if (zuixConfig.build.serviceWorker) {
-      console.log('Updating Service Worker... ');
-      await generateServiceWorker().then(function () {
-        console.log('... done.');
-      });
-    } else {
-      console.log();
+      console.log('Updating service worker...');
+      try {
+        await generateServiceWorker();
+        console.log(chalk.green('... Service worker updated.'));
+      } catch (swError) {
+        console.error(chalk.red.bold('Error generating the service worker:'), swError);
+      }
     }
     if (rebuildAll) {
       // reverts to incremental build mode
@@ -512,7 +593,7 @@ function configure(eleventyConfig) {
   );
 
   /*
-  || Add short codes
+  || Add shortcodes
   */
 
   eleventyConfig.addShortcode('rawFile', function(fileName) {

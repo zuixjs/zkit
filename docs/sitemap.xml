@@ -58,10 +58,6 @@
     <lastmod>2024-01-12</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
-    <lastmod>2024-01-12</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</loc>
     <lastmod>2024-01-12</lastmod>
   </url>
@@ -76,5 +72,9 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/home/</loc>
     <lastmod>2024-01-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
+    <lastmod>2025-05-12</lastmod>
   </url>
 </urlset>

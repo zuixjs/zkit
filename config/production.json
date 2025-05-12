@@ -41,7 +41,7 @@
         "zuix": true
       },
       "mirror": "",
-      "serviceWorker": true,
+      "serviceWorker": false,
       "minify": {
         "disable": false,
         "collapseWhitespace": true,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2022 G-Labs. All Rights Reserved.
+ * Copyright 2020-2025 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
  * Licensed under the MIT license. See LICENSE file.
@@ -13,36 +13,30 @@
  *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello - https://github.com/genemars
- * @version 1.0
+ * @version 1.1
  *
  */
 
-const path = require('path');
-const compress = require('compression');
+import path from 'path';
+import compress from 'compression';
 
 // 11ty
-const {EleventyRenderPlugin} = require("@11ty/eleventy");
+import { EleventyRenderPlugin } from "@11ty/eleventy";
 
 // zuix.js
-const zuix11ty = require('./.eleventy-zuix');
+import zuix11ty from './.eleventy-zuix.js';
 const zuixConfig = zuix11ty.getZuixConfig();
 
 // LESS CSS compiler
-const less = require('less');
-const lessConfig = require(process.cwd() + '/.lessrc');
+import less from 'less';
+import lessConfig from './.lessrc.json' assert { type: 'json' };
 
 // Linter (ESLint)
-const Linter = require('eslint').Linter;
-const linter = new Linter();
-const lintConfig = require(process.cwd() + '/.eslintrc');
+import { Linter as ESLintLinter } from 'eslint';
+const linter = new ESLintLinter();
+import lintConfig from './.eslintrc.json' assert { type: 'json' };
 
-// Minifier
-//const { minify } = require("terser");
-
-// Keep track of changed files for zUIx.js post-processing
-let browserSync;
-
-module.exports = function(eleventyConfig) {
+export default function(eleventyConfig) {
   eleventyConfig.setWatchJavaScriptDependencies(false);
   eleventyConfig.addPlugin(EleventyRenderPlugin);
 
@@ -73,18 +67,41 @@ module.exports = function(eleventyConfig) {
     strictFilters: false,
   });
 
+  // Safe JSON pipe
+  eleventyConfig.addFilter('jsonScriptSafe', function(value) {
+    let jsonString;
+    try {
+      jsonString = JSON.stringify(value);
+    } catch (e) {
+      console.error('Error stringifying value in jsonScriptSafe filter:', e);
+    }
+    jsonString = jsonString.replace(/<\/(script)/gi, '<\\/$1');
+    // Additional safe filters that could be applied:
+    // jsonString = jsonString.replace(/<!--/g, '<\\!--');
+    // jsonString = jsonString.replace(/]]>/g, ']]\\>');
+    return jsonString;
+  });
+
   // Add custom file types and handlers
   eleventyConfig.addTemplateFormats([ 'less', 'css', 'js' ]);
   eleventyConfig.addExtension('less', {
     read: true,
     outputFileExtension: 'css',
-    compile: (content, path) => () => {
-      let output;
-      less.render(content, lessConfig, function(error, lessOutput) {
-        // TODO: handle and report 'error'
-        output = lessOutput;
-      });
-      return output.css;
+    compileOptions: {
+      permalink: () => false
+    },
+    compile: async function(inputContent, inputPath) {
+      try {
+        const output = await less.render(inputContent, {
+          ...lessConfig,
+          filename: inputPath,
+          paths: [path.dirname(inputPath), ...(lessConfig.paths || [])]
+        });
+        return output.css;
+      } catch (error) {
+        console.error(chalk.red(`LESS compilation error in ${inputPath}:\n`), error);
+        return `/* LESS compilation error in ${inputPath}: \n${error.message}\nLine: ${error.line}, Column: ${error.column} */`;
+      }
     }
   });
   // Add linter to report code errors
@@ -116,9 +133,7 @@ module.exports = function(eleventyConfig) {
       next();
     }],
     callbacks: {
-      ready: function(err, bs) {
-        // store a local reference of BrowserSync object
-        browserSync = bs;
+      ready: function(err, browserSync) {
         // setup zuix-11ty watcher
         zuix11ty.startWatcher(eleventyConfig, browserSync.publicInstance);
       }

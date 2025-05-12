@@ -5,9 +5,9 @@
   "description": "Collection of components built with zuix.js.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx @11ty/eleventy --serve",
-    "incremental": "npx @11ty/eleventy --incremental --serve",
-    "build": "npx @11ty/eleventy"
+    "start": "npx @11ty/eleventy --serve --config=.eleventy.mjs",
+    "incremental": "npx @11ty/eleventy --incremental --serve --config=.eleventy.mjs",
+    "build": "npx @11ty/eleventy --config=.eleventy.mjs"
   },
   "keywords": [
     "zuix",
@@ -40,14 +40,15 @@
     "zuix-dist": "^1.1.29"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",
     "@11ty/eleventy-server-browsersync": "^1.0.2",
-    "capture-console": "^1.0.1",
+    "capture-console": "^1.0.2",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
-    "compression": "^1.7.4",
-    "config": "^3.3.9",
+    "codemirror": "^5.65.19",
+    "compression": "^1.7.5",
+    "config": "^3.3.12",
     "eslint": "^8.38.0",
     "eslint-config-google": "^0.14.0",
     "jsdom": "^19.0.0",
@@ -57,6 +58,10 @@
     "nunjucks": "^3.2.4",
     "yaml": "^2.2.2",
     "yesno": "^0.3.1",
-    "zuix": "^0.4.3"
+    "zuix": "^0.5.4"
+  },
+  "overrides": {
+    "axios": "^1.6.2",
+    "send": "^0.18.0"
   }
 }

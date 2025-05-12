@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="generator" content="{{ eleventy.generator }}">
     {% if redirect -%}
     <meta http-equiv="refresh" content="500; url={{ redirect | url }}">
     {%- endif %}
