@@ -61,7 +61,7 @@ function ListView() {
     config(cp.options());
   };
   cp.update = () => renderList();
-  cp.destroy = () => clear();
+  cp.dispose = () => clear();
 
   // Private methods
 

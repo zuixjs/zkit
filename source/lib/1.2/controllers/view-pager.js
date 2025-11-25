@@ -1,6 +1,9 @@
 /**
  * zUIx - ViewPager Component
  *
+ * @version 1.0.7 (2025-11-25)
+ * @author Gene
+ *
  * @version 1.0.6 (2018-08-24)
  * @author Gene
  *
@@ -64,6 +67,12 @@ function ViewPager() {
     pageList = cp.view().children();
     updateLayout();
   });
+
+  const resizeHandler = () => {
+    layoutElements(true);
+  };
+  let gestureHelper = null;
+
   const cp = this;
 
   cp.init = function() {
@@ -99,11 +108,8 @@ function ViewPager() {
     });
     // re-arrange view on layout changes
     zuix.$(window)
-        .on('resize', function() {
-          layoutElements(true);
-        }).on('orientationchange', function() {
-          layoutElements(true);
-        });
+        .on('resize', resizeHandler.bind(this))
+        .on('orientationchange', resizeHandler.bind(this));
     // Options for the observer (which mutations to observe)
     // Register DOM mutation observer callback
     domObserver.observe(view.get(), {
@@ -143,7 +149,8 @@ function ViewPager() {
         'gesture:pan': handlePan,
         'gesture:swipe': handleSwipe
       },
-      ready: function() {
+      ready: function(ctx) {
+        gestureHelper = ctx;
         layoutElements(true);
         // Set starting page
         setPage(0);
@@ -176,10 +183,16 @@ function ViewPager() {
         .expose('first', first);
   };
 
-  cp.destroy = function() {
+  cp.dispose = function() {
     if (domObserver != null) {
       domObserver.disconnect();
     }
+    if (gestureHelper) {
+      zuix.unload(gestureHelper);
+    }
+    zuix.$(window)
+        .off('resize', resizeHandler.bind(this))
+        .off('orientationchange', resizeHandler.bind(this));
   };
 
   function updateLayout() {
@@ -600,7 +613,7 @@ function ViewPager() {
   function decelerate(e, tp) {
     const minSpeed = 0.01;
     const minStepSpeed = 1.25;
-    const accelerationFactor = Math.exp(Math.abs(tp.velocity / (Math.abs(tp.velocity) <= minStepSpeed ? 5 : 2))+1);
+    const accelerationFactor = Math.abs(tp.velocity * (1500 / cp.view().get().offsetWidth));
     let friction = 0.990 + (accelerationFactor / 1000);
     if (friction > 0.999) {
       friction = 0.999;
