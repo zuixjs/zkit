@@ -70,8 +70,8 @@
     <form>
         <label>Custom element definition:</label>
         <select #custom-element>
+            <option value="module" selected>Add to a separate module</option>
             <option value="embed">Append to controller class</option>
-            <option value="module">Add to a separate module</option>
         </select>
         <div style="margin-top: 24px; display: flex; flex-direction: row; place-content: space-between">
             <mdl-button :type="'flat'" (click)="downloadRequestDialog.close('')">Cancel</mdl-button>
