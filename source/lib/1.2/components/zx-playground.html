@@ -28,26 +28,26 @@
 
         </div>
 
-        <mdl-menu z-lazy="false"
-                  (download)="download()" (load)="load(event)" (new)="editNew()"
+        <div style="flex-grow: 1">&nbsp;</div>
+
+        <mdl-button #menu-button :type="'icon'" :class="'accent'">
+            menu
+        </mdl-button>
+
+        <mdl-menu z-lazy="false" (load)="load(event)" (new)="editNew()"
                   :forel="menuButton"
                   :behavior="menuButtonBehavior" class="visible-on-ready menu-button">
             <!-- the menu is defined as a simple UL list -->
             <ul>
-                <li (click)="trigger('download')">
-                    <i class="material-icons">download</i>
-                    <span>Download component</span>
-                </li>
                 <template #item-template>
                     <li><a href="{link}">{description}</a></li>
                 </template>
             </ul>
-
         </mdl-menu>
 
         <!-- the menu's FAB button -->
-        <mdl-button #menu-button :type="'icon'" :class="'accent'">
-           menu
+        <mdl-button :type="'icon'" (click)="download()">
+            download
         </mdl-button>
 
     </div>

@@ -30,10 +30,10 @@ class ZxPlayground extends ControllerInstance {
     const locationHash = window.location.hash.substring(1);
     const cid = locationHash || this.componentId;
     let allowed = this.options().menuItems || [];
-    allowed = allowed.find((item) => item.link.substring(1) === cid);
+    allowed = allowed.find((item) => item.link === cid);
     if (cid !== this.componentId && allowed) {
-      this.componentId = cid;
       this.loadWidgetFiles(cid, () => {
+        this.componentId = cid;
         // TODO: ..
       });
       return true;
@@ -130,7 +130,6 @@ class ZxPlayground extends ControllerInstance {
     });
 
     // get component id from location hash (if any) or via the `load` option
-    this._hashChangeListener();
     this.componentId = this.options().load || this.componentId;
   }
 
@@ -238,6 +237,7 @@ class ZxPlayground extends ControllerInstance {
       });
 
       this.view().one('monaco:loaded', () => {
+        this._hashChangeListener();
         // set event listeners
         this._editorHtml.getModel().onDidChangeContent((event) => {
           this.componentData.html = this._editorHtml.getValue();

@@ -39,7 +39,7 @@
 
 .toolbar {
     display: flex;
-    place-content: space-between;
+    place-content: stretch;
     align-items: center;
     padding-left: 1px;
     padding-right: 1px;
