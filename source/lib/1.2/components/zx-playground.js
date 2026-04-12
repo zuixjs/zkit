@@ -36,7 +36,9 @@ class ZxPlayground extends ControllerInstance {
       this.loadWidgetFiles(cid, () => {
         // TODO: ..
       });
+      return true;
     }
+    return false
   };
 
   // ControllerInstance life-cycle methods: onInit / onCreate / onDispose
@@ -64,10 +66,8 @@ class ZxPlayground extends ControllerInstance {
     });
 
     // get component id from location hash (if any) or via the `load` option
-    this.componentId = window.location.hash.substring(1) ||
-      this.options().load ||
-      this.componentId;
-
+    this._hashChangeListener();
+    this.componentId = this.options().load || this.componentId;
   }
 
   onCreate() {
