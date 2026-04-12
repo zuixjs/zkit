@@ -29,7 +29,9 @@ class ZxPlayground extends ControllerInstance {
   _hashChangeListener = () => {
     const locationHash = window.location.hash.substring(1);
     const cid = locationHash || this.componentId;
-    if (cid !== this.componentId) {
+    let allowed = this.options().menuItems || [];
+    allowed = allowed.find((item) => item.link.substring(1) === cid);
+    if (cid !== this.componentId && allowed) {
       this.componentId = cid;
       this.loadWidgetFiles(cid, () => {
         // TODO: ..
