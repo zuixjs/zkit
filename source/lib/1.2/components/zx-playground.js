@@ -64,10 +64,6 @@ class ZxPlayground extends ControllerInstance {
     zuix.using('script', _paths.monacoEditor + 'vs/loader.min.js', () => {
       this.createEditors(() => this.waitingResources--);
     });
-
-    // get component id from location hash (if any) or via the `load` option
-    this._hashChangeListener();
-    this.componentId = this.options().load || this.componentId;
   }
 
   onCreate() {
@@ -133,6 +129,9 @@ class ZxPlayground extends ControllerInstance {
       );
     });
 
+    // get component id from location hash (if any) or via the `load` option
+    this._hashChangeListener();
+    this.componentId = this.options().load || this.componentId;
   }
 
   onDispose() {
