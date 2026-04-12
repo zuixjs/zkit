@@ -19,6 +19,7 @@
 
 import path from 'path';
 import compress from 'compression';
+import { readFileSync } from 'node:fs';
 
 // 11ty
 import { EleventyRenderPlugin } from "@11ty/eleventy";
@@ -29,14 +30,15 @@ const zuixConfig = zuix11ty.getZuixConfig();
 
 // LESS CSS compiler
 import less from 'less';
-import lessConfig from './.lessrc.json' assert { type: 'json' };
+const lessConfig = JSON.parse(readFileSync(new URL('./.lessrc.json', import.meta.url), 'utf8'));
 
 // Linter (ESLint)
 import { Linter as ESLintLinter } from 'eslint';
 const linter = new ESLintLinter();
-import lintConfig from './.eslintrc.json' assert { type: 'json' };
+const lintConfig = JSON.parse(readFileSync(new URL('./.eslintrc.json', import.meta.url), 'utf8'));
 
 export default function(eleventyConfig) {
+//  eleventyConfig.setEventEmitterMode('sequential');
   eleventyConfig.setWatchJavaScriptDependencies(false);
   eleventyConfig.addPlugin(EleventyRenderPlugin);
 

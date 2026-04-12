@@ -1,10 +1,10 @@
-/* zuix.js v1.1.29 23.06.22 15:11:52 */
+/* zuix.js v1.2.7 26.04.11 14:30:14 */
 
 var zuix;
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 381:
+/***/ 746:
 /***/ (function(module) {
 
 "use strict";
@@ -214,7 +214,7 @@ module.exports = function(ctx) {
 
 /***/ }),
 
-/***/ 65:
+/***/ 604:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -248,7 +248,7 @@ module.exports = function(ctx) {
 
 
 const _log =
-    __webpack_require__(381)('TaskQueue.js');
+    __webpack_require__(746)('TaskQueue.js');
 
 /**
  * Task Queue Manager
@@ -343,7 +343,7 @@ module.exports = TaskQueue;
 
 /***/ }),
 
-/***/ 826:
+/***/ 374:
 /***/ (function(module) {
 
 "use strict";
@@ -520,28 +520,73 @@ const Utils = {
   },
 
   /**
-   * Normalizes controller code (ES5/ES6+).
-   * @param {string} javascriptCode The JS code to normalize.
-   * @return {string} Normalized JS controller code.
-   * @memberOf Utils
-   */
+     * Normalizes controller code (ES5/ES6+) to be wrapped in a function
+     * that returns the controller class, function, or object.
+     *
+     * This function is designed to be robust against common code formatting styles,
+     * such as leading comments and global variable declarations before the main export.
+     *
+     * ALGORITHM:
+     * 1.  The code is "stripped" of all comments to create a clean version for analysis.
+     * 2.  It finds the first top-level declaration keyword ('class', 'function', or 'zuix.controller')
+     *     that starts on a new line.
+     * 3.  For 'class' or 'function', it extracts a unique "marker" signature from the keyword
+     *     up to the opening brace '{' (e.g., "class MyController extends Base").
+     * 4.  It finds this unique marker in the original, unmodified code.
+     * 5.  It inserts the 'return' keyword right before the marker in the original code,
+     *     preserving all leading content (comments, global consts, etc.).
+     *
+     * KNOWN LIMITATION:
+     * This parser will fail if the exact signature of the class/function declaration
+     * (e.g., "class MyController extends Base") is present inside a comment *before*
+     * the actual code declaration. This is considered a rare edge case.
+     *
+     * @param {string} javascriptCode The JS code to normalize.
+     * @return {string} Normalized JS controller code.
+     * @memberOf Utils
+     */
   normalizeControllerCode(javascriptCode) {
     if (javascriptCode.indexOf('module.exports') >= 0) {
       return '\'use strict\'; let module = {}; ' + javascriptCode + ';\nreturn module.exports;';
     } else {
-      // TODO: improve code parsing
-      let code = javascriptCode;
-      const fni = javascriptCode.indexOf('function ');
-      const fnz = javascriptCode.indexOf('zuix.controller');
-      const fnc = javascriptCode.indexOf('class ');
-      if (fnc >= 0 && (fnc < fni || fni === -1) && (fnc < fnz || fnz === -1)) {
-        code = javascriptCode.substring(0, fnc) + 'return ' + javascriptCode.substring(fnc);
-      } else if (fni >= 0 && (fni < fnz || fnz === -1)) {
-        code = javascriptCode.substring(0, fni) + 'return ' + javascriptCode.substring(fni);
-      } else if (fnz !== -1) {
-        code = javascriptCode.substring(0, fnz) + 'return ' + javascriptCode.substring(fnz + 15);
+      const strippedCode = javascriptCode
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/\/\/.*/g, '');
+
+      const match = strippedCode.match(/^\s*(class|function|zuix\.controller)/m);
+
+      if (!match) {
+        return javascriptCode;
       }
-      return code;
+
+      const keyword = match[1];
+      const keywordIndex = match.index;
+
+      if (keyword === 'zuix.controller') {
+        const originalIndex = javascriptCode.indexOf('zuix.controller');
+        return javascriptCode.substring(0, originalIndex) + 'return ' + javascriptCode.substring(originalIndex + 15);
+      }
+
+      // Find the opening curly brace '{' that belongs to the class/function definition.
+      const openBraceIndex = strippedCode.indexOf('{', keywordIndex);
+
+      if (openBraceIndex > -1) {
+        // The marker is the text from the keyword up to (but not including) the curly brace.
+        // E.g., "class TimeClock extends ControllerInstance"
+        const markerSignature = strippedCode.substring(keywordIndex, openBraceIndex).trim();
+
+        if (markerSignature) {
+          // Find this signature in the original code.
+          const originalIndex = javascriptCode.indexOf(markerSignature);
+
+          if (originalIndex > -1) {
+            // Insert 'return' right before this signature.
+            return javascriptCode.substring(0, originalIndex) + 'return ' + javascriptCode.substring(originalIndex);
+          }
+        }
+      }
+
+      return javascriptCode;
     }
   },
 
@@ -698,7 +743,7 @@ module.exports = Utils;
 
 /***/ }),
 
-/***/ 917:
+/***/ 778:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -732,8 +777,8 @@ module.exports = Utils;
 
 
 const _log =
-    __webpack_require__(381)('TaskQueue.js');
-const util = __webpack_require__(826);
+    __webpack_require__(746)('TaskQueue.js');
+const util = __webpack_require__(374);
 
 
 // Types definitions for JsDoc
@@ -864,7 +909,7 @@ function addEventHandler(el, path, handler, options) {
   });
   if (!found) {
     _zuix_events_mapping.push({element: el, path, handler, options});
-    el.addEventListener(path, routeEvent, supportsPassive && (options == null || options.passive !== false) ? {passive: true} : false);
+    el.addEventListener(path, routeEvent, options);
   }
 }
 function removeEventHandler(el, path, handler) {
@@ -2059,7 +2104,7 @@ module.exports = ZxQueryStatic;
 
 /***/ }),
 
-/***/ 693:
+/***/ 157:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -2095,12 +2140,12 @@ module.exports = ZxQueryStatic;
 
 
 
-module.exports = __webpack_require__(459)();
+module.exports = __webpack_require__(283)();
 
 
 /***/ }),
 
-/***/ 265:
+/***/ 549:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -2134,7 +2179,7 @@ module.exports = __webpack_require__(459)();
 
 
 const ObservableObject =
-    __webpack_require__(349);
+    __webpack_require__(974);
 
 /**
  * Object Observer
@@ -2285,7 +2330,7 @@ module.exports = ObjectObserver;
 
 /***/ }),
 
-/***/ 349:
+/***/ 974:
 /***/ (function(module) {
 
 "use strict";
@@ -2398,7 +2443,7 @@ module.exports = ObservableObject;
 
 /***/ }),
 
-/***/ 398:
+/***/ 686:
 /***/ (function(module) {
 
 "use strict";
@@ -2465,6 +2510,7 @@ const _defaultRefreshDelay = 100;
 function ActiveRefresh($v, $el, data, refreshCallback) {
   this.$view = $v;
   this.$element = $el;
+  this.contextId = null;
   this.contextData = data;
   this.refreshMs = _defaultRefreshDelay;
   this.paused = false;
@@ -2481,7 +2527,11 @@ function ActiveRefresh($v, $el, data, refreshCallback) {
       if (ms != null) this.refreshMs = ms;
       if (active == null) active = $el.attr('@active') != null;
       if (active != null) this.forceActive = active;
-      const ctx = zuix.context($v);
+      if (this.contextId == null) {
+        const c = zuix.context($v);
+        this.contextId = c ? c.contextId : null;
+      }
+      const ctx = zuix.context(this.contextId);
       if (ctx != null && ctx._error == null && this.refreshMs > 0) {
         setTimeout(() => this.requestRefresh($v, $el, this.contextData), isActive ? this.refreshMs : 500); // 500ms for noop-loop
         initialized = true;
@@ -2559,7 +2609,7 @@ module.exports = ActiveRefresh;
 
 /***/ }),
 
-/***/ 854:
+/***/ 612:
 /***/ (function(module) {
 
 /*
@@ -2617,7 +2667,7 @@ module.exports = () => {
 
 /***/ }),
 
-/***/ 622:
+/***/ 189:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -2651,17 +2701,17 @@ module.exports = () => {
 
 
 const _loggerFactory =
-    __webpack_require__(381);
+    __webpack_require__(746);
 const _log =
     _loggerFactory('ComponentContext.js');
 const _optionAttributes =
-    __webpack_require__(541);
+    __webpack_require__(51);
 const z$ =
-    __webpack_require__(917);
+    __webpack_require__(778);
 const util =
-    __webpack_require__(826);
+    __webpack_require__(374);
 const ViewObserver =
-    __webpack_require__(643);
+    __webpack_require__(452);
 
 // Custom objects definition used to generate JsDoc
 
@@ -2750,6 +2800,8 @@ const dataBind = (el, boundData) => {
     case 'input':
       switch (el.type) {
         case 'checkbox':
+          el.checked = value;
+          break;
         case 'radio':
           if (el.value == value) {
             el.checked = true;
@@ -3830,7 +3882,7 @@ module.exports = ComponentContext;
 
 /***/ }),
 
-/***/ 211:
+/***/ 979:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -3864,7 +3916,7 @@ module.exports = ComponentContext;
 
 
 const _optionAttributes =
-    __webpack_require__(541);
+    __webpack_require__(51);
 
 const LIBRARY_PATH_DEFAULT = 'https://zuixjs.github.io/zkit/lib/1.2/';
 
@@ -3960,11 +4012,11 @@ module.exports = function() {
 
 
 const _log =
-    __webpack_require__(381)('ComponentContext.js');
+    __webpack_require__(746)('ComponentContext.js');
 const util =
-    __webpack_require__(826);
+    __webpack_require__(374);
 const z$ =
-    __webpack_require__(917);
+    __webpack_require__(778);
 
 /** @private */
 const _componentizeRequests = [];
@@ -4251,7 +4303,7 @@ function loadInline(element, opts) {
         let val;
         // Seek parentContext if any
         let parentContext = null;
-        if (v.parent().get() instanceof ShadowRoot) {
+        if (v.parent().get() instanceof ShadowRoot && options.__shadowRoot != null) {
           parentContext = options.__shadowRoot.parent(`[${_optionAttributes.zReady}="true"]`);
         } else {
           parentContext = v.parent(`[${_optionAttributes.zReady}="true"]`);
@@ -4520,7 +4572,7 @@ function lazyElementCheck(element) {
 
 /***/ }),
 
-/***/ 561:
+/***/ 360:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -4554,9 +4606,9 @@ function lazyElementCheck(element) {
 
 
 const z$ =
-    __webpack_require__(917);
+    __webpack_require__(778);
 const util =
-    __webpack_require__(826);
+    __webpack_require__(374);
 
 /**
  * Function called when the data model of the component is updated
@@ -4910,20 +4962,34 @@ ContextController.prototype.trigger = function(eventPath, eventData, isHook) {
 /**
  * Declare fields that are available as public members of the
  * component context object.
+ * It automatically binds given methods to the controller instance.
  *
  * @param {string|JSON} name Name of the exposed method/property, or list of name/value pairs
  * @param {function} [handler] Function or property descriptor.
  * @return {ContextController} The `{ContextController}` itself.
  */
 ContextController.prototype.expose = function(name, handler) {
-  const expose = (m, h) => {
-    if (h && (h.get || h.set)) {
-      Object.defineProperty(this.context, m, h);
+  const controllerInstance = this;
+  const expose = (key, value) => {
+    // Check for property descriptors (getters/setters)
+    // No changes here.
+    if (value && (value.get || value.set)) {
+      Object.defineProperty(controllerInstance.context, key, value);
     } else {
-      if (h === undefined) {
-        delete this.context[m];
+      // Check if the provided value is a function AND if it's a method
+      // of the current controller instance.
+      if (typeof value === 'function' && typeof controllerInstance[key] === 'function' && controllerInstance[key] === value) {
+        // If it is, bind it automatically to the controller instance
+        // before exposing it on the component context.
+        controllerInstance.context[key] = value.bind(controllerInstance);
       } else {
-        this.context[m] = h;
+        // Otherwise (it's a property, an arrow function, or already bound), assign it as-is.
+        // The original logic is preserved here.
+        if (value === undefined) {
+          delete controllerInstance.context[key];
+        } else {
+          controllerInstance.context[key] = value;
+        }
       }
     }
   };
@@ -4936,20 +5002,31 @@ ContextController.prototype.expose = function(name, handler) {
 };
 /**
  * Declare fields that are available in the view's scripting scope.
+ * It automatically binds given methods to the controller instance.
  *
  * @param {string|JSON} name Name of the declared method/property, or list of name/value pairs
  * @param {function} [handler] Function or property descriptor.
  * @return {ContextController} The `{ContextController}` itself.
  */
 ContextController.prototype.declare = function(name, handler) {
-  const declare = (m, h) => {
-    if (h && (h.get || h.set)) {
-      Object.defineProperty(this.context['_'], m, h);
+  const controllerInstance = this;
+  const declare = (key, value) => {
+    // Check for property descriptors (getters/setters)
+    if (value && (value.get || value.set)) {
+      Object.defineProperty(controllerInstance.context['_'], key, value);
     } else {
-      if (h === undefined) {
-        delete this.context['_'][m];
+      // Check if the provided value is a function AND if it's a method
+      // of the current controller instance.
+      if (typeof value === 'function' && typeof controllerInstance[key] === 'function' && controllerInstance[key] === value) {
+        // If it is, bind it automatically to the controller instance.
+        controllerInstance.context['_'][key] = value.bind(controllerInstance);
       } else {
-        this.context['_'][m] = h;
+        // Otherwise (it's a property, an arrow function, or already bound), assign it as-is.
+        if (value === undefined) {
+          delete controllerInstance.context['_'][key];
+        } else {
+          controllerInstance.context['_'][key] = value;
+        }
       }
     }
   };
@@ -5048,7 +5125,7 @@ module.exports = ContextController;
 
 /***/ }),
 
-/***/ 871:
+/***/ 132:
 /***/ (function(module) {
 
 "use strict";
@@ -5124,7 +5201,7 @@ module.exports = ControllerInstance;
 
 /***/ }),
 
-/***/ 541:
+/***/ 51:
 /***/ (function(module) {
 
 /*
@@ -5205,7 +5282,7 @@ module.exports = OptionAttributes;
 
 /***/ }),
 
-/***/ 643:
+/***/ 452:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -5239,9 +5316,9 @@ module.exports = OptionAttributes;
 
 
 const _optionAttributes =
-    __webpack_require__(541);
+    __webpack_require__(51);
 const util =
-    __webpack_require__(826);
+    __webpack_require__(374);
 
 /**
  *
@@ -5332,7 +5409,7 @@ module.exports = ViewObserver;
 
 /***/ }),
 
-/***/ 459:
+/***/ 283:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -5366,31 +5443,31 @@ module.exports = ViewObserver;
 
 
 const _loggerFactory =
-    __webpack_require__(381);
+    __webpack_require__(746);
 const _log =
     _loggerFactory('Zuix.js');
 const util =
-    __webpack_require__(826);
+    __webpack_require__(374);
 const z$ =
-    __webpack_require__(917);
+    __webpack_require__(778);
 const TaskQueue =
-    __webpack_require__(65);
+    __webpack_require__(604);
 const ObjectObserver =
-    __webpack_require__(265);
+    __webpack_require__(549);
 const ComponentContext =
-    __webpack_require__(622);
+    __webpack_require__(189);
 const ContextController =
-    __webpack_require__(561);
+    __webpack_require__(360);
 const ControllerInstance =
-    __webpack_require__(871);
+    __webpack_require__(132);
 const ActiveRefresh =
-    __webpack_require__(398);
+    __webpack_require__(686);
 const _componentizer =
-    __webpack_require__(211)();
+    __webpack_require__(979)();
 const _optionAttributes =
-    __webpack_require__(541);
+    __webpack_require__(51);
 
-__webpack_require__(854);
+__webpack_require__(612);
 
 // Custom objects definition used to generate JsDoc
 
@@ -5565,6 +5642,8 @@ function Zuix() {
           if ((el.type === 'checkbox' || el.type === 'radio') &&
               !el.checked && contextData[field] == val) {
             val = '';
+          } else if ((el.type === 'checkbox' || el.type === 'radio')) {
+            val = el.checked;
           }
           if (contextData[field] !== val) {
             contextData[field] = val;
@@ -5901,6 +5980,7 @@ function unload(context) {
       util.catchContextError(ctx, () => {
         ctx.dispose();
       });
+      ctx._error = 'disposed';
     }
   };
   if (context && context.each) {
@@ -6069,17 +6149,17 @@ function setComponentCache(cache) {
   _componentCache = cache;
 }
 
-///** @private */
-//function removeCachedComponent(componentId) {
-// TODO: removeCachedComponent
-// TODO: should this be called when last instance of a component type is disposed?
-//}
+/** @private */
+function removeCachedComponent(componentId) {
+  delete _globalControllerHandlers[componentId];
+  const idx = _componentCache.findIndex((c) => c.componentId === componentId);
+  if (idx >= 0) {
+    return (_componentCache.splice(idx, 1))[0];
+  }
+  return null;
+}
 
-/**
- * @private
- * @param {Object} componentId
- * @return {ComponentCache | null}
- */
+/** @private */
 function getCachedComponent(componentId) {
   /** @type {ComponentCache | null} */
   let cached = null;
@@ -7251,6 +7331,18 @@ Zuix.prototype.ZxQuery = z$.ZxQuery;
  */
 Zuix.prototype.setComponentCache = (componentCache) => setComponentCache(componentCache);
 /**
+ * Removes a component from the components cache.
+ * @param componentId
+ * @returns {ComponentCache | null}
+ */
+Zuix.prototype.removeCachedComponent = (componentId) => removeCachedComponent(componentId);
+/**
+ * Gets a component from the components cache.
+ * @param {Object} componentId
+ * @return {ComponentCache | null}
+ */
+Zuix.prototype.getCachedComponent = (componentId) => getCachedComponent(componentId);
+/**
  * Dumps content of the components cache. Mainly for debugging purpose.
  * @return {Array<ComponentCache>}
  */
@@ -7374,7 +7466,7 @@ module.exports = () => {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(693);
+/******/ 	var __webpack_exports__ = __webpack_require__(157);
 /******/ 	zuix = __webpack_exports__;
 /******/ 	
 /******/ })()

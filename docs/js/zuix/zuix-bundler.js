@@ -1,10 +1,10 @@
-/* zuix.js v1.1.29 23.06.22 15:11:52 */
+/* zuix.js v1.2.7 26.04.11 14:30:14 */
 
 var zuix;
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 460:
+/***/ 656:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -40,12 +40,12 @@ var zuix;
 
 
 
-module.exports = __webpack_require__(94)();
+module.exports = __webpack_require__(114)();
 
 
 /***/ }),
 
-/***/ 35:
+/***/ 427:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
@@ -241,7 +241,7 @@ if ( true && module.exports) {
 
 /***/ }),
 
-/***/ 458:
+/***/ 418:
 /***/ (function(module) {
 
 /*
@@ -363,7 +363,7 @@ module.exports = function serialize(obj, options) {
 
 /***/ }),
 
-/***/ 94:
+/***/ 114:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -396,9 +396,9 @@ module.exports = function serialize(obj, options) {
 
 
 
-const fileSaver = __webpack_require__(35);
-const serialize = __webpack_require__(458);
-const _optionAttributes = __webpack_require__(541);
+const fileSaver = __webpack_require__(427);
+const serialize = __webpack_require__(418);
+const _optionAttributes = __webpack_require__(51);
 
 /**
  * Create application bundle containing all components
@@ -475,7 +475,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 541:
+/***/ 51:
 /***/ (function(module) {
 
 /*
@@ -600,7 +600,7 @@ module.exports = OptionAttributes;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(460);
+/******/ 	var __webpack_exports__ = __webpack_require__(656);
 /******/ 	zuix = __webpack_exports__;
 /******/ 	
 /******/ })()
