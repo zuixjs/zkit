@@ -101,7 +101,7 @@ function ListView() {
             container.addClass(dataItem.className);
           } else {
             // set a temporary height for the container (for lazy load to work properly)
-            container.css({minHeight: dataItem.height || '48px'});
+            container.css({minHeight: dataItem.height || '48px!important'});
           }
 
           // register a callback to know when the component is actually loaded

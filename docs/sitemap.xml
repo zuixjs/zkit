@@ -10,10 +10,6 @@
     <lastmod>2024-01-12</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zkit/content/components/zx-playground/</loc>
-    <lastmod>2024-01-12</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zkit/content/components/</loc>
     <lastmod>2024-01-12</lastmod>
   </url>
@@ -76,5 +72,9 @@
   <url>
     <loc>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</loc>
     <lastmod>2025-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zkit/content/components/zx-playground/</loc>
+    <lastmod>2026-04-21</lastmod>
   </url>
 </urlset>

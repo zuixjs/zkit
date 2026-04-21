@@ -2,6 +2,8 @@
     width: 100%;
     overflow: hidden;
     min-height: 85vh!important;
+    height: 100%;
+    background: #fff;
 }
 /*
 :host.not-ready,:host:not([z-loaded]) {
@@ -15,8 +17,8 @@
 .component-preview {
     position: relative;
     width: 100%;
-    min-height: 35vh;
-    height: 35vh;
+    min-height: 50%;
+    height: 50%;
     overflow-y: auto;
     display: flex;
     flex-direction: row;
@@ -28,13 +30,13 @@
     position: relative;
     border: solid 1px gray;
     border-radius: 4px;
-    height: 50vh;
+    height: 50%;
     box-shadow: 0 6px 16px -2px;
 }
 .editor-container {
     position: absolute;
     width: 100%;
-    height: calc(100% - 36px);
+    height: calc(100% - 40px);
 }
 
 .toolbar {
@@ -104,6 +106,27 @@
 }
 
 
+dialog {
+    border: none;
+    border-radius: 8px; /* Arrotondamento leggero */
+    padding: 0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+dialog header {
+    padding: 10px;
+    margin-bottom: 0!important;
+}
+dialog footer {
+    margin-top: 0!important;
+    padding: 10px;
+}
+
+/* Opzionale: Styling per lo sfondo (l'overlay) */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px); /* Effetto vetro smerigliato */
+}
+
 dialog form {
     display: flex;
     flex-direction: column;
@@ -122,6 +145,16 @@ dialog form select {
     color: var(--primary-color);
     margin-top: 6px;
     margin-bottom: 24px;
+}
+
+.dialog-content {
+    padding: 0!important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 600px;
+    overflow-y: auto;
+    flex: 1;
 }
 
 
@@ -181,4 +214,48 @@ dialog form select {
 @keyframes spinner-fade {
     25%, 75% { opacity: 0.1}
     50% { opacity: 1 }
+}
+
+
+/* Container principale */
+.editor {
+    display: flex;
+    flex-direction: row; /* Affianca gli elementi orizzontalmente */
+    width: 100%;
+    height: 100%; /* Oppure 100% se si trova dentro un altro container con altezza definita */
+    background-color: #1e1e1e; /* Colore tipico degli IDE (opzionale) */
+    overflow: hidden;
+}
+
+/* Gli editor di codice */
+.editor-container {
+    flex: 1; /* Occupa tutto lo spazio rimanente non usato dalla chat */
+    position: relative;
+    /* Se usi .hide() / .show() di zuix.js, imposterà automaticamente display: none / block. */
+}
+
+/* Il componente della chat */
+ai-chat {
+    display: block;
+    height: 100%;
+    /* Se l'editor è un contenitore flex orizzontale, mantieni anche: */
+    width: 100%;
+    border-left: 1px solid #ddd; /* Linea di separazione tra codice e chat */
+    background-color: #fff; /* Sfondo per la chat */
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05); /* Leggera ombra per dare profondità */
+    z-index: 10;
+    overflow: hidden; /* Evita sbavature esterne dal componente interno */
+}
+
+/* --- (Opzionale) Layout Responsivo per schermi piccoli --- */
+@media (max-width: 768px) {
+
+}
+
+list-view {
+    min-height: auto!important;
+    overflow-y: auto;
+}
+.widget-list-item {
+    min-height: 48px!important;
 }

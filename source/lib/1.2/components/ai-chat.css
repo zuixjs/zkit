@@ -1,0 +1,226 @@
+:host {
+    font-family: sans-serif;
+    display: block !important;
+    position: relative; /* Fondamentale per il container assoluto */
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.container {
+    /* Lo forziamo ad ancorarsi ai 4 lati del Custom Element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    background: #2c3e50;
+    color: white;
+    padding: 12px 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 2; /* Mantiene l'ombra sopra la chat */
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+.header-input {
+    padding: 6px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+}
+
+.chat-container {
+    padding: 6px;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.msg-user {
+    background: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.msg-ai {
+    background: white;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.msg-error {
+    background: #ffebee;
+    color: #c62828;
+    align-self: flex-start;
+    border-left: 4px solid #c62828;
+}
+
+.loading-indicator {
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #e9ecef;
+}
+
+.spin-icon {
+    animation: spin 1s linear infinite;
+    font-size: 16px;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.input-area {
+    padding: 12px;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 8px;
+}
+
+textarea {
+    flex: 1;
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 56px;
+    outline: none;
+    font-family: inherit;
+}
+
+.send-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.send-btn[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.send-btn:hover:not([disabled]) {
+    background: #218838;
+}
+
+
+
+/* --- Welcome Screen --- */
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #4a5568;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.welcome-icon .material-symbols-outlined {
+    font-size: 48px;
+    color: #007bff;
+    margin-bottom: 12px;
+}
+
+.welcome-screen h2 {
+    margin: 0 0 12px 0;
+    color: #2d3748;
+}
+
+.welcome-screen p {
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+}
+
+.welcome-instructions, .welcome-examples {
+    background: white;
+    padding: 6px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.welcome-instructions h3, .welcome-examples h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.welcome-instructions ol, .welcome-examples ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.welcome-examples ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.welcome-examples li {
+    padding: 6px 12px;
+    background: #f8f9fa;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border-left: 3px solid #007bff;
+    font-style: italic;
+}
+
+.welcome-footer {
+    font-size: 12px;
+    color: #718096;
+    margin-top: 16px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

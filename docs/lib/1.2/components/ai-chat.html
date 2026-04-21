@@ -1,0 +1,91 @@
+<div class="container" layout="column top-stretch">
+    <!-- Header: Titolo, selettore modello e input per la chiave API -->
+    <div class="header" layout="row center-justify">
+        <div class="controls" layout="row center-stretch">
+            <select #model_select class="header-input">
+                <!-- Generazione 3 (Preview) -->
+                <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (Preview)</option>
+                <option value="gemini-3.1-flash-lite-preview" selected>Gemini 3.1 Flash Lite (Preview)</option>
+                <option value="gemini-3-flash-preview">Gemini 3.0 Flash (Preview)</option>
+
+                <!-- Generazione 2.5 (Stable) - La scelta migliore e più bilanciata -->
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <!--
+                <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
+                -->
+            </select>
+            <input type="password" #api_key placeholder="Gemini API Key" class="header-input" />
+            <div self="size-x1" layout="row center-right">
+                <mdl-button :type="'icon'" (click)="clearChat()" @hide-if="isChatEmpty()">
+                    playlist_remove
+                </mdl-button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Body: Storico della chat -->
+    <div self="size-x1 stretch" class="chat-container">
+
+        <!-- Schermata di benvenuto (visibile solo se non ci sono messaggi) -->
+        <div class="welcome-screen"
+             @if="isChatEmpty()" @active
+             @then="$this.show()"
+             @else="$this.hide()">
+
+            <div class="welcome-icon">
+                <span class="material-icons">auto_awesome</span>
+            </div>
+            <h2>Welcome to Widget Genie 🧞</h2>
+            <p>
+                Use artificial intelligence to generate ready-to-use <strong>zuix.js</strong>
+                <br/>
+                web components, complete with HTML, CSS, and JavaScript.
+            </p>
+
+            <div class="welcome-instructions">
+                <h3>🛠 Getting Started:</h3>
+                <ol>
+                    <li>Enter your <strong>Gemini API Key</strong> in the top right corner.</li>
+                    <li>Choose a template (e.g., <em>Gemini 3.1 Flash Lite</em> for fast responses).</li>
+                    <li>Describe the widget you want.</li>
+                </ol>
+            </div>
+
+            <div class="welcome-examples">
+                <h3>💡 Try asking:</h3>
+                <ul>
+                    <li><em>"Create an analog clock with animated hands"</em></li>
+                    <li><em>"Generate a To-Do List with the option to check off and delete tasks"</em></li>
+                    <li><em>"Make a weather widget with cyberpunk look"</em></li>
+                </ul>
+            </div>
+
+            <p class="welcome-footer">
+                The generated code blocks will be automatically extracted and loaded into the editors below!
+            </p>
+        </div>
+        
+        <div #chat_history class="chat-history"></div>
+        
+        <!-- I messaggi verranno iniettati qui dinamicamente -->
+    </div>
+
+    <!-- Indicatore di caricamento -->
+    <div class="loading-indicator"
+         @if="isLoading()" @active
+         @then="$this.show()"
+         @else="$this.hide()">
+        <span class="material-symbols-outlined spin-icon">sync</span>
+        L'AI sta pensando...
+    </div>
+
+    <!-- Footer: Area di input utente -->
+    <div class="input-area">
+        <textarea #user_input placeholder="Ask the AI to create a widget... (use Shift+Enter for a new line)"></textarea>
+        <button (click)="sendMessage()" class="send-btn"
+                @disable-if="isLoading() || user_input.value.length === 0">
+            <span class="material-symbols-outlined">send</span>
+        </button>
+    </div>
+</div>

@@ -25,37 +25,54 @@
                 <span class="file-type">JS</span>
                 <span class="tab-label">Controller</span>
             </mdl-button>
+            <mdl-button :type="'flat'" :css="buttonsCss"
+                        (click)="switchEditor(this, $aiChat)">
+                <span class="file-type">AI</span>
+                <span class="tab-label">Genie 🧞</span>
+            </mdl-button>
 
         </div>
 
         <div style="flex-grow: 1">&nbsp;</div>
 
-        <mdl-button #menu-button :type="'icon'" :class="'accent'">
-            menu
+        <mdl-button :type="'icon'" title="Widget Library"
+                    (click)="selectWidget()">
+            dashboard
         </mdl-button>
 
-        <mdl-menu z-lazy="false" (load)="load(event)" (new)="editNew()"
-                  :forel="menuButton"
-                  :behavior="menuButtonBehavior" class="visible-on-ready menu-button">
-            <!-- the menu is defined as a simple UL list -->
-            <ul>
-                <template #item-template>
-                    <li><a href="{link}">{description}</a></li>
-                </template>
-            </ul>
-        </mdl-menu>
-
-        <!-- the menu's FAB button -->
-        <mdl-button :type="'icon'" (click)="download()">
+        <mdl-button :type="'icon'" (click)="download()" title="Download Widget">
             download
+        </mdl-button>
+
+        <mdl-button :type="'icon'" title="Fullscreen"
+                    @if="document.fullscreenElement != null" @active
+                    @then="$this.hide()" @else="$this.show()"
+                    (click)="context.view().requestFullscreen()">
+            fullscreen
+        </mdl-button>
+
+        <mdl-button :type="'icon'" title="Exit Fullscreen"
+                    @if="document.fullscreenElement != null" @active
+                    @then="$this.show()" @else="$this.hide()"
+                    (click)="document.exitFullscreen()">
+            fullscreen_exit
         </mdl-button>
 
     </div>
     <div #tab-cursor class="tab-cursor"></div>
 
-    <div #html-editor class="editor-container"></div>
-    <div #css-editor class="editor-container"></div>
-    <div #js-editor class="editor-container"></div>
+    <div class="editor">
+
+        <div #html-editor class="editor-container"></div>
+        <div #css-editor class="editor-container"></div>
+        <div #js-editor class="editor-container"></div>
+
+        <div #ai-chat class="editor-container">
+            <ai-chat (widget:update)="updateWidget(event)"></ai-chat>
+        </div>
+
+    </div>
+    
 
     <div @hide-if="!isLoading()" class="loading-overlay">
         <div class="title">Loading...</div>
@@ -65,7 +82,7 @@
 
 </div>
 
-<dialog #download-request-dialog>
+<dialog #download-request-dialog class="animate__animated animate__zoomIn animate__faster">
     <div class="dialog-title" #component-id></div>
     <form>
         <label>Custom element definition:</label>
@@ -80,6 +97,45 @@
         </div>
     </form>
 </dialog>
+
+
+
+<dialog #widget-select-dialog class="animate__animated animate__zoomIn animate__faster">
+    <header class="dialog-title">Load Widget</header>
+    <main class="dialog-content">
+        <list-view #widget-list-view></list-view>
+    </main>
+    <footer style="margin-top: 24px; display: flex; flex-direction: row; place-content: center">
+        <mdl-button :type="'flat'"
+                    (click)="widgetSelectDialog.close('')">Cancel</mdl-button>
+    </footer>
+</dialog>
+
+<template z-view="inline/widget-item">
+
+    <div #title class="title"></div>
+    <div #path class="link"></div>
+
+    <style>
+        :host {
+            min-height: 48px!important;
+            background-color: white;
+            padding: 6px;
+            cursor: pointer;
+        }
+        :host:hover {
+            background-color: yellow!important;
+        }
+        .title {
+            font-size: 120%;
+            color:  deeppink;
+        }
+        .link {
+            
+        }
+    </style>
+
+</template>
 
 <script type="jscript">
   // Custom style for "mdl-button" element
@@ -105,14 +161,4 @@
     .tab-label {
         text-transform: uppercase;
     }`;
-  menuButtonBehavior = {
-    'menu:show': function() {
-      _menuButton.$.find('.material-icons').html('add')
-        .css({ transform: 'rotate(-135deg)', transition: 'transform .2s ease-in-out' });
-    },
-    'menu:hide': function() {
-      _menuButton.$.find('.material-icons').html('menu')
-        .css({ transform: 'rotate(0)', transition: 'transform .2s ease-in-out' });
-    }
-  };
 </script>

@@ -4,7 +4,8 @@ const _paths = {
 };
 
 import('{{ app.zkit.libraryPath }}controllers/mdl-button.module.js');
-import('{{ app.zkit.libraryPath }}controllers/mdl-menu.module.js');
+import('{{ app.zkit.libraryPath }}controllers/list-view.module.js');
+import('{{ app.zkit.libraryPath }}components/ai-chat.module.js');
 
 class ZxPlayground extends ControllerInstance {
   // maybe switch `_` to private field `#`
@@ -16,6 +17,8 @@ class ZxPlayground extends ControllerInstance {
   _editorHtml = null;
   _editorCss = null;
   _editorJs = null;
+  
+  _widgetList = null;
 
   componentId = _paths.defaultComponentId;
   componentData = {
@@ -29,8 +32,8 @@ class ZxPlayground extends ControllerInstance {
   _hashChangeListener = () => {
     const locationHash = window.location.hash.substring(1);
     const cid = locationHash || this.componentId;
-    let allowed = this.options().menuItems || [];
-    allowed = allowed.find((item) => item.link === cid);
+    let allowed = this._widgetList || [];
+    allowed = allowed.find((item) => item.path === cid);
     if (cid !== this.componentId && allowed) {
       this.loadWidgetFiles(cid, () => {
         this.componentId = cid;
@@ -49,11 +52,18 @@ class ZxPlayground extends ControllerInstance {
     zuix.store('config')
         .libraryPath['@lib[1.2]'] = '{{ app.zkit.libraryPath }}';
 
-    this.waitingResources = 2;
+    this.waitingResources = 3;
 
     // override the default "ready" handler in order to wait for
     // dependencies to be loaded before starting the component
     this.declare('ready', () => this.waitingResources === 0);
+
+    this.declare('updateWidget', (e) => {
+      const data = e.detail;
+      if (data.html) this._editorHtml.setValue(data.html);
+      if (data.css) this._editorCss.setValue(data.css);
+      if (data.js) this._editorJs.setValue(data.js);
+    });
 
     // Before starting, this component will
     // wait until the following module is loaded
@@ -64,13 +74,17 @@ class ZxPlayground extends ControllerInstance {
     zuix.using('script', _paths.monacoEditor + 'vs/loader.min.js', () => {
       this.createEditors(() => this.waitingResources--);
     });
+    zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', () => {
+      this.waitingResources--;
+    }, this.context);
   }
 
   onCreate() {
-
-    // add custom menu items
-    this.buildMenuList(this.options().menuItems || []);
-
+    this._widgetList = this.options().menuItems.map((item) => ({
+      // backward compatibility (old fields: link, description)
+      title: item.title || item.description,
+      path: item.path || item.link
+    }));
     // Tab buttons cursor implementation
     const tabCursor = this.field('tabCursor');
     this.moveCursorTo = (target) => {
@@ -83,7 +97,8 @@ class ZxPlayground extends ControllerInstance {
     };
 
     let selectedTab = null;
-    const dialog = this.field('downloadRequestDialog');
+    const downloadDialog = this.field('downloadRequestDialog');
+    const widgetsDialog = this.field('widgetSelectDialog');
     // declare properties/methods that can be used in the view template
     const viewDeclarations = {
       getSelected: () => selectedTab,
@@ -105,15 +120,15 @@ class ZxPlayground extends ControllerInstance {
           // TODO: ...
         });
       },
+      selectWidget: () => {
+        widgetsDialog.one('close', (e) => {
+          
+        }).get().showModal();
+        zuix.componentize(widgetsDialog);
+      },
       download: () => {
         const {className, componentId} = this.getClassId();
-        this.model().componentId = componentId;
-        dialog.one('close', (e) => {
-          const customElement = dialog.get().returnValue;
-          if (customElement.length > 0) {
-            this.downloadComponent(className, componentId, customElement === 'embed');
-          }
-        }).get().showModal();
+        this.downloadComponent(className, componentId, false);
       },
       isLoading: () => this._isLoading
     };
@@ -131,6 +146,30 @@ class ZxPlayground extends ControllerInstance {
 
     // get component id from location hash (if any) or via the `load` option
     this.componentId = this.options().load || this.componentId;
+
+
+    zuix.context(this.field('widgetListView'), (widgetListView) => {
+      widgetListView.model(this._widgetList);
+      widgetListView.config({
+        listMode: 'full',
+        adapter: (index, item) => ({
+          componentId: 'inline/widget-item',
+          type: 'view',
+          options: {
+            on: {
+              click: (e, data, $el) => {
+                this.loadWidgetFiles(this._widgetList[index].path, (ctx) => {
+                  // component loaded
+                });
+                widgetsDialog.get().close();
+              }
+            },
+            model: item
+          },
+          className: 'widget-list-item'
+        })
+      });
+    });
   }
 
   onDispose() {
@@ -142,23 +181,6 @@ class ZxPlayground extends ControllerInstance {
   }
 
   // Other utility methods
-
-  buildMenuList(list) {
-    const templateElement = this.field('item-template');
-    const templateHtml = templateElement.html();
-    let listHtml = '';
-    list.forEach((item) => {
-      listHtml += zuix.$.replaceBraces(templateHtml, (key) => {
-        switch (key) {
-          case '{link}':
-            return item.link.startsWith('#') ? item.link : '#' + item.link;
-          case '{description}':
-            return item.description;
-        }
-      });
-    });
-    templateElement.get().outerHTML = listHtml;
-  }
 
   loadWidgetFiles(componentId, callback) {
     const m = this.model();
@@ -182,10 +204,14 @@ class ZxPlayground extends ControllerInstance {
       download('css', (css) => {
         m.componentId = `${componentId}.js`;
         download('js', (js) => {
-          this._editorHtml.setValue(html);
-          this._editorCss.setValue(css);
-          this._editorJs.setValue(js);
-          this.componentData = {html, css, js};
+          try {
+            this._editorHtml.setValue(html);
+            this._editorCss.setValue(css);
+            this._editorJs.setValue(js);
+            this.componentData = {html, css, js};
+          } catch (e) {
+            console.error(e);
+          }
           callback(this.componentData);
           this._isLoading = false;
         });
@@ -197,6 +223,7 @@ class ZxPlayground extends ControllerInstance {
     const htmlEditor = this.field('html-editor').show();
     const cssEditor = this.field('css-editor').hide();
     const jsEditor = this.field('js-editor').hide();
+    this.field('ai-chat').hide();
 
     require.config({paths: {vs: _paths.monacoEditor + 'vs'}});
 
@@ -235,6 +262,7 @@ class ZxPlayground extends ControllerInstance {
         automaticLayout: true,
         theme: 'vs-dark'
       });
+      this._aiChat = this.field('aiChat');
 
       this.view().one('monaco:loaded', () => {
         this._hashChangeListener();
