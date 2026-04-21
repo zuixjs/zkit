@@ -258,4 +258,5 @@ list-view {
 }
 .widget-list-item {
     min-height: 48px!important;
+    height: auto!important;
 }
