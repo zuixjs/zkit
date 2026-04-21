@@ -10,25 +10,21 @@
 
         <div class="editor-tabs">
 
-            <mdl-button :type="'flat'" :css="buttonsCss" #edit-view-button
+            <mdl-button :type="'icon'" :css="buttonsCss" #edit-view-button
                         (click)="switchEditor(this, $htmlEditor)">
-                <span class="file-type">HTML</span>
-                <span class="tab-label">View</span>
+                html
             </mdl-button>
-            <mdl-button :type="'flat'" :css="buttonsCss"
+            <mdl-button :type="'icon'" :css="buttonsCss"
                         (click)="switchEditor(this, $cssEditor)">
-                <span class="file-type">CSS</span>
-                <span class="tab-label">Style</span>
+                css
             </mdl-button>
-            <mdl-button :type="'flat'" :css="buttonsCss"
+            <mdl-button :type="'icon'" :css="buttonsCss"
                         (click)="switchEditor(this, $jsEditor)">
-                <span class="file-type">JS</span>
-                <span class="tab-label">Controller</span>
+                javascript
             </mdl-button>
-            <mdl-button :type="'flat'" :css="buttonsCss"
+            <mdl-button :type="'icon'" :css="buttonsCss"
                         (click)="switchEditor(this, $aiChat)">
-                <span class="file-type">AI</span>
-                <span class="tab-label">Genie 🧞</span>
+                auto_awesome
             </mdl-button>
 
         </div>
