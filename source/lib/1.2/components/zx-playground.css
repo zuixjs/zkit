@@ -255,8 +255,8 @@ ai-chat {
 list-view {
     min-height: auto!important;
     overflow-y: auto;
+    height: auto!important;
 }
 .widget-list-item {
     min-height: 48px!important;
-    height: auto!important;
 }
