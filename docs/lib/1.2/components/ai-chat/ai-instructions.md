@@ -161,6 +161,10 @@ class CounterWidget extends ControllerInstance {
   state = {
     count: 0
   };
+  
+  onInit() {
+    zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css', null, this.context);
+  }
 
   onCreate() {
     const self = this;

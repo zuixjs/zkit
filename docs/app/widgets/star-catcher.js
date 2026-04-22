@@ -14,7 +14,7 @@ class StarCatcher extends ControllerInstance {
     spawnRate = 1200; // ms
 
     onInit() {
-        zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css');
+        zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css', null, this.context);
         const self = this;
         this.declare({
             startGame: () => self.startGame(),
