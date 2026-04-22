@@ -24,29 +24,10 @@ date: Last Modified
     </nav>
 
 
-    <main>
-        <div layout="column top-center">
-
-{% unless options contains 'no-title' %}
-            <h1 #alt_header>{{ title }}</h1>
-{% endunless %}
-            <div class="content">
-{{ content }}
-            </div>
-
-{% include "./side_drawer/page_navigation.liquid" %}
-{% include "common/zkit-components-list.liquid" %}
-
-{% include "footer.liquid" %}
-
-        </div>
-    </main>
-
-
     <!-- Navigation Drawer -->
     <div ctrl z-load="@lib/controllers/drawer-layout"
-         #drawer z-context="menu-drawer" :lazyLoad="false"
-         z-options="drawer_opts"
+         #drawer z-context="menu-drawer"
+         z-options="drawer_opts" z-lazy="false"
          class="drawer-layout no-select visible-on-ready"
          layout="column top-stretch">
         <!-- Navigation Drawer content -->
@@ -73,6 +54,25 @@ date: Last Modified
         </div>
 
     </div>
+
+
+    <main>
+        <div layout="column top-center">
+
+{% unless options contains 'no-title' %}
+            <h1 #alt_header>{{ title }}</h1>
+{% endunless %}
+            <div class="content">
+{{ content }}
+            </div>
+
+{% include "./side_drawer/page_navigation.liquid" %}
+{% include "common/zkit-components-list.liquid" %}
+
+{% include "footer.liquid" %}
+
+        </div>
+    </main>
 
 {% include "body_end.liquid" %}
 

@@ -1,6 +1,6 @@
 <div class="game-container" #game_screen (pointermove)="movePlayer(event)">
-    
-    <!-- HUD: Visualizzazione Punteggio e Vite -->
+
+    <!-- HUD: Score and Lives Display -->
     <div class="hud" layout="row spread-center">
         <div class="stat-box">
             <span class="icon">⭐</span>
@@ -12,18 +12,18 @@
         </div>
     </div>
 
-    <!-- Area di Gioco -->
+    <!-- Game Area -->
     <div class="play-field" #play_field>
         <div class="player" #player_node>
             <div class="glow"></div>
         </div>
     </div>
 
-    <!-- Schermata Iniziale / Game Over -->
+    <!-- Home Screen / Game Over -->
     <div class="overlay" #overlay (click)="startGame()">
         <div class="content">
-            <h1 #message_title>STRELLA CATCHER</h1>
-            <p #message_sub>Clicca per iniziare</p>
+            <h1 #message_title>STAR CATCHER</h1>
+            <p #message_sub>Click to start</p>
             <div class="high-score" @hide-if="noHighScore()">
                 Record: <span #high_score_val>0</span>
             </div>

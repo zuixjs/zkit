@@ -49,7 +49,6 @@ class ThreeCardsGame extends ControllerInstance {
                 this.state.isShuffling = false;
                 this.state.message = "Pick a card!";
                 this.field('btn_start').get().disabled = false;
-                this.update();
                 return;
             }
 
@@ -114,8 +113,5 @@ class ThreeCardsGame extends ControllerInstance {
                 contentEl.html('<span class="joker">♣J</span>');
             }
         }
-
-        // Trigger Directive Refresh
-        this.update();
     }
 }

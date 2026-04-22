@@ -99,7 +99,7 @@
 <dialog #widget-select-dialog class="animate__animated animate__zoomIn animate__faster">
     <header class="dialog-title">Load Widget</header>
     <main class="dialog-content">
-        <list-view #widget-list-view></list-view>
+        <list-view #widget-list-view (scroll)="zuix.componentize(this)"></list-view>
     </main>
     <footer style="margin-top: 24px; display: flex; flex-direction: row; place-content: center">
         <mdl-button :type="'flat'"
@@ -110,24 +110,24 @@
 <template z-view="inline/widget-item">
 
     <div #title class="title"></div>
-    <div #path class="link"></div>
+    <div #path class="path"></div>
 
     <style>
         :host {
             min-height: 48px!important;
             background-color: white;
-            padding: 6px;
+            padding: 6px 12px;
             cursor: pointer;
         }
         :host:hover {
-            background-color: yellow!important;
+            background-color: rgba(255,255,0,0.25)!important;
         }
         .title {
             font-size: 120%;
-            color:  deeppink;
         }
-        .link {
-            
+        .path {
+            font-size: 90%;
+            opacity: 0.6;
         }
     </style>
 

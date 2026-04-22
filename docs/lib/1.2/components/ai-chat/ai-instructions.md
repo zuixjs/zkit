@@ -207,9 +207,6 @@ class CounterWidget extends ControllerInstance {
   refreshUI() {
     // Push state to the view proxy
     this.model().count_display = this.state.count;
-
-    // Trigger DOM update
-    this.update();
   }
 }
 ```

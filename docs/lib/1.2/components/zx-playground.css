@@ -143,6 +143,7 @@ dialog form select {
 }
 .dialog-title {
     font-size: 200%;
+    font-weight: bold;
     color: var(--primary-color);
     margin-top: 6px;
     margin-bottom: 24px;

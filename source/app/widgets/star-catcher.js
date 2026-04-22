@@ -24,7 +24,6 @@ class StarCatcher extends ControllerInstance {
     }
 
     onCreate() {
-        // Inizializzazione posizione giocatore
         this.state.playerX = this.field('game_screen').get().clientWidth / 2;
         this.refreshUI();
     }
@@ -77,11 +76,11 @@ class StarCatcher extends ControllerInstance {
     movePlayer(e) {
         if (!this.state.playing) return;
         const rect = this.field('game_screen').get().getBoundingClientRect();
-        // Supporta sia mouse che touch
+        // Supports both mouse and touch
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         let x = clientX - rect.left;
-        
-        // Limiti
+
+        // Limits
         if (x < 25) x = 25;
         if (x > rect.width - 25) x = rect.width - 25;
         
@@ -96,20 +95,20 @@ class StarCatcher extends ControllerInstance {
         if (time - this.lastSpawn > this.spawnRate) {
             this.spawnItem();
             this.lastSpawn = time;
-            // Aumenta difficoltà gradualmente
+            // Increase difficulty gradually
             this.spawnRate = Math.max(400, this.spawnRate - 10);
         }
 
         const screenHeight = this.field('game_screen').get().clientHeight;
-        const playerY = screenHeight - 65; // Posizione approssimativa player Y
-        
-        // 2. Movimento e Collisioni
+        const playerY = screenHeight - 65; // Approximate position of player Y
+
+        // 2. Movement and Collisions
         for (let i = this.items.length - 1; i >= 0; i--) {
             const item = this.items[i];
             item.y += item.speed;
             item.el.style.top = `${item.y}px`;
 
-            // Controllo collisione
+            // Collision check
             const dist = Math.hypot(item.x - this.state.playerX, item.y - playerY);
             
             if (dist < 40) {
@@ -118,7 +117,7 @@ class StarCatcher extends ControllerInstance {
                 continue;
             }
 
-            // Fuori schermo
+            // Offscreen
             if (item.y > screenHeight) {
                 this.removeItem(i);
             }
@@ -148,7 +147,7 @@ class StarCatcher extends ControllerInstance {
             this.state.score += 10;
         } else {
             this.state.lives -= 1;
-            // Effetto visivo danno
+            // Visual damage effect
             this.field('game_screen').addClass('shake');
             setTimeout(() => this.field('game_screen').removeClass('shake'), 300);
             
@@ -169,6 +168,5 @@ class StarCatcher extends ControllerInstance {
         this.model().score_val = this.state.score;
         this.model().lives_val = this.state.lives;
         this.model().high_score_val = this.state.highScore;
-        this.update();
     }
 }
