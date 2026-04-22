@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('context-menu', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/components/context-menu');
+      zuix.loadComponent(this, '/lib/1.2/components/context-menu');
     }
   });
 };

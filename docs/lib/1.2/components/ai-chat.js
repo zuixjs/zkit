@@ -1,4 +1,4 @@
-import('https://zuixjs.github.io/zkit/lib/1.2/controllers/mdl-button.module.js');
+import('/lib/1.2/controllers/mdl-button.module.js');
 
 class AiChat extends ControllerInstance {
   state = {
@@ -59,7 +59,7 @@ class AiChat extends ControllerInstance {
   }
 
   loadSystemPrompt() {
-    fetch('https://zuixjs.github.io/zkit/lib/1.2//components/ai-chat/ai-instructions.md')
+    fetch('/lib/1.2//components/ai-chat/ai-instructions.md')
       .then(response => {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.text();

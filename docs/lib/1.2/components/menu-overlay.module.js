@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('menu-overlay', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/components/menu-overlay');
+      zuix.loadComponent(this, '/lib/1.2/components/menu-overlay');
     }
   });
 };

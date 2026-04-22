@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('drawer-layout', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/drawer-layout', 'ctrl');
+      zuix.loadComponent(this, '/lib/1.2/controllers/drawer-layout', 'ctrl');
     }
   });
 };

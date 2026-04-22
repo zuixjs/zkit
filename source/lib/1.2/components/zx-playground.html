@@ -22,7 +22,7 @@
                         (click)="switchEditor(this, $jsEditor)">
                 javascript
             </mdl-button>
-            <mdl-button :type="'icon'" :css="buttonsCss"
+            <mdl-button :type="'icon'" :css="buttonsCss" :class="'primary'"
                         (click)="switchEditor(this, $aiChat)">
                 auto_awesome
             </mdl-button>
@@ -31,23 +31,23 @@
 
         <div style="flex-grow: 1">&nbsp;</div>
 
-        <mdl-button :type="'icon'" title="Widgets Library"
+        <mdl-button :type="'icon'" :class="'primary'" title="Widgets Library"
                     (click)="selectWidget()">
             dashboard
         </mdl-button>
 
-        <mdl-button :type="'icon'" (click)="download()" title="Download Widget">
+        <mdl-button :type="'icon'" :class="'primary'" (click)="download()" title="Download Widget">
             download
         </mdl-button>
 
-        <mdl-button :type="'icon'" title="Fullscreen"
+        <mdl-button :type="'icon'" :class="'primary'" title="Fullscreen"
                     @if="document.fullscreenElement != null" @active
                     @then="$this.hide()" @else="$this.show()"
                     (click)="context.view().requestFullscreen()">
             fullscreen
         </mdl-button>
 
-        <mdl-button :type="'icon'" title="Exit Fullscreen"
+        <mdl-button :type="'icon'" :class="'primary'" title="Exit Fullscreen"
                     @if="document.fullscreenElement != null" @active
                     @then="$this.show()" @else="$this.hide()"
                     (click)="document.exitFullscreen()">

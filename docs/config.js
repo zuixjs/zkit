@@ -3,15 +3,15 @@
   zuix.store('config', {
     "title": "<code>zKit</code> components",
     "subtitle": "web enhancing bits",
-    "baseUrl": "/zkit/",
-    "resourcePath": "/zkit/app/",
+    "baseUrl": "/",
+    "resourcePath": "/app/",
     "libraryPath": {
-      "@lib": "/zkit/lib/1.2/",
+      "@lib": "/lib/1.2/",
       "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
       "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
     },
     "zuixjs.github.io": {
-      "resourcePath": "/zkit/app/",
+      "resourcePath": "/zkit/app",
       "libraryPath": {
         "@lib": "/zkit/lib/1.2/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
@@ -19,10 +19,8 @@
       }
     },
     "zkit": {
-      "libraryPath": "https://zuixjs.github.io/zkit/lib/1.2/",
+      "libraryPath": "/lib/1.2/",
       "zuixVersion": "1.2.7"
-    },
-    "siteMapUrl": "https://zuixjs.github.io/zkit",
-    "googleSiteId": null
+    }
   });
 })();

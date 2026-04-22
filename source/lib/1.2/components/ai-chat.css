@@ -160,15 +160,17 @@ textarea {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-.welcome-icon .material-symbols-outlined {
-    font-size: 48px;
+.welcome-icon {
     color: #007bff;
+}
+.welcome-icon .material-icons {
+    font-size: 40px!important;
     margin-bottom: 12px;
 }
 
 .welcome-screen h2 {
     margin: 0 0 12px 0;
-    color: #2d3748;
+    color: #4584ee;
 }
 
 .welcome-screen p {

@@ -3,9 +3,9 @@ const _paths = {
   defaultComponentId: 'https://zuixjs.org/app/examples/new-component'
 };
 
-import('https://zuixjs.github.io/zkit/lib/1.2/controllers/mdl-button.module.js');
-import('https://zuixjs.github.io/zkit/lib/1.2/controllers/list-view.module.js');
-import('https://zuixjs.github.io/zkit/lib/1.2/components/ai-chat.module.js');
+import('/lib/1.2/controllers/mdl-button.module.js');
+import('/lib/1.2/controllers/list-view.module.js');
+import('/lib/1.2/components/ai-chat.module.js');
 
 class ZxPlayground extends ControllerInstance {
   // maybe switch `_` to private field `#`
@@ -50,7 +50,7 @@ class ZxPlayground extends ControllerInstance {
 
     // set components library path used in the view template
     zuix.store('config')
-        .libraryPath['@lib[1.2]'] = 'https://zuixjs.github.io/zkit/lib/1.2/';
+        .libraryPath['@lib[1.2]'] = '/lib/1.2/';
 
     this.waitingResources = 3;
 
@@ -287,7 +287,7 @@ class ZxPlayground extends ControllerInstance {
         }
       });
 
-      fetch('https://zuixjs.github.io/zkit/lib/1.2/components/zx-playground/zuix.d.ts').then((res) => {
+      fetch('/lib/1.2/components/zx-playground/zuix.d.ts').then((res) => {
         res.text().then((tsd) => {
           const additionalDeclarations =
               'declare const info: any;'; // <-- TODO: just a test, to be used to declare component's context variables/members
