@@ -2,205 +2,205 @@
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 <channel>
     <title>&lt;code&gt;zKit&lt;/code&gt; components</title>
-    <link></link>
-    <atom:link href="/feed/rss.xml" rel="self"></atom:link>
+    <link>https://zuixjs.github.io/zkit</link>
+    <atom:link href="https://zuixjs.github.io/zkit/feed/rss.xml" rel="self"></atom:link>
     <description></description>
     <language></language>
     <copyright></copyright>
-    <lastBuildDate>Wed, 22 Apr 2026 02:09:26 +0200</lastBuildDate>
-    <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
+    <lastBuildDate>Wed, 22 Apr 2026 02:14:33 +0200</lastBuildDate>
+    <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
     <image>
         <title>&lt;code&gt;zKit&lt;/code&gt; components</title>
-        <url>/images/icons/icon-152x152.png</url>
-        <link></link>
+        <url>https://zuixjs.github.io/zkit/images/icons/icon-152x152.png</url>
+        <link>https://zuixjs.github.io/zkit</link>
     </image>
     <item>
         <title>zKit</title>
-        <link>/</link>
-        <guid isPermaLink="true">/</guid>
+        <link>https://zuixjs.github.io/zkit/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/</guid>
         <description>A collection of example web components made with love and zuix.js! =)</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Search</title>
-        <link>/search/</link>
-        <guid isPermaLink="true">/search/</guid>
+        <link>https://zuixjs.github.io/zkit/search/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/search/</guid>
         <description>Search this website</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/search/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/search/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Components</title>
-        <link>/content/components/</link>
-        <guid isPermaLink="true">/content/components/</guid>
+        <link>https://zuixjs.github.io/zkit/content/components/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/</guid>
         <description>zKit Components</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/components/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/components/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Menu Overlay</title>
-        <link>/content/components/menu-overlay/</link>
-        <guid isPermaLink="true">/content/components/menu-overlay/</guid>
+        <link>https://zuixjs.github.io/zkit/content/components/menu-overlay/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/menu-overlay/</guid>
         <description>A classic floating action button activated menu for page-contextual operations.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/components/menu-overlay/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/components/menu-overlay/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Media Browser</title>
-        <link>/content/components/media-browser/</link>
-        <guid isPermaLink="true">/content/components/media-browser/</guid>
+        <link>https://zuixjs.github.io/zkit/content/components/media-browser/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/media-browser/</guid>
         <description>A gestures enabled media browser supporting image, videos and text.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/components/media-browser/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/components/media-browser/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Context Menu</title>
-        <link>/content/components/context-menu/</link>
-        <guid isPermaLink="true">/content/components/context-menu/</guid>
+        <link>https://zuixjs.github.io/zkit/content/components/context-menu/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/context-menu/</guid>
         <description>A bottom popping context menu, like the one commonly used on mobile devices.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/components/context-menu/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/components/context-menu/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Controllers</title>
-        <link>/content/controllers/</link>
-        <guid isPermaLink="true">/content/controllers/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/</guid>
         <description>zKit Controllers</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>List View</title>
-        <link>/content/controllers/list-view/</link>
-        <guid isPermaLink="true">/content/controllers/list-view/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/list-view/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/list-view/</guid>
         <description>List View with lazy-loaded elements</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/list-view/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/list-view/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>List View</title>
-        <link>/content/controllers/list-view/test-1.html</link>
-        <guid isPermaLink="true">/content/controllers/list-view/test-1.html</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/list-view/test-1.html</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/list-view/test-1.html</guid>
         <description>List View with lazy-loaded elements</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/list-view/test-1.html" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/list-view/test-1.html" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>List View</title>
-        <link>/content/controllers/list-view/test-2.html</link>
-        <guid isPermaLink="true">/content/controllers/list-view/test-2.html</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/list-view/test-2.html</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/list-view/test-2.html</guid>
         <description>List View with lazy-loaded elements</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/list-view/test-2.html" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/list-view/test-2.html" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title></title>
-        <link>/content/controllers/list-view/test-data.json</link>
-        <guid isPermaLink="true">/content/controllers/list-view/test-data.json</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/list-view/test-data.json</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/list-view/test-data.json</guid>
         <description></description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/list-view/test-data.json" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/list-view/test-data.json" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Shadow View</title>
-        <link>/content/controllers/shadow-view/</link>
-        <guid isPermaLink="true">/content/controllers/shadow-view/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/shadow-view/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/shadow-view/</guid>
         <description>Declarative shadow DOM view component</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/shadow-view/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/shadow-view/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>View Pager</title>
-        <link>/content/controllers/view-pager/</link>
-        <guid isPermaLink="true">/content/controllers/view-pager/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/view-pager/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/view-pager/</guid>
         <description>View Pager component for implementing carousel, gallery, tab-views. Gesture enabled, for desktop and mobile.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/view-pager/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/view-pager/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Header Auto Hide</title>
-        <link>/content/controllers/header-auto-hide/</link>
-        <guid isPermaLink="true">/content/controllers/header-auto-hide/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/</guid>
         <description>Automatically hides/reveals header on scroll.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/header-auto-hide/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/header-auto-hide/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Drawer Layout</title>
-        <link>/content/controllers/drawer-layout/</link>
-        <guid isPermaLink="true">/content/controllers/drawer-layout/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/drawer-layout/</guid>
         <description>An adaptive drawer layout for both mobile and desktop displays, gestures enabled.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/drawer-layout/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/drawer-layout/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Gesture Helper</title>
-        <link>/content/controllers/gesture-helper/</link>
-        <guid isPermaLink="true">/content/controllers/gesture-helper/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/gesture-helper/</guid>
         <description>Helper class for detecting common touch gestures.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/gesture-helper/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/gesture-helper/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Scroll Helper</title>
-        <link>/content/controllers/scroll-helper/</link>
-        <guid isPermaLink="true">/content/controllers/scroll-helper/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/scroll-helper/</guid>
         <description>Scroll helper to improve page scrolling handling, watching elements and get notified when they scroll into view.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/scroll-helper/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/scroll-helper/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title></title>
-        <link>/content/test/</link>
-        <guid isPermaLink="true">/content/test/</guid>
+        <link>https://zuixjs.github.io/zkit/content/test/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/test/</guid>
         <description></description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/test/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/test/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Welcome</title>
-        <link>/home/</link>
-        <guid isPermaLink="true">/home/</guid>
+        <link>https://zuixjs.github.io/zkit/home/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/home/</guid>
         <description>zKit, a collection of framework-agnostic components for the web</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/home/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/home/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Transpose Fx</title>
-        <link>/content/controllers/transpose-fx/</link>
-        <guid isPermaLink="true">/content/controllers/transpose-fx/</guid>
+        <link>https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/controllers/transpose-fx/</guid>
         <description>Transpose effect to transition a component between two views</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/controllers/transpose-fx/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/controllers/transpose-fx/" rel="self" />
         <dc:creator></dc:creator>
     </item>
     <item>
         <title>Playground</title>
-        <link>/content/components/zx-playground/</link>
-        <guid isPermaLink="true">/content/components/zx-playground/</guid>
+        <link>https://zuixjs.github.io/zkit/content/components/zx-playground/</link>
+        <guid isPermaLink="true">https://zuixjs.github.io/zkit/content/components/zx-playground/</guid>
         <description>Client-side web component editor with live preview and download functionality.</description>
-        <pubDate>Wed, 22 Apr 2026 02:09:26 +0200</pubDate>
-        <atom:link href="/content/components/zx-playground/" rel="self" />
+        <pubDate>Wed, 22 Apr 2026 02:14:33 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zkit/content/components/zx-playground/" rel="self" />
         <dc:creator></dc:creator>
     </item>
 </channel>
