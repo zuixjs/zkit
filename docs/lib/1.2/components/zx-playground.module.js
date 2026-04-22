@@ -2,7 +2,7 @@ const setup = () => {
   if (customElements.get('zx-playground') == null) {
     customElements.define('zx-playground', class extends HTMLElement {
       connectedCallback() {
-        zuix.loadComponent(this, '/lib/1.2/components/zx-playground');
+        zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/components/zx-playground');
       }
     });
   }

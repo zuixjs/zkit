@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('ai-chat', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, '/lib/1.2/components/ai-chat', '', {
+      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/components/ai-chat', '', {
         container: this.attachShadow({mode: 'closed'})
       });
     }

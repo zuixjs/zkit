@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('list-view', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, '/lib/1.2/controllers/list-view', 'ctrl');
+      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/list-view', 'ctrl');
     }
   });
 };

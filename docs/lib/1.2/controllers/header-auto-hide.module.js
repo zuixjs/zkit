@@ -1,7 +1,7 @@
 const setup = () => {
   customElements.define('header-auto-hide', class extends HTMLElement {
     connectedCallback() {
-      zuix.loadComponent(this, '/lib/1.2/controllers/header-auto-hide', 'ctrl', {
+      zuix.loadComponent(this, 'https://zuixjs.github.io/zkit/lib/1.2/controllers/header-auto-hide', 'ctrl', {
         scrollHost: this.offsetParent || this
       });
     }
