@@ -10,19 +10,19 @@
 
         <div class="editor-tabs">
 
-            <mdl-button :type="'icon'" :css="buttonsCss" #edit-view-button
+            <mdl-button :type="'icon'" title="HTML - View" #edit-view-button
                         (click)="switchEditor(this, $htmlEditor)">
                 html
             </mdl-button>
-            <mdl-button :type="'icon'" :css="buttonsCss"
+            <mdl-button :type="'icon'" title="CSS - Style"
                         (click)="switchEditor(this, $cssEditor)">
                 css
             </mdl-button>
-            <mdl-button :type="'icon'" :css="buttonsCss"
+            <mdl-button :type="'icon'" title="JavaScript - Controller"
                         (click)="switchEditor(this, $jsEditor)">
                 javascript
             </mdl-button>
-            <mdl-button :type="'icon'" :css="buttonsCss" :class="'primary'"
+            <mdl-button :type="'icon'" :class="'primary'" title="Widget Genie (AI)"
                         (click)="switchEditor(this, $aiChat)">
                 auto_awesome
             </mdl-button>
@@ -64,7 +64,7 @@
         <div #js-editor class="editor-container"></div>
 
         <div #ai-chat class="editor-container">
-            <ai-chat (widget:update)="updateWidget(event)"></ai-chat>
+            <ai-chat #ai-chat-widget (widget:update)="updateWidget(event)"></ai-chat>
         </div>
 
     </div>
@@ -132,29 +132,3 @@
     </style>
 
 </template>
-
-<script type="jscript">
-  // Custom style for "mdl-button" element
-  buttonsCss = `
-    [z-load*="/controllers/mdl-button"] {
-        margin:0!important;
-        font-size: 10px!important;
-        min-width: 56px!important;
-    }
-    .file-type {
-        height: 12px;
-        line-height: 12px;
-        opacity: 0.5;
-        font-weight: bold;
-        font-size: 9px;
-        padding: 3px;
-        border: solid 1px;
-        border-radius: 24px;
-        width: 28px;
-        margin-right: 2px;
-        transform: translateY(-2px);
-    }
-    .tab-label {
-        text-transform: uppercase;
-    }`;
-</script>

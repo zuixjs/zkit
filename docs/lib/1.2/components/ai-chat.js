@@ -4,6 +4,7 @@ class AiChat extends ControllerInstance {
   state = {
     messages:[],
     systemPrompt: '',
+    currentWidget: {html: '', css: '', js: ''},
     isLoading: false
   };
 
@@ -35,6 +36,9 @@ class AiChat extends ControllerInstance {
       }
     }; 
     this.declare(viewContext);
+    this.expose('setCurrentWidget', (widget) => {
+      this.state.currentWidget = widget;
+    });
 
     // 2. Load system instructions
     this.loadSystemPrompt();
@@ -112,9 +116,25 @@ class AiChat extends ControllerInstance {
       parts:[{ text: msg.content }]
     })).filter(msg => msg.role !== 'error'); // Exclude past error messages from the payload context
 
+    // --- APPEND WIDGET CONTEXT TO SYSTEM PROMPT ---
+    let dynamicSystemPrompt = this.state.systemPrompt;
+    const { html, css, js } = this.state.currentWidget;
+
+    // If the current widget has any code, inject it into the system instructions
+    if (html || css || js) {
+      dynamicSystemPrompt += `\n\n### CURRENT WIDGET CONTEXT ###\n`;
+      dynamicSystemPrompt += `Below is the code of the widget the user is currently editing.\n`;
+      dynamicSystemPrompt += `Use this context to answer requests, suggest corrections, or implement additional features.\n\n`;
+
+      if (html) dynamicSystemPrompt += `**HTML:**\n\`\`\`html\n${html}\n\`\`\`\n\n`;
+      if (css)  dynamicSystemPrompt += `**CSS:**\n\`\`\`css\n${css}\n\`\`\`\n\n`;
+      if (js)   dynamicSystemPrompt += `**JavaScript:**\n\`\`\`javascript\n${js}\n\`\`\`\n\n`;
+    }
+    // ----------------------------------------------
+
     const payload = {
       system_instruction: {
-        parts: { text: this.state.systemPrompt }
+        parts: { text: dynamicSystemPrompt }
       },
       contents: formattedHistory
     };

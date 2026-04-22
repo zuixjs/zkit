@@ -262,7 +262,7 @@ class ZxPlayground extends ControllerInstance {
         automaticLayout: true,
         theme: 'vs-dark'
       });
-      this._aiChat = this.field('aiChat');
+      this._aiChat = this.field('aiChatWidget');
 
       this.view().one('monaco:loaded', () => {
         this._hashChangeListener();
@@ -323,6 +323,7 @@ class ZxPlayground extends ControllerInstance {
   updateWidget() {
     clearTimeout(this._updateTimeout);
     this._updateTimeout = setTimeout(() => this._updateWidget(), 50);
+    zuix.context(this._aiChat, (aiChat) => aiChat.setCurrentWidget(this.componentData));
   }
   _updateWidget() {
     const {html, css, js} = this.componentData;

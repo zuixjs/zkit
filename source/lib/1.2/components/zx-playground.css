@@ -49,6 +49,7 @@
 }
 .editor-tabs mdl-button {
     display: inline-block;
+    margin-left: 6px;
 }
 .menu-button {
     padding: 4px 0 4px 4px;

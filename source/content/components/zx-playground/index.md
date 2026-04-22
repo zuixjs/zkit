@@ -100,6 +100,8 @@ zx-playground {
     {link: 'https://zuixjs.org/app/widgets/time-clock', description: 'Time Clock'},
     {link: 'https://zuixjs.org/app/widgets/analog-clock', description: 'Analog Clock'},
     {link: 'https://zuixjs.org/app/examples/custom-elements-01', description: 'Custom Elements'},
+    {link: '{{ app.baseUrl }}app/widgets/star-catcher', description: 'Star Catcher'},
+    {link: '{{ app.baseUrl }}app/widgets/three-cards-game', description: 'Three Cards Game'},
     {link: 'https://homegenie.it/app/widgets/asteroids', description: 'Asteroids'},
     {link: 'https://homegenie.it/app/widgets/break-out', description: 'Breakout 3d'},
     {link: 'https://homegenie.it/app/widgets/simon-says', description: 'Simon Says'},
