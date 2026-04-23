@@ -1,6 +1,3 @@
-@import 'assets/styles/widget-ui.css';
-@import 'assets/styles/flex-layout-attribute.min.css';
-
 :host {
   display: block;
   height: 100%;

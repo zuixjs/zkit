@@ -26,6 +26,13 @@ class MoonLanderWidget extends ControllerInstance {
   audioCtx = null;
   thrustOsc = null;
 
+  onInit() {
+    zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css', null, this.context);
+    // Material Symbols Outlined
+    zuix.using('style', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined', undefined, this.context)
+    zuix.using('style', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined') // fonts must be added to the main document as well
+  }
+
   onCreate() {
     const self = this;
     this.canvas = this.field('game_canvas').get();
