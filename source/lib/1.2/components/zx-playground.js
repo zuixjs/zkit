@@ -1,5 +1,5 @@
 const _paths = {
-  monacoEditor: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0-dev.20230511/min/',
+  monacoEditor: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/',
   defaultComponentId: 'https://zuixjs.org/app/examples/new-component'
 };
 

@@ -122,10 +122,9 @@ dialog footer {
     padding: 10px;
 }
 
-/* Opzionale: Styling per lo sfondo (l'overlay) */
 dialog::backdrop {
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px); /* Effetto vetro smerigliato */
+    backdrop-filter: blur(2px);
 }
 
 dialog form {
@@ -219,37 +218,35 @@ dialog form select {
 }
 
 
-/* Container principale */
 .editor {
     display: flex;
-    flex-direction: row; /* Affianca gli elementi orizzontalmente */
+    flex-direction: row;
     width: 100%;
-    height: 100%; /* Oppure 100% se si trova dentro un altro container con altezza definita */
-    background-color: #1e1e1e; /* Colore tipico degli IDE (opzionale) */
-    overflow: hidden;
+    height: 100%;
+    background-color: #1e1e1e;
+/*    overflow: hidden; */
 }
 
-/* Gli editor di codice */
+.monaco-hover-content {
+    max-width: 360px!important;
+}
+
 .editor-container {
-    flex: 1; /* Occupa tutto lo spazio rimanente non usato dalla chat */
+    flex: 1;
     position: relative;
-    /* Se usi .hide() / .show() di zuix.js, imposterà automaticamente display: none / block. */
 }
 
-/* Il componente della chat */
 ai-chat {
     display: block;
     height: 100%;
-    /* Se l'editor è un contenitore flex orizzontale, mantieni anche: */
     width: 100%;
-    border-left: 1px solid #ddd; /* Linea di separazione tra codice e chat */
-    background-color: #fff; /* Sfondo per la chat */
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05); /* Leggera ombra per dare profondità */
+    border-left: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05);
     z-index: 10;
-    overflow: hidden; /* Evita sbavature esterne dal componente interno */
+    overflow: hidden;
 }
 
-/* --- (Opzionale) Layout Responsivo per schermi piccoli --- */
 @media (max-width: 768px) {
 
 }
