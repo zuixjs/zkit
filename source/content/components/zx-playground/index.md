@@ -101,6 +101,7 @@ zx-playground {
     {link: 'https://zuixjs.org/app/widgets/analog-clock', description: 'Analog Clock'},
     {link: 'https://zuixjs.org/app/examples/custom-elements-01', description: 'Custom Elements'},
     {link: '{{ app.baseUrl }}app/widgets/moon-lander', description: 'Moon Lander'},
+    {link: '{{ app.baseUrl }}app/widgets/space-invaders-3d', description: 'Space Invaders 3d'},
     {link: '{{ app.baseUrl }}app/widgets/star-catcher', description: 'Star Catcher'},
     {link: '{{ app.baseUrl }}app/widgets/three-cards-game', description: 'Three Cards Game'},
     {link: '{{ app.baseUrl }}app/widgets/toggle-widget', description: 'Toggle Switch'},
