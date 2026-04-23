@@ -1,4 +1,4 @@
-<div class="game-container" #game_screen (pointermove)="movePlayer(event)">
+<div class="game-container" #game_screen (touchmove,pointermove)="movePlayer(event)">
 
     <!-- HUD: Score and Lives Display -->
     <div class="hud" layout="row spread-center">
