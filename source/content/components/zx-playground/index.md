@@ -96,20 +96,20 @@ zx-playground {
   import "{{ app.zkit.libraryPath }}components/zx-playground.module.js";
 </script>
 <zx-playground :load="'https://zuixjs.org/app/widgets/analog-clock'" :menu-items="[
-    {link: 'https://zuixjs.org/app/examples/new-component', description: 'Hello World'},
-    {link: 'https://zuixjs.org/app/widgets/time-clock', description: 'Time Clock'},
-    {link: 'https://zuixjs.org/app/widgets/analog-clock', description: 'Analog Clock'},
-    {link: 'https://zuixjs.org/app/examples/custom-elements-01', description: 'Custom Elements'},
-    {link: '{{ app.baseUrl }}app/widgets/moon-lander', description: 'Moon Lander'},
-    {link: '{{ app.baseUrl }}app/widgets/space-invaders-3d', description: 'Space Invaders 3d'},
-    {link: '{{ app.baseUrl }}app/widgets/star-catcher', description: 'Star Catcher'},
-    {link: '{{ app.baseUrl }}app/widgets/three-cards-game', description: 'Three Cards Game'},
-    {link: '{{ app.baseUrl }}app/widgets/toggle-widget', description: 'Toggle Switch'},
-    {link: 'https://homegenie.it/app/widgets/asteroids', description: 'Asteroids'},
-    {link: 'https://homegenie.it/app/widgets/break-out', description: 'Breakout 3d'},
-    {link: 'https://homegenie.it/app/widgets/simon-says', description: 'Simon Says'},
-    {link: 'https://homegenie.it/app/widgets/space-invaders', description: 'Space Invaders'},
-    {link: 'https://homegenie.it/app/widgets/weather-station', description: 'Weather Station'}
+    {title: 'Hello World', path: 'https://zuixjs.org/app/examples/new-component'},
+    {title: 'Time Clock', path: 'https://zuixjs.org/app/widgets/time-clock'},
+    {title: 'Analog Clock', path: 'https://zuixjs.org/app/widgets/analog-clock'},
+    {title: 'Custom Elements', path: 'https://zuixjs.org/app/examples/custom-elements-01'},
+    {title: 'Moon Lander', path: '{{ app.baseUrl }}app/widgets/moon-lander'},
+    {title: 'Space Invaders 3d', path: '{{ app.baseUrl }}app/widgets/space-invaders-3d'},
+    {title: 'Star Catcher', path: '{{ app.baseUrl }}app/widgets/star-catcher'},
+    {title: 'Three Cards Game', path: '{{ app.baseUrl }}app/widgets/three-cards-game'},
+    {title: 'Toggle Switch', path: '{{ app.baseUrl }}app/widgets/toggle-widget'},
+    {title: 'Asteroids', path: 'https://homegenie.it/app/widgets/asteroids'},
+    {title: 'Breakout 3d', path: 'https://homegenie.it/app/widgets/break-out'},
+    {title: 'Simon Says', path: 'https://homegenie.it/app/widgets/simon-says'},
+    {title: 'Space Invaders', path: 'https://homegenie.it/app/widgets/space-invaders'},
+    {title: 'Weather Station', path: 'https://homegenie.it/app/widgets/weather-station'}
 ]"></zx-playground>
 {% endcapture %}
 
