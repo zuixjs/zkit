@@ -54,7 +54,7 @@ When handling complex component states, avoid passing values as arguments to a c
 *   **BAD:** `updateUI(value1, value2)` -> Prone to desync and type mismatch errors.
 *   **GOOD (Store-then-Render):**
     1.  **Store:** Save values to a local `this.state` object.
-    2.  **Render:** Call a parameter-less `this.refreshUI()` method which evaluates `this.state` and pushes changes to `this.model()` followed by `this.update()`.
+    2.  **Render:** Call a parameter-less `this.refreshUI()` method which evaluates `this.state` and pushes changes to `this.model()`.
 
 ### 1.4 Component Interoperability (CRITICAL)
 Components MUST be designed to interact seamlessly with their host environment and other components.
