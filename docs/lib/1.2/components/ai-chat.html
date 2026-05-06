@@ -1,14 +1,11 @@
 <div class="container" layout="column top-stretch">
-    <!-- Header: Titolo, selettore modello e input per la chiave API -->
     <div class="header" layout="row center-justify">
         <div class="controls" layout="row center-stretch">
             <select #model_select class="header-input">
-                <!-- Generazione 3 (Preview) -->
                 <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (Preview)</option>
                 <option value="gemini-3.1-flash-lite-preview" selected>Gemini 3.1 Flash Lite (Preview)</option>
                 <option value="gemini-3-flash-preview">Gemini 3.0 Flash (Preview)</option>
 
-                <!-- Generazione 2.5 (Stable) - La scelta migliore e più bilanciata -->
                 <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
                 <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
                 <!--
@@ -24,10 +21,8 @@
         </div>
     </div>
 
-    <!-- Body: Storico della chat -->
     <div self="size-x1 stretch" class="chat-container">
 
-        <!-- Schermata di benvenuto (visibile solo se non ci sono messaggi) -->
         <div class="welcome-screen"
              @if="isChatEmpty()" @active
              @then="$this.show()"
@@ -68,24 +63,21 @@
         
         <div #chat_history class="chat-history"></div>
         
-        <!-- I messaggi verranno iniettati qui dinamicamente -->
     </div>
 
-    <!-- Indicatore di caricamento -->
     <div class="loading-indicator"
          @if="isLoading()" @active
          @then="$this.show()"
          @else="$this.hide()">
-        <span class="material-symbols-outlined spin-icon">sync</span>
-        L'AI sta pensando...
+        <span class="material-icons spin-icon">sync</span>
+        AI is thinking...
     </div>
 
-    <!-- Footer: Area di input utente -->
     <div class="input-area">
         <textarea #user_input placeholder="Ask the AI to create a widget... (use Shift+Enter for a new line)"></textarea>
         <button (click)="sendMessage()" class="send-btn"
                 @disable-if="isLoading() || user_input.value.length === 0">
-            <span class="material-symbols-outlined">send</span>
+            <span class="material-icons">send</span>
         </button>
     </div>
 </div>

@@ -15,6 +15,7 @@ class AiChat extends ControllerInstance {
     zuix.using('script', 'https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.umd.js', () => {
       this.markedLib = window.marked;
     });
+
     zuix.using('style', 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap', null, this.context);
     zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css', null, this.context);
   }
