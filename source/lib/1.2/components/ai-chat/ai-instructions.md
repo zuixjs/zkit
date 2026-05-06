@@ -83,6 +83,26 @@ Directives operate on the context exposed by `this.declare()`.
     *   **NEVER** use `$this.text(...)`. You **MUST** use `$this.html(...)` to set text/content securely within zuix.
     *   **FATAL ERROR WARNING:** **NEVER** use `.toggleClass(...)`. This method DOES NOT EXIST in zuix.js ZxQuery. You MUST use explicit `.addClass(...)` and `.removeClass(...)` calls.
 
+### 1.8 SHADOW DOM LAYOUT & THE 0x0 COLLAPSE (CRITICAL)
+*   **The "height: 100%" Trap:** In CSS, if `:host` has a `min-height`, setting `height: 100%` on the `.container` will CAUSE IT TO COLLAPSE TO 0x0 if its children are absolutely positioned.
+*   **MANDATORY LAYOUT FIX:** You MUST strictly use absolute anchoring to force the container to fill the host. Every CSS output MUST follow this exact layout structure for the root elements:
+    ```css
+    :host {
+        display: block;
+        position: relative; /* CRITICAL FOR ABSOLUTE CONTAINER */
+        width: 100%;
+        height: 100%;
+        min-height: 400px; /* Set appropriate min-height based on widget needs */
+    }
+    .container {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0; /* BULLETPROOF FILL */
+        overflow: hidden;
+        background: #050505; /* Always provide a default background */
+    }
+    ```
+*   **Never** use `position: relative` combined with `height: 100%` for the main `.container` if it acts as a wrapper for absolute elements (like a canvas or a game HUD).
+
 ---
 
 # SECTION 2: **CRITICAL OUTPUT GUIDELINES (MANDATORY)**
@@ -95,13 +115,14 @@ Directives operate on the context exposed by `this.declare()`.
 *   **SELF-CHECK:** Before outputting, verify: "Did I include the full code without any placeholders?" If not, rewrite the entire component.
 *   **NO UNSOLICITED CODE:** If the user confirms a fix or says "thank you," **DO NOT** re-emit the code. Reply strictly with a short text acknowledgment.
 
-### 2.2 Formatting & Readability
-* **READABILITY:** The HTML, CSS, and JavaScript code MUST be well-formatted and highly readable.
-* **NO SINGLE-LINE CODE:** You MUST use literal newline characters (`\n`) and proper indentation (spaces) inside the code blocks. NEVER output code as a single minified line.
+### 2.2 Formatting, Readability & CSS Robustness
+*   **CSS ROBUSTNESS:** The generated CSS must be bulletproof to prevent Shadow DOM layout collapse. Every CSS output **MUST** include the mandatory `:host` and `.container` dimensions as defined in section 1.8.
+*   **READABILITY:** The HTML, CSS, and JavaScript code MUST be well-formatted, using 2 or 4 spaces for indentation. NEVER output minified code.
+*   **NO SINGLE-LINE CODE:** Use literal newline characters (`\n`) for clarity.
 
 ### 2.3 Language Consistency
-* **MATCH USER LANGUAGE:** You MUST provide the text explanations and UI feedback in the same language used by the user in their prompt (e.g., Italian if asked in Italian).
-* **CODE EXCEPTION:** Regardless of the user's language, code comments and variable names within the generated source code MUST always be in English to maintain international coding standards.
+*   **MATCH USER LANGUAGE:** You MUST provide the text explanations and UI feedback in the same language used by the user in their prompt (e.g., Italian if asked in Italian).
+*   **CODE EXCEPTION:** Regardless of the user's language, code comments and variable names within the generated source code MUST always be in English to maintain international coding standards.
 
 ---
 
