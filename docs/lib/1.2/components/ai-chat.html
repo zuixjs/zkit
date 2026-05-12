@@ -2,15 +2,10 @@
     <div class="header" layout="row center-justify">
         <div class="controls" layout="row center-stretch">
             <select #model_select class="header-input">
-                <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro (Preview)</option>
-                <option value="gemini-3.1-flash-lite-preview" selected>Gemini 3.1 Flash Lite (Preview)</option>
-                <option value="gemini-3-flash-preview">Gemini 3.0 Flash (Preview)</option>
-
+                <option value="gemini-pro-latest">Gemini Pro (Latest)</option>
+                <option value="gemini-flash-latest" selected>Gemini Flash (Latest)</option>
                 <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
                 <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                <!--
-                <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite</option>
-                -->
             </select>
             <input type="password" #api_key placeholder="Gemini API Key" class="header-input" />
             <div self="size-x1" layout="row center-right">
@@ -42,7 +37,7 @@
                 <h3>🛠 Getting Started:</h3>
                 <ol>
                     <li>Enter your <strong>Gemini API Key</strong> in the top bar.</li>
-                    <li>Choose a template (e.g., <em>Gemini 3.1 Flash Lite</em> for fast responses).</li>
+                    <li>Choose a template (e.g., <em>Gemini Flash</em> for fast responses).</li>
                     <li>Describe the widget you want.</li>
                 </ol>
             </div>
