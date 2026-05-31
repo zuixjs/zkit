@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  position: relative;
+  width: 640px;
+  height: 500px;
+  min-height: 400px;
+  background: #000;
+  font-family: 'Courier New', Courier, monospace;
+  color: #ffff00;
+  user-select: none;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.header {
+  padding-right: 48px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid #2121de;
+  padding-bottom: 4px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.status {
+  font-size: 10px;
+  color: #fd1a1a;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.stats-panel {
+  gap: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.label {
+  font-size: 8px;
+  color: #2121de;
+  font-weight: bold;
+}
+
+.value {
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+}
+
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  background: #000;
+  border: 2px solid #2121de;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 448 / 384;
+  image-rendering: pixelated;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay h1 {
+  font-size: 28px;
+  margin: 0 0 10px 0;
+  color: #ffff00;
+  text-shadow: 0 0 10px #ffff00;
+  letter-spacing: 2px;
+}
+
+.blink {
+  animation: blinker 1.2s linear infinite;
+  font-size: 11px;
+  color: #fff;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

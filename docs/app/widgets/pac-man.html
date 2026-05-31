@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header">
+    <div class="title-group">
+      <strong #game_title>PAC-MAN ARCADE</strong>
+      <span class="status" #status_text>READY TO START</span>
+    </div>
+    <div class="stats-panel">
+      <div class="stat-item">
+        <span class="label">SCORE</span>
+        <span class="value" #score_val>0</span>
+      </div>
+      <div class="stat-item">
+        <span class="label">HIGH SCORE</span>
+        <span class="value" #high_score_val>0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="canvas-wrapper" #canvas_container (click)="startGameOrResume()">
+    <canvas #game_canvas width="448" height="384"></canvas>
+    <div class="overlay" #overlay_screen>
+      <h1 #overlay_title>PAC-MAN</h1>
+      <p #overlay_sub class="blink">TAP TO PLAY</p>
+    </div>
+  </div>
+</div>

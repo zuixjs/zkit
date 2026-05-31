@@ -104,6 +104,7 @@ zx-playground {
     {title: 'Space Invaders 3d', path: '{{ app.baseUrl }}app/widgets/space-invaders-3d'},
     {title: 'Star Catcher', path: '{{ app.baseUrl }}app/widgets/star-catcher'},
     {title: 'Three Cards Game', path: '{{ app.baseUrl }}app/widgets/three-cards-game'},
+    {title: 'Pac-Man', path: '{{ app.baseUrl }}app/widgets/pac-man'},
     {title: 'Toggle Switch', path: '{{ app.baseUrl }}app/widgets/toggle-widget'},
     {title: 'Asteroids', path: 'https://homegenie.it/app/widgets/asteroids'},
     {title: 'Breakout 3d', path: 'https://homegenie.it/app/widgets/break-out'},
